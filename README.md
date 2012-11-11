@@ -7,4 +7,4 @@ For many scientific databases, it would be worthwhile to visually and statistica
 
 The objective of this PSE assignment is to build software that takes raw database query logs as input and transform them into multi-dimensional numerical data points, i.e., into a representation that can be readily used for visual statistical analysis. Students working on this assignment will not only be exposed to database technology (to an extent manageable within the PSE) and basic statistics concepts, they will also design and implement technology that is of high practical value.
 
-<< The Programm repository >>
+<< The Program repository >>
