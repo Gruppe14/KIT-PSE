@@ -1,0 +1,35 @@
+#chart {
+	width: 720px;
+	height: 320px;
+	background-color: #DDDDDD;
+	padding: 5px;
+	border: 1px solid #EEEEEE;
+	margin-bottom: 10px;
+}
+form {
+	background-color: #DDDDDD;
+	border: 1px solid #EEEEEE;
+	padding: 5px;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+#x {
+	width: 60px;
+}
+#y {
+	width:80px;
+}
+input[type="radio"] {
+	display:none;
+}
+input[type="radio"]:checked + label{
+	background-color: gray;
+	color: white;
+}
+label {
+	margin-left: -10px;
+	padding: 3px 24px 3px 12px;
+	display: inline-block;
+	width: 70px;
+	cursor: pointer;
+}
