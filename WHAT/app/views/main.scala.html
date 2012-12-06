@@ -1,15 +1,23 @@
-@(title: String)(content: Html)
-
+@(lang: String)(title: String)(includes: Html)(content: Html)
+@import controllers.Localize
 <!DOCTYPE html>
-
-<html>
     <head>
-        <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+        <title>@Localize.get(lang,title)</title>
+        <link rel="icon" href="/assets/images/FavIcon1.png" type="image/x-icon" />
+        <link href="/assets/stylesheets/style.css" rel="stylesheet" type="text/css">
+        @includes
     </head>
     <body>
-        @content
+    <div id="wrapper">	
+    	<img id="logo" src="/assets/images/logoText.png">
+    	
+    	<div id="content">
+    		@content
+			<br /><div id="footer">
+				
+			</div>
+    	</div>
+    </div>
     </body>
 </html>
+

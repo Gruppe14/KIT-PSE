@@ -5,8 +5,17 @@
 	font-family: 'Pompiere';
 	font-style: normal;
 	font-weight: 400;
+	src: local('Kalinga '), local('Kalinga-Regular'), url(Kalinga.woff) format('woff');
+}
+
+
+@font-face {
+	font-family: 'Pompiere';
+	font-style: normal;
+	font-weight: 400;
 	src: local('Pompiere '), local('Pompiere-Regular'), url(Pompiere.woff) format('woff');
 }
+
 html, body {
 	height: 100%;
 	background: #FFFFFF;
@@ -42,6 +51,31 @@ a {
 	margin-top: 15px;
 }
 
+#bubchart {
+	background-image: url(../images/BubbleChart2.png);
+}
+
+#scatplot {
+	background-image: url(../images/ScatPlot.png);
+}
+
+#barchart {
+	background-image: url(../images/BarChart.png);
+}
+
+#pie {
+	background-image: url(../images/Pie.png);
+}
+
+#info {
+	background-image: url(../images/Infos.png);
+}
+
+#histoScat {
+	background-image: url(../images/HistoScatPlatzhalter.png);
+}
+
+
 /*
  * style declarations for index site
  */
@@ -50,10 +84,11 @@ a {
 	display: inline-block;
 	width: 320px;
 	height: 160px;
-	background-color: #DDDDDD;
+	background-color: #CCDDDD;
+	background-position:center;
 	font-size: 20px;
 	padding: 4px;
-	margin: 0px 5px 4px 0px;
+	margin: 0px 7px 8px 0px;
 	border: 1px solid #EEEEEE;
 	user-select: none;
 	-webkit-user-select: none;
@@ -65,7 +100,7 @@ a {
 }
 .bigTile:active {
 	padding: 0px;
-	margin: 4px 9px 8px 4px;
+	margin: 4px 11px 12px 4px;
 }
 .bigTile span {
 	position: absolute;
