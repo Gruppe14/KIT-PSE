@@ -26,45 +26,35 @@
 		</style>
 	</head>
 	<body>
+	  
 		<script type="text/javascript">
    
 	
-		        
+		
+			var ds2; //global variable, stores data here.
+			d3.json("data/n.json", function(json) {
+			ds2 = json;
+			console.log("The length of the JSON data I just read is: " + ds2.data.length);
+			    visualize(ds2.data);
+			});
+			
+function visualize(dataset) {
 			//Width and height of the chart
 			var w = 1500;
 			var h = 1000;
 			var padding = 30;
-			
-			
-			//Dynamic, random dataset
-			var dataset = [];					//Initialize empty array
-			var numDataPoints = 100;				//Number of dummy data points to create
-			var xRange = Math.random() * 1000;	//Max range of new x values
-			var yRange = Math.random() * 1000;	//Max range of new y values
-			for (var i = 0; i < numDataPoints; i++) {					//Loop numDataPoints times
-				var newNumber1 = Math.round(Math.random() * xRange);	//New random integer
-				var newNumber2 = Math.round(Math.random() * yRange);	//New random integer
-				dataset.push([newNumber1, newNumber2]);					//Add new number to array
-			}
-			
-			var ds2; //FIX JSON
-			d3.json("data/n.json", function(json) {
-			ds2 = json;
-			alert("The length of the JSON data I just read is: " + ds2.length);
-			});
-			
-
+		        
 			//Create scale functions
 			var xScale = d3.scale.linear()
-								 .domain([0, d3.max(dataset, function(d) { return d[0]; })])
+								 .domain([0, d3.max(dataset, function(d) { return d.x; })])
 								 .range([padding, w - padding * 2]);
 
 			var yScale = d3.scale.linear()
-								 .domain([0, d3.max(dataset, function(d) { return d[1]; })])
+								 .domain([0, d3.max(dataset, function(d) { return d.y; })])
 								 .range([h - padding, padding]);
 
 			var rScale = d3.scale.linear()
-								 .domain([0, d3.max(dataset, function(d) { return d[1]; })])
+								 .domain([0, d3.max(dataset, function(d) { return d.y; })])
 								 .range([2, 5]);
 
 			var formatAsPercentage = d3.format(".1%");
@@ -95,19 +85,19 @@
 			   .enter()
 			   .append("circle")
 			   .attr("cx", function(d) {  //this is the relative x
-			   		return xScale(d[0]);
+			   		return xScale(d.x);
 			   })
 			   
 			   .attr("cy", function(d) {
-			   		return yScale(d[1]);
+			   		return yScale(d.y);
 			   })
 			   .attr("r", function(d) {
-			   		return rScale(d[1]);
+			   		return rScale(d.x);
 			   })
-			   .attr("x", function(d) {return d[0];}) //this is the absolute x value
-			   .attr("y", function(d) {return d[1];})
+			   .attr("x", function(d) {return d.x;}) //this is the absolute x value
+			   .attr("y", function(d) {return d.y;})
 			   .append("svg:title")
-			   .text(function (d) {return "(" + d[0] + "," + d[1] + ")";});
+			   .text(function (d) {return "(" + d.x + "," + d.y + ")";});
 
 
 
@@ -122,8 +112,7 @@
 				.attr("class", "axis")
 				.attr("transform", "translate(" + padding + ",0)")
 				.call(yAxis);
-
+}
 		</script>
 	</body>
 </html>
-
