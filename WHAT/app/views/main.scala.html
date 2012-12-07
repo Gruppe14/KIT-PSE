@@ -4,12 +4,23 @@
     <head>
         <title>@Localize.get(lang,title)</title>
         <link rel="icon" href="/assets/images/FavIcon1.png" type="image/x-icon" />
-        <link href="/assets/stylesheets/style.css" rel="stylesheet" type="text/css">
+        <link href="/assets/stylesheets/main.css" rel="stylesheet" type="text/css">
+        <script language="javascript" type="text/javascript" src="/assets/javascripts/jquery-1.7.1.min.js"></script>
+        <script language="javascript" type="text/javascript" src="/assets/javascripts/main.js"></script>
         @includes
     </head>
     <body>
     <div id="wrapper">	
-    	<img id="logo" src="/assets/images/logoText.png">
+    	<a href ="/"><img id="logo" src="/assets/images/logoText.png"></a>
+    	<div id="lang">
+    		@for(l <- Localize.getAvailables()) {
+    			@if(l.equals(lang)) {
+    				<span>@l</span>
+    			}else {
+    				<a href=@l>@l</a>
+    			}
+    		}
+    	</div>
     	
     	<div id="content">
     		@content

@@ -1,5 +1,9 @@
-index.title = Homepage
+index.title = WHAT Home
 
-charts.histogram = Histogram
-charts.barchart = barchart
-charts.bubblechart = bubblechart
+charts.histogram = histogram
+charts.barchart = bar chart
+charts.bubblechart = bubble chart
+charts.histoscatter = histogram & scatterplot
+charts.piechart = pie chart
+charts.scatterplot = scatterplot
+charts.bubblescatter = bubble chart & scatterplot

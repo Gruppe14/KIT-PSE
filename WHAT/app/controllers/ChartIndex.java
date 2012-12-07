@@ -11,7 +11,7 @@ public class ChartIndex {
 	private String[] charts;
 	//on initialisation scans the charts directory for subdirectories a.k.a. chartTypes
 	private ChartIndex() {
-		File chartDir = new File("./app/views/charts");
+		File chartDir = new File("./public/charts");
 		File[] dirList = chartDir.listFiles(new FileFilter() {
 			public boolean accept(File file) {
 				return file.isDirectory();
@@ -20,7 +20,6 @@ public class ChartIndex {
 		charts = new String[dirList.length];
 		for(int i = 0; i < dirList.length; i++) {
 			charts[i] = dirList[i].getName();
-			System.out.println(charts[i]);
 		}
 	}
 	public static ChartIndex getInstance() {

@@ -1,0 +1,6 @@
+@(lang: String)(chartName: String)
+@import controllers.Localize
+@main(lang = lang)(title = Localize.get(lang, "charts." + chartName)) { } {
+	@Localize.get(lang,"charts." + chartName)<br />
+	some cool filter stuff and visualization
+}

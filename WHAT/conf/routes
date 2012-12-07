@@ -3,17 +3,13 @@
 # ~~~~
 
 # Home page
-GET /					controllers.Website.index(lang = "en")
-GET	/:lang/			    controllers.Website.index(lang:String)
+GET /									controllers.Website.index()
 
-GET /charts/$chartType<\w+>.html	controllers.Website.getChartType(chartType)
+GET /charts/$chartType<[a-z]+>.html		controllers.Website.ChartType(chartType)
 
-GET /test				controllers.Website.test()
-
-
-GET 	/bubblechart.html	    controllers.Website.histo()
+#change language
+POST *path								controllers.Website.changeLanguage(path)
 
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
-GET		/charts/*file				controllers.Assets.at(path="/app/views/charts", file)

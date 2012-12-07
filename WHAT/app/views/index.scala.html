@@ -1,29 +1,16 @@
-@(lang:String)
-@main(lang = lang)(title = "index.title") { } {
-<a href="histogram.html">
-<div class="bigTile" id="barchart">
-	<span>
-	Barchart
-	</span>
-</div></a>
-<div class="bigTile" id="scatplot">
-	<span>
-	Scatter plot
-	</span>
-</div>
-<br /><div class="bigTile" id="bubchart">
-	<span>
-	Bubble chart
-	</span>
-</div>
-<div class="bigTile" id="pie">
-	<span>
-	Pie chart
-	</span>
-</div>
-<br /><div class="bigTile" id="histoScat">
-	<span>
-	Histogram &amp; Scatter plot
-	</span>
-</div>
+@(lang: String)(chartTypes: Array[String])
+@import controllers.Localize
+@main(lang = lang)(title = "index.title") {
+	<style>@for(chart <- chartTypes) {
+		#@{chart} {
+			background-image: url(/assets/charts/@{chart}/thumb.png);
+		}
+	}</style>
+} {
+	@for(chart <- chartTypes) {
+		<a href="/charts/@{chart}.html">
+		<div class="bigTile" id="@chart">
+			<span>@{Localize.get(lang, "charts." + chart)}</span>
+		</div></a>
+	}
 }

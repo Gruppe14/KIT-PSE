@@ -4,20 +4,17 @@ import play.mvc.*;
 
 public class Website extends Controller {
 
-    public static Result index(String lang) {
-    	return ok(views.html.index.render(lang));
-    }
-    public static Result histo() {
-    	return ok(views.html.charts.bubblechart.bubblechart.render());
+    public static Result index() {
+    	return ok(views.html.index.render(Localize.language(), ChartIndex.getInstance().getCharts()));
     }
     
-    public static Result test() {
-    	return ok(views.html.chartsindex.render(ChartIndex.getInstance().getCharts()));
+    public static Result ChartType(String type) {
+    	return ok(views.html.abstractChart.render(Localize.language(), type));
     }
     
-    public static Result getChartType(String type) {
-    	System.out.println(type);
-    	return ok();
+    public static Result changeLanguage(String path) {
+    	Localize.changeLanguage();
+    	return redirect(path);
     }
 
 }

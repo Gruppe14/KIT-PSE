@@ -2,25 +2,17 @@
  * general style declarations
  */
 @font-face {
-	font-family: 'Pompiere';
+	font-family: 'Kalinga';
 	font-style: normal;
 	font-weight: 400;
-	src: local('Kalinga '), local('Kalinga-Regular'), url(Kalinga.woff) format('woff');
-}
-
-
-@font-face {
-	font-family: 'Pompiere';
-	font-style: normal;
-	font-weight: 400;
-	src: local('Pompiere '), local('Pompiere-Regular'), url(Pompiere.woff) format('woff');
+	src: local('Kalinga'), local('Kalinga-Regular'), url(Kalinga.ttf) format('ttf');
 }
 
 html, body {
 	height: 100%;
 	background: #FFFFFF;
 	color: black;
-	font-family: Pompiere;
+	font-family: Kalinga;
 }
 a {
 	text-decoration: none;
@@ -32,6 +24,7 @@ a {
 }
 #logo {
     position:relative;
+    z-index:1;
 	top: 40px;
 	font-size: 17px;
 }
@@ -39,6 +32,18 @@ a {
 	margin-left: -10px;
 	font-size: 35px;
 }
+#lang {
+	position: relative;
+	text-align:right;
+	top: -20px;
+	color: #404040;
+}
+#lang span {
+	padding: 0px 2px;
+	background-color: #DDDDDD;
+	color: black;
+}
+
 #content {
 	position: relative;
 	top: 80px;
@@ -50,31 +55,6 @@ a {
 	text-align: right;
 	margin-top: 15px;
 }
-
-#bubchart {
-	background-image: url(../images/BubbleChart2.png);
-}
-
-#scatplot {
-	background-image: url(../images/ScatPlot.png);
-}
-
-#barchart {
-	background-image: url(../images/BarChart.png);
-}
-
-#pie {
-	background-image: url(../images/Pie.png);
-}
-
-#info {
-	background-image: url(../images/Infos.png);
-}
-
-#histoScat {
-	background-image: url(../images/HistoScatPlatzhalter.png);
-}
-
 
 /*
  * style declarations for index site
@@ -103,6 +83,11 @@ a {
 	margin: 4px 11px 12px 4px;
 }
 .bigTile span {
+	display:block;
 	position: absolute;
-	bottom: 5px;
+	width:auto;
+	padding: 3px;
+	bottom:0px;
+	left: 0px;
+	background: rgba(255,255,255,0.8);
 }
