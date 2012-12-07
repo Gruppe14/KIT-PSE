@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Code copied/ slightly adapted from: http://alignedleft.com/content/3.tutorials/10.d3/160.axes/demo/7.html -->
+	<head>
+		<meta charset="utf-8">
+		<title>D3 Demo: Axes</title>
+		<script src="http://d3js.org/d3.v2.js"></script>
+
+		<style type="text/css">
+			
+			.axis path,
+			.axis line {
+				fill: none;
+				stroke: black;
+				shape-rendering: crispEdges;
+			}
+			
+			.axis text {
+				font-family: sans-serif;
+				font-size: 11px;
+			}
+			
+			.circle {color: red;}
+			
+
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+   
+	
+		        
+			//Width and height of the chart
+			var w = 1500;
+			var h = 1000;
+			var padding = 30;
+			
+			
+			//Dynamic, random dataset
+			var dataset = [];					//Initialize empty array
+			var numDataPoints = 100;				//Number of dummy data points to create
+			var xRange = Math.random() * 1000;	//Max range of new x values
+			var yRange = Math.random() * 1000;	//Max range of new y values
+			for (var i = 0; i < numDataPoints; i++) {					//Loop numDataPoints times
+				var newNumber1 = Math.round(Math.random() * xRange);	//New random integer
+				var newNumber2 = Math.round(Math.random() * yRange);	//New random integer
+				dataset.push([newNumber1, newNumber2]);					//Add new number to array
+			}
+			
+			var ds2; //FIX JSON
+			d3.json("data/n.json", function(json) {
+			ds2 = json;
+			alert("The length of the JSON data I just read is: " + ds2.length);
+			});
+			
+
+			//Create scale functions
+			var xScale = d3.scale.linear()
+								 .domain([0, d3.max(dataset, function(d) { return d[0]; })])
+								 .range([padding, w - padding * 2]);
+
+			var yScale = d3.scale.linear()
+								 .domain([0, d3.max(dataset, function(d) { return d[1]; })])
+								 .range([h - padding, padding]);
+
+			var rScale = d3.scale.linear()
+								 .domain([0, d3.max(dataset, function(d) { return d[1]; })])
+								 .range([2, 5]);
+
+			var formatAsPercentage = d3.format(".1%");
+
+			//Define X axis
+			var xAxis = d3.svg.axis()
+							  .scale(xScale)
+							  .orient("bottom")
+							  .ticks(5)
+							  .tickFormat(formatAsPercentage);
+
+			//Define Y axis
+			var yAxis = d3.svg.axis()
+							  .scale(yScale)
+							  .orient("left")
+							  .ticks(5)
+							  .tickFormat(formatAsPercentage);
+
+			//Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+
+			//Create circles
+			svg.selectAll("circle")
+			   .data(dataset)
+			   .enter()
+			   .append("circle")
+			   .attr("cx", function(d) {  //this is the relative x
+			   		return xScale(d[0]);
+			   })
+			   
+			   .attr("cy", function(d) {
+			   		return yScale(d[1]);
+			   })
+			   .attr("r", function(d) {
+			   		return rScale(d[1]);
+			   })
+			   .attr("x", function(d) {return d[0];}) //this is the absolute x value
+			   .attr("y", function(d) {return d[1];})
+			   .append("svg:title")
+			   .text(function (d) {return "(" + d[0] + "," + d[1] + ")";});
+
+
+
+			//Create X axis
+			svg.append("g")
+				.attr("class", "axis")
+				.attr("transform", "translate(0," + (h - padding) + ")")
+				.call(xAxis);
+			
+			//Create Y axis
+			svg.append("g")
+				.attr("class", "axis")
+				.attr("transform", "translate(" + padding + ",0)")
+				.call(yAxis);
+
+		</script>
+	</body>
+</html>
+
