@@ -2,8 +2,8 @@ index.title = WHAT Startseite
 
 charts.histogram = Histogramm
 charts.barchart = Balkendiagramm
+charts.barscatter = Balkendiagramm & Streudiagramm
 charts.bubblechart = Blasendiagramm
-charts.histoscatter = Histogramm & Streudiagramm
 charts.piechart = Kuchendiagramm
 charts.scatterplot = Streudiagramm
 charts.bubblescatter = Blasendiagramm & Streudiagramm
