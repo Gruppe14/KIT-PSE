@@ -1,6 +1,6 @@
-@(lang: String)(chartTypes: Array[String])
+@(chartTypes: Array[String])
 @import controllers.Localize
-@main(lang = lang)(title = "index.title") {
+@main(title = "index.title") {
 	<style>@for(chart <- chartTypes) {
 		#@{chart} {
 			background-image: url(/assets/charts/@{chart}/thumb.png);
@@ -10,7 +10,7 @@
 	@for(chart <- chartTypes) {
 		<a href="/charts/@{chart}.html">
 		<div class="bigTile" id="@chart">
-			<span>@{Localize.get(lang, "charts." + chart)}</span>
+			<span>@{Localize.get("charts." + chart)}</span>
 		</div></a>
 	}
 }

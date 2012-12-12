@@ -1,8 +1,8 @@
-@(lang: String)(title: String)(includes: Html)(content: Html)
+@(title: String)(includes: Html)(content: Html)
 @import controllers.Localize
 <!DOCTYPE html>
     <head>
-        <title>@Localize.get(lang,title)</title>
+        <title>@Localize.get(title)</title>
         <link rel="icon" href="/assets/images/FavIcon.png" type="image/x-icon" />
         <link href="/assets/stylesheets/main.css" rel="stylesheet" type="text/css">
         <script language="javascript" type="text/javascript" src="/assets/javascripts/jquery-1.7.1.min.js"></script>
@@ -14,7 +14,7 @@
     	<a href ="/"><img id="logo" src="/assets/images/logoText.png"></a>
     	<div id="lang">
     		@for(l <- Localize.getAvailables()) {
-    			@if(l.equals(lang)) {
+    			@if(l.equals(Localize.language())) {
     				<span>@l</span>
     			}else {
     				<a href=@l>@l</a>

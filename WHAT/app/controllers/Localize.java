@@ -21,8 +21,8 @@ public class Localize extends Controller{
 	 * @return returns a localized string in the given language or if the language is not supported 
 	 * the string in the standard language
 	 */
-	public static String get(String language, String message) {
-		String loc = Messages.get(Lang.forCode(language),message);
+	public static String get(String message) {
+		String loc = Messages.get(Lang.forCode(language()),message);
 		//default language if message not found
 		if(message.equals(loc)) {
 			loc = Messages.get(standard, message);
