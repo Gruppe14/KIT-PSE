@@ -1,5 +1,5 @@
 package models;
 
-public class WareHouseConfiger {
+public class WareHouseConfiger extends Model {
 
 }
