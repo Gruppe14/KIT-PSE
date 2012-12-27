@@ -4,7 +4,7 @@ package models;
  * This class for admin to upload the log file of Skyserver */ 
 
 
-Class User {
+public Class User extends Model {
    
    private String id;
    
