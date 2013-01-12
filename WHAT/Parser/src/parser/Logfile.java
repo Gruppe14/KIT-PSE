@@ -113,11 +113,11 @@ public class Logfile {
 		
 	}
 	
+	private long first;
 	/**
 	 * Returns the next line from <code>file</code> and iterates <code>lines</code>.
 	 * @return the next line from <code>file</code>
 	 */
-	private long first;
 	protected synchronized String readLine() {
 		String str = null;
 		try {

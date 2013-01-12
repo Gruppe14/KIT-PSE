@@ -47,8 +47,8 @@ public class ParsingTask extends Task implements Runnable {
 				splitStr = str.split(",");
 				de = new DataEntry();
 				SplittingTool.split(this);
-				de.setCountry(GeoIPTool.getCountry(this));
-				de.setCity(GeoIPTool.getCity(this));
+				GeoIPTool.getLocationInfo(this);
+				
 				if (pm.getVerify()) {
 					VerificationTool.verify(this);
 				} else {
