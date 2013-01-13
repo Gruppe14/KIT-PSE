@@ -888,14 +888,14 @@ public class LookupService {
             record.countryName = countryName[unsignedByteToInt(record_buf[0])];
             record_buf_offset++;
 
-            // get region
+    /*        // get region
             while (record_buf[record_buf_offset + str_length] != '\0')
                 str_length++;
             if (str_length > 0) {
                 record.region = new String(record_buf, record_buf_offset, str_length);
             }
             record_buf_offset += str_length + 1;
-            str_length = 0;
+            str_length = 0; */
 
             // get city
             while (record_buf[record_buf_offset + str_length] != '\0')
@@ -906,7 +906,7 @@ public class LookupService {
             record_buf_offset += str_length + 1;
             str_length = 0;
 
-            // get postal code
+    /*        // get postal code
             while (record_buf[record_buf_offset + str_length] != '\0')
                 str_length++;
             if (str_length > 0) {
@@ -935,9 +935,9 @@ public class LookupService {
 		    for (j = 0; j < 3; j++)
 			metroarea_combo += (unsignedByteToInt(record_buf[record_buf_offset + j]) << (j * 8));
 		    record.metro_code = record.dma_code = metroarea_combo/1000;
-		    record.area_code = metroarea_combo % 1000;
-		}
-            }
+		    record.area_code = metroarea_combo % 1000; 
+		} 
+            } */
 	}
 	catch (IOException e) {
             System.err.println("IO Exception while seting up segments");
