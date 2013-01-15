@@ -1,5 +1,5 @@
 package models;
 
-public class OracleWHAdapter extends Model {
+public class OracleWHAdapter {
 
 }
