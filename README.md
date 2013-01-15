@@ -7,8 +7,14 @@ For many scientific databases, it would be worthwhile to visually and statistica
 
 The objective of this PSE assignment is to build software that takes raw database query logs as input and transform them into multi-dimensional numerical data points, i.e., into a representation that can be readily used for visual statistical analysis. Students working on this assignment will not only be exposed to database technology (to an extent manageable within the PSE) and basic statistics concepts, they will also design and implement technology that is of high practical value.
 
-<< The Program repository >>
 
 
-Instructions
-to run, install play, go to the directory, type play run.
+This program does just that.
+
+To run:
+==============
+install [java play](http://www.playframework.org/documentation/2.1-RC2/Installing)
+
+git clone http://github.com/Gruppe14/KIT-PSE.git
+
+play run
