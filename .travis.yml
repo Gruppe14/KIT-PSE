@@ -1,8 +1,13 @@
 language: java
-sbt test
+env:
+  - PLAY_VERSION=2.0.4
+before_script: 
+  - wget http://download.playframework.org/releases/play-${PLAY_VERSION}.zip
+  - unzip -q play-${PLAY_VERSION}.zip
+script: play-${PLAY_VERSION}/play test
 notifications:
   irc:
     channels:
       - "irc.freenode.org##kit"
   email: false
-
+  
