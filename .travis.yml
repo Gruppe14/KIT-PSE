@@ -1,4 +1,5 @@
 language: java
+sbt test
 notifications:
   irc:
     channels:
