@@ -18,15 +18,12 @@ public class ParsingTask extends Task implements Runnable {
 	
 	private DataEntry de;
 	
-	private int nr;
-	
 	/**
 	 * This is the constructor for a new <code>ParsingTask</code>
 	 * @param pm the ParserMediator which is connected to this <code>ParsingTask</code>
 	 * @param type the type of csv-file used.
 	 */
-	protected ParsingTask(ParserMediator pm, int nr) {
-		this.nr = nr;
+	protected ParsingTask(ParserMediator pm) {
 		this.pm = pm;
 	}
 
@@ -46,14 +43,16 @@ public class ParsingTask extends Task implements Runnable {
 			} else {
 				splitStr = str.split(",");
 				de = new DataEntry();
-				SplittingTool.split(this);
-				GeoIPTool.getLocationInfo(this);
+				if (SplittingTool.splitTime(this)) {
+					GeoIPTool.getLocationInfo(this);
+				}
+			/*	GeoIPTool.getLocationInfo(this);
 				
 				if (pm.getVerify()) {
 					VerificationTool.verify(this);
 				} else {
 					VerificationTool.verifyIP(this);
-				}
+				}*/
 			}
 			
 		}

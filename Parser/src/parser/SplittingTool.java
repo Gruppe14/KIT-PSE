@@ -1,5 +1,7 @@
 package parser;
 
+import java.util.Date;
+
 /**
  * 
  * The SplittingTool splits the <code>str</code> from its 
@@ -11,50 +13,76 @@ package parser;
  *
  */
 public class SplittingTool {
-	
-	static int zeroBusy = 0;
-	static int zeroElapsed = 0;
-
-	
+		
 	
 	protected static void split(ParsingTask pt) {
 		splitTime(pt);
 		splitServerInfo(pt);
 	}
 
-
-	private static void splitTime(ParsingTask pt) {
+	@SuppressWarnings("deprecation")
+	protected static boolean splitTime(ParsingTask pt) {
+		
+		
 		
 		DataEntry de = pt.getDe();
 		String[] str = pt.getSplitStr();
+		int year = -1, month = -1, day = -1, hour = -1, minute = -1, second = -1;
 		
-		//Setting Year, Month, Day and Hour of the SQL-Request.
-		try {
-			de.setYear(Integer.parseInt(str[0]));
-		} catch (NumberFormatException e) {
-			pt.getPm().error(Messages.getString("Error.101"));
-		}
 		
 		try {
-			de.setMonth(Integer.parseInt(str[1]));
+			year = Integer.parseInt(str[0]) - 1900;
 		} catch (NumberFormatException e) {
-			pt.getPm().error(Messages.getString("Error.102"));
+			pt.getPm().increaseLinedel();
+			return false;
 		}
 		
+			
+			
 		try {
-			de.setDay(Integer.parseInt(str[2]));
+			month = Integer.parseInt(str[1]);
 		} catch (NumberFormatException e) {
-			pt.getPm().error(Messages.getString("Error.103"));
+			pt.getPm().increaseLinedel();
+			return false;
 		}
-		
+			
+					
 		try {
-			de.setHour(Integer.parseInt(str[3]));
+			day = Integer.parseInt(str[2]);
 		} catch (NumberFormatException e) {
-			pt.getPm().error(Messages.getString("Error.104"));
+			pt.getPm().increaseLinedel();
+			return false;
+		}
+					
+			
+		try {
+			hour = Integer.parseInt(str[3]);
+		} catch (NumberFormatException e) {
+			pt.getPm().increaseLinedel();
+			return false;
+		}
+						
+			
+		try {
+			minute = Integer.parseInt(str[4]);
+		} catch (NumberFormatException e) {
+			pt.getPm().increaseLinedel();
+			return false;
+		}
+			
+			
+			
+		try {
+			second = Integer.parseInt(str[5]);
+		} catch (NumberFormatException e) {
+			pt.getPm().increaseLinedel();
+			return false;
 		}
 		
+		de.setDate(new Date(year, month, day, hour, minute, second));
 		
-				
+			
+		return true;	
 		
 	}
 	
@@ -63,49 +91,6 @@ public class SplittingTool {
 		DataEntry de = pt.getDe();
 		String [] str = pt.getSplitStr();
 		
-		de.setIp(str[4]);
-		de.setServer(str[5]);
-		de.setDatabase(str[6]);
-		
-		try {
-			de.setElapsedTime((int) (Double.parseDouble(str[7]) * 1000));
-			if (de.getElapsedTime() == 0) {
-				zeroElapsed++;
-			}
-		} catch (NumberFormatException e) {
-			pt.getPm().error(Messages.getString("Error.107"));
-		}
-		
-		try {
-			de.setBusyTime((int) (Double.parseDouble(str[8]) * 1000));
-			if (de.getBusyTime() == 0) {
-				zeroBusy++;
-			}
-		} catch (NumberFormatException e) {
-			pt.getPm().error(Messages.getString("Error.108"));
-		}
-		
-		try {
-			de.setRows(Integer.parseInt(str[9]));
-		} catch (NumberFormatException e) {
-			pt.getPm().error(Messages.getString("Error.109"));
-		}
-		
-		if (str.length > 10) {
-			if (str.length > 15) {
-				pt.getPm().error(Messages.getString("Error.110"));
-			}
-			int max = str.length - 10;
-			
-			String[] toEnter = new String[5];
-			
-			for (int i = 0; i < max; i++) {
-				toEnter[i] = str[i + 10]; 
-			}
-			
-			de.setAdditionalInfo(toEnter);
-			
-		}
 		
 		
 	}

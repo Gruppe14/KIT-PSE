@@ -22,7 +22,7 @@ public class ParserMediator {
 	/**
 	 * Number of threads used for parsing.
 	 */
-	private int poolsizeParsing = 2;
+	private int poolsizeParsing = 1;
 	
 	
 	/**
@@ -61,6 +61,9 @@ public class ParserMediator {
 	 * This list saves all errors which occurred.
 	 */
 	private LinkedList<String> errors = new LinkedList<String>();
+
+
+	private ParserConfig pc;
 	
 	/**
 	 * Creates a new <code>threadPool</code> with <code>POOLSIZE_PARSING</code> objects of the type 
@@ -83,7 +86,7 @@ public class ParserMediator {
 		}
 		
 		for (int i = 0; i < poolsizeParsing; i++) {
-			tasks[i] = new ParsingTask(this, i);
+			tasks[i] = new ParsingTask(this);
 		}
 		
 		for (int i = 0; i < poolsizeLoading; i++) {
@@ -98,10 +101,12 @@ public class ParserMediator {
 	 * sets the <code>usedFile</code> to @param path. Then it creates a <code>ThreadPool</code> like stated 
 	 * in <code>createThreadPool</code> and submits all those threads via 
 	 * <code>java.util.Concurrent.ThreadPool</code>
+	 * @param pc 
 	 * @return true, after parsing is finished
 	 */
-	public boolean parseLogFile(String path) {
+	public boolean parseLogFile(String path, ParserConfig pc) {
 		
+		this.pc = pc;
 		usedFile = new Logfile(path, this);
 		usedFile.setPm(this);
 
@@ -116,9 +121,9 @@ public class ParserMediator {
 			try {
 				threadPool.submit(tasks[i]);
 			} catch(RejectedExecutionException e) {
-				error(Messages.getString("Error.30P1") + i + " " + Messages.getString("Error.30P2")); 
+				error(Messages.getString("Error.30P1") + " " + i + " " + Messages.getString("Error.30P2")); 
 			} catch(NullPointerException e) {
-				error(Messages.getString("Error.40P1") + i + " " + "Error.40P2"); 
+				error(Messages.getString("Error.40P1") + " " + i + " " + Messages.getString("Error.40P2")); 
 			}
 		}
 		
@@ -163,6 +168,7 @@ public class ParserMediator {
 	 */
 	protected void increaseFT() {
 		finishedTasks++;		
+		System.out.println("finished" + finishedTasks);
 	}
 	
 	/**
@@ -173,9 +179,9 @@ public class ParserMediator {
 	protected void increaseLinedel() {
 		linesDeleted++;
 		
-		if (linesDeleted % 1000 == 0) {
+	//	if (linesDeleted % 1000 == 0) {
 			System.out.println(Messages.getString("Warning.10P1") + linesDeleted + " " + Messages.getString("Warning.10P2"));
-		}
+	//	}
 		
 	}
 
@@ -184,6 +190,13 @@ public class ParserMediator {
 	 */
 	protected boolean getVerify() {
 		return verify;
+	}
+
+	/**
+	 * @return the pc
+	 */
+	protected ParserConfig getPc() {
+		return pc;
 	}
 
 	/**

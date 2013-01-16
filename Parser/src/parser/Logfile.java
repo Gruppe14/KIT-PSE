@@ -92,16 +92,17 @@ public class Logfile {
 		try {
 			fstream = new FileInputStream(file);
 		} catch (FileNotFoundException e) {
-			pm.error(Messages.getString("Error.60P1") + path + Messages.getString("Error.60P2"));
+			pm.error(Messages.getString("Error.60P1") + " " + path + " " + Messages.getString("Error.60P2"));
 		}
 		in = new DataInputStream(fstream);
 		br = new BufferedReader(new InputStreamReader(in));
 		try {
 			type = br.readLine();
-			if (!type.startsWith("YY,MM,DD,HH,clientIP,server,dbname,elapsed,busy,rows")) {
-				pm.error(Messages.getString("Error.90"));
-			}
-			System.out.println(type);
+			
+			if (!VerificationTool.checkTimeConfig(this)) {
+				pm.error(Messages.getString("Error.110"));
+			} 
+			
 		} catch (IOException e) {
 			if (!file.canRead()) {
 				pm.error(Messages.getString("Error.71"));
@@ -121,19 +122,30 @@ public class Logfile {
 	protected synchronized String readLine() {
 		String str = null;
 		try {
-			if (lines == 0) {
+		/*	if (lines == 0) {
 				first = System.currentTimeMillis();
 			}
 			if (lines % 10000 == 0) {
 				System.out.println(System.currentTimeMillis() - first);
 				first = System.currentTimeMillis();
-			}
+			} */
+			
 			str = br.readLine();
+			
+			if (str == null) {
+				return str;
+			}
+			
+			while (!str.endsWith("\"")) {
+				str += br.readLine();
+			}
+				
+			
 		} catch (IOException e) {
 			if (!file.canRead()) {
-				pm.error(Messages.getString("Error.72P1") + lines + " " + Messages.getString("Error.72P2"));
+				pm.error(Messages.getString("Error.72P1") + " " + lines + " " + Messages.getString("Error.72P2"));
 			} else {
-				pm.error(Messages.getString("Error.74P1") + lines + " " + Messages.getString("Error.74P2"));
+				pm.error(Messages.getString("Error.74P1") + " " + lines + " " + Messages.getString("Error.74P2"));
 			}
 		}
 		lines++;

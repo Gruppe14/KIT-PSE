@@ -13,33 +13,29 @@ public class VerificationTool {
 		
 	}
 
-	@SuppressWarnings("deprecation")
 	private static boolean verifyTime(ParsingTask pt) {
 		
 		DataEntry de = pt.getDe();
 		Calendar cal = Calendar.getInstance();
 		Date dateNow = cal.getTime();
 		
-		if (de.getYear() < 2001 || de.getYear() > dateNow.getYear() + 1900) {
-			pt.getPm().increaseLinedel();
-			return false;
-		}
-		
-		if (de.getMonth() < 1 || de.getMonth() > 12) {
-			pt.getPm().increaseLinedel();
-			return false;
-		}
-		
-		if (de.getDay() < 1 || de.getDay() > 31) {
-			pt.getPm().increaseLinedel();
-			return false;
-		}
-		
-		if (de.getHour() < 0 || de.getHour() > 23) {
-			pt.getPm().increaseLinedel();
-			return false;
-		}
 	
+		return true;
+	}
+	
+	protected static boolean checkTimeConfig(Logfile lf) {
+		
+		ParserConfig pc = lf.getPm().getPc();
+		
+		String[] typeSplit = lf.getType().split(",");
+		
+		int i = 0;
+		while (i < 6) {
+			if (!pc.getEntryAt(i).getName().toLowerCase().equals(typeSplit[i].toLowerCase())) {
+				return false;
+			}
+			i++;
+		}
 		return true;
 	}
 
@@ -47,20 +43,6 @@ public class VerificationTool {
 		
 		DataEntry de = pt.getDe();
 		
-		if (de.getRows() < 0) {
-			pt.getPm().increaseLinedel();
-			return false;
-		}
-		
-		if (de.getElapsedTime() < 0) {
-			pt.getPm().increaseLinedel();
-			return false;
-		}
-		
-		if (de.getBusyTime() < 0) {
-			pt.getPm().increaseLinedel();
-			return false;
-		}
 		
 		if (!verifyIP(pt)) {
 			pt.getPm().increaseLinedel();

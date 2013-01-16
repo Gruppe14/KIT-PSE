@@ -4,7 +4,13 @@ import java.io.IOException;
 
 import GeoIP.*;
 
-
+/**
+ * This tool adds the City and Country of a request to a dataEntry.
+ * It includes GeoLite data created by MaxMind, available from http://www.maxmind.com. It uses the
+ * MaxMind Java-API, which is a little bit changed for speed-up.
+ * @author Alex
+ *
+ */
 public class GeoIPTool {
 	
 	/**
@@ -44,6 +50,9 @@ public class GeoIPTool {
 	protected static void getLocationInfo(ParsingTask pt) {
 
 		try {		
+			
+			pt.getDe().setIp(pt.getSplitStr()[6]);
+						
 			Location loc;
 			if (pt.getDe().getIp().equals(lastIp)) {
 				loc = lastLoc;
@@ -57,8 +66,10 @@ public class GeoIPTool {
 			lastIp = pt.getDe().getIp();
 			
 			
+			
 		} catch (NullPointerException e) {
-			//doNothing() - will be handled while verifying.
+			pt.getDe().setCountry("other");
+			pt.getDe().setCity("other");
 		}
 	}
 }

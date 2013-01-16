@@ -1,6 +1,7 @@
 package parser;
 
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * 
@@ -12,19 +13,7 @@ import java.util.Arrays;
  */
 public class DataEntry {
 	
-	private int hour;
-	
-	private int day;
-	
-	private int month;
-	
-	private int year;
-	
-	private int rows;
-	
-	private int elapsedTime;
-	
-	private int busyTime;
+	private Date date;
 	
 	private String ip;
 	
@@ -32,135 +21,50 @@ public class DataEntry {
 	
 	private String country;
 	
-	private String database;
+	private Object[] info;
 	
-	private String server;
 	
-	private String[] additionalInfo = new String[5];
-
-	/**
-	 * Protected constructor for a <code>DataEntry</code>.
-	 */
-	protected DataEntry() {
-		//overwritten to be protected.
-	}
 	
 	/**
-	 * @return the hour
+	 * @return the date
 	 */
-	protected int getHour() {
-		return hour;
-	}
-
-	/**
-	 * @param hour the hour to set
-	 */
-	protected void setHour(int hour) {
-		this.hour = hour;
-	}
-
-	/**
-	 * @return the day
-	 */
-	protected int getDay() {
-		return day;
-	}
-
-	/**
-	 * @param day the day to set
-	 */
-	protected void setDay(int day) {
-		this.day = day;
-	}
-
-	/**
-	 * @return the month
-	 */
-	protected int getMonth() {
-		return month;
-	}
-
-	/**
-	 * @param month the month to set
-	 */
-	protected void setMonth(int month) {
-		this.month = month;
-	}
-
-	/**
-	 * @return the year
-	 */
-	protected int getYear() {
-		return year;
-	}
-
-	/**
-	 * @param year the year to set
-	 */
-	protected void setYear(int year) {
-		this.year = year;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "DataEntry [hour=" + hour + ", day=" + day + ", month=" + month
-				+ ", year=" + year + ", rows=" + rows + ", elapsedTime="
-				+ elapsedTime + ", busyTime=" + busyTime + ", ip=" + ip
-				+ ", city=" + city + ", country=" + country + ", database="
-				+ database + ", server=" + server + ", additionalInfo="
-				+ Arrays.toString(additionalInfo) + "]";
-	}
-
-	/**
-	 * @return the rows
-	 */
-	protected int getRows() {
-		return rows;
-	}
-
-	/**
-	 * @param rows the rows to set
-	 */
-	protected void setRows(int rows) {
-		this.rows = rows;
-	}
-
-	/**
-	 * @return the elapsedTime
-	 */
-	protected int getElapsedTime() {
-		return elapsedTime;
-	}
-
-	/**
-	 * @param d the elapsedTime to set
-	 */
-	protected void setElapsedTime(int d) {
-		this.elapsedTime = d;
-	}
-
-	/**
-	 * @return the busyTime
-	 */
-	protected int getBusyTime() {
-		return busyTime;
-	}
-
-	/**
-	 * @param busyTime the busyTime to set
-	 */
-	protected void setBusyTime(int busyTime) {
-		this.busyTime = busyTime;
+	public Date getDate() {
+		return date;
 	}
 
 	/**
 	 * @return the ip
 	 */
-	protected String getIp() {
+	public String getIp() {
 		return ip;
+	}
+
+	/**
+	 * @return the city
+	 */
+	public String getCity() {
+		return city;
+	}
+
+	/**
+	 * @return the country
+	 */
+	public String getCountry() {
+		return country;
+	}
+
+	/**
+	 * @return the info
+	 */
+	public Object getInfo(int i) {
+		return info[i];
+	}
+
+	/**
+	 * @param date the date to set
+	 */
+	protected void setDate(Date date) {
+		this.date = date;
 	}
 
 	/**
@@ -171,24 +75,10 @@ public class DataEntry {
 	}
 
 	/**
-	 * @return the city
-	 */
-	protected String getCity() {
-		return city;
-	}
-
-	/**
 	 * @param city the city to set
 	 */
 	protected void setCity(String city) {
 		this.city = city;
-	}
-
-	/**
-	 * @return the country
-	 */
-	protected String getCountry() {
-		return country;
 	}
 
 	/**
@@ -199,45 +89,20 @@ public class DataEntry {
 	}
 
 	/**
-	 * @return the database
+	 * @param info the info to set
 	 */
-	protected String getDatabase() {
-		return database;
+	protected void setInfo(Object info, int i) {
+		this.info[i] = info;
 	}
 
-	/**
-	 * @param database the database to set
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
-	protected void setDatabase(String database) {
-		this.database = database;
-	}
-
-	/**
-	 * @return the server
-	 */
-	protected String getServer() {
-		return server;
-	}
-
-	/**
-	 * @param server the server to set
-	 */
-	protected void setServer(String server) {
-		this.server = server;
-	}
-
-	/**
-	 * @return the additionalInfo
-	 */
-	protected String[] getAdditionalInfo() {
-		return additionalInfo;
-	}
-
-	/**
-	 * @param additionalInfo the additionalInfo to set
-	 */
-	protected void setAdditionalInfo(String[] additionalInfo) {
-		this.additionalInfo = additionalInfo;
+	@Override
+	public String toString() {
+		return "DataEntry [date=" + date + ", ip=" + ip + ", city=" + city
+				+ ", country=" + country + ", info=" + Arrays.toString(info)
+				+ "]";
 	}
 
 	
