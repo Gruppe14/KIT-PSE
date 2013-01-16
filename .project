@@ -1,17 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>WHAT</name>
-	<comment></comment>
-	<projects>
-	</projects>
-	<buildSpec>
-		<buildCommand>
-			<name>com.aptana.ide.core.unifiedBuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-	</buildSpec>
-	<natures>
-		<nature>com.aptana.projects.webnature</nature>
-	</natures>
+  <name>WHAT</name>
+  <buildSpec>
+    <buildCommand>
+      <name>
+        <name>org.eclipse.jdt.core.javabuilder</name>
+      </name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>
+      <name></name>
+    </nature>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
 </projectDescription>

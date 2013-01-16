@@ -13,3 +13,7 @@ POST *path								controllers.Website.changeLanguage(path)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+
+# for test purposes, lock class for more infos
+GET /TEST								controllers.Test.test()
