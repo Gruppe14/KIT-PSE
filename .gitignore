@@ -12,3 +12,4 @@ dist
 /.target
 /.settings
 /RUNNING_PID
+/.classpath
