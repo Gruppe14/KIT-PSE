@@ -5,6 +5,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 
+import what.sp_config.ConfigWrap;
+
 
 /**
  * 
@@ -57,14 +59,13 @@ public class ParserMediator {
 	
 	private Task tasks[];
 	
-	/**
-	 * This list saves all errors which occurred.
-	 */
-	private LinkedList<String> errors = new LinkedList<String>();
-
-
-	private ParserConfig pc;
+	private ConfigWrap cw;
 	
+	public ParserMediator(ConfigWrap cw) {
+		this.cw = cw;
+	}
+	
+		
 	/**
 	 * Creates a new <code>threadPool</code> with <code>POOLSIZE_PARSING</code> objects of the type 
 	 * <code>ParsingTask</code> and <code>POOLSIZE_LOADING</code> objects of the type <code>LoadingTask</code>.
@@ -101,12 +102,10 @@ public class ParserMediator {
 	 * sets the <code>usedFile</code> to @param path. Then it creates a <code>ThreadPool</code> like stated 
 	 * in <code>createThreadPool</code> and submits all those threads via 
 	 * <code>java.util.Concurrent.ThreadPool</code>
-	 * @param pc 
 	 * @return true, after parsing is finished
 	 */
-	public boolean parseLogFile(String path, ParserConfig pc) {
+	public boolean parseLogFile(String path) {
 		
-		this.pc = pc;
 		usedFile = new Logfile(path, this);
 		usedFile.setPm(this);
 
@@ -158,7 +157,6 @@ public class ParserMediator {
 	 * @param err
 	 */
 	protected void error(String err) {
-		errors.add(err);
 		System.out.println(err);		
 		System.exit(1);
 	}
@@ -193,10 +191,10 @@ public class ParserMediator {
 	}
 
 	/**
-	 * @return the pc
+	 * @return the config
 	 */
-	protected ParserConfig getPc() {
-		return pc;
+	protected ConfigWrap getConfig() {
+		return cw;
 	}
 
 	/**

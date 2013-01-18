@@ -99,7 +99,7 @@ public class Logfile {
 		try {
 			type = br.readLine();
 			
-			if (!VerificationTool.checkTimeConfig(this)) {
+			if (!VerificationTool.checkConfig(this)) {
 				pm.error(Messages.getString("Error.110"));
 			} 
 			

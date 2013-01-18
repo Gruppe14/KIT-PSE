@@ -1,6 +1,9 @@
 package parser;
 import java.util.Calendar;
+
 import java.util.Date;
+
+import what.sp_config.*;
 
 
 
@@ -12,6 +15,8 @@ public class VerificationTool {
 		return (verifyTime(pt) && verifyServerInfo(pt));
 		
 	}
+	
+	
 
 	private static boolean verifyTime(ParsingTask pt) {
 		
@@ -23,15 +28,43 @@ public class VerificationTool {
 		return true;
 	}
 	
+	protected static boolean checkConfig(Logfile lf) {
+		return checkTimeConfig(lf) && checkIpConfig(lf) && checkOtherConfig(lf);
+		
+		
+	}
+	
+	private static boolean checkIpConfig(Logfile lf) {
+		return lf.getPm().getConfig().getEntryAt(6).getClass().getName().contains("IpLocationRow");
+	}
+
+
+
+	private static boolean checkOtherConfig(Logfile lf) {
+
+		ConfigWrap cw = lf.getPm().getConfig();
+		
+		for (int i = 7; i < cw.getSize(); i++) {
+			if(!cw.getEntryAt(i).getClass().getSuperclass().getName().contains("MeasureRow")) {
+				return false;
+			}
+		}
+		
+		
+		return true;
+	}
+
+
+
 	protected static boolean checkTimeConfig(Logfile lf) {
 		
-		ParserConfig pc = lf.getPm().getPc();
+		ConfigWrap cw = lf.getPm().getConfig();
 		
 		String[] typeSplit = lf.getType().split(",");
 		
 		int i = 0;
 		while (i < 6) {
-			if (!pc.getEntryAt(i).getName().toLowerCase().equals(typeSplit[i].toLowerCase())) {
+			if (!cw.getEntryAt(i).getName().toLowerCase().equals(typeSplit[i].toLowerCase())) {
 				return false;
 			}
 			i++;

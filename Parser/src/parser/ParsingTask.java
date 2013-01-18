@@ -42,17 +42,18 @@ public class ParsingTask extends Task implements Runnable {
 				return;
 			} else {
 				splitStr = str.split(",");
-				de = new DataEntry();
-				if (SplittingTool.splitTime(this)) {
+				de = new DataEntry(pm.getConfig().getSize() - 7);
+				if (SplittingTool.split(this)) {
 					GeoIPTool.getLocationInfo(this);
 				}
-			/*	GeoIPTool.getLocationInfo(this);
+			
 				
-				if (pm.getVerify()) {
+		/*		if (pm.getVerify()) {
 					VerificationTool.verify(this);
 				} else {
 					VerificationTool.verifyIP(this);
 				}*/
+				System.out.println(de);
 			}
 			
 		}

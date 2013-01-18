@@ -24,6 +24,10 @@ public class DataEntry {
 	private Object[] info;
 	
 	
+	protected DataEntry(int size) {
+		info = new Object[size];
+	}
+	
 	
 	/**
 	 * @return the date

@@ -1,6 +1,9 @@
 package parser;
 
+import java.util.ArrayList;
 import java.util.Date;
+
+import what.sp_config.ConfigWrap;
 
 /**
  * 
@@ -15,9 +18,8 @@ import java.util.Date;
 public class SplittingTool {
 		
 	
-	protected static void split(ParsingTask pt) {
-		splitTime(pt);
-		splitServerInfo(pt);
+	protected static boolean split(ParsingTask pt) {
+		return (splitTime(pt) && splitOthers(pt));
 	}
 
 	@SuppressWarnings("deprecation")
@@ -79,17 +81,42 @@ public class SplittingTool {
 			return false;
 		}
 		
+		
 		de.setDate(new Date(year, month, day, hour, minute, second));
 		
-			
 		return true;	
 		
 	}
 	
-	private static void splitServerInfo(ParsingTask pt) {
+	private static boolean splitOthers(ParsingTask pt) {
 		
 		DataEntry de = pt.getDe();
 		String [] str = pt.getSplitStr();
+		ConfigWrap cw = pt.getPm().getConfig();
+		ArrayList<String> servers = new ArrayList<String>(100);
+		
+		for (int i = 7; i < pt.getPm().getConfig().getSize() - 1; i++) {
+			if (cw.getEntryAt(i).getClass().getName().contains("StringRow")) {
+				de.setInfo(str[i], i - 7);
+			} else if (cw.getEntryAt(i).getClass().getName().contains("DoubleRow")) {
+				try {
+					de.setInfo(Double.parseDouble(str[i]), i - 7);
+				} catch (NumberFormatException e) {
+					pt.getPm().error(Messages.getString("Error.107"));
+				}
+				
+			} else if (cw.getEntryAt(i).getClass().getName().contains("IntRow")) {
+				try {
+					de.setInfo(Integer.parseInt(str[i]), i - 7);
+				} catch (NumberFormatException e) {
+					pt.getPm().error(Messages.getString("Error.108"));
+				}
+				
+			} else {
+				return false;
+			}
+		}
+		return true;
 		
 		
 		
