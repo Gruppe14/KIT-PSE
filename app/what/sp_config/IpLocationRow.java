@@ -2,14 +2,8 @@ package what.sp_config;
 
 public class IpLocationRow extends RowEntry {
 
-	private String name;
-	
-	public IpLocationRow(String name) {
-		super(name);
-	}
-	
-	public String getName() {
-		return name;
+	protected IpLocationRow(String name, String logId, int lvl,	String categorie, String scale) {
+		super(name, logId, lvl, categorie, scale, RowId.LOCATION);
 	}
 
 }

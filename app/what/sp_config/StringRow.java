@@ -1,16 +1,20 @@
 package what.sp_config;
 
+import java.util.Set;
 
-public class StringRow extends MeasureRow {
+
+public class StringRow extends RowEntry {
+
+	private final Set<String> contents;
 	
-	private String name;
-	
-	public StringRow(String name, String scaleName) {
-		super(name, scaleName);
-		// TODO Auto-generated constructor stub
+	protected StringRow(String name, String logId, int lvl,
+						String categorie, String scale, Set<String> strings) {
+		
+		super(name, logId, lvl, categorie, scale, RowId.STRING);
+		this.contents = strings;
 	}
 
-	
-	
-
+	public Set<String> getCopmareTo() {
+		return contents;
+	}
 }

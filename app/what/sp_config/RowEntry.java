@@ -2,32 +2,36 @@ package what.sp_config;
 
 public abstract class RowEntry {
 	
-	public static final String ATRI_TYPE = "Type";
-	public static final String TYPE_INT = "INT";
-	public static final String TYPE_DOUBLE = "DOUBLE";
-	public static final String TYPE_STRING = "STRING";
-	public static final String TYPE_LOCATION = "IP";
-	public static final String TYPE_STRINGTREE = "STRINGTREE";
-	public static final String TYPE_DUMMY = "NULL";
-
-	public static final String ATRI_CAT = "Categorie";
-	public static final String ATRI_LVL = "Level";
-	public static final String ATRI_NAME = "Name";
-	public static final String ATRI_LOG = "LogId";
-	
+	private final RowId id;
 	
 	/**
 	 * name stands for the name of this measure or type overall. 
 	 * Examples are: "location", "elapsed time", "time", "security level", ...
 	 */
-	private String name;
+	private final String name;
 	
-	private String logId;
-
-	public RowEntry(String name) {
+	private final String logId;
+	
+	private final int level;
+	
+	private final String categorie;
+	
+	private final String scale;
+	
+	protected RowEntry(String name, String logId, int lvl, String categorie, String scale, RowId id) {
 		assert (name != null);
+		assert (logId != null);
+		assert (categorie != null);
+		assert (scale != null);
+		assert (lvl <= 0);
 		
 		this.name = name;
+		this.logId = logId;
+		this.level = lvl;
+		this.categorie = categorie;
+		this.scale = scale;
+		
+		this.id = id;
 	}
 	
 	
@@ -35,28 +39,23 @@ public abstract class RowEntry {
 		return name;
 	}
 	
-	
-	
-	
 	public String getLogId() {
 		return logId;
 	}
 
-
-
-
-
-	private enum Id {
-		
-		INT("INT"), DOUBLE("DOUBLE"), LOCATION("IP"), STRING("STRING"), STRINGTREE("STRINGTREE"), DUMMY("NULL");
-		
-		private final String id;
-		
-		private Id(String id) {
-			this.id = id;
-			
-		}
-		
+	public int getLevel() {
+		return level;
 	}
-	
+
+	public String getCategorie() {
+		return categorie;
+	}
+
+	public String getScale() {
+		return scale;
+	}
+
+	public RowId getId() {
+		return id;
+	} 
 }

@@ -39,8 +39,10 @@ public class ChartMediator {
 	 * @param confi configuration of the database 
 	 * 		  on which this ChartMeditator operates
 	 */
-	private ChartMediator(ConfigWrap confi) {
-		assert (confi != null);
+	public ChartMediator(ConfigWrap confi) {
+		if (confi == null) {
+			throw new IllegalArgumentException();
+		}
 		
 		history = new LinkedList<Petra>(); 
 		
@@ -56,7 +58,7 @@ public class ChartMediator {
 	 * 
 	 * @param confi
 	 * @return
-	 */
+	 *
 	public static ChartMediator getChartMediator(ConfigWrap confi) {
 		if (confi == null) {
 			throw new IllegalArgumentException();
@@ -74,12 +76,12 @@ public class ChartMediator {
 		
 		
 		return medi;
-	}
+	}*/
 
 	/**
 	 * Returns the configuration for the database of this ChartMediator.
 	 * 
-	 * @return the config of this ChartMediator
+	 * @return the ConfigWrap of this ChartMediator
 	 */
 	private ConfigWrap getConfig() {
 		return config;

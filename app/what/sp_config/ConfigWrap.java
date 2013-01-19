@@ -21,7 +21,7 @@ public class ConfigWrap {
 	private RowEntry[] entries; 
 
 	/**
-	 * Private constructur as the building is solved with a static factory.
+	 * Private constructor as the building is solved with a static factory.
 	 */
 	private ConfigWrap() {
 		
@@ -67,33 +67,21 @@ public class ConfigWrap {
 		
 		confi.entries = new RowEntry[rows.length()];
 		
-		buildConfigEntries(confi, rows);
+		confi.buildConfigEntries(rows);
 		
 		return confi;
 	}
 
-	private static void buildConfigEntries(ConfigWrap confi, JSONArray jsRows) throws JSONException {
-		assert (confi != null);
+	private void buildConfigEntries(JSONArray jsRows) throws JSONException {
 		assert (jsRows != null);
 	
 		for (int i = 0, l = jsRows.length(); i < l; i++) {
 			JSONObject jso = (JSONObject) jsRows.get(i); //TODO protect this, check this
-			confi.addEntry(jso, i);
+			RowEntry re = ConfigHelper.getEntry(jso);
+			this.entries[i] = re;
 		}
-		
-		
 	}
 
-
-
-	
-	
-	private void addEntry(JSONObject jso, int i) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 
 	public int getSize() {
 		return entries.length;
@@ -114,12 +102,6 @@ public class ConfigWrap {
 	public String getVersion() {
 		return version;
 	}
-
-	public void setVersion(String verson) {
-		this.version = verson;
-	}
-	
-
 
 	
 }

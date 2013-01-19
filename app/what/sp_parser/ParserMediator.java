@@ -61,8 +61,12 @@ public class ParserMediator {
 	
 	private ConfigWrap cw;
 	
-	public ParserMediator(ConfigWrap cw) {
-		this.cw = cw;
+	public ParserMediator(ConfigWrap confi) {
+		if (confi == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		this.cw = confi;
 	}
 	
 		

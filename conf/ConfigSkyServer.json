@@ -108,19 +108,49 @@
 	}
 	
 	{
-		"Type": "STRINGTREE",
+		"Type": "STRINGMAP",
 		"Categorie": "type",
 		"Level": 1,
 		"Name": "type",
 		"Scale": "type",
 		"LogId": "statement",
-		"List": ["Meta(Algorithm|DataConstants|Glossary|QueryResults|RecentQueries|Rmatrix|TableDesc|Dependency|Diagnostics|History|LoadHistory|PubHistory|SiteDiagnostics|Versions|IndexMap|FileGroupMap|PartitionMap|SiteDBs|SDSSConstants|Inventory|DBObjects|DBColumns|DBViewCols|SiteConstants)",
-				 "QSO(QsoBest|QsoBunch|QsoTarget|QsoCatalogAll|QsoConcordanceAll|QsoSpec)",
-				 "Spectro(SpecObjAll(XCRedshift|ELRedShift|SpecLineAll|SpecPhotoAll|SpecLineIndex|QuasarCatalog)|PlateX|TargetInfo|Target|TargetParam)",
-				 "Tiling(TileAll(TilingRung(TilingGeometry|TilingInfo|TilingNote)|TilingTargetAll|HoleObj|Sector2Tile)|Region(Sector|BestTarget2Sector|HalfSpace|Region2Box|RegionArcs|RegionConvex))",
-				 "Photo(Photoz(PhotoObjAll|Neighbors|USNO|Rosat|First|PhotoAuxAll|PhotoProfile|ProperMotions|Photoz2)|Mask(MaskOBject)|PProfileDefs|Field(Frame|FieldProfile|RunQA)|TargRunQA|RunShift|MatchHead(Match)|StripDefs(Chunk|Segment))",
-		
+		"List": [
+				 {"ParentName" = "Meta",
+				  "List" = 
+					["Algorithm", "DataConstants", "Glossary", "QueryResults", "RecentQueries",
+					 "Rmatrix", "TableDesc", "Dependency", "Diagnostics", "History", "LoadHistory", "PubHistory", 
+					 "SiteDiagnostics", "Versions", "IndexMap", "FileGroupMap", "PartitionMap", "SiteDBs", 
+					 "SDSSConstants", "Inventory", "DBObjects", "DBColumns", "DBViewCols", "SiteConstants"],
+				 }
+				 { "PartentName" = "QSO",
+					"List" = 
+					["QsoBest", "QsoBunch", "QsoTarget", "QsoCatalogAll", "QsoConcordanceAll", "QsoSpec"
+					]
+				 }
+				 
+				 { "PartentName" = "Spectro",
+					"List" = 
+					["SpecObjAll", "XCRedshift", "ELRedShift", "SpecLineAll", "SpecPhotoAll", 
+					 "SpecLineIndex", "QuasarCatalog", "PlateX", "TargetInfo", "Target", "TargetParam"
+					]
+				 }
+				 
+				 { "PartentName" = "Tiling",
+					"List" = 
+					["TileAll", "TilingRung", "TilingGeometry", "TilingInfo", "TilingNote", "TilingTargetAll", 
+					 "HoleObj", "Sector2Tile", "Region", "Sector", "BestTarget2Sector", "HalfSpace", 
+					 "Region2Box", "RegionArcs", "RegionConvex"			
+					]
+				 }
+				 
+				 { "PartentName" = "Photo",
+					"List" = 
+					["Photo", "Photoz", "PhotoObjAll", "Neighbors", "USNO", "Rosat", "First", 
+					 "PhotoAuxAll", "PhotoProfile", "ProperMotions", "Photoz2", "Mask", 
+					 "MaskOBject", "PProfileDefs", "Field", "Frame", "FieldProfile", "RunQA", 
+					 "TargRunQA", "RunShift", "MatchHeadMatch", "StripDefs", "Chunk", "Segment"
+					]
+				 }
+				]
 	}
-
-	]
 }

@@ -2,13 +2,15 @@ package what;
 
 // java imports
 import java.io.File;
+import java.io.IOException;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.json.JSONException;
 
-import what.sp_chart_creation.ChartMediator;
+
 // intern imports
 import what.sp_config.ConfigWrap;
 import what.sp_parser.ParserMediator;
+import what.sp_chart_creation.ChartMediator;
 
 /**
  * This class Facade represents a facade.<br>
@@ -29,7 +31,7 @@ public class Facade {
 	private static ParserMediator parsMedi;
 	
 	private static ChartMediator chartMedi;
-	
+	 
 	
 	// Initialization
 	public void init(String path) {
@@ -37,6 +39,16 @@ public class Facade {
 			throw new IllegalArgumentException();
 		}
 		
+		ConfigWrap config = null;
+		
+		try {
+			config = ConfigWrap.buildConfig(path);
+		} catch (IOException | JSONException e) {
+			e.printStackTrace();
+		}
+		
+		parsMedi = new ParserMediator(config);
+		chartMedi = new ChartMediator(config);	
 		
 	}
 	
@@ -61,7 +73,7 @@ public class Facade {
 		}
 		
 		if (!isInitiated()) {
-			throw new NotImplementedException(); //TODO better exception
+			//throw new NotImplementedException(); //TODO better exception
 		}
 		
 		// directs the request and returns the status of it
@@ -88,7 +100,7 @@ public class Facade {
 		}
 
 		if (!isInitiated()) {
-			throw new NotImplementedException(); //TODO better exception
+			//throw new NotImplementedException(); //TODO better exception
 		}
 		
 		// direct request and receive file

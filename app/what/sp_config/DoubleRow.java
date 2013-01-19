@@ -1,10 +1,8 @@
 package what.sp_config;
 
-public class DoubleRow extends MeasureRow {
+public class DoubleRow extends RowEntry {
 
-	public DoubleRow(String name, String scaleName) {
-		super(name, scaleName);
-	}
-
-	
+	protected DoubleRow(String name, String logId, int lvl, String categorie, String scale) {
+		super(name, logId, lvl, categorie, scale, RowId.DOUBLE);
+	}	
 }

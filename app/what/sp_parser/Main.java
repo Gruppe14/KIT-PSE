@@ -13,7 +13,7 @@ public class Main {
 		//SELECT YY, MM, DD, HH, MI, SS, clientIP, server, dbname, elapsed, busy, rows, statement
 		
 		
-		
+		/*
 		
 		ConfigWrap cw = new ConfigWrap(13);
 		//ParserConfig pc = new ParserConfig(13);
@@ -35,7 +35,7 @@ public class Main {
 		cw.addEntry(new DoubleRow("elapsed", "s"));
 		cw.addEntry(new DoubleRow("busy", "s"));
 		cw.addEntry(new IntRow("rows", "*"));
-		cw.addEntry(new StatementRow("statement", "FROM"));
+		cw.addEntry(new StringMapRow("statement", "FROM"));
 		
 
 		ParserMediator pm1 = new ParserMediator(cw);
@@ -43,7 +43,7 @@ public class Main {
 		
 		
 		pm1.parseLogFile("C:/Users/Alex/Downloads/resultMonat.csv");
-
+*/
 	}
 
 }
