@@ -34,7 +34,7 @@ public class Facade {
 	 
 	
 	// Initialization
-	public void init(String path) {
+	public boolean init(String path) {
 		if (path == null) {						 //TODO better check?
 			throw new IllegalArgumentException();
 		}
@@ -45,11 +45,13 @@ public class Facade {
 			config = ConfigWrap.buildConfig(path);
 		} catch (IOException | JSONException e) {
 			e.printStackTrace();
+			return false;
 		}
 		
 		parsMedi = new ParserMediator(config);
 		chartMedi = new ChartMediator(config);	
 		
+		return true;
 	}
 	
 	

@@ -10,7 +10,7 @@
 		"Name": "year",
 		"LogId": "yy",
 		"Scale": ".",
-	}
+	},
 	{
 		"Type": "INT",
 		"Categorie": "time",
@@ -18,7 +18,7 @@
 		"Name": "month",
 		"LogId": "mm",
 		"Scale": ".",
-	}
+	},
 	{
 		"Type": "INT",
 		"Categorie": "time",
@@ -26,14 +26,15 @@
 		"Name": "day",
 		"LogId": "dd",
 		"Scale": ",",
-	}
+	},
 	{
 		"Type": "INT",
 		"Categorie": "time",
 		"Level": 4,
 		"Name": "hour",
+		"LogId": "hh",
 		"Scale": ":",
-	}
+	},
 	{
 		"Type": "INT",
 		"Categorie": "time",
@@ -41,7 +42,7 @@
 		"Name": "minute",
 		"LogId": "mi",
 		"Scale": ":",
-	}
+	},
 	{
 		"Type": "INT",
 		"Categorie": "time",
@@ -49,7 +50,7 @@
 		"Name": "second",
 		"LogId": "ss",
 		"Scale": " ",
-	}
+	},
 	
 	{
 		"Type": "IP",
@@ -58,7 +59,7 @@
 		"Name": "location",
 		"LogId": "clientIP",
 		"Scale": "location",
-	}
+	},
 	
 	{
 		"Type": "STRING",
@@ -67,8 +68,8 @@
 		"Name": "server",
 		"LogId": "server",
 		"Scale": "sever",
-		"List": ["SDSS3J" , "SDSS3D"],
-	}
+		"List": ["SDSS3J" , "SDSS3D",],
+	},
 	
 	{
 		"Type": "STRING",
@@ -77,8 +78,8 @@
 		"Name": "database",
 		"LogId": "dbname",
 		"Scale": "db",
-		"List": ["BESTDR1" , "BESTDR7" , "BESTDR8" , "BESTDR9"],
-	}
+		"List": ["BESTDR1" , "BESTDR7" , "BESTDR8" , "BESTDR9",],
+	},
 	
 	{
 		"Type": "DOUBLE",
@@ -87,7 +88,7 @@
 		"Name": "elapsed time",
 		"LogId": "elapsed", 
 		"Scale": "s",
-	}
+	},
 	
 	{
 		"Type": "DOUBLE",
@@ -96,7 +97,7 @@
 		"Name": "busy time",
 		"LogId": "busy",
 		"Scale": "s",
-	}
+	},
 	
 	{
 		"Type": "INT",
@@ -105,7 +106,7 @@
 		"Name": "rows",
 		"LogId": "rows",
 		"Scale": "rows",
-	}
+	},
 	
 	{
 		"Type": "STRINGMAP",
@@ -121,36 +122,36 @@
 					 "Rmatrix", "TableDesc", "Dependency", "Diagnostics", "History", "LoadHistory", "PubHistory", 
 					 "SiteDiagnostics", "Versions", "IndexMap", "FileGroupMap", "PartitionMap", "SiteDBs", 
 					 "SDSSConstants", "Inventory", "DBObjects", "DBColumns", "DBViewCols", "SiteConstants"],
-				 }
-				 { "PartentName" = "QSO",
+				 },
+				 { "ParentName" = "QSO",
 					"List" = 
 					["QsoBest", "QsoBunch", "QsoTarget", "QsoCatalogAll", "QsoConcordanceAll", "QsoSpec"
-					]
-				 }
+					],
+				 },
 				 
-				 { "PartentName" = "Spectro",
+				 { "ParentName" = "Spectro",
 					"List" = 
 					["SpecObjAll", "XCRedshift", "ELRedShift", "SpecLineAll", "SpecPhotoAll", 
 					 "SpecLineIndex", "QuasarCatalog", "PlateX", "TargetInfo", "Target", "TargetParam"
-					]
-				 }
+					],
+				 },
 				 
-				 { "PartentName" = "Tiling",
+				 { "ParentName" = "Tiling",
 					"List" = 
 					["TileAll", "TilingRung", "TilingGeometry", "TilingInfo", "TilingNote", "TilingTargetAll", 
 					 "HoleObj", "Sector2Tile", "Region", "Sector", "BestTarget2Sector", "HalfSpace", 
-					 "Region2Box", "RegionArcs", "RegionConvex"			
-					]
-				 }
+					 "Region2Box", "RegionArcs", "RegionConvex"
+					],
+				 },
 				 
-				 { "PartentName" = "Photo",
+				 { "ParentName" = "Photo",
 					"List" = 
-					["Photo", "Photoz", "PhotoObjAll", "Neighbors", "USNO", "Rosat", "First", 
-					 "PhotoAuxAll", "PhotoProfile", "ProperMotions", "Photoz2", "Mask", 
+					["Photo", "Photoz","Rosat","Neighbors","USNO", "First", "PhotoAuxAll",
+ 					 "PhotoProfile", "ProperMotions", "Photoz2", "Mask", "PhotoObjAll",
 					 "MaskOBject", "PProfileDefs", "Field", "Frame", "FieldProfile", "RunQA", 
 					 "TargRunQA", "RunShift", "MatchHeadMatch", "StripDefs", "Chunk", "Segment"
-					]
+					],
 				 }
-				]
-	}
+				],
+	}],
 }
