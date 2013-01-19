@@ -1,5 +1,11 @@
 index.title = WHAT Startseite
 
+filter.x.axis = x-Achse
+filter.filter = Filter
+filter.location = Ort
+filter.measures = Maß
+filter.send = absenden
+
 charts.histogram = Histogramm
 charts.barchart = Balkendiagramm
 charts.barscatter = Balkendiagramm & Streudiagramm

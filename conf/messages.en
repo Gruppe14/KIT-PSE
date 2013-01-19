@@ -1,5 +1,11 @@
 index.title = WHAT Home
 
+filter.x.axis = x-axis
+filter.filter = filter
+filter.location = location
+filter.measures = measure
+filter.send = send
+
 charts.histogram = histogram
 charts.barchart = bar chart
 charts.barscatter = bar chart & scatterplot

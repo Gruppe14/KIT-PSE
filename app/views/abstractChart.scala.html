@@ -1,6 +1,181 @@
 @(chartName: String)
 @import controllers.Localize
-@main(title = Localize.get("charts." + chartName)) { } {
-	@Localize.get("charts." + chartName)<br />
-	some cool filter stuff and visualization
-}
+<!DOCTYPE html>
+    <head>
+        <title>@Localize.get("charts." + chartName)</title>
+        <link rel="icon" href="/assets/images/FavIcon.png" type="image/x-icon" />
+        <link href="/assets/stylesheets/main.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="/assets/javascripts/jquery.js"></script>
+        <script type="text/javascript" src="/assets/javascripts/main.js"></script>
+        <script type="text/javascript">
+			function toggleSub(e) {
+				if(e.next().hasClass("sub")) {
+					e.next().slideToggle(200);
+					e.next().children(".selected").removeClass("selected");
+				}
+			}
+		
+			$(document).ready(function() {
+				$(".sub").hide();
+				$("span").click(function() {
+					var parent = $(this).parent();
+					if(parent.hasClass("dim")) {
+						$(this).toggleClass("selected");
+						toggleSub($(this));
+					} else if (parent.hasClass("group")) {
+						if(!$(this).hasClass("selected")) {
+							parent.children(".selected").removeClass("selected");
+						}
+						$(this).toggleClass("selected");
+					} else {
+						$(this).toggleClass("selected");
+					}
+				});
+			});
+		
+		</script>
+		
+		<style>
+			#selection {
+				width: 800px;
+				height: 400px;
+				margin: auto;
+				border: 2px solid lightgray;
+				border-width: 0px 2px;
+				padding: 20px;
+			}
+			#selection:first-line {
+				font-weight: bold;
+				font-size: 24px;
+			}
+			.options {
+				vertical-align: top;
+				display: inline-block;
+				width: 200px;
+				border: 2px solid lightgray;
+			}
+			.options > div:first-child {
+				display: block;
+				background-color: lightgray;
+				font-weight: bold;
+			}
+			#selection div span {
+				cursor: pointer;
+			}
+			.list {
+				overflow-x:hidden;
+				overflow-y:auto;
+				font-size: 18px;
+				height: 200px;
+			}
+			.list span {
+				display:block;
+			}
+			.selected {
+				background-color: lightgray;
+			}
+			.sub span{
+				font-size: 16px;
+				padding: 3px;
+				position: relative;
+				display:block;
+				left: 10px;
+				border: 0px solid lightgray;
+				border-left-width: 1px;
+			}
+			#send {
+				display:block;
+				border:2px solid lightgray;
+				background-color: lightgray;
+				text-align: center;
+				font-weight: bold;
+				margin-top: 5px;
+				width: 100px;
+				cursor: pointer;
+			}
+			#send:active {
+				background-color: white;
+			}
+			#header {
+				width:800px;
+				margin:auto;
+			}
+			#logo {
+				width:100px;
+			}
+		</style>
+    </head>
+    <body>
+	<div id="header">	
+	    <a href ="/"><img id="logo" src="/assets/images/logoText.png"></a>
+		<div id="lang">
+			@for(l <- Localize.getAvailables()) {
+				@if(l.equals(Localize.language())) {
+					<span>@l</span>
+				}else {
+					<a href=@l>@l</a>
+				}
+			}
+		</div>	
+	</div>	
+	<div id="selection">
+		@Localize.get("charts." + chartName)<br />
+		<div id="location" class="options">
+			<div>@Localize.get("filter.location")</div>
+			<div class="group">
+				<span class="x">@Localize.get("filter.x.axis")</span> <span class="filter">@Localize.get("filter.filter")</span>
+			</div>
+			<div class="dim list">
+				<span>Deutschland</span>
+				<div class="sub" id="Deutschland">
+					<span>Berlin</span>
+					<span>Düsseldorf</span>
+					<span>Stuttgart</span>
+				</div>
+				<span>Schweiz</span>
+				<div class="sub" id="Schweiz">
+					<span>Zürich</span>
+					<span>Genf</span>
+					<span>Basel</span>
+					<span>Bern</span>
+				</div>
+				<span>Österreich</span>
+				<div class="sub" id="Österreich">
+					<span>Wien</span>
+					<span>Steiermark</span>
+					<span>Salzburg</span>
+				</div>
+				<span>Dänemark</span>
+				<span>Australien</span>
+				<div class="sub" id="Australien">
+					<span>Sydney</span>
+					<span>Melbourne</span>
+				</div>
+				<span>USA</span>
+				<span>Kanada</span>
+				<span>Neuseeland</span>
+				<div class="sub" id="Neuseeland">
+					<span>Auckland</span>
+				</div>
+				<span>Kroatien</span>
+				<span>Polen</span>
+				<div class="sub" id="Polen">
+					<span>Kattowitz</span>
+					<span>Warschau</span>
+					<span>Danzig</span>
+				</div>
+			</div>
+		</div>
+		
+		<div id="measures" class="options">
+			<div>@Localize.get("filter.measures")</div><br />
+			<div class="group list">
+				<span>Busy time</span>
+				<span>Elapsed time</span>
+				<span>rows</span>
+			</div>
+		</div>
+		<div id="send">@Localize.get("filter.send")</div>
+	</div>
+    </body>
+</html>
