@@ -1,4 +1,4 @@
-package what;
+package what.sp_chart_creation;
 
 // java imports
 import java.io.File;

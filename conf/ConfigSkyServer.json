@@ -1,0 +1,126 @@
+{
+	"Name": "SkyServer",
+	"Version": "0.1",
+	
+	"Fields": [
+	{
+		"Type": "INT",
+		"Categorie": "time",
+		"Level": 1,
+		"Name": "year",
+		"LogId": "yy",
+		"Scale": ".",
+	}
+	{
+		"Type": "INT",
+		"Categorie": "time",
+		"Level": 2,
+		"Name": "month",
+		"LogId": "mm",
+		"Scale": ".",
+	}
+	{
+		"Type": "INT",
+		"Categorie": "time",
+		"Level": 3,
+		"Name": "day",
+		"LogId": "dd",
+		"Scale": ",",
+	}
+	{
+		"Type": "INT",
+		"Categorie": "time",
+		"Level": 4,
+		"Name": "hour",
+		"Scale": ":",
+	}
+	{
+		"Type": "INT",
+		"Categorie": "time",
+		"Level": 5,
+		"Name": "minute",
+		"LogId": "mi",
+		"Scale": ":",
+	}
+	{
+		"Type": "INT",
+		"Categorie": "time",
+		"Level": 6,
+		"Name": "second",
+		"LogId": "ss",
+		"Scale": " ",
+	}
+	
+	{
+		"Type": "IP",
+		"Categorie": "none",
+		"Level": 1,
+		"Name": "location",
+		"LogId": "clientIP",
+		"Scale": "location",
+	}
+	
+	{
+		"Type": "STRING",
+		"Categorie": "server",
+		"Level": 1,
+		"Name": "server",
+		"LogId": "server",
+		"Scale": "sever",
+		"List": ["SDSS3J" , "SDSS3D"],
+	}
+	
+	{
+		"Type": "STRING",
+		"Categorie": "server",
+		"Level": 2,
+		"Name": "database",
+		"LogId": "dbname",
+		"Scale": "db",
+		"List": ["BESTDR1" , "BESTDR7" , "BESTDR8" , "BESTDR9"],
+	}
+	
+	{
+		"Type": "DOUBLE",
+		"Categorie": "none",
+		"Level": 1,
+		"Name": "elapsed time",
+		"LogId": "elapsed", 
+		"Scale": "s",
+	}
+	
+	{
+		"Type": "DOUBLE",
+		"Categorie": "none",
+		"Level": 1,
+		"Name": "busy time",
+		"LogId": "busy",
+		"Scale": "s",
+	}
+	
+	{
+		"Type": "INT",
+		"Categorie": "none",
+		"Level": 1,
+		"Name": "rows",
+		"LogId": "rows",
+		"Scale": "rows",
+	}
+	
+	{
+		"Type": "STRINGTREE",
+		"Categorie": "type",
+		"Level": 1,
+		"Name": "type",
+		"Scale": "type",
+		"LogId": "statement",
+		"List": ["Meta(Algorithm|DataConstants|Glossary|QueryResults|RecentQueries|Rmatrix|TableDesc|Dependency|Diagnostics|History|LoadHistory|PubHistory|SiteDiagnostics|Versions|IndexMap|FileGroupMap|PartitionMap|SiteDBs|SDSSConstants|Inventory|DBObjects|DBColumns|DBViewCols|SiteConstants)",
+				 "QSO(QsoBest|QsoBunch|QsoTarget|QsoCatalogAll|QsoConcordanceAll|QsoSpec)",
+				 "Spectro(SpecObjAll(XCRedshift|ELRedShift|SpecLineAll|SpecPhotoAll|SpecLineIndex|QuasarCatalog)|PlateX|TargetInfo|Target|TargetParam)",
+				 "Tiling(TileAll(TilingRung(TilingGeometry|TilingInfo|TilingNote)|TilingTargetAll|HoleObj|Sector2Tile)|Region(Sector|BestTarget2Sector|HalfSpace|Region2Box|RegionArcs|RegionConvex))",
+				 "Photo(Photoz(PhotoObjAll|Neighbors|USNO|Rosat|First|PhotoAuxAll|PhotoProfile|ProperMotions|Photoz2)|Mask(MaskOBject)|PProfileDefs|Field(Frame|FieldProfile|RunQA)|TargRunQA|RunShift|MatchHead(Match)|StripDefs(Chunk|Segment))",
+		
+	}
+
+	]
+}

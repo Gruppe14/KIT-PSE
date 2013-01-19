@@ -5,8 +5,10 @@ import java.io.File;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import what.sp_chart_creation.ChartMediator;
 // intern imports
 import what.sp_config.ConfigWrap;
+import what.sp_parser.ParserMediator;
 
 /**
  * This class Facade represents a facade.<br>
@@ -63,7 +65,7 @@ public class Facade {
 		}
 		
 		// directs the request and returns the status of it
-		return parsMedi.parseLofFile(path);
+		return parsMedi.parseLogFile(path);
 	}
 	
 	private static boolean isInitiated() {

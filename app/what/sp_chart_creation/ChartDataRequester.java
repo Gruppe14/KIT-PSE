@@ -1,4 +1,4 @@
-package what;
+package what.sp_chart_creation;
 
 public class ChartDataRequester extends ChartVisitor {
 
