@@ -162,7 +162,7 @@ public class ParserMediator {
 	 */
 	protected void error(String err) {
 		System.out.println(err);		
-		System.exit(1);
+		//System.exit(1);
 	}
 
 	/**

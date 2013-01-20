@@ -1,4 +1,4 @@
-package GeoIP;
+package what.sp_parser.sp_GeoIp;
 // generated automatically from admin/generate_timeZone.pl
 public class timeZone {
   static public String timeZoneByCountryAndRegion(String country,String region) {

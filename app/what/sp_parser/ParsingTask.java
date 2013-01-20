@@ -34,6 +34,8 @@ public class ParsingTask extends Task implements Runnable {
 	 * It repeats this process until the Logfile is finished.
 	 * Should be protected, but Runnable doesn't allow that.
 	 */
+	private int otherCt = 0;
+	
 	public void run() {
 		while (true) {
 			str = pm.readLine();
@@ -53,7 +55,10 @@ public class ParsingTask extends Task implements Runnable {
 				} else {
 					VerificationTool.verifyIP(this);
 				}*/
-				System.out.println(de);
+				if (de.getInfo(5).equals("other")) {
+					otherCt++;
+					System.out.println(otherCt);
+				}
 			}
 			
 		}

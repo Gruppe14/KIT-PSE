@@ -2,7 +2,7 @@ package what.sp_parser;
 
 import java.io.IOException;
 
-import GeoIP.*;
+import what.sp_parser.sp_GeoIp.*;
 
 /**
  * This tool adds the City and Country of a request to a dataEntry.
@@ -32,8 +32,8 @@ public class GeoIPTool {
 		String seperator = System.getProperty("file.separator");
 		
 		
-		String lookup = dir + seperator + "geoLiteCity.dat";
-		
+		String lookup = dir + seperator + "data\\geoLiteCity.dat";
+				
 		
 		try {
 			

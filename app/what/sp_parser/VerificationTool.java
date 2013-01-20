@@ -45,8 +45,9 @@ public class VerificationTool {
 
 		ConfigWrap cw = lf.getPm().getConfig();
 		
+		
 		for (int i = 7; i < cw.getSize(); i++) {
-			if(!cw.getEntryAt(i).getClass().getSuperclass().getName().contains("MeasureRow")) {
+			if(!cw.getEntryAt(i).getClass().getSuperclass().getName().contains("RowEntry")) {
 				return false;
 			}
 		}
@@ -65,7 +66,8 @@ public class VerificationTool {
 		
 		int i = 0;
 		while (i < 6) {
-			if (!cw.getEntryAt(i).getName().toLowerCase().equals(typeSplit[i].toLowerCase())) {
+			
+			if (!cw.getEntryAt(i).getLogId().toLowerCase().equals(typeSplit[i].toLowerCase())) {
 				return false;
 			}
 			i++;

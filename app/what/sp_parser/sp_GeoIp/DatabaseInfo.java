@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package GeoIP;
+package what.sp_parser.sp_GeoIp;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;

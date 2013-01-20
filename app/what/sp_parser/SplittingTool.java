@@ -1,9 +1,12 @@
 package what.sp_parser;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 
 import what.sp_config.ConfigWrap;
+import what.sp_config.RowEntry;
+import what.sp_config.StringMapRow;
 
 /**
  * 
@@ -19,7 +22,33 @@ public class SplittingTool {
 		
 	
 	protected static boolean split(ParsingTask pt) {
-		return (splitTime(pt) && splitOthers(pt));
+		
+		return (splitTime(pt) && splitOthers(pt) && splitStatement(pt));
+	
+	}
+
+	private static boolean splitStatement(ParsingTask pt) {
+		
+		String[] split = pt.getSplitStr();
+		ConfigWrap conf = pt.getPm().getConfig();
+		
+	//	for (int i = conf.getSize(); i < split.length; i++) {
+			
+			StringMapRow row = (StringMapRow) conf.getEntryAt(conf.getSize() - 1);
+				
+			for (String str : row.getCompareTo()) {
+				if (pt.getStr().toLowerCase().contains(str.toLowerCase())) {
+				
+					pt.getDe().setInfo(row.isTopicTo(str), conf.getSize() - 8);
+												
+					return true;
+				} 
+			}				
+	//	}
+
+		pt.getDe().setInfo("other", conf.getSize() - 8);
+	//	System.out.println(pt.getStr());
+		return true;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -42,7 +71,7 @@ public class SplittingTool {
 			
 			
 		try {
-			month = Integer.parseInt(str[1]);
+			month = Integer.parseInt(str[1]) - 1;
 		} catch (NumberFormatException e) {
 			pt.getPm().increaseLinedel();
 			return false;
@@ -93,7 +122,6 @@ public class SplittingTool {
 		DataEntry de = pt.getDe();
 		String [] str = pt.getSplitStr();
 		ConfigWrap cw = pt.getPm().getConfig();
-		ArrayList<String> servers = new ArrayList<String>(100);
 		
 		for (int i = 7; i < pt.getPm().getConfig().getSize() - 1; i++) {
 			if (cw.getEntryAt(i).getClass().getName().contains("StringRow")) {

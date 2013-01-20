@@ -1,4 +1,4 @@
-package GeoIP;
+package what.sp_parser.sp_GeoIp;
 // generated automatically from admin/generate_regionName.pl
 public class regionName {
 static public String regionNameByCode(String country_code,String region_code) {

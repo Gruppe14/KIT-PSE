@@ -99,7 +99,7 @@ public class Logfile {
 		br = new BufferedReader(new InputStreamReader(in));
 		try {
 			type = br.readLine();
-			
+						
 			if (!VerificationTool.checkConfig(this)) {
 				pm.error(Messages.getString("Error.110"));
 			} 
@@ -122,6 +122,7 @@ public class Logfile {
 	 */
 	protected synchronized String readLine() {
 		String str = null;
+		String str2;
 		try {
 		/*	if (lines == 0) {
 				first = System.currentTimeMillis();
@@ -132,14 +133,30 @@ public class Logfile {
 			} */
 			
 			str = br.readLine();
-			
+						
 			if (str == null) {
 				return str;
 			}
 			
-			while (!str.endsWith("\"")) {
-				str += br.readLine();
+			
+			
+			boolean goOn = true;
+			while (goOn) {
+				br.mark(10000);
+				str2 = br.readLine();
+				if (str2 == null) {
+					return str;
+				}
+				if (!str2.startsWith("20")) {
+					str += str2;
+				} else {
+					br.reset();
+					goOn = false;
+				}
 			}
+			
+						
+		
 				
 			
 		} catch (IOException e) {
