@@ -32,22 +32,19 @@ public class SplittingTool {
 		String[] split = pt.getSplitStr();
 		ConfigWrap conf = pt.getPm().getConfig();
 		
-	//	for (int i = conf.getSize(); i < split.length; i++) {
+	
 			
-			StringMapRow row = (StringMapRow) conf.getEntryAt(conf.getSize() - 1);
+		StringMapRow row = (StringMapRow) conf.getEntryAt(conf.getSize() - 1);
 				
-			for (String str : row.getCompareTo()) {
-				if (pt.getStr().toLowerCase().contains(str.toLowerCase())) {
-				
-					pt.getDe().setInfo(row.isTopicTo(str), conf.getSize() - 8);
-												
-					return true;
-				} 
-			}				
-	//	}
+		for (String str : row.getCompareTo()) {
+			if (pt.getStr().toLowerCase().contains(str.toLowerCase())) {
+				pt.getDe().setInfo(row.isTopicTo(str), conf.getSize() - 8);						
+				return true;
+			} 
+		}				
+	
 
 		pt.getDe().setInfo("other", conf.getSize() - 8);
-	//	System.out.println(pt.getStr());
 		return true;
 	}
 

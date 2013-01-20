@@ -35,6 +35,7 @@ public class ParsingTask extends Task implements Runnable {
 	 * Should be protected, but Runnable doesn't allow that.
 	 */
 	private int otherCt = 0;
+	private int photoCt = 0;
 	
 	public void run() {
 		while (true) {
@@ -57,8 +58,10 @@ public class ParsingTask extends Task implements Runnable {
 				}*/
 				if (de.getInfo(5).equals("other")) {
 					otherCt++;
-					System.out.println(otherCt);
+				} else if (de.getInfo(5).equals("Photo")) {
+					photoCt++;
 				}
+				System.out.println("other: " + otherCt + " photo: " + photoCt);
 			}
 			
 		}
