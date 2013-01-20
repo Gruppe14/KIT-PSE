@@ -55,7 +55,7 @@
 	{
 		"Type": "IP",
 		"Categorie": "none",
-		"Level": 1,
+		"Level": 0,
 		"Name": "location",
 		"LogId": "clientIP",
 		"Scale": "location",
@@ -84,7 +84,7 @@
 	{
 		"Type": "DOUBLE",
 		"Categorie": "none",
-		"Level": 1,
+		"Level": 0,
 		"Name": "elapsed time",
 		"LogId": "elapsed", 
 		"Scale": "s",
@@ -93,7 +93,7 @@
 	{
 		"Type": "DOUBLE",
 		"Categorie": "none",
-		"Level": 1,
+		"Level": 0,
 		"Name": "busy time",
 		"LogId": "busy",
 		"Scale": "s",
@@ -102,7 +102,7 @@
 	{
 		"Type": "INT",
 		"Categorie": "none",
-		"Level": 1,
+		"Level": 0,
 		"Name": "rows",
 		"LogId": "rows",
 		"Scale": "rows",
@@ -111,7 +111,7 @@
 	{
 		"Type": "STRINGMAP",
 		"Categorie": "type",
-		"Level": 1,
+		"Level": 0,
 		"Name": "type",
 		"Scale": "type",
 		"LogId": "statement",

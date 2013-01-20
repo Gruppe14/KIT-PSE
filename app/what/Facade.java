@@ -4,8 +4,8 @@ package what;
 import java.io.File;
 import java.io.IOException;
 
+// org.json imports
 import org.json.JSONException;
-
 
 // intern imports
 import what.sp_config.ConfigWrap;
@@ -28,25 +28,44 @@ import what.sp_chart_creation.ChartMediator;
  */
 public class Facade {
 	
-	private static ParserMediator parsMedi;
+	private ConfigWrap currentConfig;
 	
-	private static ChartMediator chartMedi;
+	private ParserMediator parsMedi;
+	
+	private ChartMediator chartMedi;
 	 
 	
-	// Initialization
+	// -- INIT -- RESET -- INIT -- RESET -- INIT --
+	/**
+	 * Initializes this facade with a ConfigWrap, what is necessary
+	 * to post requests to it.
+	 * 
+	 * @param path of the configuration file (.json)
+	 * @return whether initialization was successful
+	 */
 	public boolean init(String path) {
-		if (path == null) {						 //TODO better check?
+		if (path == null) {						 
 			throw new IllegalArgumentException();
 		}
 		
 		ConfigWrap config = null;
 		
+		// tries to build a new ConfigWrap
 		try {
 			config = ConfigWrap.buildConfig(path);
-		} catch (IOException | JSONException e) {
+		} catch (JSONException e) {
+			System.out.println("Building ConfigWrap with the given path failed"
+								+ "because something went wrong with JSON!");
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			System.out.println("Building ConfigWrap with the given path failed "
+								+ "because of an IO failure!");
 			e.printStackTrace();
 			return false;
 		}
+		
+		currentConfig = config;
 		
 		parsMedi = new ParserMediator(config);
 		chartMedi = new ChartMediator(config);	
@@ -54,10 +73,25 @@ public class Facade {
 		return true;
 	}
 	
+	/**
+	 * Checks whether the facade and the ConfigWrap have been initialized.
+	 * 
+	 * @return whether the facade and the ConfigWrap have been initialized
+	 */
+	private boolean isInitialized() {
+		return ((parsMedi != null) && (chartMedi != null));
+	}
 	
+	/**
+	 * Resets the facade.
+	 */
+	public void reset() {
+		currentConfig = null;
+		parsMedi = null;
+		chartMedi = null;
+	}
 	
-	
-	// Handling requests
+	// -- REQUESTS -- REQUESTS -- REQUESTS -- -- REQUESTS --
 	/**
 	 * Directs a parsing request to a ParserMediator.<br>
 	 * 
@@ -70,11 +104,11 @@ public class Facade {
 	 * @see ParserMediator 
 	 */
 	public boolean parseLogFile(String path) {
-		if (path == null) {						 //TODO better check?
+		if (path == null) {						 
 			throw new IllegalArgumentException();
 		}
 		
-		if (!isInitiated()) {
+		if (!isInitialized()) {
 			//throw new NotImplementedException(); //TODO better exception
 		}
 		
@@ -82,11 +116,7 @@ public class Facade {
 		return parsMedi.parseLogFile(path);
 	}
 	
-	private static boolean isInitiated() {
-		return ((parsMedi != null) && (chartMedi != null));
-	}
-	
-	
+		
 	/**
 	 * Directs a chart request to a ChartMediator.<br>
 	 * 
@@ -101,7 +131,7 @@ public class Facade {
 			throw new IllegalArgumentException();
 		}
 
-		if (!isInitiated()) {
+		if (!isInitialized()) {
 			//throw new NotImplementedException(); //TODO better exception
 		}
 		
@@ -136,12 +166,14 @@ public class Facade {
 		// request the chart
 		File histo = chartMedi.getHistoryChart(number);	
 		if (histo == null) {
-			//TODO error handling
+			System.out.println("Config not initialized => no chart requests allowed!");
+			
 		}
 		
 		return histo;
 	}
 	
+	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 	
 	/**
 	 * Returns the number of charts stored in the history.
 	 * 
@@ -151,6 +183,15 @@ public class Facade {
 		// TODO Auto-generated method stub
 		return 10;
 	}
+
+
+	/**
+	 * @return the currentConfig
+	 */
+	public ConfigWrap getCurrentConfig() {
+		return currentConfig;
+	}
+
 
 	
 }

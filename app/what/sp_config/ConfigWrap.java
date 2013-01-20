@@ -1,13 +1,27 @@
 package what.sp_config;
 
+// java imports
 import java.io.File;
 import java.io.IOException;
 
+// org.json imports
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
  
-
+/**
+ * A ConfigWrap stores all needed information about a database
+ * extracted from a .json file given to the static factory.<br>
+ * 
+ *  It consists of general information and all rows (RowEntry) in
+ *  a a parse log file and the warehouse tables.
+ * 
+ * @author Jonathan, PSE Gruppe 14
+ * @version 1.0
+ * 
+ * @see RowEntry
+ * 
+ */
 public class ConfigWrap {
 	
 	/** Name of the data base for which this ConfigWrap is */
@@ -35,58 +49,107 @@ public class ConfigWrap {
 	 * @param path the path of the configuration file 
 	 * 		  from witch this ConfigWrap will be build up
 	 * @return a ConfigWrap build up from the given file
-	 * @throws IOException 
-	 * @throws JSONException 
+	 * @throws IOException path wasn't correct
+	 * @throws JSONException something went wrong while working with the JSON lib
 	 */
 	public static ConfigWrap buildConfig(String path) throws IOException, JSONException {
 		if (path == null) {
 			throw new IllegalArgumentException();
 		}
-				
+		
+		// gets the file
 		File configFile = ConfigHelper.getConfigFile(path);
 		
+		// gets the content of the file
 		String jsonContent = ConfigHelper.getJSONContent(configFile);
 		
+		// gets the json object (all content)
 		JSONObject json = new JSONObject(jsonContent);
 		
+		// build the ConfigWrap
 		ConfigWrap confi = buildConfig(json);
+		if (confi == null) {
+			System.out.println("Building ConfigWrap failed.");
+			return null;
+		}
 		
 		return confi;
 	}
 		
-	
+	/**
+	 * Private helper method for buildConfig(path).<br>
+	 * Builds the ConfigWrap from the given JSONOBject.
+	 * 
+	 * @param json JSONObject from which the information will be extracted
+	 * @return the constructed ConfigWrap
+	 * @throws JSONException something went wrong while working with the JSON lib
+	 */
 	private static ConfigWrap buildConfig(JSONObject json) throws JSONException {
 		assert (json != null);
 		
 		ConfigWrap confi = new ConfigWrap();
 		
+		// get general information
 		confi.dbName = json.getString(ConfigHelper.DB_NAME);
 		confi.version = json.getString(ConfigHelper.VERSION);
 		
+		// get the rows
 		JSONArray rows = json.getJSONArray(ConfigHelper.FIELDS);
-		
 		confi.entries = new RowEntry[rows.length()];
 		
-		confi.buildConfigEntries(rows);
+		if (!confi.buildConfigEntries(rows)) {
+			System.out.println("Building RowEntries failed.");
+			return null;
+		}
 		
 		return confi;
 	}
 
-	private void buildConfigEntries(JSONArray jsRows) throws JSONException {
+	/**
+	 * Private helper method for buildConfig(json).<br>
+	 * 
+	 * Builds and stores the RowEntrys from a given JSONArray.  
+	 * 
+	 * @param jsRows JSONArray from which the entries will be extracted
+	 * @throws JSONException something went wrong while working with the JSON lib
+	 */
+	private boolean buildConfigEntries(JSONArray jsRows) throws JSONException {
 		assert (jsRows != null);
 	
 		for (int i = 0, l = jsRows.length(); i < l; i++) {
-			JSONObject jso = (JSONObject) jsRows.get(i); //TODO protect this, check this
+			// get RowEntry
+			JSONObject jso = (JSONObject) jsRows.get(i); 
 			RowEntry re = ConfigHelper.getEntry(jso);
+			
+			// failed?
+			if (re == null) {
+				System.out.println("Constructing RowEntry " + i + " failed.");
+				return false;
+			}
+			
+			// stores row
 			this.entries[i] = re;
 		}
+		
+		return true;
 	}
 
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 
+	/**
+	 * Returns the number of rows.
+	 * 
+	 * @return the number of rows
+	 */
 	public int getSize() {
 		return entries.length;
 	}
 	
+	/**
+	 * Returns the RowEntry at the given position.
+	 * 
+	 * @param i position from which the RowEntry is required
+	 * @return the RowEntry at the given position
+	 */
 	public RowEntry getEntryAt(int i) {
 		if ((i < 0) || (i >= entries.length)) {
 			throw new IllegalArgumentException();
@@ -95,13 +158,37 @@ public class ConfigWrap {
 		return entries[i];
 	}
 
+	/**
+	 * Returns the name of the database for which this configuration is.
+	 * 
+	 * @return the name of the database for which this configuration is
+	 */
 	public String getNameOfDB() {
 		return dbName;
 	}
 
+	/**
+	 * Returns the version of the configuration.
+	 * 
+	 * @return the version of the configuration
+	 */
 	public String getVersion() {
 		return version;
 	}
+
+	@Override
+	public String toString() {
+		String s = "ConfigWrap [dbName= " + dbName + ", version= " + version
+				+ ", entries= [";
+		for (int i = 0, j = getSize(); i < j; i++) {
+			s += getEntryAt(i).toString(); 
+		}
+		
+		s += "] ]";
+		return s;
+	}
+	
+	
 
 	
 }
