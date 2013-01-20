@@ -112,11 +112,15 @@ public class Facade {
 			//throw new NotImplementedException(); //TODO better exception
 		}
 		
-		// directs the request and returns the status of it
-		return parsMedi.parseLogFile(path);
-	}
-	
+		// directs the request
+		if (parsMedi.parseLogFile(path)) {
+			// request information about content in 
+			
+		}
 		
+		return true;
+	}
+
 	/**
 	 * Directs a chart request to a ChartMediator.<br>
 	 * 
@@ -171,6 +175,13 @@ public class Facade {
 		}
 		
 		return histo;
+	}
+	
+	public void getDimensions() {
+		if (!isInitialized()) {
+			//throw new NotImplementedException(); //TODO better exception
+		}
+		
 	}
 	
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 	

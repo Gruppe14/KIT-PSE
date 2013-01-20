@@ -116,12 +116,29 @@
 		"Scale": "type",
 		"LogId": "statement",
 		"List": [
+				 { "ParentName" = "Photo",
+					"List" = 
+					["Photo", "PhotoTag", "PhotoObjAll", "PhotoPrimary", "PhotoSecondary", "Photoz","Rosat","Neighbors","USNO", "First", "PhotoAuxAll",
+ 					 "PhotoProfile", "PhotoObj" "ProperMotions", "Photoz2", "Mask", 
+					 "MaskOBject", "PProfileDefs", "Field", "Frame", "FieldProfile", "RunQA", 
+					 "TargRunQA", "RunShift", "MatchHeadMatch", "StripDefs", "Chunk", "Segment"
+					],
+				 },
+				 
+				 { "ParentName" = "Spectro",
+					"List" = 
+					["sppParams", "galSpecIndx", "galSpecLine", "SpecObjAll", "XCRedshift", "ELRedShift", "SpecLineAll", "SpecPhotoAll", 
+					 "SpecLineIndex", "QuasarCatalog", "PlateX", "TargetInfo", "Target", "TargetParam",
+					 
+					],
+				 },
+				 
 				 {"ParentName" = "Meta",
 				  "List" = 
-					["Algorithm", "DataConstants", "Glossary", "QueryResults", "RecentQueries",
+					["DBObjects", "Algorithm", "DataConstants", "Glossary", "QueryResults", "RecentQueries",
 					 "Rmatrix", "TableDesc", "Dependency", "Diagnostics", "History", "LoadHistory", "PubHistory", 
 					 "SiteDiagnostics", "Versions", "IndexMap", "FileGroupMap", "PartitionMap", "SiteDBs", 
-					 "SDSSConstants", "Inventory", "DBObjects", "DBColumns", "DBViewCols", "SiteConstants"],
+					 "SDSSConstants", "Inventory",  "DBColumns", "DBViewCols", "SiteConstants"],
 				 },
 				 { "ParentName" = "QSO",
 					"List" = 
@@ -129,12 +146,6 @@
 					],
 				 },
 				 
-				 { "ParentName" = "Spectro",
-					"List" = 
-					["SpecObjAll", "XCRedshift", "ELRedShift", "SpecLineAll", "SpecPhotoAll", 
-					 "SpecLineIndex", "QuasarCatalog", "PlateX", "TargetInfo", "Target", "TargetParam"
-					],
-				 },
 				 
 				 { "ParentName" = "Tiling",
 					"List" = 
@@ -142,16 +153,7 @@
 					 "HoleObj", "Sector2Tile", "Region", "Sector", "BestTarget2Sector", "HalfSpace", 
 					 "Region2Box", "RegionArcs", "RegionConvex"
 					],
-				 },
-				 
-				 { "ParentName" = "Photo",
-					"List" = 
-					["Photo", "Photoz","Rosat","Neighbors","USNO", "First", "PhotoAuxAll",
- 					 "PhotoProfile", "ProperMotions", "Photoz2", "Mask", "PhotoObjAll",
-					 "MaskOBject", "PProfileDefs", "Field", "Frame", "FieldProfile", "RunQA", 
-					 "TargRunQA", "RunShift", "MatchHeadMatch", "StripDefs", "Chunk", "Segment"
-					],
-				 }
+				 }				 
 				],
 	}],
 }
