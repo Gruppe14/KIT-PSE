@@ -3,12 +3,16 @@ package what;
 // java imports
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 // org.json imports
 import org.json.JSONException;
 
+import sp_dataMediation.DataMediator;
+
 // intern imports
 import what.sp_config.ConfigWrap;
+import what.sp_config.DimRow;
 import what.sp_parser.ParserMediator;
 import what.sp_chart_creation.ChartMediator;
 
@@ -28,11 +32,17 @@ import what.sp_chart_creation.ChartMediator;
  */
 public class Facade {
 	
+	/**	Current Configuration on which all work is based with this Facade. */
 	private ConfigWrap currentConfig;
 	
+	/** ParserMediator to which work is directed from this Facade. */
 	private ParserMediator parsMedi;
 	
+	/** ChartMediator to which work is directed from this Facade. */
 	private ChartMediator chartMedi;
+	
+	/** DataMediator to which work is directed from this Facade. */
+	private DataMediator dataMedi;
 	 
 	
 	// -- INIT -- RESET -- INIT -- RESET -- INIT --
@@ -113,9 +123,15 @@ public class Facade {
 		}
 		
 		// directs the request
-		if (parsMedi.parseLogFile(path)) {
-			// request information about content in 
-			
+		if (!parsMedi.parseLogFile(path)) {
+			System.out.println("Parsing failed!");
+			return false;		
+		}
+		
+		// set up data after parsing
+		if (!dataMedi.organizeData()) {
+			System.out.println("Setting up data after parsing failed!");
+			return false;
 		}
 		
 		return true;
@@ -177,11 +193,19 @@ public class Facade {
 		return histo;
 	}
 	
-	public void getDimensions() {
+	/**
+	 * Returns the dimensions and rows.
+	 * 
+	 * @return the dimensions and rows
+	 */
+	public ArrayList<DimRow> getDimensions() {
 		if (!isInitialized()) {
 			//throw new NotImplementedException(); //TODO better exception
 		}
 		
+		ArrayList<DimRow> dims = currentConfig.getDims(); 
+			
+		return dims;		
 	}
 	
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 	

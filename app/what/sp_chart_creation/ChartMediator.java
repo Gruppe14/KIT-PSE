@@ -22,13 +22,10 @@ import what.sp_config.ConfigWrap;
  */
 public class ChartMediator {
 	
-	/* Cache of ChartMediators */
-	private static TreeSet<ChartMediator> mediatorCache = new TreeSet<ChartMediator>();
-	
-	/* Configuration on which this ChartMediator works on */
+	/** Configuration on which this ChartMediator works on */
 	private ConfigWrap config;
 	
-	/* The stored history of computed charts of this ChartMediator */
+	/** The stored history of computed charts of this ChartMediator */
 	private LinkedList<Petra> history;
 	
 // -------- ChartMediator creation and fly-weight pattern -------------
@@ -49,44 +46,6 @@ public class ChartMediator {
 		this.config = confi;
 	}
 	
-	/**
-	 * Static factory machine for ChartMediators.<br>
-	 * 
-	 * This factory ensures that no duplicates, referring to configurations,
-	 * are produced. This is necessary for saving the latest
-	 * chart request results.
-	 * 
-	 * @param confi
-	 * @return
-	 *
-	public static ChartMediator getChartMediator(ConfigWrap confi) {
-		if (confi == null) {
-			throw new IllegalArgumentException();
-		}
-		
-		// looks if it is already cached
-		for (ChartMediator m : mediatorCache) {
-			if (m.getConfig()  == confi) {
-				return m;
-			}
-		}
-		
-		//TODO better error handling!
-		ChartMediator medi = new ChartMediator(confi);
-		
-		
-		return medi;
-	}*/
-
-	/**
-	 * Returns the configuration for the database of this ChartMediator.
-	 * 
-	 * @return the ConfigWrap of this ChartMediator
-	 */
-	private ConfigWrap getConfig() {
-		return config;
-	}
-
 	
 
 // -------- Handling of a Chart request -------------------------------

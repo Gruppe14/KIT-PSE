@@ -3,6 +3,7 @@ package what.sp_config;
 // java imports
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 // org.json imports
 import org.json.JSONArray;
@@ -31,8 +32,13 @@ public class ConfigWrap {
 	private String version; // not necessary yet, 
 						   // but i see potential and so it may be better to be in from the beginning
 	
-	/** The entries in order of the appearance in the log file */
+	/** The entries in order of the appearance in the log file. */
 	private RowEntry[] entries; 
+	
+	/** The dimensions or rows in order of appearance. */
+	private ArrayList<DimRow> dimRows;
+	
+	private int sizeOfHistory = 10;
 
 	/**
 	 * Private constructor as the building is solved with a static factory.
@@ -96,9 +102,15 @@ public class ConfigWrap {
 		// get the rows
 		JSONArray rows = json.getJSONArray(ConfigHelper.FIELDS);
 		confi.entries = new RowEntry[rows.length()];
-		
 		if (!confi.buildConfigEntries(rows)) {
 			System.out.println("Building RowEntries failed.");
+			return null;
+		}
+		
+		// compute the dimensions
+		confi.dimRows = new ArrayList<DimRow>();
+		if (!confi.buildConfigDimRows()) {
+			System.out.println("Building DimRow's failed.");
 			return null;
 		}
 		
@@ -107,7 +119,34 @@ public class ConfigWrap {
 
 	/**
 	 * Private helper method for buildConfig(json).<br>
+	 * Sets up the DimRows.
 	 * 
+	 * @return whether setting up the DimRows was successful
+	 */
+	private boolean buildConfigDimRows() {
+		for (int i = 0, l = getSize(); i < l; i++) {
+			DimRow cur = new DimRow();
+			RowEntry re = entries[i];
+			cur.add(re); 
+			
+			if (re.getLevel() > 0) {
+				String cat = re.getCategory();
+				i++;
+				while (entries[i].getCategory().equals(cat)) {
+					cur.add(entries[i]);
+					i++;
+				}
+			}
+			
+			dimRows.add(cur);		
+		}
+		
+		return true;
+	}
+	
+
+	/**
+	 * Private helper method for buildConfig(json).<br>
 	 * Builds and stores the RowEntrys from a given JSONArray.  
 	 * 
 	 * @param jsRows JSONArray from which the entries will be extracted
@@ -134,6 +173,18 @@ public class ConfigWrap {
 		return true;
 	}
 
+	// -- SETTER -- SETTER -- SETTER -- SETTER -- SETTER --
+	public boolean computeDimRows() {
+		for (int i = 0, l = getSize(); i < l; i++) {
+			if (!dimRows.get(i).setStrings()) {
+				System.out.println("Computing strings for DimRow #" + i + " failed!");
+				return false;
+			}
+		}
+				
+		return true;
+	}
+	
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 
 	/**
 	 * Returns the number of rows.
@@ -158,6 +209,15 @@ public class ConfigWrap {
 		return entries[i];
 	}
 
+	/**
+	 * Returns the dimensions and rows.
+	 * 
+	 * @return the dimensions and rows
+	 */
+	public ArrayList<DimRow> getDims() {
+		return dimRows;
+	}
+	
 	/**
 	 * Returns the name of the database for which this configuration is.
 	 * 

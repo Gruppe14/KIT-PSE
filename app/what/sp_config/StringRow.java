@@ -14,7 +14,7 @@ public class StringRow extends RowEntry {
 		this.contents = strings;
 	}
 
-	public Set<String> getCopmareTo() {
+	public Set<String> getCompareTo() {
 		return contents;
 	}
 }
