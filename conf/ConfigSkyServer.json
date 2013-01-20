@@ -67,7 +67,7 @@
 		"Level": 1,
 		"Name": "server",
 		"LogId": "server",
-		"Scale": "sever",
+		"Scale": "server",
 		"List": ["SDSS3J" , "SDSS3D",],
 	},
 	
@@ -118,8 +118,9 @@
 		"List": [
 				 { "ParentName" = "Photo",
 					"List" = 
-					["Photo", "PhotoTag", "PhotoObjAll", "PhotoPrimary", "PhotoSecondary", "Photoz","Rosat","Neighbors","USNO", "First", "PhotoAuxAll",
- 					 "PhotoProfile", "PhotoObj" "ProperMotions", "Photoz2", "Mask", 
+					["Photo", "PhotoTag", "PhotoObjAll", "PhotoPrimary", "PhotoSecondary", "Photoz", "Rosat", 
+					 "Neighbors", "USNO", "First", "PhotoAuxAll",
+ 					 "PhotoProfile", "PhotoObj", "ProperMotions", "Photoz2", "Mask", 
 					 "MaskOBject", "PProfileDefs", "Field", "Frame", "FieldProfile", "RunQA", 
 					 "TargRunQA", "RunShift", "MatchHeadMatch", "StripDefs", "Chunk", "Segment"
 					],
@@ -128,8 +129,7 @@
 				 { "ParentName" = "Spectro",
 					"List" = 
 					["sppParams", "galSpecIndx", "galSpecLine", "SpecObjAll", "XCRedshift", "ELRedShift", "SpecLineAll", "SpecPhotoAll", 
-					 "SpecLineIndex", "QuasarCatalog", "PlateX", "TargetInfo", "Target", "TargetParam",
-					 
+					 "SpecLineIndex", "QuasarCatalog", "PlateX", "TargetInfo", "Target", "TargetParam"
 					],
 				 },
 				 
@@ -138,15 +138,16 @@
 					["DBObjects", "Algorithm", "DataConstants", "Glossary", "QueryResults", "RecentQueries",
 					 "Rmatrix", "TableDesc", "Dependency", "Diagnostics", "History", "LoadHistory", "PubHistory", 
 					 "SiteDiagnostics", "Versions", "IndexMap", "FileGroupMap", "PartitionMap", "SiteDBs", 
-					 "SDSSConstants", "Inventory",  "DBColumns", "DBViewCols", "SiteConstants"],
+					 "SDSSConstants", "Inventory",  "DBColumns", "DBViewCols", "SiteConstants"
+					 ],
 				 },
+				 
 				 { "ParentName" = "QSO",
 					"List" = 
 					["QsoBest", "QsoBunch", "QsoTarget", "QsoCatalogAll", "QsoConcordanceAll", "QsoSpec"
 					],
 				 },
-				 
-				 
+				  
 				 { "ParentName" = "Tiling",
 					"List" = 
 					["TileAll", "TilingRung", "TilingGeometry", "TilingInfo", "TilingNote", "TilingTargetAll", 
