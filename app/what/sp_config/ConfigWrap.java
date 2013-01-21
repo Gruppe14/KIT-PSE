@@ -36,7 +36,7 @@ public class ConfigWrap {
 	private RowEntry[] entries; 
 	
 	/** The dimensions or rows in order of appearance. */
-	//private ArrayList<DimRow> dimRows;
+	private ArrayList<DimRow> dimRows;
 	
 	private int sizeOfHistory = 10;
 
@@ -108,11 +108,11 @@ public class ConfigWrap {
 		}
 		
 		// compute the dimensions
-		//confi.dimRows = new ArrayList<DimRow>();
-		/*if (!confi.buildConfigDimRows()) {
+		confi.dimRows = new ArrayList<DimRow>();
+		if (!confi.buildConfigDimRows()) {
 			System.out.println("Building DimRow's failed.");
 			return null;
-		}*/
+		}
 		
 		return confi;
 	}
@@ -123,7 +123,7 @@ public class ConfigWrap {
 	 * 
 	 * @return whether setting up the DimRows was successful
 	 */
-	/*private boolean buildConfigDimRows() {
+	private boolean buildConfigDimRows() {
 		for (int i = 0, l = getSize(); i < l; i++) {
 			DimRow cur = new DimRow();
 			RowEntry re = entries[i];
@@ -132,17 +132,20 @@ public class ConfigWrap {
 			if (re.getLevel() > 0) {
 				String cat = re.getCategory();
 				i++;
-				while (entries[i].getCategory().equals(cat)) {
+				
+				while ((i < l) && (entries[i].getCategory().equals(cat))) {
 					cur.add(entries[i]);
 					i++;
 				}
+				
+				i--;
 			}
 			
 			dimRows.add(cur);		
 		}
 		
 		return true;
-	}*/
+	}
 	
 
 	/**
@@ -174,7 +177,7 @@ public class ConfigWrap {
 	}
 
 	// -- SETTER -- SETTER -- SETTER -- SETTER -- SETTER --
-	/*public boolean computeDimRows() {
+	public boolean computeDimRows() {
 		for (int i = 0, l = getSize(); i < l; i++) {
 			if (!dimRows.get(i).setStrings()) {
 				System.out.println("Computing strings for DimRow #" + i + " failed!");
@@ -184,7 +187,7 @@ public class ConfigWrap {
 				
 		return true;
 	}
-	*/
+	
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 
 	/**
 	 * Returns the number of rows.
@@ -202,11 +205,25 @@ public class ConfigWrap {
 	 * @return the RowEntry at the given position
 	 */
 	public RowEntry getEntryAt(int i) {
-		if ((i < 0) || (i >= entries.length)) {
+		if ((i < 0) || (i >= getSize())) {
 			throw new IllegalArgumentException();
 		}
 		
 		return entries[i];
+	}
+	
+	/**
+	 * Returns the RowEntry at the given position.
+	 * 
+	 * @param i position from which the RowEntry is required
+	 * @return the RowEntry at the given position
+	 */
+	public DimRow getDimRowAt(int i) {
+		if ((i < 0) || (i >= dimRows.size())) {
+			throw new IllegalArgumentException();
+		}
+		
+		return dimRows.get(i);
 	}
 
 	/**
@@ -237,17 +254,31 @@ public class ConfigWrap {
 		return version;
 	}
 
+	public ArrayList<DimRow> getDims() {
+		return dimRows;
+	}
+	
+	
 	@Override
 	public String toString() {
 		String s = "ConfigWrap [dbName= " + dbName + ", version= " + version
-				+ ", entries= [";
+				+ ", entries= \n[";
 		for (int i = 0, j = getSize(); i < j; i++) {
 			s += getEntryAt(i).toString(); 
 		}
 		
-		s += "] ]";
+		s += "]\n dimRows = [\n"; 
+		
+		for (int i = 0, k = dimRows.size(); i < k; i++) {
+			s += getDimRowAt(i).toString() + "\n";
+		}
+		
+		s +=  "] ]";
+		
 		return s;
 	}
+
+	
 	
 	
 
