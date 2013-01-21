@@ -89,26 +89,31 @@ public class Logfile {
 		this.file = new File(path);
 		} catch (NullPointerException e) {
 			pm.error(Messages.getString("Error.50"));
+			return;
 		}
 		try {
 			fstream = new FileInputStream(file);
 		} catch (FileNotFoundException e) {
 			pm.error(Messages.getString("Error.60P1") + " " + path + " " + Messages.getString("Error.60P2"));
+			return;
 		}
 		in = new DataInputStream(fstream);
 		br = new BufferedReader(new InputStreamReader(in));
 		try {
 			type = br.readLine();
-						
+	
 			if (!VerificationTool.checkConfig(this)) {
 				pm.error(Messages.getString("Error.110"));
+				return;
 			} 
 			
 		} catch (IOException e) {
 			if (!file.canRead()) {
 				pm.error(Messages.getString("Error.71"));
+				return;
 			} else {
 				pm.error(Messages.getString("Error.73"));
+				return;
 			}
 			
 		}

@@ -51,7 +51,7 @@ public class ParsingTask implements Runnable {
 				}
 			
 				//System.out.println(str);
-				System.out.println(de.toString());
+			//	System.out.println(de.toString());
 		
 			}
 			

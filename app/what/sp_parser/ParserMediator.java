@@ -1,6 +1,5 @@
 package what.sp_parser;
 
-import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
@@ -24,7 +23,7 @@ public class ParserMediator {
 	/**
 	 * The poolsize of parsingTasks.
 	 */
-	private int poolsize = 5;
+	private int poolsize = 10;
 	
 	
 	/**
@@ -115,6 +114,11 @@ public class ParserMediator {
 				error(Messages.getString("Error.40P1") + " " + i + " " + Messages.getString("Error.40P2")); 
 			}
 			
+			if (fatalError) {
+				threadPool.shutdown();
+				return false;
+			}
+			
 		}
 		
 		while (true) {
@@ -127,6 +131,10 @@ public class ParserMediator {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					error(Messages.getString("Error.80"));
+				}
+				
+				if (fatalError) {
+					return false;
 				}
 			}
 		}
@@ -157,7 +165,6 @@ public class ParserMediator {
 	 */
 	protected void increaseFT() {
 		finishedTasks++;		
-		System.out.println("finished" + finishedTasks);
 	}
 	
 	/**
