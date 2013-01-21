@@ -1,8 +1,10 @@
 package controllers;
 
-import play.mvc.*;
+import play.mvc.Controller;
+import play.mvc.Result;
 import what.Facade;
 import what.sp_config.ConfigWrap;
+import what.sp_parser.Messages;
  
 // Class for test purposes only
 public class Test extends Controller {
@@ -20,6 +22,7 @@ public class Test extends Controller {
 		
 
 	System.out.println("This is a test for checking whether reading the config file is successful:");
+
 		Facade f = new Facade();
 		String sourcePath = System.getProperty("user.dir");
 		String seperator = System.getProperty("file.separator");
@@ -29,6 +32,15 @@ public class Test extends Controller {
 		System.out.println("And if it's content is there:");
 		ConfigWrap confi = f.getCurrentConfig();
 		System.out.println(confi.toString());
+		
+		Messages.setLanguage("german");
+		
+		/* 
+		 * Uncomment first for 32k lines, second for 10 lines and third for 1k lines.
+		 */
+		//f.parseLogFile(sourcePath + seperator + "example\\resultDay.csv");
+		f.parseLogFile(sourcePath + seperator + "example\\result10.csv");
+		//f.parseLogFile(sourcePath + seperator + "example\\result1000.csv");
 		
 		return ok("Please look on your console for output of your code");
 	}
