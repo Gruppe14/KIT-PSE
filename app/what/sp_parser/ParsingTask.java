@@ -46,17 +46,15 @@ public class ParsingTask implements Runnable {
 				de = new DataEntry(pm.getConfig().getSize() + 2);
 				if (SplittingTool.split(this)) {
 					GeoIPTool.getLocationInfo(this);
+					
+					//TODO : SEND TO ANAS.
+					
+					
 				} else {
 					pm.increaseLinedel();
 				}
-			
-				//System.out.println(str);
-			//	System.out.println(de.toString());
-		
-			}
-			
-		}
-		
+			}		
+		}	
 	}
 	
 	/**
