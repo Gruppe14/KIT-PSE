@@ -123,7 +123,7 @@ public class ConfigWrap {
 	 * 
 	 * @return whether setting up the DimRows was successful
 	 */
-	/*private boolean buildConfigDimRows() {
+	private boolean buildConfigDimRows() {
 		for (int i = 0, l = getSize(); i < l; i++) {
 			DimRow cur = new DimRow();
 			RowEntry re = entries[i];
@@ -142,7 +142,7 @@ public class ConfigWrap {
 		}
 		
 		return true;
-	}*/
+	}
 	
 
 	/**
@@ -174,7 +174,7 @@ public class ConfigWrap {
 	}
 
 	// -- SETTER -- SETTER -- SETTER -- SETTER -- SETTER --
-	/*public boolean computeDimRows() {
+	public boolean computeDimRows() {
 		for (int i = 0, l = getSize(); i < l; i++) {
 			if (!dimRows.get(i).setStrings()) {
 				System.out.println("Computing strings for DimRow #" + i + " failed!");
@@ -184,7 +184,7 @@ public class ConfigWrap {
 				
 		return true;
 	}
-	*/
+	
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 
 	/**
 	 * Returns the number of rows.

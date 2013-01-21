@@ -8,13 +8,13 @@ import java.util.ArrayList;
 // org.json imports
 import org.json.JSONException;
 
-import sp_dataMediation.DataMediator;
 
 // intern imports
 import what.sp_config.ConfigWrap;
 import what.sp_config.DimRow;
 import what.sp_parser.ParserMediator;
 import what.sp_chart_creation.ChartMediator;
+import what.sp_dataMediation.DataMediator;
 
 /**
  * This class Facade represents a facade.<br>
