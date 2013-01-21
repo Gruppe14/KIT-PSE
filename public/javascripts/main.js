@@ -8,3 +8,14 @@ $(document).ready(function() {
 	    document.forms['language'].submit();
 	})
 })
+
+function displayError(err, info){
+	//if no additional info
+	info = typeof info !== 'undefined' ? info : "";
+	//display message
+	$("body").append("<div id='error'><div><span>" + err + "</span>" 
+		+ info + "<div>ok</div></div></div>");
+	$("#error").find("div:last").click(function() {
+		$(this).parents("#error").remove();
+	});
+}

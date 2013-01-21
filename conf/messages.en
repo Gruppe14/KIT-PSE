@@ -5,6 +5,7 @@ filter.filter = filter
 filter.location = location
 filter.measures = measure
 filter.send = send
+filter.err = Please provide the following information:
 
 charts.histogram = histogram
 charts.barchart = bar chart
