@@ -53,6 +53,8 @@ public class ParsingTask implements Runnable {
 				} else {
 					pm.increaseLinedel();
 				}
+				
+				System.out.println(de.toString());
 			}		
 		}	
 	}

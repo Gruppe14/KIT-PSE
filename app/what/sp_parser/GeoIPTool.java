@@ -66,6 +66,8 @@ public class GeoIPTool {
 			lastLoc = loc;
 			lastIp = (String) pt.getDe().getInfo(6);
 			
+			pt.getDe().setInfo(pt.getSplitStr()[6].hashCode(), 6);
+			
 			
 			
 		} catch (NullPointerException e) {
