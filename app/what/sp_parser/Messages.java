@@ -22,6 +22,10 @@ public class Messages {
 			language = "messages_en";
 		}
 		
+		if (string.toLowerCase().equals("greek")) {
+			language = "messages_gr";
+		}
+		
 	}
 
 }
