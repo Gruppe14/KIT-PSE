@@ -36,7 +36,7 @@ public class ConfigWrap {
 	private RowEntry[] entries; 
 	
 	/** The dimensions or rows in order of appearance. */
-	private ArrayList<DimRow> dimRows;
+	//private ArrayList<DimRow> dimRows;
 	
 	private int sizeOfHistory = 10;
 
@@ -108,11 +108,11 @@ public class ConfigWrap {
 		}
 		
 		// compute the dimensions
-		confi.dimRows = new ArrayList<DimRow>();
-		if (!confi.buildConfigDimRows()) {
+		//confi.dimRows = new ArrayList<DimRow>();
+		/*if (!confi.buildConfigDimRows()) {
 			System.out.println("Building DimRow's failed.");
 			return null;
-		}
+		}*/
 		
 		return confi;
 	}
@@ -123,7 +123,7 @@ public class ConfigWrap {
 	 * 
 	 * @return whether setting up the DimRows was successful
 	 */
-	private boolean buildConfigDimRows() {
+	/*private boolean buildConfigDimRows() {
 		for (int i = 0, l = getSize(); i < l; i++) {
 			DimRow cur = new DimRow();
 			RowEntry re = entries[i];
@@ -142,7 +142,7 @@ public class ConfigWrap {
 		}
 		
 		return true;
-	}
+	}*/
 	
 
 	/**
@@ -174,7 +174,7 @@ public class ConfigWrap {
 	}
 
 	// -- SETTER -- SETTER -- SETTER -- SETTER -- SETTER --
-	public boolean computeDimRows() {
+	/*public boolean computeDimRows() {
 		for (int i = 0, l = getSize(); i < l; i++) {
 			if (!dimRows.get(i).setStrings()) {
 				System.out.println("Computing strings for DimRow #" + i + " failed!");
@@ -184,7 +184,7 @@ public class ConfigWrap {
 				
 		return true;
 	}
-	
+	*/
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 
 	/**
 	 * Returns the number of rows.
@@ -214,10 +214,11 @@ public class ConfigWrap {
 	 * 
 	 * @return the dimensions and rows
 	 */
+	/*
 	public ArrayList<DimRow> getDims() {
 		return dimRows;
 	}
-	
+	*/
 	/**
 	 * Returns the name of the database for which this configuration is.
 	 * 

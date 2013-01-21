@@ -8,7 +8,7 @@ package what.sp_parser;
  *
  */
 
-public class ParsingTask extends Task implements Runnable {
+public class ParsingTask implements Runnable {
 	
 	private String str;
 	
@@ -34,8 +34,6 @@ public class ParsingTask extends Task implements Runnable {
 	 * It repeats this process until the Logfile is finished.
 	 * Should be protected, but Runnable doesn't allow that.
 	 */
-	private int otherCt = 0;
-	private int photoCt = 0;
 	
 	public void run() {
 		while (true) {
@@ -45,19 +43,16 @@ public class ParsingTask extends Task implements Runnable {
 				return;
 			} else {
 				splitStr = str.split(",");
-				de = new DataEntry(pm.getConfig().getSize() - 7);
+				de = new DataEntry(pm.getConfig().getSize() + 2);
 				if (SplittingTool.split(this)) {
 					GeoIPTool.getLocationInfo(this);
+				} else {
+					pm.increaseLinedel();
 				}
 			
+				//System.out.println(str);
 				System.out.println(de.toString());
 		
-		/*		if (de.getInfo(5).equals("other")) {
-					otherCt++;
-				} else if (de.getInfo(5).equals("Photo")) {
-					photoCt++;
-				}
-				System.out.println("other: " + otherCt + " photo: " + photoCt);*/
 			}
 			
 		}

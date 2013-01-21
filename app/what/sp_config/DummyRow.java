@@ -1,5 +1,7 @@
 package what.sp_config;
 
+import what.sp_parser.DataEntry;
+
 public class DummyRow extends RowEntry {
 	
 	private RowId id =  RowId.DUMMY;
@@ -13,5 +15,11 @@ public class DummyRow extends RowEntry {
 
 	public static DummyRow getInstance() {
 		return INSTANCE;
+	}
+
+	@Override
+	public boolean split(DataEntry de, String string, int location) {
+		// Returns false, shouldn't be used.
+		return false;
 	}
 }

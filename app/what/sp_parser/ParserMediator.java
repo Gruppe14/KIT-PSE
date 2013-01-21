@@ -22,25 +22,10 @@ import what.sp_config.ConfigWrap;
 public class ParserMediator {
 	
 	/**
-	 * Number of threads used for parsing.
+	 * The poolsize of parsingTasks.
 	 */
-	private int poolsizeParsing = 1;
+	private int poolsize = 5;
 	
-	
-	/**
-	 * Number of threads used for loading tasks.
-	 */
-	private int poolsizeLoading = 5;
-	
-	/**
-	 * Number of threads combined.
-	 */
-	private int poolsize = (poolsizeParsing + poolsizeLoading);
-	
-	/**
-	 * true if verification shall be done
-	 */
-	private boolean verify = true;
 	
 	/**
 	 * This variable saves how many tasks have been finished. it is used to 
@@ -57,9 +42,11 @@ public class ParserMediator {
 		
 	private ExecutorService threadPool = Executors.newFixedThreadPool(poolsize);
 	
-	private Task tasks[];
+	private ParsingTask tasks[];
 	
 	private ConfigWrap cw;
+	
+	private boolean fatalError = false;
 	
 	public ParserMediator(ConfigWrap confi) {
 		if (confi == null) {
@@ -71,32 +58,24 @@ public class ParserMediator {
 	
 		
 	/**
-	 * Creates a new <code>threadPool</code> with <code>POOLSIZE_PARSING</code> objects of the type 
-	 * <code>ParsingTask</code> and <code>POOLSIZE_LOADING</code> objects of the type <code>LoadingTask</code>.
+	 * Creates a new <code>threadPool</code> with <code>poolsize</code> objects of the type 
+	 * <code>ParsingTask</code>.
 	 * Those objects are created and inserted in <code>tasks</code>, which is an array for objects of type 
-	 * <code>Task</code>.
+	 * <code>ParsingTask</code>.
 	 */
 	private boolean createThreadPool() {
 		
-		tasks = new Task[poolsize];
+		tasks = new ParsingTask[poolsize];
 		
-		if (poolsizeParsing < 1) {
+		if (poolsize < 1) {
 			error(Messages.getString("Error.10"));
 			return false;
 		}
-		
-		if (poolsizeLoading < 1) {
-			error(Messages.getString("Error.20"));
-			return false;
-		}
-		
-		for (int i = 0; i < poolsizeParsing; i++) {
+						
+		for (int i = 0; i < poolsize; i++) {
 			tasks[i] = new ParsingTask(this);
 		}
 		
-		for (int i = 0; i < poolsizeLoading; i++) {
-			tasks[i + poolsizeParsing] = new LoadingTask(this);
-		}
 		
 		return true;
 	}
@@ -111,13 +90,20 @@ public class ParserMediator {
 	public boolean parseLogFile(String path) {
 		
 		usedFile = new Logfile(path, this);
+		
+		if (fatalError) {
+			return false;
+		}
+		
 		usedFile.setPm(this);
 
 		if (!createThreadPool()) {
 			return false;
 		}
 		
-		GeoIPTool.setUpIpTool(this);
+		if (!GeoIPTool.setUpIpTool(this)) {
+			return false;
+		}
 		
 		
 		for (int i = 0; i < poolsize; i++) {
@@ -128,6 +114,7 @@ public class ParserMediator {
 			} catch(NullPointerException e) {
 				error(Messages.getString("Error.40P1") + " " + i + " " + Messages.getString("Error.40P2")); 
 			}
+			
 		}
 		
 		while (true) {
@@ -162,7 +149,7 @@ public class ParserMediator {
 	 */
 	protected void error(String err) {
 		System.out.println(err);		
-		//System.exit(1);
+		fatalError = true;
 	}
 
 	/**
@@ -188,39 +175,21 @@ public class ParserMediator {
 	}
 
 	/**
-	 * @return the verify
-	 */
-	protected boolean getVerify() {
-		return verify;
-	}
-
-	/**
 	 * @return the config
 	 */
 	protected ConfigWrap getConfig() {
 		return cw;
 	}
 
-	/**
-	 * @param verify the verify to set
-	 */
-	public void setVerify(boolean verify) {
-		this.verify = verify;
-	}
 	
 	/**
-	 * @param poolsizeParsing the poolsizeParsing to set
+	 * @param poolsize the poolsize to set
 	 */
-	public void setPoolsizeParsing(int poolsizeParsing) {
-		this.poolsizeParsing = poolsizeParsing;
+	public void setPoolsizeParsing(int poolsize) {
+		this.poolsize = poolsize;
 	}
 
-	/**
-	 * @param poolsizeLoading the poolsizeLoading to set
-	 */
-	public void setPoolsizeLoading(int poolsizeLoading) {
-		this.poolsizeLoading = poolsizeLoading;
-	}
+	
 	
 	
 	

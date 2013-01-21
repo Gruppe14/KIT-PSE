@@ -2,6 +2,8 @@ package what.sp_config;
 
 import java.util.Set;
 
+import what.sp_parser.DataEntry;
+
 
 public class StringRow extends RowEntry {
 
@@ -16,5 +18,10 @@ public class StringRow extends RowEntry {
 
 	public Set<String> getCompareTo() {
 		return contents;
+	}
+	
+	public boolean split(DataEntry de, String string, int location) {
+		de.setInfo(string, location);
+		return true;
 	}
 }

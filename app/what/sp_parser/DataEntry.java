@@ -13,14 +13,6 @@ import java.util.Date;
  */
 public class DataEntry {
 	
-	private Date date;
-	
-	private String ip;
-	
-	private String city;
-	
-	private String country;
-	
 	private Object[] info;
 	
 	
@@ -29,34 +21,7 @@ public class DataEntry {
 	}
 	
 	
-	/**
-	 * @return the date
-	 */
-	public Date getDate() {
-		return date;
-	}
-
-	/**
-	 * @return the ip
-	 */
-	public String getIp() {
-		return ip;
-	}
-
-	/**
-	 * @return the city
-	 */
-	public String getCity() {
-		return city;
-	}
-
-	/**
-	 * @return the country
-	 */
-	public String getCountry() {
-		return country;
-	}
-
+	
 	/**
 	 * @return the info
 	 */
@@ -64,38 +29,11 @@ public class DataEntry {
 		return info[i];
 	}
 
-	/**
-	 * @param date the date to set
-	 */
-	protected void setDate(Date date) {
-		this.date = date;
-	}
-
-	/**
-	 * @param ip the ip to set
-	 */
-	protected void setIp(String ip) {
-		this.ip = ip;
-	}
-
-	/**
-	 * @param city the city to set
-	 */
-	protected void setCity(String city) {
-		this.city = city;
-	}
-
-	/**
-	 * @param country the country to set
-	 */
-	protected void setCountry(String country) {
-		this.country = country;
-	}
-
+	
 	/**
 	 * @param info the info to set
 	 */
-	protected void setInfo(Object info, int i) {
+	public void setInfo(Object info, int i) {
 		this.info[i] = info;
 	}
 
@@ -104,8 +42,7 @@ public class DataEntry {
 	 */
 	@Override
 	public String toString() {
-		return "DataEntry [date=" + date + ", ip=" + ip + ", city=" + city
-				+ ", country=" + country + ", info=" + Arrays.toString(info)
+		return "DataEntry [info=" + Arrays.toString(info)
 				+ "]";
 	}
 

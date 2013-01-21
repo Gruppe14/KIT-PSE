@@ -26,21 +26,22 @@ public class GeoIPTool {
 	 * Sets up the IpTool and creates a new lookupService
 	 * @param pm the ParserMediator which will use this tool
 	 */
-	protected static void setUpIpTool(ParserMediator pm) {
+	protected static boolean setUpIpTool(ParserMediator pm) {
 		
 		String dir = System.getProperty("user.dir");
 		String seperator = System.getProperty("file.separator");
-		
 		
 		String lookup = dir + seperator + "data\\geoLiteCity.dat";
 				
 		
 		try {
-			
 			cl = new LookupService(lookup);
 		} catch (IOException e) {
 			pm.error(Messages.getString("Error.120"));
+			return false;
 		}
+		
+		return true;
 	}
 	
 	/**
@@ -51,25 +52,25 @@ public class GeoIPTool {
 
 		try {		
 			
-			pt.getDe().setIp(pt.getSplitStr()[6]);
-						
+			pt.getDe().setInfo(pt.getSplitStr()[6], 6);
+									
 			Location loc;
-			if (pt.getDe().getIp().equals(lastIp)) {
+			if (pt.getDe().getInfo(6).equals(lastIp)) {
 				loc = lastLoc;
 			} else {
-				loc = cl.getLocation(pt.getDe().getIp());
+				loc = cl.getLocation((String) pt.getDe().getInfo(6));
 			}
-			pt.getDe().setCountry(loc.countryName);	
-			pt.getDe().setCity(loc.city);
+			pt.getDe().setInfo(loc.countryName, pt.getPm().getConfig().getSize() + 1);	
+			pt.getDe().setInfo(loc.city, pt.getPm().getConfig().getSize());
 			
 			lastLoc = loc;
-			lastIp = pt.getDe().getIp();
+			lastIp = (String) pt.getDe().getInfo(6);
 			
 			
 			
 		} catch (NullPointerException e) {
-			pt.getDe().setCountry("other");
-			pt.getDe().setCity("other");
+			pt.getDe().setInfo("other", pt.getPm().getConfig().getSize() + 1);
+			pt.getDe().setInfo("other", pt.getPm().getConfig().getSize());
 		}
 	}
 }

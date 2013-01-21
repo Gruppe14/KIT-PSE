@@ -124,13 +124,13 @@ public class Logfile {
 		String str = null;
 		String str2;
 		try {
-		/*	if (lines == 0) {
+			if (lines == 0) {
 				first = System.currentTimeMillis();
 			}
 			if (lines % 10000 == 0) {
 				System.out.println(System.currentTimeMillis() - first);
 				first = System.currentTimeMillis();
-			} */
+			} 
 			
 			str = br.readLine();
 						

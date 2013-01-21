@@ -1,5 +1,7 @@
 package what.sp_config;
 
+import what.sp_parser.DataEntry;
+
 /**
  * <p>A RowEntry describes a element in the log file and
  * a row in the warehouse.<br>
@@ -133,6 +135,8 @@ public abstract class RowEntry {
 	public RowId getId() {
 		return id;
 	} 
+	
+	public abstract boolean split(DataEntry de, String string, int location);
 	
 	// -- OVERRIDES -- OVERRIDES -- OVERRIDES -- OVERRIDES --
 	@Override

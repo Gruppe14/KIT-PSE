@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import what.sp_parser.DataEntry;
+
 public class StringMapRow extends RowEntry {
 	
 	private final Map<String, Set<String>> comparer;
@@ -50,6 +52,22 @@ public class StringMapRow extends RowEntry {
 		}
 		
 		return comp;
+	}
+	
+	public boolean split(DataEntry de, String string, int location) {
+
+		
+		for (String str : this.getCompareTo()) {
+			if (string.toLowerCase().contains(str.toLowerCase())) {
+				de.setInfo(isTopicTo(str), location);						
+				return true;
+			} 
+		}				
+	
+
+		de.setInfo("other", location);
+		return true;
+		
 	}
 	
 }

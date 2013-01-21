@@ -10,24 +10,7 @@ import what.sp_config.*;
 
 public class VerificationTool {
 	
-	protected static boolean verify(ParsingTask pt) {
-		
-		
-		return (verifyTime(pt) && verifyServerInfo(pt));
-		
-	}
 	
-	
-
-	private static boolean verifyTime(ParsingTask pt) {
-		
-		DataEntry de = pt.getDe();
-		Calendar cal = Calendar.getInstance();
-		Date dateNow = cal.getTime();
-		
-	
-		return true;
-	}
 	
 	protected static boolean checkConfig(Logfile lf) {
 		return checkTimeConfig(lf) && checkIpConfig(lf) && checkOtherConfig(lf);
@@ -75,31 +58,4 @@ public class VerificationTool {
 		return true;
 	}
 
-	private static boolean verifyServerInfo(ParsingTask pt) {
-		
-		DataEntry de = pt.getDe();
-		
-		
-		if (!verifyIP(pt)) {
-			pt.getPm().increaseLinedel();
-			return false;
-		}
-		
-		return true;
-	}
-
-	public static boolean verifyIP(ParsingTask pt) {
-		
-		DataEntry de = pt.getDe();
-		
-		if (de.getCity() == null) {
-			return false;
-		}
-		
-		if (de.getCountry() == null) {
-			return false;
-		}
-
-		return true;		
-	}
 }
