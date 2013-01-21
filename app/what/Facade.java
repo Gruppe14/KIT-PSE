@@ -126,7 +126,10 @@ public class Facade {
 		if (!parsMedi.parseLogFile(path)) {
 			System.out.println("Parsing failed!");
 			return false;		
+		}  else {
+			System.out.println("Parsing successful!");
 		}
+
 		
 		// set up data after parsing
 		if (!dataMedi.organizeData()) {
