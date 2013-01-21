@@ -59,7 +59,7 @@ public class StringMapRow extends RowEntry {
 		
 		for (String str : this.getCompareTo()) {
 			if (string.toLowerCase().contains(str.toLowerCase())) {
-				de.setInfo(isTopicTo(str), location);						
+				de.setInfo(isTopicTo(str).toUpperCase(), location);						
 				return true;
 			} 
 		}				

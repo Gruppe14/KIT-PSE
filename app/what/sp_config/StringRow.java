@@ -21,7 +21,7 @@ public class StringRow extends RowEntry {
 	}
 	
 	public boolean split(DataEntry de, String string, int location) {
-		de.setInfo(string, location);
+		de.setInfo(string.toUpperCase(), location);
 		return true;
 	}
 }
