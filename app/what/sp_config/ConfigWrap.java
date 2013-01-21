@@ -36,7 +36,7 @@ public class ConfigWrap {
 	private RowEntry[] entries; 
 	
 	/** The dimensions or rows in order of appearance. */
-	//private ArrayList<DimRow> dimRows;
+	private ArrayList<DimRow> dimRows;
 	
 	private int sizeOfHistory = 10;
 
