@@ -10,13 +10,15 @@ public class DimRow {
 		
 	// -- SETTER -- SETTER -- SETTER -- SETTER -- SETTER --
 	protected void add(RowEntry rowEntry) {
-		if (!isNotEmpty()) {
+		if (rowEntry == null) {
 			throw new IllegalArgumentException();
 		}
 		
 		rows.add(rowEntry);		
 	}
 	
+	
+
 	public boolean setStrings() {
 		if (!isStringDim()) {
 			return true;
@@ -61,7 +63,7 @@ public class DimRow {
 	}
 	
 	private boolean isNotEmpty() {
-		return (getSize() <= 0);
+		return (getSize() > 0);
 	}
 	
 	
@@ -94,5 +96,10 @@ public class DimRow {
 		return strings;
 	}
 	
-
+	
+	
+	@Override
+	public String toString() {
+		return "DimRow [name= " + getName() +", size= " + getSize() + "]";
+	}
 }
