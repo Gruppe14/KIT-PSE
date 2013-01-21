@@ -1,6 +1,5 @@
 package what.sp_parser;
 
-import java.util.ArrayList;
 
 import java.util.Date;
 
@@ -29,11 +28,8 @@ public class SplittingTool {
 
 	private static boolean splitStatement(ParsingTask pt) {
 		
-		String[] split = pt.getSplitStr();
 		ConfigWrap conf = pt.getPm().getConfig();
-		
-	
-			
+				
 		StringMapRow row = (StringMapRow) conf.getEntryAt(conf.getSize() - 1);
 				
 		for (String str : row.getCompareTo()) {
@@ -120,31 +116,85 @@ public class SplittingTool {
 		String [] str = pt.getSplitStr();
 		ConfigWrap cw = pt.getPm().getConfig();
 		
+		
 		for (int i = 7; i < pt.getPm().getConfig().getSize() - 1; i++) {
 			if (cw.getEntryAt(i).getClass().getName().contains("StringRow")) {
-				de.setInfo(str[i], i - 7);
+				
+				splitString(de, str[i], i - 7);
+				
 			} else if (cw.getEntryAt(i).getClass().getName().contains("DoubleRow")) {
-				try {
-					de.setInfo(Double.parseDouble(str[i]), i - 7);
-				} catch (NumberFormatException e) {
-					pt.getPm().error(Messages.getString("Error.107"));
+				
+				if (!splitDouble(de, str[i], i - 7)) {
+					return false;
 				}
 				
 			} else if (cw.getEntryAt(i).getClass().getName().contains("IntRow")) {
-				try {
-					de.setInfo(Integer.parseInt(str[i]), i - 7);
-				} catch (NumberFormatException e) {
-					pt.getPm().error(Messages.getString("Error.108"));
+				
+				if (!splitInteger(de, str[i], i - 7)) {
+					return false;
+				}	
+				
+			} else if (cw.getEntryAt(i).getClass().getName().contains("StringMapRow")) {
+				
+				if (!splitStringRow(de, str[i], i - 7, cw.getEntryAt(i))) {
+					return false;
 				}
 				
 			} else {
 				return false;
 			}
 		}
+		return true;		
+	}
+	
+	
+	private static boolean splitStringRow(DataEntry de, String string, int location,
+			RowEntry entryAt) {
+		
+		StringMapRow row;
+		
+		try {
+			row = (StringMapRow) entryAt;
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
+		
+		
+		for (String str : row.getCompareTo()) {
+			if (string.toLowerCase().contains(str.toLowerCase())) {
+				de.setInfo(string, location);						
+				return true;
+			} 
+		}				
+	
+
+		de.setInfo("other", location);
 		return true;
 		
 		
-		
+	}
+
+	private static void splitString(DataEntry de, String string, int location) {
+		de.setInfo(string, location);
 	}
 	
+	private static boolean splitDouble(DataEntry de, String string, int location) {
+		
+		try {
+			de.setInfo(Double.parseDouble(string), location);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	private static boolean splitInteger(DataEntry de, String string, int location) {
+		try {
+			de.setInfo(Integer.parseInt(string), location);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
 }
+	

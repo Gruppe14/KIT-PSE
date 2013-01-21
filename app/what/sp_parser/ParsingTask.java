@@ -50,18 +50,14 @@ public class ParsingTask extends Task implements Runnable {
 					GeoIPTool.getLocationInfo(this);
 				}
 			
-				
-		/*		if (pm.getVerify()) {
-					VerificationTool.verify(this);
-				} else {
-					VerificationTool.verifyIP(this);
-				}*/
-				if (de.getInfo(5).equals("other")) {
+				System.out.println(de.toString());
+		
+		/*		if (de.getInfo(5).equals("other")) {
 					otherCt++;
 				} else if (de.getInfo(5).equals("Photo")) {
 					photoCt++;
 				}
-				System.out.println("other: " + otherCt + " photo: " + photoCt);
+				System.out.println("other: " + otherCt + " photo: " + photoCt);*/
 			}
 			
 		}
