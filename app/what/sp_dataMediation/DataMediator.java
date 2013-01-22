@@ -9,9 +9,12 @@ public class DataMediator {
 	
 	/** Configuration on which this ChartMediator works on */
 	private ConfigWrap config;
+	
+	private WHConnectionManager whConnections; 
 
 	public DataMediator(ConfigWrap config) {
 		this.config = config;
+		whConnections = new WHConnectionManager();
 	}
 	
 	/**
@@ -26,7 +29,8 @@ public class DataMediator {
 			return false;
 		}
 		
-		// TODO set the right class which organizes this... may be this class itself, but i don't know any methods which it may call yet
+		// TODO set the right class which organizes this... 
+		// may be this class itself, but i don't know any methods which it may call yet
 		/*if (someClassHere.computeOlapCubes()) {
 			System.out.println("Computing OLAP cubes failed!");
 			return false;
