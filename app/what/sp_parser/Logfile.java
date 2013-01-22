@@ -8,6 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import controllers.Localize;
+
 /** 
  * 
  * The LogFile class is the gateway between parser and a log file - it contains the path of the logfile 
@@ -88,13 +90,13 @@ public class Logfile {
 		try {
 		this.file = new File(path);
 		} catch (NullPointerException e) {
-			pm.error(Messages.getString("Error.50"));
+			pm.error(Localize.getString("Error.50"));
 			return;
 		}
 		try {
 			fstream = new FileInputStream(file);
 		} catch (FileNotFoundException e) {
-			pm.error(Messages.getString("Error.60P1") + " " + path + " " + Messages.getString("Error.60P2"));
+			pm.error(Localize.getString("Error.60P1") + " " + path + " " + Localize.getString("Error.60P2"));
 			return;
 		}
 		in = new DataInputStream(fstream);
@@ -103,16 +105,16 @@ public class Logfile {
 			type = br.readLine();
 	
 			if (!VerificationTool.checkConfig(this)) {
-				pm.error(Messages.getString("Error.110"));
+				pm.error(Localize.getString("Error.110"));
 				return;
 			} 
 			
 		} catch (IOException e) {
 			if (!file.canRead()) {
-				pm.error(Messages.getString("Error.71"));
+				pm.error(Localize.getString("Error.71"));
 				return;
 			} else {
-				pm.error(Messages.getString("Error.73"));
+				pm.error(Localize.getString("Error.73"));
 				return;
 			}
 			
@@ -166,9 +168,9 @@ public class Logfile {
 			
 		} catch (IOException e) {
 			if (!file.canRead()) {
-				pm.error(Messages.getString("Error.72P1") + " " + lines + " " + Messages.getString("Error.72P2"));
+				pm.error(Localize.getString("Error.72P1") + " " + lines + " " + Localize.getString("Error.72P2"));
 			} else {
-				pm.error(Messages.getString("Error.74P1") + " " + lines + " " + Messages.getString("Error.74P2"));
+				pm.error(Localize.getString("Error.74P1") + " " + lines + " " + Localize.getString("Error.74P2"));
 			}
 		}
 		lines++;

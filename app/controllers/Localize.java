@@ -1,33 +1,45 @@
 package controllers;
 import play.mvc.*;
 import play.mvc.Http.RequestBody;
-import play.i18n.*;
+import play.i18n.Lang;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class Localize extends Controller{
 	private static List<Lang> available = Lang.availables();
 	//default language
-	private static Lang standard = Lang.forCode("en");
+	private static String standard = "en";
 	
-	//static class
-	private Localize(){
+	//private because singleton
+	private Localize(Lang standard){
 	}
 	
+
 	/**
 	 * method to get a localized string
-	 * @param language the language in which the string will be
 	 * @param message the key of the string to localize
-	 * @return returns a localized string in the given language or if the language is not supported 
-	 * the string in the standard language
+	 * @return returns a localized string or if the language is not supported 
+	 * the string in the standard language and if that is also not found returns the key
 	 */
 	public static String get(String message) {
-		String loc = Messages.get(Lang.forCode(language()),message);
+		String loc = ResourceBundle.getBundle("messages_" + language()).getString(message);
 		//default language if message not found
-		if(message.equals(loc)) {
-			loc = Messages.get(standard, message);
+		if(loc.equals("")) {
+			loc = ResourceBundle.getBundle("messages_" + standard).getString(message);
+		}
+		if(loc.equals("")) {
+			loc = message;
 		}
 		return loc;
+	}
+	/**
+	 * method to get a localized string without standard language fallback
+	 * @param message the key of the string to localize
+	 * @return returns a localized string or an empty string
+	 */
+	public static String getString(String message) {
+		return ResourceBundle.getBundle("messages_" + language()).getString(message);
 	}
 	
 	/**
@@ -60,7 +72,7 @@ public class Localize extends Controller{
 	    		}
 	    	}
 	    	if(lang == null) {
-	    		lang = standard.code();
+	    		lang = standard;
 	    	}
 		}
     	return lang;

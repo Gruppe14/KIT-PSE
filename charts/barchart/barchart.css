@@ -1,0 +1,36 @@
+                .bar {
+                    fill: #543B5E;
+                    stroke: white;
+                    
+                }
+                .bar:hover {
+                    stroke:black;
+                    
+                }
+                
+                
+                .axis path,
+                .axis line {
+				fill: none;
+				stroke: black;
+				shape-rendering: crispEdges;
+                                
+                                
+                                
+                                
+			}
+                
+                #container {
+                    margin: 10px; 
+                    
+                    padding:10px;
+                    border: 10px;
+                    
+                }
+                
+                svg {
+                    
+                    margin:10px; 
+                    padding:10px;
+                    border:10px 
+                }
