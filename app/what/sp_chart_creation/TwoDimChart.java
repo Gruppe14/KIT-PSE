@@ -2,10 +2,9 @@ package what.sp_chart_creation;
 
 import what.sp_config.ConfigWrap;
 
-class TwoDimChart extends Petra {
+class TwoDimChart extends OneDimChart {
 
-	public TwoDimChart(ConfigWrap confi) {
-		super(confi);
+	public TwoDimChart() {
 		
 		// TODO Auto-generated constructor stub
 	}

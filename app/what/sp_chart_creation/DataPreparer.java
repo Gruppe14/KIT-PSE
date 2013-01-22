@@ -2,7 +2,7 @@ package what.sp_chart_creation;
 
 class DataPreparer extends ChartVisitor {
 	
-	private Petra host;
+	private OneDimChart host;
 
 	@Override
 	public boolean visitOneDim(OneDimChart host) {

@@ -19,7 +19,7 @@ import what.sp_config.ConfigWrap;
  * @version 1.0
  *
  * @see ChartVisitor
- * @see Petra
+ * @see OneDimChart
  */
 public class ChartMediator {
 	
@@ -27,7 +27,7 @@ public class ChartMediator {
 	private ConfigWrap config;
 	
 	/** The stored history of computed charts of this ChartMediator */
-	private LinkedList<Petra> history;
+	private LinkedList<OneDimChart> history;
 	
 
 	public ChartMediator(ConfigWrap confi) {
@@ -35,7 +35,7 @@ public class ChartMediator {
 			throw new IllegalArgumentException();
 		}
 		
-		history = new LinkedList<Petra>(); 
+		history = new LinkedList<OneDimChart>(); 
 		
 		this.config = confi;
 	}
@@ -58,7 +58,7 @@ public class ChartMediator {
 		}
 		
 		// get a chart host
-		Petra host = getChartHost(path);
+		OneDimChart host = getChartHost(path);
 		
 		// manage visits
 		if(!manageVisits(host)) {
@@ -76,7 +76,7 @@ public class ChartMediator {
 	
 
 	// -- BUILDING CHARTHOST -- BUILDING CHARTHOST -- BUILDING CHARTHOST --
-	private Petra getChartHost(String path) {
+	private OneDimChart getChartHost(String path) {
 
 		// gets the file
 		File configFile = JSON_Helper.getJSONFile(path);
@@ -94,13 +94,13 @@ public class ChartMediator {
 	
 	
 	/**
-	 * Manages the visits to the chart host {@linkplain Petra}.
+	 * Manages the visits to the chart host {@linkplain OneDimChart}.
 	 * 
 	 * @param host a chart host
 	 * @return whether the visits where successful
-	 * @see Petra
+	 * @see OneDimChart
 	 */
-	private boolean manageVisits(Petra host) {
+	private boolean manageVisits(OneDimChart host) {
 		assert (host != null);
 		
 		if (!host.accept(ChartDataRequester.getInstance())) {
@@ -152,7 +152,7 @@ public class ChartMediator {
 	 * 
 	 * @param toSave chart host that has to be saved
 	 */
-	private void addToHistory(Petra toSave) {
+	private void addToHistory(OneDimChart toSave) {
 		assert (toSave != null);
 		
 		// ensures that history doesn't get bigger than wanted

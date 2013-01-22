@@ -1,18 +1,19 @@
 package what.sp_chart_creation;
 
-import what.sp_config.ConfigWrap;
+import java.io.File;
+import java.util.TreeSet;
 
-class OneDimChart extends Petra {
+abstract class OneDimChart {
+	
+	private File json;
 
-	public OneDimChart(ConfigWrap confi) {
-		super(confi);
-		// TODO Auto-generated constructor stub
+	private TreeSet<String> filters;
+	
+	
+	public File getJSON() {
+		return json;
 	}
-
-	@Override
-	public boolean accept(ChartVisitor v) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
+	abstract public boolean accept(ChartVisitor v);
+	
 }
