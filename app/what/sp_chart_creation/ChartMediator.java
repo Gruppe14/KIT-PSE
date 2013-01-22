@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
+import what.JSON_Helper;
 // intern imports
 import what.sp_config.ConfigWrap;
 
@@ -28,14 +29,7 @@ public class ChartMediator {
 	/** The stored history of computed charts of this ChartMediator */
 	private LinkedList<Petra> history;
 	
-// -------- ChartMediator creation and fly-weight pattern -------------
-	/**
-	 * Private constructor to ensure no duplicated objects
-	 * for the same configuration.
-	 * 
-	 * @param confi configuration of the database 
-	 * 		  on which this ChartMeditator operates
-	 */
+
 	public ChartMediator(ConfigWrap confi) {
 		if (confi == null) {
 			throw new IllegalArgumentException();
@@ -55,20 +49,20 @@ public class ChartMediator {
 	 * Returns the file of the computed chart. Also it saves the chart
 	 * in the history.
 	 * 
-	 * @param list list of parameters $%&/()
+	 * @param path list of parameters $%&/()
 	 * @return the computed chart for the given parameters
 	 */
-	public File computeChart(int list) {
-		if (list < 0) { //TODO change when list is correct
+	public File computeChart(String path) {
+		if (path == null) { 
 			throw new IllegalArgumentException();
 		}
 		
 		// get a chart host
-		Petra host = getChartHost(list);
+		Petra host = getChartHost(path);
 		
 		// manage visits
 		if(!manageVisits(host)) {
-			throw new RuntimeException(); //TODO better exception or error managing
+			System.out.println("ERROR: A visit failed!");
 		}
 		
 		// add to history, may be improved
@@ -81,10 +75,23 @@ public class ChartMediator {
 	
 	
 
-	private Petra getChartHost(int list) {
-		// TODO Auto-generated method stub
+	// -- BUILDING CHARTHOST -- BUILDING CHARTHOST -- BUILDING CHARTHOST --
+	private Petra getChartHost(String path) {
+
+		// gets the file
+		File configFile = JSON_Helper.getJSONFile(path);
+				
+		// gets the content of the file
+		String jsonContent = JSON_Helper.getJSONContent(configFile);
+		
+		
+		
+		
 		return null;
 	}
+	
+	
+	
 	
 	/**
 	 * Manages the visits to the chart host {@linkplain Petra}.
@@ -113,7 +120,7 @@ public class ChartMediator {
 
 	
 
-	// -------- Handling a request for a history chart --------------------
+	// -- REQUEST HISTORY -- REQUEST HISTORY -- REQUEST HISTORY --
 	/**
 	 * Returns the json-file of a requested chart from the history.<br>
 	 * 
@@ -133,10 +140,11 @@ public class ChartMediator {
 		
 		// number to high, not enough charts in history!
 		if (number > l) {
-			throw new IndexOutOfBoundsException();
+			System.out.println("ERROR: Not so many charts stored");
+			return history.get(history.size()).getJSON();
 		}
 				
-		return history.get(l - number).getJSON();
+		return history.get(number).getJSON();
 	}
 
 	/**

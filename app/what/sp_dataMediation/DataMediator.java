@@ -1,6 +1,9 @@
 package what.sp_dataMediation;
 
+import java.util.Collection;
+
 import what.sp_config.ConfigWrap;
+import what.sp_parser.DataEntry;
 
 public class DataMediator {
 	
@@ -31,6 +34,11 @@ public class DataMediator {
 		*/
 		
 		return true;
+	}
+	
+	public boolean loadEntries(Collection<DataEntry> tbl) {
+		
+		return false;
 	}
 	
 	

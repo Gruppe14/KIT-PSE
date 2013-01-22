@@ -2,19 +2,12 @@ package what.sp_chart_creation;
 
 import java.io.File;
 
-import what.sp_config.ConfigWrap;
-
 abstract class Petra {
 	
-	private ConfigWrap confi;
-	
 	private File json;
-	
-	public Petra(ConfigWrap confi) {
-		this.confi = confi;
-		
-	}
 
+	
+	
 	public File getJSON() {
 		return json;
 	}

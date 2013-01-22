@@ -68,17 +68,16 @@ public class Facade {
 								+ "because something went wrong with JSON!");
 			e.printStackTrace();
 			return false;
-		} catch (IOException e) {
-			System.out.println("Building ConfigWrap with the given path failed "
-								+ "because of an IO failure!");
-			e.printStackTrace();
-			return false;
+		} 
+		
+		if (config == null) {
+			System.out.println("Building ConfigWrap with the given path failed");
 		}
 		
 		currentConfig = config;
-		
-		parsMedi = new ParserMediator(config);
 		chartMedi = new ChartMediator(config);	
+		dataMedi = new DataMediator(config);
+		parsMedi = new ParserMediator(config, dataMedi);
 		
 		return true;
 	}
@@ -119,6 +118,7 @@ public class Facade {
 		}
 		
 		if (!isInitialized()) {
+			System.out.println("Configurations not initalized!");
 			//throw new NotImplementedException(); //TODO better exception
 		}
 		
@@ -146,23 +146,28 @@ public class Facade {
 	 * Referring to a given configuration (id), it directs a request
 	 * for a chart to a ChartMediator. 
 	 * 
-	 * @param list list of options for the request
+	 * @param path String path to a .json file where request information are stored
 	 * @return a json-file which contains all information about the requested chart
 	 */
-	public File computeChart(int list) { //TODO specify parameter list! what will it be?
-		if (list == 0) { //TODO change!
+	public File computeChart(String path) { 
+		if (path == null) { 
 			throw new IllegalArgumentException();
 		}
 
 		if (!isInitialized()) {
+			System.out.println("Configurations not initalized!");
 			//throw new NotImplementedException(); //TODO better exception
 		}
 		
 		// direct request and receive file
-		File json = chartMedi.computeChart(list);	
+		File json = chartMedi.computeChart(path);	
 		
 		if (json == null) {
-			//TODO error handling
+			System.out.println("Computing chart failed!");
+			// TODO return dummy chart
+			return null;
+		} else {
+			System.out.println("Computing chart succeeded!");
 		}
 		
 		return json;
@@ -178,10 +183,8 @@ public class Facade {
 	 * @param number number of the latest computed chart, range from 1 (latest) to 10 (oldest)
 	 * @return the json-file of the requested chart, referring to the id and the number
 	 */
-	public File historyChart(int id, int number) {
-		if (id <= 0) {
-			throw new IllegalArgumentException();
-		} else if ((number <= 0) || (getSizeOfHistory() > 10)) { 
+	public File historyChart(int number) {
+		if ((number <= 0) || (getMaxSizeOfHistory() < number)) { 
 			throw new IllegalArgumentException();
 		}
 		
@@ -189,7 +192,7 @@ public class Facade {
 		// request the chart
 		File histo = chartMedi.getHistoryChart(number);	
 		if (histo == null) {
-			System.out.println("Config not initialized => no chart requests allowed!");
+			System.out.println("No history for " + number + " found!");
 			
 		}
 		
@@ -202,8 +205,10 @@ public class Facade {
 	 * @return the dimensions and rows
 	 */
 	public ArrayList<DimRow> getDimensions() {
+		
 		if (!isInitialized()) {
-			//throw new NotImplementedException(); //TODO better exception
+			System.out.println("Configurations not initalized!");
+			return null;
 		}
 		
 		ArrayList<DimRow> dims = currentConfig.getDims(); 
@@ -217,7 +222,7 @@ public class Facade {
 	 * 
 	 * @return the number of charts stored in the history
 	 */
-	private int getSizeOfHistory() {
+	private int getMaxSizeOfHistory() {
 		// TODO Auto-generated method stub
 		return 10;
 	}

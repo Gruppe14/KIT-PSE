@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 
 import what.sp_config.ConfigWrap;
+import what.sp_dataMediation.DataMediator;
 
 
 /**
@@ -45,14 +46,17 @@ public class ParserMediator {
 	
 	private ConfigWrap cw;
 	
+	private DataMediator loader;
+	
 	private boolean fatalError = false;
 	
-	public ParserMediator(ConfigWrap confi) {
+	public ParserMediator(ConfigWrap confi, DataMediator dataMedi) {
 		if (confi == null) {
 			throw new IllegalArgumentException();
 		}
 		
 		this.cw = confi;
+		this.loader = dataMedi;
 	}
 	
 		
@@ -194,6 +198,14 @@ public class ParserMediator {
 	 */
 	public void setPoolsizeParsing(int poolsize) {
 		this.poolsize = poolsize;
+	}
+
+
+	/**
+	 * @param loader the loader to set
+	 */
+	public void setLoader(DataMediator loader) {
+		this.loader = loader;
 	}
 
 	

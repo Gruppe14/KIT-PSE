@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import what.JSON_Helper;
  
 /**
  * A ConfigWrap stores all needed information about a database
@@ -58,16 +60,16 @@ public class ConfigWrap {
 	 * @throws IOException path wasn't correct
 	 * @throws JSONException something went wrong while working with the JSON lib
 	 */
-	public static ConfigWrap buildConfig(String path) throws IOException, JSONException {
+	public static ConfigWrap buildConfig(String path) throws JSONException {
 		if (path == null) {
 			throw new IllegalArgumentException();
 		}
 		
 		// gets the file
-		File configFile = ConfigHelper.getConfigFile(path);
+		File configFile = JSON_Helper.getJSONFile(path);
 		
 		// gets the content of the file
-		String jsonContent = ConfigHelper.getJSONContent(configFile);
+		String jsonContent = JSON_Helper.getJSONContent(configFile);
 		
 		// gets the json object (all content)
 		JSONObject json = new JSONObject(jsonContent);
