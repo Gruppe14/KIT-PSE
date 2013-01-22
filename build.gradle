@@ -1,0 +1,51 @@
+apply plugin: 'java'
+apply plugin: 'scala'
+
+def findPlay20(){
+  def pathEnvName = ['PATH', 'Path'].find{ System.getenv()[it] != null }
+  for(path in System.getenv()[pathEnvName].split(File.pathSeparator)){
+    for(playExec in ['play.bat', 'play.sh', 'play']){
+      if(new File(path, playExec).exists()){
+        project.ext.playHome = path
+        project.ext.playExec = new File(path, playExec)
+        return
+      }
+    }
+  }
+  throw new RuntimeException("""'play' command was not found in PATH.
+Make sure you have Play Framework 2.0 installed and in your path""")
+}
+
+
+findPlay20()
+
+defaultTasks 'createStartBat'
+
+task playDist (type: Exec) {
+	commandLine playExec, "dist"
+}
+
+task unzipDist (type: Exec, dependsOn: playDist) {
+	workingDir './dist'
+	commandLine "jar", "xf",  "*.zip"
+}
+
+task moveDist(type:Copy, dependsOn: unzipDist) {
+   from './dist/what-1.0-SNAPSHOT'
+   into '../what'
+}
+
+
+task delDistFolder(type: Delete, dependsOn: moveDist) {
+	delete './dist'
+}
+
+task copyCharts(type: Copy, dependsOn: moveDist) {
+	from './charts'
+	into '../what/charts'
+}
+
+task createStartBat(dependsOn: [delDistFolder, copyCharts]) {
+	new File("../what").mkdir()
+	new File('../what/start.bat').write("java %1  -cp ./lib/*; play.core.server.NettyServer .")
+}
