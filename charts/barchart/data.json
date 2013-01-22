@@ -1,0 +1,27 @@
+{
+	"chartType": "barchart",
+	"attribute1": "x",
+	"attribute2": "y",
+    "data": [
+        {
+            "name": "warchicken",
+            "x": 30
+        },
+        {
+            "name": "daydreamt",
+            "x": 50
+        },
+        {
+            "name": "Anas2001",
+            "x": 30
+        },
+        {
+            "name": "ocjojo",
+            "x": 30
+        },
+        {
+            "name": "joklawitter",
+            "x": 30
+        }
+    ]
+}
