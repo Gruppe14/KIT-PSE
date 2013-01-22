@@ -4,6 +4,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 
+import controllers.Localize;
+
 import what.sp_config.ConfigWrap;
 
 
@@ -67,7 +69,7 @@ public class ParserMediator {
 		tasks = new ParsingTask[poolsize];
 		
 		if (poolsize < 1) {
-			error(Messages.getString("Error.10"));
+			error(Localize.getString("Error.10"));
 			return false;
 		}
 						
@@ -109,9 +111,9 @@ public class ParserMediator {
 			try {
 				threadPool.submit(tasks[i]);
 			} catch(RejectedExecutionException e) {
-				error(Messages.getString("Error.30P1") + " " + i + " " + Messages.getString("Error.30P2")); 
+				error(Localize.getString("Error.30P1") + " " + i + " " + Localize.getString("Error.30P2")); 
 			} catch(NullPointerException e) {
-				error(Messages.getString("Error.40P1") + " " + i + " " + Messages.getString("Error.40P2")); 
+				error(Localize.getString("Error.40P1") + " " + i + " " + Localize.getString("Error.40P2")); 
 			}
 			
 			if (fatalError) {
@@ -130,7 +132,7 @@ public class ParserMediator {
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
-					error(Messages.getString("Error.80"));
+					error(Localize.getString("Error.80"));
 				}
 				
 				if (fatalError) {
@@ -176,7 +178,7 @@ public class ParserMediator {
 		linesDeleted++;
 		
 	//	if (linesDeleted % 1000 == 0) {
-			System.out.println(Messages.getString("Warning.10P1") + linesDeleted + " " + Messages.getString("Warning.10P2"));
+			System.out.println(Localize.getString("Warning.10P1") + linesDeleted + " " + Localize.getString("Warning.10P2"));
 	//	}
 		
 	}

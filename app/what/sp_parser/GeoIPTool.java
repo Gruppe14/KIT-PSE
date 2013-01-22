@@ -2,6 +2,8 @@ package what.sp_parser;
 
 import java.io.IOException;
 
+import controllers.Localize;
+
 import what.sp_parser.sp_GeoIp.*;
 
 /**
@@ -37,7 +39,7 @@ public class GeoIPTool {
 		try {
 			cl = new LookupService(lookup);
 		} catch (IOException e) {
-			pm.error(Messages.getString("Error.120"));
+			pm.error(Localize.getString("Error.120"));
 			return false;
 		}
 		
