@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class CreateDBForWH {
 	
-	private String Username;
+    private String Username;
     private String Password;
     private String databaseName;
     private String Driver = "com.mysql.jdbc.Driver";
@@ -45,13 +45,13 @@ public class CreateDBForWH {
 			                       String city, String country
 			                       ) {
 		
-     try {
+          try {
     	 
-    	 Statement stmt = (Statement) this.conn.createStatement();
+    	        Statement stmt = (Statement) this.conn.createStatement();
 			
-			String query = "INSERT INTO db_dim(databasename, servername) " +
+		   String query = "INSERT INTO db_dim(databasename, servername) " +
 					       "VALUES('"+databasename+"', '"+servername+"') " ;
-           String query1 = "INSERT INTO location_dim(ipLocation, country, city) " +
+                   String query1 = "INSERT INTO location_dim(ipLocation, country, city) " +
 					       "VALUES('"+ip+"', '"+country+"', '"+city+"') " ;
 		   String query2 = "INSERT INTO query_entry(elapsed_time, cpu_time, rows_entry) " +
 					       "VALUES("+elapsed_time+", "+cpu_time+", "+rows+") ";
@@ -63,13 +63,13 @@ public class CreateDBForWH {
 			      stmt.executeUpdate(query2);
 			      stmt.executeUpdate(query3);
 			      stmt.close();
-			return true;
+		return true;
 			      
-		} catch (SQLException e2) {
+	    } catch (SQLException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 			return false;
-		}
+	    }
 		
 	}
 	
@@ -77,15 +77,15 @@ public class CreateDBForWH {
 		
 		 try {
 	    	 
-	    	 Statement stmt = (Statement) this.conn.createStatement();
-	    	 String query2 = "INSERT INTO query_entry(time_id, location_id, db_id)" +
-	    			         "VALUES("+time_id+", "+location_id+", "+db_id+")" ;
-	    	 stmt.executeUpdate(query2);
+	    	       Statement stmt = (Statement) this.conn.createStatement();
+	    	       String query2 = "INSERT INTO query_entry(time_id, location_id, db_id)" +
+	    			        "VALUES("+time_id+", "+location_id+", "+db_id+")" ;
+	    	       stmt.executeUpdate(query2);
 	    	 
 		 } catch (SQLException e2) {
 				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
+	        	e2.printStackTrace();
+		 }
 	    	 
 	}
 	
