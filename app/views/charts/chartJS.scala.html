@@ -43,6 +43,11 @@ function buildJson() {
 	var json = {}
 	//save dim selected as x in object
 	json.x = $(".x.selected").parents(".options")[0].id;
+	//save selected filter
+	var filter = $(".filter.selected").parents(".options");
+	for(var i = 0; i < filter.length; i++) {
+		json.filter = filter[i].id;
+	}
 	//save all selected options in object
 	var options = $(".options");
 	for(var i = 0; i < options.length; i++) {
@@ -100,9 +105,19 @@ $(document).ready(function() {
 			if(!$(this).hasClass("selected")) {
 				parent.children(".selected").removeClass("selected");
 			}
-			$(this).toggleClass("selected");
+			//if it has class x this case is handled further down
+			if(!$(this).hasClass("x")) {
+				$(this).toggleClass("selected");
+			}
 		//default not really needed
 		} else {
+			$(this).toggleClass("selected");
+		}
+		//make sure only one x is selected
+		if($(this).hasClass("x")){
+			if(!$(this).hasClass("selected")) {
+				$("#selection").find(".x.selected").removeClass("selected");
+			}
 			$(this).toggleClass("selected");
 		}
 	});
