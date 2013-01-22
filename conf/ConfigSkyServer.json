@@ -5,7 +5,7 @@
 	"Fields": [
 	{
 		"Type": "INT",
-		"Categorie": "time",
+		"Categorie": "TIME",
 		"Level": 1,
 		"Name": "year",
 		"LogId": "yy",
@@ -13,7 +13,7 @@
 	},
 	{
 		"Type": "INT",
-		"Categorie": "time",
+		"Categorie": "TIME",
 		"Level": 2,
 		"Name": "month",
 		"LogId": "mm",
@@ -21,7 +21,7 @@
 	},
 	{
 		"Type": "INT",
-		"Categorie": "time",
+		"Categorie": "TIME",
 		"Level": 3,
 		"Name": "day",
 		"LogId": "dd",
@@ -29,7 +29,7 @@
 	},
 	{
 		"Type": "INT",
-		"Categorie": "time",
+		"Categorie": "TIME",
 		"Level": 4,
 		"Name": "hour",
 		"LogId": "hh",
@@ -37,7 +37,7 @@
 	},
 	{
 		"Type": "INT",
-		"Categorie": "time",
+		"Categorie": "TIME",
 		"Level": 5,
 		"Name": "minute",
 		"LogId": "mi",
@@ -45,7 +45,7 @@
 	},
 	{
 		"Type": "INT",
-		"Categorie": "time",
+		"Categorie": "TIME",
 		"Level": 6,
 		"Name": "second",
 		"LogId": "ss",
@@ -54,7 +54,7 @@
 	
 	{
 		"Type": "IP",
-		"Categorie": "none",
+		"Categorie": "LOCATION",
 		"Level": 0,
 		"Name": "location",
 		"LogId": "clientIP",
@@ -63,27 +63,29 @@
 	
 	{
 		"Type": "STRING",
-		"Categorie": "server",
+		"Categorie": "SERVER",
 		"Level": 1,
 		"Name": "server",
 		"LogId": "server",
 		"Scale": "server",
-		"List": ["SDSS3J" , "SDSS3D",],
+		"List": ["SDSS3J" , "SDSS3D", "SDSS2A", "SDSS2B", "SDSSSQL007",
+				 "SDSSSQL005", "JHU-SDSS002",],
 	},
 	
 	{
 		"Type": "STRING",
-		"Categorie": "server",
+		"Categorie": "SERVER",
 		"Level": 2,
 		"Name": "database",
 		"LogId": "dbname",
 		"Scale": "db",
-		"List": ["BESTDR1" , "BESTDR7" , "BESTDR8" , "BESTDR9",],
+		"List": ["BESTDR1", "BESTDR2", "BESTDR3", "BESTDR4", "BESTDR5",
+				 "BESTDR6", "BESTDR7" , "BESTDR8" , "BESTDR9",],
 	},
 	
 	{
 		"Type": "DOUBLE",
-		"Categorie": "none",
+		"Categorie": "ELAPSED",
 		"Level": 0,
 		"Name": "elapsed time",
 		"LogId": "elapsed", 
@@ -92,7 +94,7 @@
 	
 	{
 		"Type": "DOUBLE",
-		"Categorie": "none",
+		"Categorie": "BUSY",
 		"Level": 0,
 		"Name": "busy time",
 		"LogId": "busy",
@@ -101,7 +103,7 @@
 	
 	{
 		"Type": "INT",
-		"Categorie": "none",
+		"Categorie": "ROWS",
 		"Level": 0,
 		"Name": "rows",
 		"LogId": "rows",
@@ -110,13 +112,13 @@
 	
 	{
 		"Type": "STRINGMAP",
-		"Categorie": "type",
+		"Categorie": "TYPE",
 		"Level": 0,
 		"Name": "type",
 		"Scale": "type",
 		"LogId": "statement",
 		"List": [
-				 { "ParentName" = "Photo",
+				 { "ParentName" = "PHOTO",
 					"List" = 
 					["Photo", "PhotoTag", "PhotoObjAll", "PhotoPrimary", "PhotoSecondary", "Photoz", "Rosat", 
 					 "Neighbors", "USNO", "First", "PhotoAuxAll",
@@ -126,14 +128,14 @@
 					],
 				 },
 				 
-				 { "ParentName" = "Spectro",
+				 { "ParentName" = "SPECTRO",
 					"List" = 
 					["sppParams", "galSpecIndx", "galSpecLine", "SpecObjAll", "XCRedshift", "ELRedShift", "SpecLineAll", "SpecPhotoAll", 
 					 "SpecLineIndex", "QuasarCatalog", "PlateX", "TargetInfo", "Target", "TargetParam"
 					],
 				 },
 				 
-				 {"ParentName" = "Meta",
+				 {"ParentName" = "META",
 				  "List" = 
 					["DBObjects", "Algorithm", "DataConstants", "Glossary", "QueryResults", "RecentQueries",
 					 "Rmatrix", "TableDesc", "Dependency", "Diagnostics", "History", "LoadHistory", "PubHistory", 
@@ -148,7 +150,7 @@
 					],
 				 },
 				  
-				 { "ParentName" = "Tiling",
+				 { "ParentName" = "TILING",
 					"List" = 
 					["TileAll", "TilingRung", "TilingGeometry", "TilingInfo", "TilingNote", "TilingTargetAll", 
 					 "HoleObj", "Sector2Tile", "Region", "Sector", "BestTarget2Sector", "HalfSpace", 
