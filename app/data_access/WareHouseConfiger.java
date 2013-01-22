@@ -115,7 +115,13 @@ public class WareHouseConfiger {
 		}
 
 	}
-
+        
+        
+        public void closeConnectionMySQL() {
+        	
+        	this.db.getConnection.close();
+        	
+        }
 	 
 
 }
