@@ -1,0 +1,17 @@
+            .axis path,
+            .axis line {
+                fill: none;
+                stroke: black;
+                shape-rendering: crispEdges;
+            }
+            .axis text {
+                font-family: sans-serif;
+                font-size: 11px;
+            }
+            
+            .circle {
+                stroke: grey;
+                stroke-width: 0;
+                fill: #444;
+            }
+            

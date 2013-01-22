@@ -1,5 +1,7 @@
 package controllers;
 
+import java.io.File;
+
 import play.mvc.*;
 
 public class Website extends Controller {
@@ -25,7 +27,11 @@ public class Website extends Controller {
      * @return returns a valid http response, a javascript
      */
     public static Result ChartJS(String chartName) {
-    	return ok(views.html.charts.chartJS.render(chartName)).as("application/javascript");
+    	return ok(views.html.chartJS.render(chartName)).as("application/javascript");
+    }
+    
+    public static Result ChartStatics(String chartName, String file) {
+    	return ok(new File("./charts/" + chartName + "/" + file));
     }
     
     /**
@@ -37,5 +43,5 @@ public class Website extends Controller {
     	Localize.changeLanguage();
     	return redirect(path);
     }
-
+    
 }
