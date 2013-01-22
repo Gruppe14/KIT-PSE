@@ -1,0 +1,116 @@
+@(chart: String)
+@import controllers.Localize
+function toggleSub(e) {
+	var sub = e.next();
+	sub.slideToggle(200);
+	sub.find(".selected").removeClass("selected");
+	sub.find(".sub").hide();
+}
+//check all requirements and send ajax request for chart
+function makeRequest() {
+	if(checkOptions()){
+		var json = buildJson();
+		displayError("Json build:", JSON.stringify(json));
+	}
+}
+//check wether all requirements for a successful chart request are met
+function checkOptions() {
+	var errOp = [];
+	//check wether value for x axis is selected
+	if ($(".x.selected").length == 0) {
+		errOp.push($(".x").html());
+	}
+	//check wether a measure is selected
+	if ($("#measures").find(".selected").length == 0) {
+		errOp.push($("#measures").children(":first").html());
+	}
+	//if not all correct
+	if(errOp.length != 0) {
+		var info = "";
+		for(var i = 0; i < errOp.length; i++) {
+			info += "<br />" + errOp[i];
+		}
+		displayError("@Localize.get("filter.err")" ,info);
+		return false;
+	//if everything correct
+	} else {
+		return true;
+	}
+}
+//assumes that all values needed are selected
+function buildJson() {
+	//empty js object
+	var json = {}
+	//save dim selected as x in object
+	json.x = $(".x.selected").parents(".options")[0].id;
+	//save all selected options in object
+	var options = $(".options");
+	for(var i = 0; i < options.length; i++) {
+		var op = $(options[i]);
+		//if option is dim build a tree with selected
+		if(op.children(".list").hasClass("dim")) {
+			var li = op.children(".list");
+			var selected = li.children(".selected");
+			//if nothing selected --> all
+			if (selected.length == 0) {
+				json[op[0].id] = "all";
+			//else build array, recursively if needed
+			} else {
+				json[op[0].id] = buildTree(selected);
+			}
+		// if it is a measure save selected measure
+		} else if(op.children(".list").hasClass("group")){
+			json[op[0].id] = op.find(".selected").html();
+		}
+	}
+	return json;
+}
+
+//build a tree with all selected values of a dimension
+function buildTree(lvl) {
+	var arr = [];
+	for(var i = 0; i < lvl.length; i++) {
+		var el = $(lvl[i]);
+		//el has sub dimensions 
+		if(el.next().hasClass("sub") && el.next().children(".selected").length != 0) {
+			var obj = {};
+			obj[el.html()] = buildTree(el.next().children(".selected"));
+			arr.push(obj);
+		//el is has no sub dimension and can be added itself	
+		} else {
+			arr.push(el.html());
+		}
+	}
+	return arr;
+}
+
+//ready function called when DOM is ready
+$(document).ready(function() {
+	//hide all subsections
+	$(".sub").hide();
+	//register click function to all options
+	$("span").click(function() {
+		var parent = $(this).parent();
+		//if the clicked option has sub selections
+		if($(this).next().hasClass('sub')) {
+			$(this).toggleClass("selected");
+			toggleSub($(this));
+		//if only one option can be selected in this group
+		} else if (parent.hasClass("group")) {
+			if(!$(this).hasClass("selected")) {
+				parent.children(".selected").removeClass("selected");
+			}
+			$(this).toggleClass("selected");
+		//default not really needed
+		} else {
+			$(this).toggleClass("selected");
+		}
+	});
+	//register click function for chart request
+	$("#send").click(function(){
+		makeRequest();
+	});
+	//add chart css & js
+	$("head").append('<link href="/assets/charts/@{chart}/@{chart}.css" rel="stylesheet" type="text/css">');
+	$("head").append('<script type="text/javascript" src="/assets/charts/@{chart}/@{chart}.js"></script>');
+});

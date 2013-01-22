@@ -32,7 +32,7 @@ function barchart(pathtodata) {
         }
 
         //the svg
-        var svg = d3.select("#container")
+        var svg = d3.select("#chart")
             .append("svg")
             .attr("class", "chart")
             .attr("width", w + margin.left + margin.right)

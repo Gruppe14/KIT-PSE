@@ -58,7 +58,7 @@ function bubblescatter(pathtodata) {
             
             
               //the svg chart!
-              var svg = d3.select("body")
+              var svg = d3.select("#chart")
                                         .append("svg")
                                         .attr("width", w)
                                         .attr("height", h);

@@ -5,7 +5,8 @@
 # Home page
 GET /									controllers.Website.index()
 
-GET /charts/$chartType<[a-z]+>.html		controllers.Website.ChartType(chartType)
+GET /charts/$chartName<[a-z]+>.html		controllers.Website.ChartType(chartName)
+GET /charts/$chartName<[a-z]+>.js		controllers.Website.ChartJS(chartName)
 
 #change language
 POST *path								controllers.Website.changeLanguage(path)
