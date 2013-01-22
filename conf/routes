@@ -5,9 +5,14 @@
 # Home page
 GET /									controllers.Website.index()
 
-GET /charts/$chartName<[a-z]+>.html		controllers.Website.ChartType(chartName)
-GET /charts/$chartName<[a-z]+>.js		controllers.Website.ChartJS(chartName)
-GET /charts/$chartName<[a-z]+>/*file	controllers.Website.ChartStatics(chartName, file)
+# request chart website + some resources
+GET /charts/$chartName<[a-z]+>.html		controllers.Website.chartType(chartName)
+GET /charts/$chartName<[a-z]+>.js		controllers.Website.chartJS(chartName)
+GET /charts/$chartName<[a-z]+>/*file	controllers.Website.chartStatics(chartName, file)
+
+#request a chart visualization
+POST /chartRequest						controllers.Website.chartRequest()
+
 #change language
 POST *path								controllers.Website.changeLanguage(path)
 

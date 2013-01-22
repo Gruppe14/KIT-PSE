@@ -2,7 +2,10 @@ package controllers;
 
 import java.io.File;
 
+import org.codehaus.jackson.JsonNode;
+
 import play.mvc.*;
+
 
 public class Website extends Controller {
 
@@ -18,7 +21,7 @@ public class Website extends Controller {
      * @param chartName the name of the requested chart
      * @return returns a valid http response, a website
      */
-    public static Result ChartType(String chartName) {
+    public static Result chartType(String chartName) {
     	return ok(views.html.abstractChart.render(chartName));
     }
     /**
@@ -26,12 +29,29 @@ public class Website extends Controller {
      * @param chartName the name of the requested chart
      * @return returns a valid http response, a javascript
      */
-    public static Result ChartJS(String chartName) {
+    public static Result chartJS(String chartName) {
     	return ok(views.html.chartJS.render(chartName)).as("application/javascript");
     }
     
-    public static Result ChartStatics(String chartName, String file) {
+    /**
+     * requests static resources for a chart
+     * @param chartName the chart name
+     * @param file the path to the file requested
+     * @return returns the file
+     */
+    public static Result chartStatics(String chartName, String file) {
     	return ok(new File("./charts/" + chartName + "/" + file));
+    }
+    
+    /**
+     * method to process chart requests
+     * @return returns the needed chart data
+     */
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result chartRequest() {
+    	JsonNode json = request().body().asJson();
+    	String chart = json.findPath("chart").getTextValue();
+        return ok(new File("./example/charts/" + chart + ".json")).as("application/json");
     }
     
     /**

@@ -10,7 +10,24 @@ function toggleSub(e) {
 function makeRequest() {
 	if(checkOptions()){
 		var json = buildJson();
-		displayError("Json build:", JSON.stringify(json));
+		$.ajax({
+			type: "POST",
+			url: "/chartRequest",
+			data: JSON.stringify(json),
+			processData: false,
+			//send type
+			contentType: "application/json",
+			//expected result type
+			dataType: "json",
+			success:function(data) {
+				var jsonString = JSON.stringify(data);
+				displayError("Received json:", jsonString);
+		  		@{chart}(jsonString);
+			},
+			error:function(q, err, ex) {
+		 		displayError("@Localize.get("charts.requestErr")");
+			}
+		});
 	}
 }
 //check wether all requirements for a successful chart request are met
@@ -41,6 +58,8 @@ function checkOptions() {
 function buildJson() {
 	//empty js object
 	var json = {}
+	//save chartName
+	json.chart = "@{chart}";
 	//save dim selected as x in object
 	json.x = $(".x.selected").parents(".options")[0].id;
 	//save selected filter
@@ -126,6 +145,6 @@ $(document).ready(function() {
 		makeRequest();
 	});
 	//add chart css & js
-	$("head").append('<link href="/assets/charts/@{chart}/@{chart}.css" rel="stylesheet" type="text/css">');
-	$("head").append('<script type="text/javascript" src="/assets/charts/@{chart}/@{chart}.js"></script>');
+	$("head").append('<link href="/charts/@{chart}/@{chart}.css" rel="stylesheet" type="text/css">');
+	$("head").append('<script type="text/javascript" src="/charts/@{chart}/@{chart}.js"></script>');
 });
