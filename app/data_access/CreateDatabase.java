@@ -53,7 +53,7 @@ public class CreateDatabase {
 		
     }
     
-    private void createDatabaseName() {
+    private boolean createDatabaseName() {
     	
        try {
 				    

@@ -2,8 +2,6 @@ package data_access;
 
 
 import what.sp_parser.DataEntry;
-//import what.sp_config.ConfigWrap;
-
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -119,7 +117,7 @@ public class WareHouseConfiger {
         
         public void closeConnectionMySQL() {
         	
-        	this.db.getConnection.close();
+        	//this.db.getConnection.close();
         	
         }
 	 
