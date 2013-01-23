@@ -67,11 +67,11 @@ public class CreateDatabase {
 			      this.URL = "jdbc:mysql://localhost:3306/" + this.newName;
 			      this.makeConnection();
 			      
-			      return false;
+			      
 			
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
-			return false;
+			
 			
 		}
     	
