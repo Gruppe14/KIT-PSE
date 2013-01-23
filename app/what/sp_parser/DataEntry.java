@@ -12,9 +12,15 @@ import java.util.Arrays;
  */
 public class DataEntry {
 	
+	/**
+	 * The informations which are saved in a DataEntry
+	 */
 	private Object[] info;
 	
-	
+	/**
+	 * Protected constructor, because only ParsingTask should create new DataEntry-Objects.
+	 * @param size the size of the info-array
+	 */
 	protected DataEntry(int size) {
 		info = new Object[size];
 	}
@@ -36,9 +42,6 @@ public class DataEntry {
 		this.info[i] = info;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return "DataEntry [info=" + Arrays.toString(info)

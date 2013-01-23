@@ -85,10 +85,12 @@ public class Logfile {
 	 * to the first line of the file.
 	 */
 	protected Logfile(String path, ParserMediator pm) {
+		
+		//Initialization and checks if file is correct.
 		this.pm = pm;
 		this.lines = 0;
 		try {
-		this.file = new File(path);
+			this.file = new File(path);
 		} catch (NullPointerException e) {
 			pm.error(Localize.getString("Error.50"));
 			return;
@@ -99,9 +101,18 @@ public class Logfile {
 			pm.error(Localize.getString("Error.60P1") + " " + path + " " + Localize.getString("Error.60P2"));
 			return;
 		}
+		
+		if (!file.getPath().endsWith(".csv")) {
+			pm.error(Localize.getString("Error.90"));
+			return;
+		}
+		
+		//Creates BufferedReader which will read the file.
 		in = new DataInputStream(fstream);
 		br = new BufferedReader(new InputStreamReader(in));
+		
 		try {
+			//Type is the first line of the file. (This is standard in the .csv-format)
 			type = br.readLine();
 	
 			if (!VerificationTool.checkConfig(this)) {
@@ -122,6 +133,7 @@ public class Logfile {
 		
 	}
 	
+	//For speed-testing purposes
 	private long first;
 	/**
 	 * Returns the next line from <code>file</code> and iterates <code>lines</code>.
@@ -131,6 +143,7 @@ public class Logfile {
 		String str = null;
 		String str2;
 		try {
+			// For speed-testing purposed. Prints how many ms the parser needed for 10k lines.
 			if (lines == 0) {
 				first = System.currentTimeMillis();
 			}
@@ -139,6 +152,7 @@ public class Logfile {
 				first = System.currentTimeMillis();
 			} 
 			
+			
 			str = br.readLine();
 						
 			if (str == null) {
@@ -146,7 +160,8 @@ public class Logfile {
 			}
 			
 			
-			
+			// Those lines of code make sure, that a line is actually a complete line. This is needed because some statements
+			//contain endOfLines which are the same as the endOfLines from the .csv-file. The line gets returned when a line is complete.
 			boolean goOn = true;
 			while (goOn) {
 				br.mark(10000);
@@ -162,11 +177,8 @@ public class Logfile {
 				}
 			}
 			
-						
-		
-				
-			
 		} catch (IOException e) {
+			//I know, try-blocks shouldn't be that big, but there are many readLine()-calls and it doesn't matter in which one the error occurred, the exception-handling is similar.
 			if (!file.canRead()) {
 				pm.error(Localize.getString("Error.72P1") + " " + lines + " " + Localize.getString("Error.72P2"));
 			} else {

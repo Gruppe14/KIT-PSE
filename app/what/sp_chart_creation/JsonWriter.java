@@ -14,10 +14,4 @@ class JsonWriter extends ChartVisitor {
 		return false;
 	}
 
-	@Override
-	public boolean visitThreeDim(ThreeDimChart host) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

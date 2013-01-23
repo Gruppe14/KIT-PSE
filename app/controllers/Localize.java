@@ -4,6 +4,7 @@ import play.mvc.Http.RequestBody;
 import play.i18n.Lang;
 
 import java.util.List;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class Localize extends Controller{
@@ -23,15 +24,16 @@ public class Localize extends Controller{
 	 * the string in the standard language and if that is also not found returns the key
 	 */
 	public static String get(String message) {
-		String loc = ResourceBundle.getBundle("messages_" + language()).getString(message);
-		//default language if message not found
-		if(loc.equals("")) {
-			loc = ResourceBundle.getBundle("messages_" + standard).getString(message);
+		try {
+			String loc = ResourceBundle.getBundle("messages_" + language()).getString(message);
+			//default language if message not found
+			if(loc.equals("")) {
+				loc = ResourceBundle.getBundle("messages_" + standard).getString(message);
+			}
+			return loc;
+		} catch (MissingResourceException e) {
+			return message;
 		}
-		if(loc.equals("")) {
-			loc = message;
-		}
-		return loc;
 	}
 	/**
 	 * method to get a localized string without standard language fallback

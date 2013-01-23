@@ -18,8 +18,6 @@ public abstract class ChartVisitor {
 	
 	abstract public boolean visitTwoDim(TwoDimChart host);
 	
-	abstract public boolean visitThreeDim(ThreeDimChart host);
-	
 	static public ChartVisitor getInstance() {
 		return null;
 	}

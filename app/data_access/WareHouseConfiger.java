@@ -115,9 +115,13 @@ public class WareHouseConfiger {
 	}
         
         
-        public void closeConnectionMySQL() {
+        public void closeConnectionMySQL() throws SQLException {
         	
+<<<<<<< HEAD
         	//this.db.getConnection.close();
+=======
+        	WareHouseConfiger.db.getConnection().close();
+>>>>>>> 6332c1ac0f3b67020fa3f9a6ad72f594ed3dc0d5
         	
         }
 	 

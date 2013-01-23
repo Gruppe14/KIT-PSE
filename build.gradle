@@ -45,7 +45,14 @@ task copyCharts(type: Copy, dependsOn: moveDist) {
 	into '../what/charts'
 }
 
-task createStartBat(dependsOn: [delDistFolder, copyCharts]) {
+task copyMySQL(type: Copy, dependsOn: moveDist) {
+	from '../mysql'
+	into '../what/mysql'
+}
+
+task createStartBat(dependsOn: [delDistFolder, copyCharts, copyMySQL]) {
 	new File("../what").mkdir()
-	new File('../what/start.bat').write("java %1  -cp ./lib/*; play.core.server.NettyServer .")
+	new File("../what/mysql").mkdir()
+	new File('../what/mysql/start.bat').write("mysql\\bin\\mysqld --defaults-file=mysql\\my.ini --standalone --console\r\nexit")
+	new File('../what/start.bat').write("start mysql\\start.bat\r\njava %1  -cp ./lib/*; play.core.server.NettyServer .")
 }

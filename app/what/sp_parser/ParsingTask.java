@@ -10,18 +10,29 @@ package what.sp_parser;
 
 public class ParsingTask implements Runnable {
 	
+	/**
+	 * The string which is parsed.
+	 */
 	private String str;
 	
+	/**
+	 * String str, splitted by commas
+	 */
 	private String[] splitStr;
 	
+	/**
+	 * The ParserMediator which controls this task.
+	 */
 	private ParserMediator pm;
 	
+	/**
+	 * The used DataEntry.
+	 */
 	private DataEntry de;
 	
 	/**
 	 * This is the constructor for a new <code>ParsingTask</code>
 	 * @param pm the ParserMediator which is connected to this <code>ParsingTask</code>
-	 * @param type the type of csv-file used.
 	 */
 	protected ParsingTask(ParserMediator pm) {
 		this.pm = pm;
