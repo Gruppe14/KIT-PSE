@@ -1,5 +1,5 @@
 #selection {
-	width: 830px;
+	width: 828px;
 	height: 400px;
 	margin: auto;
 	border: 2px solid lightgray;
@@ -10,6 +10,64 @@
 	font-weight: bold;
 	font-size: 24px;
 }
+#selection > div {
+	margin-bottom: 5px;
+}
+#time {
+	vertical-align: top;
+}
+#time span{
+	display:block;
+	padding: 0px 3px;
+	text-align:right;
+	cursor: pointer;
+}
+#time > div {
+	display:inline-block;
+}
+#time > div:first-line {
+	font-weight: bold;
+}
+#time > div:last-child {
+	right: 0px;
+	float: right;
+}
+#time > div > div {
+	width: 80px;
+	display:inline-block;
+	position: relative;
+	border: 2px solid lightgray;
+}
+#time > div > div > span:first-child {
+	background-color: lightgray;
+	font-weight: bold;
+	text-align: left;
+	cursor: default;
+}
+#time input {
+	outline: 0px;
+	border: 0px;
+	width:inherit;
+	font-family: Kalinga;
+	font-size: 16px;
+	height: 18px;
+	margin: -1px 0px;
+	text-align: right;
+}
+.dropdown {
+	position: absolute;
+	background-color: white;
+	border: 2px solid lightgray;
+	border-top-width: 0px;
+	margin-left: -2px;
+	height: 100px;
+	width: 80px;
+	overflow-y: scroll;
+}
+.dropdown span:hover {
+	background-color: lightgray;
+}
+
 .options {
 	vertical-align: top;
 	display: inline-block;
@@ -55,7 +113,6 @@
 	background-color: lightgray;
 	text-align: center;
 	font-weight: bold;
-	margin-top: 5px;
 	width: 100px;
 	cursor: pointer;
 }

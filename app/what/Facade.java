@@ -70,17 +70,10 @@ public class Facade {
 			throw new IllegalArgumentException();
 		}
 		
-		ConfigWrap config = null;
 		
 		// tries to build a new ConfigWrap
-		try {
-			config = ConfigWrap.buildConfig(path);
-		} catch (JSONException e) {
-			System.out.println("Building ConfigWrap with the given path failed"
-								+ "because something went wrong with JSON!");
-			e.printStackTrace();
-			return false;
-		} 
+		ConfigWrap config = ConfigWrap.buildConfig(path);
+		
 		
 		if (config == null) {
 			System.out.println("Building ConfigWrap with the given path failed");

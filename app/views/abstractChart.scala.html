@@ -28,6 +28,88 @@
 	<div id="chart"></div>
 	<div id="selection">
 		@Localize.get("charts." + chartName)<br />
+		<div id="time">
+			<div>
+				@Localize.get("time.from")<br />
+				<div id="yearFrom">
+				<span>@Localize.get("time.year")</span>
+				<span>&nbsp;</span>
+				<div class="dropdown">
+					<span>---</span>
+					<span>2012</span>
+					<span>2011</span>
+					<span>2010</span>
+					<span>2009</span>
+				</div>
+			</div>
+			<div id="monthFrom">
+				<span>@Localize.get("time.month")</span>
+				<span>&nbsp;</span>
+				<div class="dropdown">
+					<span>---</span>
+					<span>1</span>
+					<span>2</span>
+					<span>3</span>
+					<span>4</span>
+					<span>5</span>
+					<span>6</span>
+					<span>7</span>
+					<span>8</span>
+					<span>9</span>
+					<span>10</span>
+					<span>11</span>
+					<span>12</span>
+				</div>
+			</div>
+			<div id="dayFrom">
+				<span>@Localize.get("time.day")</span>
+				<input type="number" min="1" max="31" placeholder="1 - 31"/>
+			</div>
+			<div id="hourFrom">
+				<span>@Localize.get("time.hour")</span>
+				<input type="text" pattern="[0-9]{1,2}:[0-9]{2}" placeholder="0:00"/>
+			</div></div>
+			<div>
+				@Localize.get("time.to")<br />
+				<div id="yearTo">
+				<span>@Localize.get("time.year")</span>
+				<span>&nbsp;</span>
+				<div class="dropdown">
+					<span>---</span>
+					<span>2012</span>
+					<span>2011</span>
+					<span>2010</span>
+					<span>2009</span>
+				</div>
+			</div>
+			<div id="monthTo">
+				<span>@Localize.get("time.month")</span>
+				<span>&nbsp;</span>
+				<div class="dropdown">
+					<span>---</span>
+					<span>1</span>
+					<span>2</span>
+					<span>3</span>
+					<span>4</span>
+					<span>5</span>
+					<span>6</span>
+					<span>7</span>
+					<span>8</span>
+					<span>9</span>
+					<span>10</span>
+					<span>11</span>
+					<span>12</span>
+				</div>
+			</div>
+			<div id="dayTo">
+				<span>@Localize.get("time.day")</span>
+				<input type="number" min="1" max="31" placeholder="1 - 31"/>
+			</div>
+			<div id="hourTo">
+				<span>@Localize.get("time.hour")</span>
+				<input type="text" pattern="[0-9]{1,2}:[0-9]{2}" placeholder="0:00"/>
+			</div></div>
+		</div>
 		<div id="location" class="options">
 			<div>@Localize.get("filter.location")</div>
 			<div class="group type">

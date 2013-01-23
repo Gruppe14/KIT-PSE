@@ -117,10 +117,22 @@ function buildTree(lvl) {
 
 //ready function called when DOM is ready
 $(document).ready(function() {
+	//hide time spans
+	$(".dropdown").hide();
+	//register click function for dropdowns
+	$(".dropdown").prev().click(function() {
+		$(this).next().slideToggle(200);
+	});
+	$(".dropdown").children().click(function() {
+		var drop = $(this).parents(".dropdown");
+		drop.prev().html($(this).html());
+		drop.slideToggle(200);
+		
+	});
 	//hide all subsections
 	$(".sub").hide();
 	//register click function to all options
-	$("span").click(function() {
+	$(".options").find("span").click(function() {
 		var parent = $(this).parent();
 		//if the clicked option has sub selections
 		if($(this).next().hasClass('sub')) {
@@ -135,9 +147,6 @@ $(document).ready(function() {
 			if(!$(this).hasClass("x")) {
 				$(this).toggleClass("selected");
 			}
-		//default not really needed
-		} else {
-			$(this).toggleClass("selected");
 		}
 		//make sure only one x is selected
 		if($(this).hasClass("x")){
