@@ -10,12 +10,24 @@ package what.sp_parser;
 
 public class ParsingTask implements Runnable {
 	
+	/**
+	 * The string which is parsed.
+	 */
 	private String str;
 	
+	/**
+	 * String str, splitted by commas
+	 */
 	private String[] splitStr;
 	
+	/**
+	 * The ParserMediator which controls this task.
+	 */
 	private ParserMediator pm;
 	
+	/**
+	 * The used DataEntry.
+	 */
 	private DataEntry de;
 	
 	/**

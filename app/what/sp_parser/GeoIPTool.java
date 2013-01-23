@@ -32,7 +32,6 @@ public class GeoIPTool {
 		
 		String dir = System.getProperty("user.dir");
 		String seperator = System.getProperty("file.separator");
-		
 		String lookup = dir + seperator + "data\\geoLiteCity.dat";
 				
 		
@@ -57,11 +56,16 @@ public class GeoIPTool {
 			pt.getDe().setInfo(pt.getSplitStr()[6], 6);
 									
 			Location loc;
+			
+			//Looks if the IP is the same as the one which started the last request, uses the same location info
+			//if this is true. If not, it uses the LookupService to create a new Location-object loc.
 			if (pt.getDe().getInfo(6).equals(lastIp)) {
 				loc = lastLoc;
 			} else {
 				loc = cl.getLocation((String) pt.getDe().getInfo(6));
 			}
+			
+			//Sets country and city to the last 2 spots of the DataEntry.
 			pt.getDe().setInfo(loc.countryName, pt.getPm().getConfig().getSize() + 1);	
 			pt.getDe().setInfo(loc.city, pt.getPm().getConfig().getSize());
 			

@@ -40,18 +40,41 @@ public class ParserMediator {
 	 */	
 	private int linesDeleted = 0;
 	
+	/**
+	 * Represents the used logfile
+	 */
 	private Logfile usedFile = null;
-		
+	
+	/**
+	 * The thread-pool which contains all objects of the class ParsingTask.
+	 */
 	private ExecutorService threadPool = Executors.newFixedThreadPool(poolsize);
 	
+	/**
+	 * An array of all tasks.
+	 */
 	private ParsingTask tasks[];
 	
+	/**
+	 * The used configuration.
+	 */
 	private ConfigWrap cw;
 	
+	/**	
+	 * The DataMediator which loads the data into the warehouse.
+	 */
 	private DataMediator loader;
 	
+	/**
+	 * True if a fatalError occurred. Program will shut down.
+	 */
 	private boolean fatalError = false;
 	
+	/**
+	 * Constructor for a new ParserMediator.
+	 * @param confi - the used config
+	 * @param dataMedi - the DataMediator which loads the data into the warehouse
+	 */
 	public ParserMediator(ConfigWrap confi, DataMediator dataMedi) {
 		if (confi == null) {
 			throw new IllegalArgumentException();
@@ -94,6 +117,9 @@ public class ParserMediator {
 	 */
 	public boolean parseLogFile(String path) {
 		
+		
+		//Initialization for Logfile, ThreadPool and GeoIPTool.
+		
 		usedFile = new Logfile(path, this);
 		
 		if (fatalError) {
@@ -110,7 +136,7 @@ public class ParserMediator {
 			return false;
 		}
 		
-		
+		//Submits all threads to the pool and starts them.
 		for (int i = 0; i < poolsize; i++) {
 			try {
 				threadPool.submit(tasks[i]);
@@ -127,6 +153,8 @@ public class ParserMediator {
 			
 		}
 		
+		// Checks all 1000ms if all tasks are finished or if there was a fatal error. Returns true if 
+		// all tasks are finished and false, if there was a fatal error.
 		while (true) {
 			if (finishedTasks == poolsize) {
 				System.out.println("lines: " + usedFile.getLines());
@@ -174,17 +202,15 @@ public class ParserMediator {
 	}
 	
 	/**
-	 * This method is called when a line gets deleted. It sends out a warning to the standard output
-	 *  for every 1000 deleted lines.
+	 * This method is called when a line gets deleted. It sends out a warning to the standard output.
 	 */
 
 	protected void increaseLinedel() {
+		
 		linesDeleted++;
 		
-	//	if (linesDeleted % 1000 == 0) {
-			System.out.println(Localize.getString("Warning.10P1") + linesDeleted + " " + Localize.getString("Warning.10P2"));
-	//	}
-		
+		System.out.println(Localize.getString("Warning.10P1") + linesDeleted + " " + Localize.getString("Warning.10P2"));
+			
 	}
 
 	/**
@@ -204,10 +230,10 @@ public class ParserMediator {
 
 
 	/**
-	 * @param loader the loader to set
+	 * @return the loader
 	 */
-	public void setLoader(DataMediator loader) {
-		this.loader = loader;
+	public DataMediator getLoader() {
+		return loader;
 	}
 
 	
