@@ -2,7 +2,8 @@ package controllers;
 
 import java.io.File;
 
-import org.codehaus.jackson.JsonNode;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import play.mvc.*;
 
@@ -47,11 +48,16 @@ public class Website extends Controller {
      * method to process chart requests
      * @return returns the needed chart data
      */
-    @BodyParser.Of(BodyParser.Json.class)
+    //TolerantText because ContentType is json
+    @BodyParser.Of(BodyParser.TolerantText.class)
     public static Result chartRequest() {
-    	JsonNode json = request().body().asJson();
-    	String chart = json.findPath("chart").getTextValue();
-        return ok(new File("./example/charts/" + chart + ".json")).as("application/json");
+    	try {
+			JSONObject json = new JSONObject(request().body().asText());
+			String chart = json.getString("chart");
+		    return ok(new File("./example/charts/" + chart + ".json")).as("application/json");
+    	} catch (JSONException e) {
+    		return internalServerError("Something went wrong :(");
+    	}
     }
     
     /**

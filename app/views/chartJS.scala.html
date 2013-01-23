@@ -17,7 +17,7 @@ function makeRequest() {
 			data: JSON.stringify(json),
 			processData: false,
 			//send type
-			contentType: "application/json",
+			contentType: "application/json; charset=UTF-8",
 			//expected result type
 			dataType: "json",
 			success:function(data) {
@@ -64,9 +64,10 @@ function buildJson() {
 	//save dim selected as x in object
 	json.x = $(".x.selected").parents(".options")[0].id;
 	//save selected filter
+	json.filter = [];
 	var filter = $(".filter.selected").parents(".options");
 	for(var i = 0; i < filter.length; i++) {
-		json.filter = filter[i].id;
+		json.filter.push(filter[i].id);
 	}
 	//save all selected options in object
 	var options = $(".options");

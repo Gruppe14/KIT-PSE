@@ -31,9 +31,10 @@ function barchart(json) {
             return d[yAxisName];
         }
 
+        $("#chart").html("");
         //the svg
         var svg = d3.select("#chart")
-            .append("svg")
+            .insert("svg")
             .attr("class", "chart")
             .attr("width", w + margin.left + margin.right)
             .attr("height", h + margin.top + margin.bottom)
