@@ -10,7 +10,6 @@ function toggleSub(e) {
 function makeRequest() {
 	if(checkOptions()){
 		var json = buildJson();
-		alert(JSON.stringify(json));
 		$.ajax({
 			type: "POST",
 			url: "/chartRequest",
@@ -77,13 +76,16 @@ function buildJson() {
 		if(op.children(".list").hasClass("dim")) {
 			var li = op.children(".list");
 			var selected = li.children(".selected");
+			var lvl = {};
+			lvl.level = li.attr("data");
 			//if nothing selected --> all
 			if (selected.length == 0) {
-				json[op[0].id] = "all";
+				lvl.selected = "all";
 			//else build array, recursively if needed
 			} else {
-				json[op[0].id] = buildTree(selected);
+				 lvl.selected = buildTree(selected);
 			}
+			json[op[0].id] = lvl;
 		// if it is a measure save selected measure
 		} else if(op.children(".list").hasClass("group")){
 			json[op[0].id] = op.find(".selected").html();
@@ -100,6 +102,9 @@ function buildTree(lvl) {
 		//el has sub dimensions 
 		if(el.next().hasClass("sub") && el.next().children(".selected").length != 0) {
 			var obj = {};
+			alert(el.next().attr("data"));
+			obj.level = el.next().attr("data");
+			obj.parent = el.html();
 			obj[el.html()] = buildTree(el.next().children(".selected"));
 			arr.push(obj);
 		//el is has no sub dimension and can be added itself	
