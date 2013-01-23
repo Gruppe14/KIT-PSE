@@ -1,15 +1,15 @@
-function barchart(pathtodata) {
+function barchart(json) {
     var data;
     var xAxisName;
     var yAxisName;
-    d3.json(pathtodata, function (json) {
-        console.log("I read " + json.data.length + " data points.");
+
+        //console.log("I read " + json.data.length + " data points.");
         xAxisName = json.attribute1;
         yAxisName = json.attribute2;
         data = json.data;
-        visualize(data); //then start the visualization
+        visualize(json); //then start the visualization
 
-    });
+ 
 
     function visualize(data) {
         //dimensions
