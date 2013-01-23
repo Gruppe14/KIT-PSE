@@ -117,9 +117,9 @@ public class WareHouseConfiger {
 	}
         
         
-        public void closeConnectionMySQL() {
+        public void closeConnectionMySQL() throws SQLException {
         	
-        	this.db.getConnection.close();
+        	WareHouseConfiger.db.getConnection().close();
         	
         }
 	 
