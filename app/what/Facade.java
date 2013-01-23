@@ -2,7 +2,6 @@ package what;
 
 // java imports
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 // org.json imports
@@ -32,6 +31,18 @@ import what.sp_dataMediation.DataMediator;
  */
 public class Facade {
 	
+	/** The singleton facade object */
+	private static Facade FACADE_OBJECT;
+	 
+	static {
+	    String sourcePath = System.getProperty("user.dir");
+		String seperator = System.getProperty("file.separator");
+		String pathJSONConfig = sourcePath + seperator + "conf\\ConfigSkyServer.json";
+		FACADE_OBJECT = new Facade();
+		FACADE_OBJECT.init(pathJSONConfig);
+	}
+	 
+	
 	/**	Current Configuration on which all work is based with this Facade. */
 	private ConfigWrap currentConfig;
 	
@@ -43,7 +54,8 @@ public class Facade {
 	
 	/** DataMediator to which work is directed from this Facade. */
 	private DataMediator dataMedi;
-	 
+	
+	
 	
 	// -- INIT -- RESET -- INIT -- RESET -- INIT --
 	/**
@@ -227,13 +239,23 @@ public class Facade {
 		return 10;
 	}
 
-
 	/**
-	 * @return the currentConfig
+	 * Returns the current ConfigWrap.
+	 * @return the current ConfigWrap
 	 */
 	public ConfigWrap getCurrentConfig() {
 		return currentConfig;
 	}
+
+	/**
+	 * Returns the singleton Facade object.
+	 * 
+	 * @return the singleton Facade object
+	 */
+	public static Facade getFacadeIstance() {
+		return FACADE_OBJECT;
+	}
+
 
 
 	
