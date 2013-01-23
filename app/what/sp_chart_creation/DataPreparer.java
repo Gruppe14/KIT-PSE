@@ -2,10 +2,10 @@ package what.sp_chart_creation;
 
 class DataPreparer extends ChartVisitor {
 	
-	private OneDimChart host;
+	private DimChart host;
 
 	@Override
-	public boolean visitOneDim(OneDimChart host) {
+	public boolean visitOneDim(DimChart host) {
 		// TODO Auto-generated method stub
 		return false;
 	}

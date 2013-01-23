@@ -2,7 +2,7 @@ package what.sp_chart_creation;
 
 import what.sp_config.ConfigWrap;
 
-class TwoDimChart extends OneDimChart {
+class TwoDimChart extends DimChart {
 
 	public TwoDimChart() {
 		

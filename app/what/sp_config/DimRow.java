@@ -96,6 +96,17 @@ public class DimRow {
 		return strings;
 	}
 	
+	public String getTableName() {
+		return ConfigHelper.DIM_TABLE + getName();
+	}
+	
+	public String getNameOfLevel(int i) {
+		if ((i < 0) || (i >= getSize())) {
+			throw new IllegalArgumentException();
+		}
+		
+		return rows.get(i).getName();
+	}
 	
 	// -- OVERRIDES -- OVERRIDES -- OVERRIDES -- OVERRIDES --	
 	@Override

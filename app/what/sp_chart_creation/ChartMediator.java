@@ -19,7 +19,7 @@ import what.sp_config.ConfigWrap;
  * @version 1.0
  *
  * @see ChartVisitor
- * @see OneDimChart
+ * @see DimChart
  */
 public class ChartMediator {
 	
@@ -27,7 +27,7 @@ public class ChartMediator {
 	private ConfigWrap config;
 	
 	/** The stored history of computed charts of this ChartMediator */
-	private LinkedList<OneDimChart> history;
+	private LinkedList<DimChart> history;
 	
 
 	public ChartMediator(ConfigWrap confi) {
@@ -35,7 +35,7 @@ public class ChartMediator {
 			throw new IllegalArgumentException();
 		}
 		
-		history = new LinkedList<OneDimChart>(); 
+		history = new LinkedList<DimChart>(); 
 		
 		this.config = confi;
 	}
@@ -58,7 +58,7 @@ public class ChartMediator {
 		}
 		
 		// get a chart host
-		OneDimChart host = getChartHost(path);
+		DimChart host = ChartHelper.getChartHost(path);
 		
 		// manage visits
 		if(!manageVisits(host)) {
@@ -73,34 +73,14 @@ public class ChartMediator {
 	}
 
 	
-	
-
-	// -- BUILDING CHARTHOST -- BUILDING CHARTHOST -- BUILDING CHARTHOST --
-	private OneDimChart getChartHost(String path) {
-
-		// gets the file
-		File configFile = JSON_Helper.getJSONFile(path);
-				
-		// gets the content of the file
-		String jsonContent = JSON_Helper.getJSONContent(configFile);
-		
-		
-		
-		
-		return null;
-	}
-	
-	
-	
-	
 	/**
-	 * Manages the visits to the chart host {@linkplain OneDimChart}.
+	 * Manages the visits to the chart host {@linkplain DimChart}.
 	 * 
 	 * @param host a chart host
 	 * @return whether the visits where successful
-	 * @see OneDimChart
+	 * @see DimChart
 	 */
-	private boolean manageVisits(OneDimChart host) {
+	private boolean manageVisits(DimChart host) {
 		assert (host != null);
 		
 		if (!host.accept(ChartDataRequester.getInstance())) {
@@ -117,6 +97,14 @@ public class ChartMediator {
 		
 		return true;
 	}
+	
+
+	
+
+	
+	
+	
+
 
 	
 
@@ -152,7 +140,7 @@ public class ChartMediator {
 	 * 
 	 * @param toSave chart host that has to be saved
 	 */
-	private void addToHistory(OneDimChart toSave) {
+	private void addToHistory(DimChart toSave) {
 		assert (toSave != null);
 		
 		// ensures that history doesn't get bigger than wanted

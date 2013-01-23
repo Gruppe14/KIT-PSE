@@ -14,7 +14,7 @@ package what.sp_chart_creation;
  */
 public abstract class ChartVisitor {
 
-	abstract public boolean visitOneDim(OneDimChart host);
+	abstract public boolean visitOneDim(DimChart host);
 	
 	abstract public boolean visitTwoDim(TwoDimChart host);
 	

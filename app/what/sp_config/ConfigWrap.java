@@ -57,10 +57,8 @@ public class ConfigWrap {
 	 * @param path the path of the configuration file 
 	 * 		  from witch this ConfigWrap will be build up
 	 * @return a ConfigWrap build up from the given file
-	 * @throws IOException path wasn't correct
-	 * @throws JSONException something went wrong while working with the JSON lib
 	 */
-	public static ConfigWrap buildConfig(String path) throws JSONException {
+	public static ConfigWrap buildConfig(String path) {
 		if (path == null) {
 			throw new IllegalArgumentException();
 		}
@@ -72,7 +70,14 @@ public class ConfigWrap {
 		String jsonContent = JSON_Helper.getJSONContent(configFile);
 		
 		// gets the json object (all content)
-		JSONObject json = new JSONObject(jsonContent);
+		JSONObject json = null;
+		try {
+			json = new JSONObject(jsonContent);
+		} catch (JSONException e) {
+			System.out.println("ERROR: File content not a JSON Object!");
+			e.printStackTrace();
+			return null;
+		}
 		
 		// build the ConfigWrap
 		ConfigWrap confi = buildConfig(json);
@@ -90,19 +95,38 @@ public class ConfigWrap {
 	 * 
 	 * @param json JSONObject from which the information will be extracted
 	 * @return the constructed ConfigWrap
-	 * @throws JSONException something went wrong while working with the JSON lib
 	 */
-	private static ConfigWrap buildConfig(JSONObject json) throws JSONException {
+	private static ConfigWrap buildConfig(JSONObject json) {
 		assert (json != null);
 		
 		ConfigWrap confi = new ConfigWrap();
 		
 		// get general information
-		confi.dbName = json.getString(ConfigHelper.DB_NAME);
-		confi.version = json.getString(ConfigHelper.VERSION);
+		try {
+			confi.dbName = json.getString(ConfigHelper.DB_NAME);
+		} catch (JSONException e) {
+			System.out.println("ERROR: Getting " + ConfigHelper.DB_NAME + " failed!");
+			e.printStackTrace();
+			return null;
+		}
+		try {
+			confi.version = json.getString(ConfigHelper.VERSION);
+		} catch (JSONException e) {
+			System.out.println("ERROR: Getting " + ConfigHelper.VERSION + " failed!");
+			e.printStackTrace();
+			return null;
+		}
 		
 		// get the rows
-		JSONArray rows = json.getJSONArray(ConfigHelper.FIELDS);
+		JSONArray rows;
+		try {
+			rows = json.getJSONArray(ConfigHelper.FIELDS);
+		} catch (JSONException e) {
+			System.out.println("ERROR: Getting " + ConfigHelper.FIELDS + " failed!");
+			e.printStackTrace();
+			return null;
+		}
+		
 		confi.entries = new RowEntry[rows.length()];
 		if (!confi.buildConfigEntries(rows)) {
 			System.out.println("Building RowEntries failed.");
@@ -135,7 +159,7 @@ public class ConfigWrap {
 				String cat = re.getCategory();
 				i++;
 				
-				while ((i < l) && (entries[i].getCategory().equals(cat))) {
+				while ((i < l) && (entries[i].getCategory().equalsIgnoreCase(cat))) {
 					cur.add(entries[i]);
 					i++;
 				}
@@ -155,16 +179,23 @@ public class ConfigWrap {
 	 * Builds and stores the RowEntrys from a given JSONArray.  
 	 * 
 	 * @param jsRows JSONArray from which the entries will be extracted
-	 * @throws JSONException something went wrong while working with the JSON lib
 	 */
-	private boolean buildConfigEntries(JSONArray jsRows) throws JSONException {
+	private boolean buildConfigEntries(JSONArray jsRows) {
 		assert (jsRows != null);
 	
 		for (int i = 0, l = jsRows.length(); i < l; i++) {
 			// get RowEntry
-			JSONObject jso = (JSONObject) jsRows.get(i); 
-			RowEntry re = ConfigHelper.getEntry(jso);
+			JSONObject jso;
+			try {
+				jso = (JSONObject) jsRows.get(i);
+			} catch (JSONException e) {
+				System.out.println("ERROR: Getting entry at " + i + " failed!");
+				e.printStackTrace();
+				return false;
+			} 
 			
+			RowEntry re = ConfigHelper.getEntry(jso);
+	
 			// failed?
 			if (re == null) {
 				System.out.println("Constructing RowEntry " + i + " failed.");

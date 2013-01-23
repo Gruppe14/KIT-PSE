@@ -150,6 +150,9 @@ public class ConfigHelper {
 	 */
 	protected static final String TYPE_DUMMY = "NULL";
 
+	// specific strings for the database
+	public static final String DIM_TABLE = "dim_";
+	
 	
 	
 	/**
@@ -166,13 +169,19 @@ public class ConfigHelper {
 	 * 
 	 * @param jso JSONObject from which a RowEntry shall be extracted
 	 * @return a RowEntry from a given JSONObject
-	 * @throws JSONException something went wrong with the use of JSON lib
 	 */
-	protected static RowEntry getEntry(JSONObject jso) throws JSONException {
+	protected static RowEntry getEntry(JSONObject jso)  {
 		assert (jso != null);
 		
 		// determines type
-		String type = jso.getString(ATRI_TYPE);
+		String type;
+		try {
+			type = jso.getString(ATRI_TYPE);
+		} catch (JSONException e) {
+			System.out.println("ERROR: Getting attribute of row failed!");
+			e.printStackTrace();
+			return null;
+		}
 		RowId id = RowId.getRowIdByString(type);
 		
 		// failed?
@@ -194,18 +203,29 @@ public class ConfigHelper {
 	 * @param id RowId of the RowEntry required
 	 * @param jso JSONObject from which the information shall be extracted
 	 * @return a RowEntry in dependency to a JSONObject and a RowId
-	 * @throws JSONException something went wrong with the use of JSON lib
 	 */
-	private static RowEntry getEntryById(RowId id, JSONObject jso) throws JSONException {
+	private static RowEntry getEntryById(RowId id, JSONObject jso) {
 		assert (id != null);
 		assert (jso != null);
 		
+		String name = null;
+		String logId = null;
+		String cat = null;
+		String scale = null;
+		int lvl = 0;
+		
 		// extract information for any type
-		String name = jso.getString(ATRI_NAME);
-		String logId = jso.getString(ATRI_LOG);
-		String cat = jso.getString(ATRI_CAT);
-		String scale = jso.getString(ATRI_SCL);
-		int lvl = jso.getInt(ATRI_LVL);
+		try {
+			name = jso.getString(ATRI_NAME);
+			logId = jso.getString(ATRI_LOG);
+			cat = jso.getString(ATRI_CAT);
+			scale = jso.getString(ATRI_SCL);
+			lvl = jso.getInt(ATRI_LVL);
+		} catch (JSONException e) {
+			System.out.println("ERROR: Getting attribute of row failed!");
+			e.printStackTrace();
+			return null;
+		} 
 		
 		// determine the case and creat RowEntry
 		switch (id) {
@@ -214,17 +234,31 @@ public class ConfigHelper {
 		case DOUBLE :
 			return new DoubleRow(name, logId, lvl, cat, scale);
 		case STRING : 
-			Set<String> strings = getStrings(jso);
+			Set<String> strings;
+			try {
+				strings = getStrings(jso);
+			} catch (JSONException e) {
+				System.out.println("ERROR: Getting attribute of row failed!");
+				e.printStackTrace();
+				return null;
+			}
 			return new StringRow(name, logId, lvl, cat, scale, strings);
 		case LOCATION :
 			return new IpLocationRow(name, logId, lvl, cat, scale);
 		case STRINGMAP :
-			HashMap<String, Set<String>> maps = getMap(jso);
+			HashMap<String, Set<String>> maps;
+			try {
+				maps = getMap(jso);
+			} catch (JSONException e) {
+				System.out.println("ERROR: Getting attribute of row failed!");
+				e.printStackTrace();
+				return null;
+			}
 			return new StringMapRow(name, logId, lvl, cat, scale, maps);
 		case DUMMY :
 			return DummyRow.getInstance();
 		default :
-			throw new JSONException("No matching row found.");
+			return null;
 		}
 	}
 

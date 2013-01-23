@@ -3,7 +3,7 @@ package what.sp_chart_creation;
 public class ChartDataRequester extends ChartVisitor {
 
 	@Override
-	public boolean visitOneDim(OneDimChart host) {
+	public boolean visitOneDim(DimChart host) {
 		// TODO Auto-generated method stub
 		return false;
 	}
