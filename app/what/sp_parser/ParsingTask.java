@@ -21,7 +21,6 @@ public class ParsingTask implements Runnable {
 	/**
 	 * This is the constructor for a new <code>ParsingTask</code>
 	 * @param pm the ParserMediator which is connected to this <code>ParsingTask</code>
-	 * @param type the type of csv-file used.
 	 */
 	protected ParsingTask(ParserMediator pm) {
 		this.pm = pm;
