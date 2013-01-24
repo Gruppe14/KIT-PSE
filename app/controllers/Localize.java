@@ -24,16 +24,17 @@ public class Localize extends Controller{
 	 * the string in the standard language and if that is also not found returns the key
 	 */
 	public static String get(String message) {
+		String loc = message;
 		try {
-			String loc = ResourceBundle.getBundle("messages_" + language()).getString(message);
+			loc = ResourceBundle.getBundle("messages_" + language()).getString(message);
 			//default language if message not found
-			if(loc.equals("")) {
-				loc = ResourceBundle.getBundle("messages_" + standard).getString(message);
-			}
-			return loc;
 		} catch (MissingResourceException e) {
-			return message;
+			try {
+				loc = ResourceBundle.getBundle("messages_" + standard).getString(message);
+			} catch (MissingResourceException f) {}
 		}
+		return loc;
+		
 	}
 	/**
 	 * method to get a localized string without standard language fallback

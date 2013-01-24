@@ -18,4 +18,5 @@ function displayError(err, info){
 	$("#error").find("div:last").click(function() {
 		$(this).parents("#error").remove();
 	});
+	$("#error").find("div:last").focus();
 }
