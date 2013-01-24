@@ -4,11 +4,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import data_access.CreateDatabase;
 import play.mvc.Controller;
 import play.mvc.Result;
 import what.Facade;
 import what.sp_config.ConfigWrap;
+import what.sp_dataMediation.CreateDatabase;
+import what.sp_parser.DataEntry;
  
 // Class for test purposes only
 public class Test extends Controller {
@@ -25,7 +26,7 @@ public class Test extends Controller {
 		 */
 		
 
-	System.out.println("This is a test for checking whether reading the config file is successful:");
+		//System.out.println("This is a test for checking whether reading the config file is successful:");
 
 		Facade f = Facade.getFacadeIstance();//new Facade();
 		String sourcePath = System.getProperty("user.dir");
@@ -33,15 +34,17 @@ public class Test extends Controller {
 		//String pathJSONConfig = sourcePath + seperator + "conf\\ConfigSkyServer.json";
 		//System.out.println("Was it?" + f.init(pathJSONConfig));
 		
-		System.out.println("And if it's content is there:");
-		ConfigWrap confi = f.getCurrentConfig();
-		System.out.println(confi.toString());
+		// System.out.println("And if it's content is there:");
+		// ConfigWrap confi = f.getCurrentConfig();
+		// System.out.println(confi.toString());
+		
+		//f.upload(DataEntry.getOne());
 		
 				
 		/* 
 		 * Uncomment first for 32k lines, second for 10 lines and third for 1k lines.
 		 */
-		//f.parseLogFile(sourcePath + seperator + "example\\resultDay.csv");
+		//System.out.println(f.parseLogFile(sourcePath + seperator + "example\\resultDay.csv"));
 		//f.parseLogFile(sourcePath + seperator + "example\\result10.csv");
 		//f.parseLogFile(sourcePath + seperator + "example\\result1000.csv");
 		

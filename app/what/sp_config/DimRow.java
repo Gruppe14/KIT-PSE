@@ -72,10 +72,11 @@ public class DimRow {
 			return false;
 		}
 		
+		// we assume it's just strings in a dimension or all not strings
 		RowId cur = rows.get(0).getId();
 		return ((cur == RowId.STRING) || (cur == RowId.STRINGMAP));
 	}
-	
+		
 	private boolean isNotEmpty() {
 		return (getSize() > 0);
 	}
@@ -145,6 +146,15 @@ public class DimRow {
 			
 		return rows.get(i).getTableType();
 	}
+	
+	public RowId getRowIdAt(int i) {
+		if ((i < 0) || (i >= getSize() )) {
+			throw new IllegalArgumentException();
+		}
+		
+		return rows.get(i).getId();
+	}
+	
 	
 	// -- OVERRIDES -- OVERRIDES -- OVERRIDES -- OVERRIDES --	
 	@Override

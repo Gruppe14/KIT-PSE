@@ -94,12 +94,15 @@ public class ChartHelper {
 		
 		HashMap<String, TreeSet<String>> filterSets = new HashMap<String, TreeSet<String>>();
 		
+		// x filters
 		try {
 			TreeSet<String> xFilter = getFilters(x, json);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		// TODO other filters
 		
 		
 		DimChart chart;

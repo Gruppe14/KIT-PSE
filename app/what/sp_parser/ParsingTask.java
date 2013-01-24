@@ -45,7 +45,6 @@ public class ParsingTask implements Runnable {
 	 * It repeats this process until the Logfile is finished.
 	 * Should be protected, but Runnable doesn't allow that.
 	 */
-	
 	public void run() {
 		while (true) {
 			str = pm.readLine();
@@ -58,8 +57,9 @@ public class ParsingTask implements Runnable {
 				if (SplittingTool.split(this)) {
 					GeoIPTool.getLocationInfo(this);
 					
-					//TODO : SEND TO ANAS.
+					System.out.println(de);
 					
+					pm.getLoader().loadEntry(de);
 					
 				} else {
 					pm.increaseLinedel();

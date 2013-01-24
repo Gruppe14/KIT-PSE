@@ -1,4 +1,4 @@
-package data_access;
+package what.sp_dataMediation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,13 +6,15 @@ import java.util.HashMap;
 import what.sp_config.ConfigWrap;
 import what.sp_config.DimRow;
 
-
-/*
- * das klasse ist fuer Adminbereich
- * Er kann neue database mit neue tabellen
- * aber die ist noch nicht fertig
+/**
+ * The CreateDatabase class prints a mysql statement from a given config,
+ * saying how the database has to look.
+ * 
+ * NOT FINISHED - WRONG SCHEMA - SEE DATA folder and TableCreationQuery.txt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * 
+ * @author Jonathan, Anas
+ *
  */
-
 public class CreateDatabase {
 	
 	private static String ID_PART = " INT AUTO_INCREMENT PRIMARY KEY";
@@ -20,6 +22,13 @@ public class CreateDatabase {
 		
 	}
     
+	/**
+	 * Returns a query from a given config how the warehouse has to look and
+	 * rows and tables have to be named.
+	 * 
+	 * @param config config for which a schema will be created
+	 * @return statement describing the schema of the warehouse
+	 */
     public static String getDataBaseQuery(ConfigWrap config) {
     	String query = "CREATE TABLE " + config.getFactTableName() + "(\n ";
     	

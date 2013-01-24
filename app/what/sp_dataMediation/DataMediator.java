@@ -8,6 +8,13 @@ import java.util.TreeSet;
 import what.sp_config.ConfigWrap;
 import what.sp_parser.DataEntry;
 
+/**
+ * All things concerning the warehouse go over this class.<br>
+ * 
+ * It directs all requests to the right class.
+ * 
+ * @author Jonathan, PSE
+ */
 public class DataMediator {
 	
 	/** Configuration on which this ChartMediator works on */
@@ -15,9 +22,14 @@ public class DataMediator {
 		
 	private MySQLAdapter adapter;
 	
+	/**
+	 * Public constructor for a new DataMediator which
+	 * work bases on a ConfigWrap.
+	 * @param config ConfigWrap on which the work is based.
+	 */
 	public DataMediator(ConfigWrap config) {
 		this.config = config;
-		this.adapter = new MySQLAdapter();
+		this.adapter = new MySQLAdapter(config);
 	}
 	
 	/**
@@ -35,6 +47,12 @@ public class DataMediator {
 		return true;
 	}
 	
+	/**
+	 * Loads a collection of DataEntry into the warehouse.
+	 * 
+	 * @param tbl collection of DataEntry to be loaded
+	 * @return whether it was successful
+	 */
 	public boolean loadEntries(Collection<DataEntry> tbl) {
 		if (tbl == null) {
 			throw new IllegalArgumentException();
@@ -43,11 +61,34 @@ public class DataMediator {
 		return adapter.loadEntries(tbl);
 	}
 	
-	public ResultSet requestTable(String x, String xTable, String measure, String factTable, HashMap<String, TreeSet<String>> filters) {
-		return adapter.requestTable(x, xTable, measure, factTable, filters);
+	/**
+	 * Loads a DataEntry into the warehouse. 
+	 * 
+	 * @param de DataEntry to be uploaded
+	 * @return whether it was successful
+	 */
+	public boolean loadEntry(DataEntry tbl) {
+		if (tbl == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		return adapter.loadEntry(tbl);
+	}
+	
+	/**
+	 * Returns a resultset for a chart for given parameters
+	 * 
+	 * @param x x-axis 
+	 * @param xTable table where x-axis is stored
+	 * @param measure the measure requested
+	 * @param filters a map of filters, consisting of key1 = value1 or key1 = value2 and key2 = value3
+	 * @return
+	 */
+	public ResultSet requestTable(String x, String xTable, String measure, HashMap<String, TreeSet<String>> filters) {
+		return adapter.requestTable(x, xTable, measure, filters);
 	}
 
-	
+	// testing:
 	
 
 }
