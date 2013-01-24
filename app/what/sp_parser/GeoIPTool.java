@@ -66,8 +66,8 @@ public class GeoIPTool {
 			
 			
 			//Sets country and city to the last 2 spots of the DataEntry.
-			pt.getDe().setInfo(loc.countryName, pt.getPm().getConfig().getSize());	
-			pt.getDe().setInfo(loc.city, pt.getPm().getConfig().getSize() - 1);
+			pt.getDe().setInfo(loc.countryName, 6);	
+			pt.getDe().setInfo(loc.city, 7);
 			
 			lastLoc = loc;
 			lastIp = (String) pt.getDe().getInfo(6);
@@ -75,8 +75,8 @@ public class GeoIPTool {
 			
 			
 		} catch (NullPointerException e) {
-			pt.getDe().setInfo("other", pt.getPm().getConfig().getSize());
-			pt.getDe().setInfo("other", pt.getPm().getConfig().getSize() - 1);
+			pt.getDe().setInfo("other", 6);
+			pt.getDe().setInfo("other", 7);
 		}
 	}
 }

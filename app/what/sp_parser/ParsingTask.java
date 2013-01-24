@@ -59,12 +59,7 @@ public class ParsingTask implements Runnable {
 							
 					System.out.println(de.toString());
 				//	pm.getLoader().loadEntry(de);
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				
 					
 				} else {
 					pm.increaseLinedel();
