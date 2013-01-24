@@ -215,8 +215,8 @@ public class ParserMediator {
 		
 		linesDeleted++;
 		
-		System.out.println("test");
-		System.out.println(Localize.getString("Warning.10P1") + " " + linesDeleted + " " + Localize.getString("Warning.10P2"));
+		System.out.println(Localize.get("Warning.10P1") + " " + linesDeleted + " " + Localize.getString("Warning.10P2"));
+		
 			
 	}
 
