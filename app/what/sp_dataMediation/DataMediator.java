@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.TreeSet;
 
 import what.sp_config.ConfigWrap;
+import what.sp_config.DimRow;
+import what.sp_config.RowEntry;
+import what.sp_config.RowId;
+import what.sp_config.StringMapRow;
 import what.sp_parser.DataEntry;
 
 /**
@@ -39,14 +43,75 @@ public class DataMediator {
 	 * @return
 	 */
 	public boolean organizeData() {
-		if (!config.computeDimRows()) {
-			System.out.println("Computing a DimRow failed!");
-			return false;
-		}
+		for (int i = 0, l = config.getNumberOfDims(); i < l; i++) {
+			
+			DimRow d = config.getDimRowAt(i);
+			if (d.isStringDim()) {
+				int posi = 0;
+				int size = d.getSize();
+
+				TreeSet<String> strings = null;
+				if (d.getRowIdAt(posi).equals(RowId.STRINGMAP)) {
+					StringMapRow r = (StringMapRow) d.getRowAt(posi);
+					strings = r.getCompareTo();
+				} else if (d.getRowIdAt(posi).equals(RowId.STRING))  {
+					strings = requestStringsOf(d.getRowNameOfLevel(posi), d.getTableName());	
+				} else {
+					System.out.println("Unkown type at position " + posi + " found while computing Strings for web page.");
+				}
+				
+				if (size == 1) {
+					d.setStrings(strings);
+					continue;
+				} 
+				
+				HashMap<String, Object> object = getHashMap(strings, d, posi + 1);	
+				
+				d.setStrings(object);
 		
+			} else {
+				continue;
+			}
+		}
+				
 		return true;
 	}
 	
+	private HashMap<String, Object> getHashMap(TreeSet<String> strings,	DimRow d, int posi) {
+		assert (strings != null);
+		assert (d != null);
+		assert ((posi >= 0) && (posi < d.getSize()));
+		
+		int size = d.getSize();
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		
+		for (String s : strings) {
+			TreeSet<String> childs = requestStringsWithParent(d.getRowNameOfLevel(posi), d.getRowNameOfLevel(posi - 1), s, d.getTableName());
+			if (childs == null) {
+				System.out.println("ERROR: Requesting chils for " + s + "failed.");
+				return null;
+			}
+			
+			if (posi < (size - 1)) {
+				result.put(s, (getHashMap(childs, d, posi + 1)));
+			} else {
+				result.put(s, childs);
+			}
+			
+		}
+
+		return result;
+	}
+
+	private TreeSet<String> requestStringsOf(String rowName, String tableName) {
+		assert (rowName != null);
+		assert (tableName != null);
+		
+		return adapter.requestStringsOf(rowName, tableName);
+	}
+	
+
 	/**
 	 * Loads a collection of DataEntry into the warehouse.
 	 * 
@@ -88,7 +153,9 @@ public class DataMediator {
 		return adapter.requestTable(x, xTable, measure, filters);
 	}
 
-	// testing:
+	public TreeSet<String> requestStringsWithParent(String child, String parentType, String parentFilter, String table) {
+		return adapter.requestStringsWithParent(child, parentType, parentFilter, table);
+	}
 	
 
 }

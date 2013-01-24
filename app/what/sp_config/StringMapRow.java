@@ -1,6 +1,6 @@
 package what.sp_config;
 
-import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,7 +12,7 @@ public class StringMapRow extends RowEntry {
 	
 	private final Map<String, Set<String>> comparer;
 	
-	private HashSet<String> compareSet;
+	private TreeSet<String> compareSet;
 	
 	protected StringMapRow(String name, String logId, int lvl, String categorie, String scale,
 							Map<String, Set<String>> comparer) {
@@ -35,7 +35,7 @@ public class StringMapRow extends RowEntry {
 		return comparer.keySet();
 	}
 	
-	public Set<String> getCompareTo() {
+	public TreeSet<String> getCompareTo() {
 		if (compareSet != null) {
 			return compareSet;
 		}
@@ -47,8 +47,8 @@ public class StringMapRow extends RowEntry {
 		return compareSet;	
 	}
 
-	private HashSet<String> createCompareSet() {
-		HashSet<String> comp = new HashSet<String>();
+	private TreeSet<String> createCompareSet() {
+		TreeSet<String> comp = new TreeSet<String>();
 		for (String s :comparer.keySet()) {
 			comp.addAll(comparer.get(s));
 		}

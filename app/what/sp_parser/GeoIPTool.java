@@ -53,21 +53,20 @@ public class GeoIPTool {
 
 		try {		
 			
-			pt.getDe().setInfo(pt.getSplitStr()[6], 6);
 									
 			Location loc;
 			
 			//Looks if the IP is the same as the one which started the last request, uses the same location info
 			//if this is true. If not, it uses the LookupService to create a new Location-object loc.
-			if (pt.getDe().getInfo(6).equals(lastIp)) {
+			if (pt.getSplitStr()[6].equals(lastIp)) {
 				loc = lastLoc;
 			} else {
 				loc = cl.getLocation((String) pt.getDe().getInfo(6));
 			}
 			
 			//Sets country and city to the last 2 spots of the DataEntry.
-			pt.getDe().setInfo(loc.countryName, pt.getPm().getConfig().getSize() + 1);	
-			pt.getDe().setInfo(loc.city, pt.getPm().getConfig().getSize());
+			pt.getDe().setInfo(loc.countryName, pt.getPm().getConfig().getNumberOfRows());	
+			pt.getDe().setInfo(loc.city, pt.getPm().getConfig().getNumberOfRows() - 1);
 			
 			lastLoc = loc;
 			lastIp = (String) pt.getDe().getInfo(6);
@@ -77,8 +76,8 @@ public class GeoIPTool {
 			
 			
 		} catch (NullPointerException e) {
-			pt.getDe().setInfo("other", pt.getPm().getConfig().getSize() + 1);
-			pt.getDe().setInfo("other", pt.getPm().getConfig().getSize());
+			pt.getDe().setInfo("other", pt.getPm().getConfig().getNumberOfRows());
+			pt.getDe().setInfo("other", pt.getPm().getConfig().getNumberOfRows() - 1);
 		}
 	}
 }

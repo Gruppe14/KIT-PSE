@@ -53,7 +53,7 @@ public class ParsingTask implements Runnable {
 				return;
 			} else {
 				splitStr = str.split(",");
-				de = new DataEntry(pm.getConfig().getSize() + 2);
+				de = new DataEntry(pm.getConfig().getNumberOfRows() + 2);
 				if (SplittingTool.split(this)) {
 					GeoIPTool.getLocationInfo(this);
 					
@@ -65,7 +65,6 @@ public class ParsingTask implements Runnable {
 					pm.increaseLinedel();
 				}
 				
-				System.out.println(de.toString());
 			}		
 		}	
 	}

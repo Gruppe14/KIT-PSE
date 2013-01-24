@@ -31,25 +31,12 @@ public class DimRow {
 	
 	
 
-	public boolean setStrings() {
+	public boolean setStrings(Object obj) {
 		if (!isStringDim()) {
 			return true;
 		}
 		
-		int len = rows.size();
-		RowId id = rows.get(0).getId();
-		
-		if (len == 1) {
-			if (id == RowId.STRING) {
-				// TODO query against warehouse, which values exist
-			} else if (id == RowId.STRINGMAP) {
-				StringMapRow cur = (StringMapRow) rows.get(0);
-				strings = cur.getTopicStrings();
-				return true;
-			}
-		} else {
-			//TODO build trees
-		}
+		strings = obj;
 		
 		
 		return true;
@@ -155,6 +142,13 @@ public class DimRow {
 		return rows.get(i).getId();
 	}
 	
+	public RowEntry getRowAt(int i) {
+		if ((i < 0) || (i >= getSize() )) {
+			throw new IllegalArgumentException();
+		}
+		
+		return rows.get(i);
+	}
 	
 	// -- OVERRIDES -- OVERRIDES -- OVERRIDES -- OVERRIDES --	
 	@Override

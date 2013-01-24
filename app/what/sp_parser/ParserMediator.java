@@ -85,6 +85,11 @@ public class ParserMediator {
 	}
 	
 		
+	public ParserMediator(ConfigWrap config) {
+		this.cw = config;
+	}
+
+
 	/**
 	 * Creates a new <code>threadPool</code> with <code>poolsize</code> objects of the type 
 	 * <code>ParsingTask</code>.
@@ -210,7 +215,8 @@ public class ParserMediator {
 		
 		linesDeleted++;
 		
-		System.out.println(Localize.getString("Warning.10P1") + linesDeleted + " " + Localize.getString("Warning.10P2"));
+		System.out.println("test");
+		System.out.println(Localize.getString("Warning.10P1") + " " + linesDeleted + " " + Localize.getString("Warning.10P2"));
 			
 	}
 
