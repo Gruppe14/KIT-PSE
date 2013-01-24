@@ -43,7 +43,7 @@ public class SplittingTool {
 	private static boolean splitStatement(ParsingTask pt) {
 				
 		ConfigWrap conf = pt.getPm().getConfig();
-		return conf.getEntryAt(conf.getSize() - 1).split(pt.getDe(), pt.getStr(), conf.getSize() - 2);
+		return conf.getEntryAt(conf.getSize() - 1).split(pt.getDe(), pt.getStr(), conf.getSize());
 				
 	}
 
@@ -85,7 +85,7 @@ public class SplittingTool {
 		
 		
 		for (int i = 7; i < pt.getPm().getConfig().getSize() - 1; i++) {
-			cw.getEntryAt(i).split(de, str[i], i - 1);
+			cw.getEntryAt(i).split(de, str[i], i + 1);
 		}
 		return true;		
 	}
