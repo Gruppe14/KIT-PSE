@@ -44,7 +44,7 @@ public class SplittingTool {
 				
 		ConfigWrap conf = pt.getPm().getConfig();
 
-		return conf.getEntryAt(conf.getNumberOfRows() - 1).split(pt.getDe(), pt.getStr(), conf.getNumberOfRows() - 2);				
+		return conf.getEntryAt(conf.getNumberOfRows() - 1).split(pt.getDe(), pt.getStr(), conf.getNumberOfRows());				
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class SplittingTool {
 		ConfigWrap cw = pt.getPm().getConfig();
 		
 		
-		for (int i = 7; i < pt.getPm().getConfig().getNumberOfRows() - 1; i++) {
+		for (int i = 7; i < pt.getPm().getConfig().getNumberOfRows() + 1; i++) {
 			cw.getEntryAt(i).split(de, str[i], i - 1);
 		}
 			
