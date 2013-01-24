@@ -59,8 +59,7 @@ public class SplittingTool {
 		
 		
 		for (int i = 0; i < 6; i++) {
-			
-			if (!pt.getPm().getConfig().getEntryAt(i).getCategory().equals("TIME")) {
+			if (!pt.getPm().getConfig().getEntryAt(i).getCategory().equalsIgnoreCase("TIME")) {
 				return false;
 			}
 			
