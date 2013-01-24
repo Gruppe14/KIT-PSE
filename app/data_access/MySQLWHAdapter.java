@@ -31,45 +31,40 @@ public class MySQLWHAdapter {
 	
 	
 	public boolean requestDataFromWH(String x, String dim, String measure, HashMap<String, TreeSet<String>> filters) {
-		/*
-		String sql = "SELECT" + x + "," + measure + "FROM" + dim + "," + "query_entry " +
+		
+		String sql = "SELECT " + x + ", " + measure + "\nFROM " + dim + ", " + "query_entry\n" +
 				     "WHERE ";
 		
-		HashMap hm = filters;
+		Map <String, TreeSet<String>>  map = filters;
 		
-		Iterator i = hm.entrySet().iterator();
-		Set  j;
-		
-		String sy = "(query_entry." + x + "_id = " + dim + x + "_id)" ;
-		String k;
-		
-		while (i.hasNext()) {
+		String sy = "(query_entry." + x + "_id = " + dim + "." + x + "_id) \n" ;
+
+		for (String k : map.keySet()) {
+		    
+			sy += "AND (" + k;
+			Iterator i = filters.get(k).iterator();
 			
-			Map.Entry me = (Map.Entry) i.next();
-			
-			k = (String) me.getKey();
-			
-			sy = "(" + k;
-			
-			j = (Set) me.getValue();
-			
-			while (j.iterator().hasNext()) {
+			while (i.hasNext()) {
 				
-				sy += "=" + (String) j.iterator().next() + "OR" + k;
+				sy +=  "." + dim + " = " + " '" + (String) i.next() + "' ";
 				
-			}
+				if (i.hasNext()) {
+					sy += " OR " + k;
+				}
+				
+			} 
 			
-			sy += ") AND ";
+			sy += ")\n" ;
             
            			
-		}
+		} 
 		
-		sql += sy + " GROUB BY " + x;
+		sql += sy + "GROUB BY " + x;
 		
 		
 		try {
 			
-			Statement stmt = (Statement) this.wh.getConnecationWH()).createStatement();
+			Statement stmt = (Statement) this.wh.getConnecationWH().createStatement();
 			this.set = (ResultSet) stmt.executeQuery(sql);
 			
 			this.wh.closeConnectionMySQL();
@@ -79,9 +74,11 @@ public class MySQLWHAdapter {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			return false;
-		}
- */
-		return false;
+		} 
+		
+		
+		
+
 	}
 	
 	
