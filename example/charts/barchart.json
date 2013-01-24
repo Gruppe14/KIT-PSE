@@ -1,7 +1,7 @@
 {
 	"chartType": "barchart",
-	"attribute1": "x",
-	"attribute2": "y",
+	"attribute1": "name",
+	"attribute2": "x",
     "data": [
         {
             "name": "warchicken",
