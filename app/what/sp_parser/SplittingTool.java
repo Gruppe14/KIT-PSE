@@ -31,7 +31,7 @@ public class SplittingTool {
 	protected static boolean split(ParsingTask pt) {
 		
 		return (splitTime(pt) && splitOthers(pt) && splitStatement(pt));
-	
+		
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class SplittingTool {
 	private static boolean splitStatement(ParsingTask pt) {
 				
 		ConfigWrap conf = pt.getPm().getConfig();
-		return conf.getEntryAt(conf.getSize() - 1).split(pt.getDe(), pt.getStr(), conf.getSize() - 1);
+		return conf.getEntryAt(conf.getSize() - 1).split(pt.getDe(), pt.getStr(), conf.getSize() - 2);
 				
 	}
 
@@ -60,10 +60,9 @@ public class SplittingTool {
 		
 		for (int i = 0; i < 6; i++) {
 			
-			if (!pt.getPm().getConfig().getEntryAt(i).getCategory().equals("TIME")) {
+			if (!pt.getPm().getConfig().getEntryAt(i).getCategory().toUpperCase().equals("TIME")) {
 				return false;
 			}
-			
 			if (!pt.getPm().getConfig().getEntryAt(i).split(de, str[i], i)) {
 				return false;
 			}
@@ -86,7 +85,7 @@ public class SplittingTool {
 		
 		
 		for (int i = 7; i < pt.getPm().getConfig().getSize() - 1; i++) {
-			cw.getEntryAt(i).split(de, str[i], i);
+			cw.getEntryAt(i).split(de, str[i], i - 1);
 		}
 		return true;		
 	}
