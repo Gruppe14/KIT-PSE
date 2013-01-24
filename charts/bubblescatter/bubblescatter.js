@@ -1,4 +1,6 @@
 function bubblescatter(json) {
+	//TODO: Scale the third dimension
+	//TODO: Add a fourth dimension, color
     var data;
     var xAxisName;
     var yAxisName;
@@ -19,7 +21,7 @@ function bubblescatter(json) {
     }
 
     function getZ(d) {
-        return d[zAxisName];
+        return d[radius];
     }
 
 
@@ -71,16 +73,15 @@ function bubblescatter(json) {
             .enter()
             .append("circle")
             .attr("cx", function (d) {
-            return xScale(d.x);
+            return xScale(getX(d));
         })
             .attr("cy", function (d) {
-            return yScale(d.y);
+            return yScale(getY(d));
         })
             .attr("r", function (d) {
-            return d.r;
-        }) //arbitrary. big enough? scale automatically?
-        .attr("x", getX)
-            .attr("x", getY)
+				console.log(getZ(d));
+            return getZ(d);
+        }) //TODO: Please scale
             .attr("class", "circle")
             .append("svg:title")
             .text(function (d) {
