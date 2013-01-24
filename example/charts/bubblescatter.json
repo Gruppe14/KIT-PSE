@@ -1,8 +1,8 @@
 { 
  "charttype": "bubblescatter"
-, "attr1": "x"
-, "attr2": "y"
-, "attr3": "r"
+, "attribute1": "x"
+, "attribute2": "y"
+, "attribute3": "r"
 , "data": [
  { "x": 190, "y":51, "r":3 },
  { "x": 144, "y":306, "r":4 },
