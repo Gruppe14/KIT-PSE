@@ -61,8 +61,9 @@ public class GeoIPTool {
 			if (pt.getSplitStr()[6].equals(lastIp)) {
 				loc = lastLoc;
 			} else {
-				loc = cl.getLocation((String) pt.getDe().getInfo(6));
+				loc = cl.getLocation((String) pt.getSplitStr()[6]);
 			}
+			
 			
 			//Sets country and city to the last 2 spots of the DataEntry.
 			pt.getDe().setInfo(loc.countryName, pt.getPm().getConfig().getSize());	
@@ -70,9 +71,7 @@ public class GeoIPTool {
 			
 			lastLoc = loc;
 			lastIp = (String) pt.getDe().getInfo(6);
-			
-			pt.getDe().setInfo(pt.getSplitStr()[6].hashCode(), 6);
-			
+						
 			
 			
 		} catch (NullPointerException e) {
