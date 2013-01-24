@@ -60,7 +60,7 @@ public class ParsingTask implements Runnable {
 					GeoIPTool.getLocationInfo(this);
 							
 					System.out.println(de.toString());
-				//	pm.getLoader().loadEntry(de);
+					pm.getLoader().loadEntry(de);
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
