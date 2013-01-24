@@ -56,9 +56,30 @@ public class ChartHelper {
 	//creates the option selection for a chart
 	private Html createChart(String name) {
 		String html = "";
-		html += timeDim();
+		ArrayList<DimRow> trueDim = new ArrayList<>();
+		ArrayList<String> measures = new ArrayList<>();
+		for (DimRow dim: dims) {
+			html += "<div>" + dim.toString() + "</div>";
+			if(dim.getName().equalsIgnoreCase("time")) {
+				html += timeDim();
+			} else if (dim.isDimension()) {
+				trueDim.add(dim);
+			} else {
+				
+				measures.add(dim.getName());
+			}
+		}
+		html += measuresHtml(measures);
+		html += "dims:" + trueDim.size() + " measures:" + measures.size();
 		
 		return HtmlFormat.raw(html);
+	}
+	
+	//create the options for all measures
+	private String measuresHtml(ArrayList<String> measures) {
+		String html = "";
+		
+		return html;
 	}
 	// the time options not scale
 	private String timeDim() {
