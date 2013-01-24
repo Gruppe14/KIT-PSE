@@ -65,18 +65,20 @@ public class GeoIPTool {
 			}
 			
 			
-			//Sets country and city to the last 2 spots of the DataEntry.
-			pt.getDe().setInfo(loc.countryName, pt.getPm().getConfig().getNumberOfRows());	
-			pt.getDe().setInfo(loc.city, pt.getPm().getConfig().getNumberOfRows() - 1);
+			//Sets country and city to their spots of the DataEntry.
+			pt.getDe().setInfo(loc.countryName, 6);	
+			pt.getDe().setInfo(loc.city, 7);
+
 			
 			lastLoc = loc;
 			lastIp = (String) pt.getDe().getInfo(6);
-						
-			
+					
 			
 		} catch (NullPointerException e) {
-			pt.getDe().setInfo("other", pt.getPm().getConfig().getNumberOfRows());
-			pt.getDe().setInfo("other", pt.getPm().getConfig().getNumberOfRows() - 1);
+			 //cl.getLocation(String str) throws a NullPointerException when it doens't find any location to a certain ip. 
+			 //catching it is the easiest way to deal with this problem.
+			pt.getDe().setInfo("other", 6);
+			pt.getDe().setInfo("other", 7);
 		}
 	}
 }

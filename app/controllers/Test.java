@@ -44,7 +44,7 @@ public class Test extends Controller {
 		/* 
 		 * Uncomment first for 32k lines, second for 10 lines and third for 1k lines.
 		 */
-		//System.out.println(f.parseLogFile(sourcePath + seperator + "example\\resultDay.csv"));
+		System.out.println(f.parseLogFile(sourcePath + seperator + "example\\resultDay.csv"));
 		//f.parseLogFile(sourcePath + seperator + "example\\result10.csv");
 		//f.parseLogFile(sourcePath + seperator + "example\\result1000.csv");
 		
