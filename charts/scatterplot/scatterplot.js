@@ -1,6 +1,5 @@
 //read the data, store them in global variables
 function scatterplot(json) {
-    json = JSON.parse(json);
     var data;
     var xAxisName;
     var yAxisName;
@@ -53,7 +52,7 @@ function scatterplot(json) {
 
 
         //the svg chart!
-        var svg = d3.select("body")
+        var svg = d3.select("#chart")
             .append("svg")
             .attr("width", w)
             .attr("height", h);

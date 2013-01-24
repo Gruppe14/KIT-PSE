@@ -8,7 +8,6 @@ function barchart(json) {
         return d[yAxisName];
     }
     
-    json = JSON.parse(json);
     var data;
     var xAxisName;
     var yAxisName;

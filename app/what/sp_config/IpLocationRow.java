@@ -16,4 +16,10 @@ public class IpLocationRow extends RowEntry {
 		return false;
 	}
 
+	@Override
+	public String getTableType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

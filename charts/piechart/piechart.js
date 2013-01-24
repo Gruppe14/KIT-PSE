@@ -2,7 +2,6 @@ function piechart(json) {
     var data;
     var xAxisName;
     var yAxisName;
-    json = JSON.parse(json);
     console.log("I read " + json.data.length + " data points.");
     xAxisName = json.attribute1;
     yAxisName = json.attribute2;
@@ -42,7 +41,7 @@ function piechart(json) {
             .value(getY);
 
 
-        var svg = d3.select("body").append("svg")
+        var svg = d3.select("#chart").append("svg")
             .attr("width", w)
             .attr("height", h)
             .attr("class", "chart")

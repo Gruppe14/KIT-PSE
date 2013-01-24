@@ -22,9 +22,7 @@ function makeRequest() {
 			//expected result type
 			dataType: "json",
 			success:function(data) {
-				var jsonString = JSON.stringify(data);
-				displayError("Received json:", jsonString);
-		  		@{chart}(jsonString);
+		  		@{chart}(data);
 			},
 			error:function(q, err, ex) {
 		 		displayError("@Localize.get("charts.requestErr")");

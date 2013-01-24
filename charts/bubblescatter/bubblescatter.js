@@ -3,7 +3,6 @@ function bubblescatter(json) {
     var xAxisName;
     var yAxisName;
     var zAxisName;
-    json = JSON.parse(json);
     console.log("I read " + json.data.length + " data points.");
     xAxisName = json.attribute1;
     yAxisName = json.attribute2;
