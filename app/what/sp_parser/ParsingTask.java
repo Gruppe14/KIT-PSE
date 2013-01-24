@@ -54,10 +54,11 @@ public class ParsingTask implements Runnable {
 			} else {
 				splitStr = str.split(",");
 				de = new DataEntry(pm.getConfig().getSize() + 2);
+				System.out.println("jap");
 				if (SplittingTool.split(this)) {
 					GeoIPTool.getLocationInfo(this);
 					
-					System.out.println(de);
+					System.out.println(de.toString());
 					
 					pm.getLoader().loadEntry(de);
 					
@@ -65,7 +66,6 @@ public class ParsingTask implements Runnable {
 					pm.increaseLinedel();
 				}
 				
-				System.out.println(de.toString());
 			}		
 		}	
 	}
