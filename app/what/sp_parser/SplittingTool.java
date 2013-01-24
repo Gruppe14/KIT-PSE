@@ -31,7 +31,7 @@ public class SplittingTool {
 	protected static boolean split(ParsingTask pt) {
 		
 		return (splitTime(pt) && splitOthers(pt) && splitStatement(pt));
-	
+		
 	}
 
 	/**

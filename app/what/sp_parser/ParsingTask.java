@@ -54,7 +54,6 @@ public class ParsingTask implements Runnable {
 			} else {
 				splitStr = str.split(",");
 				de = new DataEntry(pm.getConfig().getSize() + 1);
-				System.out.println("hallo");
 				if (SplittingTool.split(this)) {
 					GeoIPTool.getLocationInfo(this);
 					
