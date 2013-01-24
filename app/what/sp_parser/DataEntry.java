@@ -11,7 +11,7 @@ import java.util.TreeSet;
  * @author Alex
  *
  */
-public class DataEntry {
+public class DataEntry implements Comparable<DataEntry> {
 	
 	/**
 	 * The informations which are saved in a DataEntry
@@ -107,6 +107,23 @@ public class DataEntry {
 		//bla.add(THREE);
 		return bla;
 	}
+
+
+
+	@Override
+	public int compareTo(DataEntry o) {
+		
+		for (int i = 0; i < info.length; i++) {
+			if (!info[i].equals(o.getInfo(i))) {
+				return info[i].hashCode() - o.getInfo(i).hashCode();
+			}
+		}
+		
+		return 0;
+
+		
+	}
+
 	
 	public static DataEntry getOne() {
 		return TWO;

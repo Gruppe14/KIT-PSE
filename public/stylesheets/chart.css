@@ -1,6 +1,8 @@
+#chart {
+	text-align: center;
+}
 #selection {
 	width: 830px;
-	height: 400px;
 	margin: auto;
 	border: 2px solid lightgray;
 	border-width: 0px 2px;
