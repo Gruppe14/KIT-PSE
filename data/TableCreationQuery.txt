@@ -1,28 +1,29 @@
+// crete this tables
 CREATE TABLE dim_time(
- time_key INT AUTO_INCREMENT PRIMARY KEY,
+ time_key INT(5) AUTO_INCREMENT PRIMARY KEY,
  row_year INT(3),
  row_month INT(3),
  row_day INT(3),
  row_hour INT(3),
  row_minute INT(3),
- row_second INT(3),
+ row_second INT(3)
  );
 
 CREATE TABLE dim_location(
- location_key INT AUTO_INCREMENT PRIMARY KEY,
+ location_key INT(4) AUTO_INCREMENT PRIMARY KEY,
  row_country VARCHAR(40),
- row_city VARCHAR(40),
+ row_city VARCHAR(40)
  );
 
 CREATE TABLE dim_server_db(
- server_db_key INT AUTO_INCREMENT PRIMARY KEY,
+ server_db_key INT(2) AUTO_INCREMENT PRIMARY KEY,
  row_server VARCHAR(40),
- row_database VARCHAR(40),
+ row_database VARCHAR(40)
  );
 
 CREATE TABLE dim_type(
- type_key INT AUTO_INCREMENT PRIMARY KEY,
- row_type VARCHAR(40),
+ type_key INT(2) AUTO_INCREMENT PRIMARY KEY,
+ row_type VARCHAR(40)
  );
 
 CREATE TABLE fact_SkyServer(
@@ -37,3 +38,9 @@ CREATE TABLE fact_SkyServer(
  FOREIGN KEY (server_db_key) REFERENCES dim_server_db(server_db_key),
  FOREIGN KEY (time_key) REFERENCES dim_time(time_key),
  FOREIGN KEY (type_key) REFERENCES dim_type(type_key));
+
+// to create users, whatever play says he don't like
+CREATE USER 'masteWHAT'@'localhost' IDENTIFIED BY 'whatUP';
+
+
+GRANT ALL PRIVILEGES ON *.* TO 'masteWHAT'@'localhost';
