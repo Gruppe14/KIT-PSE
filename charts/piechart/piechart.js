@@ -1,23 +1,22 @@
-function piechart(pathtodata) {
+function piechart(json) {
     var data;
     var xAxisName;
     var yAxisName;
-    d3.json(pathtodata, function (json) {
-        console.log("I read " + json.data.length + " data points.");
-        xAxisName = json.attribute1;
-        yAxisName = json.attribute2;
-        data = json.data;
-        visualize(data); //then start the visualization
+    json = JSON.parse(json);
+    console.log("I read " + json.data.length + " data points.");
+    xAxisName = json.attribute1;
+    yAxisName = json.attribute2;
+    data = json.data;
+    visualize(data); //then start the visualization
 
-        function getX(d) {
-            return d[xAxisName];
-        }
+    function getX(d) {
+        return d[xAxisName];
+    }
 
-        function getY(d) {
-            return d[yAxisName];
-        }
+    function getY(d) {
+        return d[yAxisName];
+    }
 
-    });
 
 
     function visualize(dataset) {

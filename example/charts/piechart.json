@@ -1,0 +1,27 @@
+{
+	"charttype": "piechart" ,
+	"attr1": "name" ,
+	"attr2": "score" ,
+    "data": [
+        {
+            "name": "scatterplot",
+            "score": 100
+        },
+        {
+            "name": "bubble chart",
+            "score": 30
+        },
+        {
+            "name": "histogram",
+            "score": 30
+        },
+        {
+            "name": "pie chart",
+            "score": 20
+        },
+        {
+            "name": "donut chart",
+            "score": 30
+        }
+    ]
+}

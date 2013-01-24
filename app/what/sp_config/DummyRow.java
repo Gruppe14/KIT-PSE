@@ -22,4 +22,9 @@ public class DummyRow extends RowEntry {
 		// Returns false, shouldn't be used.
 		return false;
 	}
+
+	@Override
+	public String getTableType() {
+		throw new UnsupportedOperationException();
+	}
 }

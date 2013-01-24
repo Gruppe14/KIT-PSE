@@ -5,23 +5,14 @@ import java.util.Vector;
 
 class WHConnectionManager {
 	
-    String databaseUrl = "jdbc:mysql://localhost:3306/WHATDataWarehouse";
-    String userName = "masteWHAT";
-    String password = "whatUP";
+    private static final String databaseUrl = "jdbc:mysql://localhost:3306/WHATDataWarehouse";
+    private static final String userName = "masteWHAT";
+    private static final String password = "whatUP";
+    private static final int MAX_POOL_SIZE = 5;
 
     Vector<Connection> connectionPool = new Vector<Connection>();
-
-    final static int MAX_POOL_SIZE = 5;
-
     
     public WHConnectionManager() {
-        initialize();
-    }
-
-    public WHConnectionManager(String databaseUrl, String userName, String password) {
-        this.databaseUrl = databaseUrl;
-        this.userName = userName;
-        this.password = password;
         initialize();
     }
 
@@ -34,7 +25,7 @@ class WHConnectionManager {
     	
         while(!checkIfConnectionPoolIsFull()) {
             System.out.println("Connection Pool is NOT full. Proceeding with adding new connections");
-            //Adding new connection instance until the pool is full
+
             connectionPool.addElement(createNewConnectionForPool());
         }
         
@@ -42,15 +33,8 @@ class WHConnectionManager {
     }
 
     private synchronized boolean checkIfConnectionPoolIsFull() {
-        final int MAX_POOL_SIZE = 5;
-
-        //Check if the pool size
-        if(connectionPool.size() <  MAX_POOL_SIZE)
-        {
-            return false;
-        }
-
-        return true;
+        
+        return !(connectionPool.size() <  MAX_POOL_SIZE);
     }
 
     //Creating a connection

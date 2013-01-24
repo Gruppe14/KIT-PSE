@@ -8,6 +8,8 @@ import what.sp_parser.DataEntry;
 
 public class StringMapRow extends RowEntry {
 	
+	private static final String TABLE_TYPE = "VARCHAR(40)";
+	
 	private final Map<String, Set<String>> comparer;
 	
 	private HashSet<String> compareSet;
@@ -68,6 +70,11 @@ public class StringMapRow extends RowEntry {
 		de.setInfo("other", location);
 		return true;
 		
+	}
+	
+	@Override
+	public String getTableType() {
+		return TABLE_TYPE;
 	}
 	
 }

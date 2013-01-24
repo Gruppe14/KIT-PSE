@@ -24,7 +24,11 @@ public class ChartHelper {
 	public static final String JSON_MEASURE = "measures";
 	
 	public static final String JSON_ALL = "all";
+	
+	public static final String JSON_LVL = "level";
+	public static final String JSON_SELEC = "selected";
 	public static final String JSON_PARENT = "parent";
+	
 
 	// -- BUILDING CHARTHOST -- BUILDING CHARTHOST -- BUILDING CHARTHOST --
 	protected static DimChart getChartHost(String path) {
@@ -90,7 +94,12 @@ public class ChartHelper {
 		
 		HashMap<String, TreeSet<String>> filterSets = new HashMap<String, TreeSet<String>>();
 		
-		TreeSet<String> xFilter = getFilters(x, json);
+		try {
+			TreeSet<String> xFilter = getFilters(x, json);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		DimChart chart;
@@ -99,28 +108,59 @@ public class ChartHelper {
 		} else {
 			chart = getOneDimChart(json);
 		}
-		return null;
+		
+		return chart;
 	}
 
 
-	private static TreeSet<String> getFilters(String s, JSONObject json) {
+	private static TreeSet<String> getFilters(String s, JSONObject json) throws JSONException {
 		assert (s != null);
 		assert (json != null);
 		
 		// get JSON Array with strings to filter for
-		JSONArray values;
+		JSONObject values;
 		try {
-			values = json.getJSONArray(s);
+			values = json.getJSONObject(s);
 		} catch (JSONException e) {
 			System.out.println("ERROR: Getting filter array for " + s + " not possible!");
 			e.printStackTrace();
 			return null;
 		} 
 		
+		TreeSet<String> filterSet = new TreeSet<String>();
 		int length = values.length();
 		for (int i = 0; i < length; i++) {
+			String curLvl = values.getString(JSON_LVL);
+			Object selected = values.getJSONArray(JSON_SELEC);
+			
+			if (selected instanceof String) {
+				String sel = (String) selected;
+				if (sel.equalsIgnoreCase(JSON_ALL)) {
+					return null;
+				} else {
+					System.out.println("ERROR: Illegal statement for select: " + sel);
+				}
+			} else if (selected instanceof JSONArray) {
+				JSONArray array = (JSONArray) selected;
+				TreeSet<String> content = getSelectContent(array, curLvl);
+				if (content != null) {
+					filterSet.addAll(content);
+				}
+				
+			} else {
+				System.out.println("ERROR: Illegal statement for select, neither string nor array.");
+			}
+			
 			
 		}
+		
+		
+		return null;
+	}
+
+
+	private static TreeSet<String> getSelectContent(JSONArray array, String curLvl) {
+		
 		
 		
 		return null;

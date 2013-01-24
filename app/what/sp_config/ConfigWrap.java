@@ -2,7 +2,6 @@ package what.sp_config;
 
 // java imports
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 // org.json imports
@@ -153,19 +152,28 @@ public class ConfigWrap {
 		for (int i = 0, l = getSize(); i < l; i++) {
 			DimRow cur = new DimRow();
 			RowEntry re = entries[i];
-			cur.add(re); 
 			
-			if (re.getLevel() > 0) {
-				String cat = re.getCategory();
-				i++;
+			if (re.getId().equals(RowId.LOCATION)) {
+				cur = DimRow.getLocationDim();
+			} else if (re.getId().equals(RowId.DUMMY)) {
+				continue;
+			} else {
+				cur.add(re); 
 				
-				while ((i < l) && (entries[i].getCategory().equalsIgnoreCase(cat))) {
-					cur.add(entries[i]);
+				if (re.getLevel() > 0) {
+					String cat = re.getCategory();
 					i++;
+					
+					while ((i < l) && (entries[i].getCategory().equalsIgnoreCase(cat))) {
+						cur.add(entries[i]);
+						i++;
+					}
+					
+					i--;
 				}
 				
-				i--;
 			}
+			
 			
 			dimRows.add(cur);		
 		}
@@ -264,11 +272,11 @@ public class ConfigWrap {
 	 * 
 	 * @return the dimensions and rows
 	 */
-	/*
 	public ArrayList<DimRow> getDims() {
 		return dimRows;
 	}
-	*/
+	
+	
 	/**
 	 * Returns the name of the database for which this configuration is.
 	 * 
@@ -287,10 +295,17 @@ public class ConfigWrap {
 		return version;
 	}
 
-	public ArrayList<DimRow> getDims() {
-		return dimRows;
+	/**
+	 * Return the name of the fact table in the warehouse of this config.
+	 * @return
+	 */
+	public String getFactTableName() {
+		return "fact_" + dbName;
 	}
 	
+	public int getSizeOfHistory() {
+		return sizeOfHistory;
+	}
 	
 	@Override
 	public String toString() {
@@ -310,10 +325,5 @@ public class ConfigWrap {
 		
 		return s;
 	}
-
-	
-	
-	
-
 	
 }
