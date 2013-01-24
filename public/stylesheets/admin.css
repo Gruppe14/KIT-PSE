@@ -1,0 +1,31 @@
+#send {
+	display:block;
+	border:2px solid lightgray;
+	background-color: lightgray;
+	text-align: center;
+	font-weight: bold;
+	width: 100px;
+	cursor: pointer;
+	margin-top: 3px;
+}
+#send:active {
+	background-color: white;
+}
+input {
+	outline: 0px;
+	border: 2px solid lightgray;
+	font-family: Kalinga;
+	font-size: 16px;
+}
+input:focus {
+	border-color: gray;
+}
+#heading {
+	font-weight: bold;
+	font-size: 26px;
+}
+#logout {
+	font-size: 14px;
+	float:right;
+	display:inline-block;
+}

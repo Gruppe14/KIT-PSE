@@ -24,6 +24,7 @@ img {
 #wrapper {
 	margin: auto;
 	width: 680px;
+	padding-bottom: 10px;
 }
 #logo {
     position:relative;
@@ -49,7 +50,7 @@ img {
 
 #content {
 	position: relative;
-	top: 80px;
+	top: 60px;
 }
 
 #footer {

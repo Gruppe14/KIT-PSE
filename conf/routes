@@ -10,6 +10,13 @@ GET /charts/$chartName<[a-z]+>.html		controllers.Website.chartType(chartName)
 GET /charts/$chartName<[a-z]+>.js		controllers.Website.chartJS(chartName)
 GET /charts/$chartName<[a-z]+>/*file	controllers.Website.chartStatics(chartName, file)
 
+#admin
+GET /adminLogin							controllers.Website.adminLogin()
+POST /adminLogin						controllers.Website.login()
+GET /admin								controllers.Website.admin()
+POST /admin								controllers.Website.logfile()
+GET /logout								controllers.Website.logout()
+
 #request a chart visualization
 POST /chartRequest						controllers.Website.chartRequest()
 
