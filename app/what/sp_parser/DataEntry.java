@@ -55,7 +55,9 @@ public class DataEntry implements Comparable<DataEntry> {
 		
 		for (int i = 0; i < info.length; i++) {
 			if (!info[i].equals(o.getInfo(i))) {
-				return info[i].hashCode() - o.getInfo(i).hashCode();
+				if (info[i] != null && o.getInfo(i) != null) {
+					return info[i].hashCode() - o.getInfo(i).hashCode();
+				}
 			}
 		}
 		
