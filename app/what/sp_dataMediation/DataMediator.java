@@ -1,6 +1,9 @@
 package what.sp_dataMediation;
 
+import java.sql.ResultSet;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.TreeSet;
 
 import what.sp_config.ConfigWrap;
 import what.sp_parser.DataEntry;
@@ -9,12 +12,12 @@ public class DataMediator {
 	
 	/** Configuration on which this ChartMediator works on */
 	private ConfigWrap config;
+		
+	private MySQLAdapter adapter;
 	
-	private WHConnectionManager whConnections; 
-
 	public DataMediator(ConfigWrap config) {
 		this.config = config;
-		whConnections = new WHConnectionManager();
+		this.adapter = new MySQLAdapter();
 	}
 	
 	/**
@@ -29,21 +32,21 @@ public class DataMediator {
 			return false;
 		}
 		
-		// TODO set the right class which organizes this... 
-		// may be this class itself, but i don't know any methods which it may call yet
-		/*if (someClassHere.computeOlapCubes()) {
-			System.out.println("Computing OLAP cubes failed!");
-			return false;
-		}
-		*/
-		
 		return true;
 	}
 	
 	public boolean loadEntries(Collection<DataEntry> tbl) {
+		if (tbl == null) {
+			throw new IllegalArgumentException();
+		}
 		
-		return false;
+		return adapter.loadEntries(tbl);
 	}
+	
+	public ResultSet requestTable(String x, String xTable, String measure, String factTable, HashMap<String, TreeSet<String>> filters) {
+		return adapter.requestTable(x, xTable, measure, factTable, filters);
+	}
+
 	
 	
 

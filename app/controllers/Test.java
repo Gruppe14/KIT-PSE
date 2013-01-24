@@ -1,5 +1,10 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import data_access.CreateDatabase;
 import play.mvc.Controller;
 import play.mvc.Result;
 import what.Facade;
@@ -23,8 +28,8 @@ public class Test extends Controller {
 	System.out.println("This is a test for checking whether reading the config file is successful:");
 
 		Facade f = Facade.getFacadeIstance();//new Facade();
-		//String sourcePath = System.getProperty("user.dir");
-		//String seperator = System.getProperty("file.separator");
+		String sourcePath = System.getProperty("user.dir");
+		String seperator = System.getProperty("file.separator");
 		//String pathJSONConfig = sourcePath + seperator + "conf\\ConfigSkyServer.json";
 		//System.out.println("Was it?" + f.init(pathJSONConfig));
 		
@@ -32,7 +37,7 @@ public class Test extends Controller {
 		ConfigWrap confi = f.getCurrentConfig();
 		System.out.println(confi.toString());
 		
-		
+				
 		/* 
 		 * Uncomment first for 32k lines, second for 10 lines and third for 1k lines.
 		 */

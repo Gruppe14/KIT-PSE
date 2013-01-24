@@ -1,15 +1,27 @@
 package what.sp_config;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class DimRow {
 
 	private ArrayList<RowEntry> rows = new ArrayList<RowEntry>();
 	
 	private Object strings;
+	
+	private static final String CITY = "city";
+	private static final String COUNTRY = "country";
+	private static final String LOCATION = "location";
+	
+	private static final DimRow LOCATION_DIM_INSTANCE; 
+	static {
+		LOCATION_DIM_INSTANCE = new DimRow();
+		LOCATION_DIM_INSTANCE.add(new StringRow(COUNTRY, "", 1, LOCATION, COUNTRY, null));
+		LOCATION_DIM_INSTANCE.add(new StringRow(CITY, "", 2, LOCATION, CITY, null));
+	}
 		
 	// -- SETTER -- SETTER -- SETTER -- SETTER -- SETTER --
-	protected void add(RowEntry rowEntry) {
+ 	protected void add(RowEntry rowEntry) {
 		if (rowEntry == null) {
 			throw new IllegalArgumentException();
 		}
@@ -49,9 +61,11 @@ public class DimRow {
 		if (!isNotEmpty()) {
 			return false;
 		}
+		RowEntry re = rows.get(0);
 		
-		return (rows.get(0).getLevel() > 0);
+		return ((re.getLevel() > 0) || (re.getId().equals(RowId.STRING)) || (re.getId().equals(RowId.STRINGMAP)));
 	}
+	
 	
 	public boolean isStringDim() {
 		if (!isNotEmpty()) {
@@ -77,7 +91,7 @@ public class DimRow {
 			return null;
 		}
 		
-		return (isDimension()) ? rows.get(0).getCategory() : rows.get(0).getName();
+		return rows.get(0).getCategory();
 	}
 	
 	public String getScaleAt(int i) {
@@ -100,6 +114,18 @@ public class DimRow {
 		return ConfigHelper.DIM_TABLE + getName();
 	}
 	
+	public String getTableKey() {
+		return getName() + ConfigHelper.KEY_TABLE;
+	}
+	
+	public String getRowNameOfLevel(int i) {
+		if ((i < 0) || (i >= getSize())) {
+			throw new IllegalArgumentException();
+		}
+		
+		return "row_" + rows.get(i).getName();
+	}
+	
 	public String getNameOfLevel(int i) {
 		if ((i < 0) || (i >= getSize())) {
 			throw new IllegalArgumentException();
@@ -108,9 +134,26 @@ public class DimRow {
 		return rows.get(i).getName();
 	}
 	
+	public static DimRow getLocationDim() {
+		return LOCATION_DIM_INSTANCE;
+	}
+	
+	public String getTableTypeAt(int i) {
+		if ((i < 0) || (i >= getSize() )) {
+			throw new IllegalArgumentException();
+		}
+			
+		return rows.get(i).getTableType();
+	}
+	
 	// -- OVERRIDES -- OVERRIDES -- OVERRIDES -- OVERRIDES --	
 	@Override
 	public String toString() {
 		return "DimRow [name= " + getName() +", size= " + getSize() + "]";
 	}
+	
+
+
+
+	
 }
