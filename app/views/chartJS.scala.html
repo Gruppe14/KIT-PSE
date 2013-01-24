@@ -180,7 +180,6 @@ function buildTree(lvl) {
 		//el has sub dimensions 
 		if(el.next().hasClass("sub") && el.next().children(".selected").length != 0) {
 			var obj = {};
-			alert(el.next().attr("data"));
 			obj.level = el.next().attr("data");
 			obj.parent = el.html();
 			obj[el.html()] = buildTree(el.next().children(".selected"));

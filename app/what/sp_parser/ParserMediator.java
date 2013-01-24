@@ -116,7 +116,9 @@ public class ParserMediator {
 	 * @return true, after parsing is finished
 	 */
 	public boolean parseLogFile(String path) {
+		assert (path != null);
 		
+		System.out.println("Parsing log file started for path: " + path);
 		
 		//Initialization for Logfile, ThreadPool and GeoIPTool.
 		
@@ -204,7 +206,6 @@ public class ParserMediator {
 	/**
 	 * This method is called when a line gets deleted. It sends out a warning to the standard output.
 	 */
-
 	protected void increaseLinedel() {
 		
 		linesDeleted++;
@@ -213,6 +214,9 @@ public class ParserMediator {
 			
 	}
 
+	
+	
+	
 	/**
 	 * @return the config
 	 */

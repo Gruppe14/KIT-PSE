@@ -240,6 +240,22 @@ public class ConfigWrap {
 	}
 	
 	/**
+	 * Return the # of dimensions, and also dimension tables, of this config
+	 * without counting the columns of the fact table.
+	 * @return # of dimensions
+	 */
+	public int getNumberOfDimsWitoutRows() {
+		int sum = 0;
+		for (DimRow d : dimRows) {
+			if (d.isDimension()) {
+				sum++;
+			}
+		}
+		
+		return sum;
+	}
+	
+	/**
 	 * Returns the RowEntry at the given position.
 	 * 
 	 * @param i position from which the RowEntry is required

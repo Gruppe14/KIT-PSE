@@ -1,29 +1,37 @@
 // crete this tables
 CREATE TABLE dim_time(
- time_key INT(5) AUTO_INCREMENT PRIMARY KEY,
+ time_key INT(5) not null AUTO_INCREMENT UNIQUE,
  row_year INT(3),
  row_month INT(3),
  row_day INT(3),
  row_hour INT(3),
  row_minute INT(3),
- row_second INT(3)
+ row_second INT(3);
+ CONSTRAINT time_key PRIMARY KEY 
+ (row_year, row_month, row_day, row_hour, row_minute)
  );
 
 CREATE TABLE dim_location(
- location_key INT(4) AUTO_INCREMENT PRIMARY KEY,
+ location_key INT(5) not null AUTO_INCREMENT UNIQUE,
  row_country VARCHAR(40),
- row_city VARCHAR(40)
+ row_city VARCHAR(40),
+ CONSTRAINT location_key PRIMARY KEY 
+ (row_country, row_city) 
  );
 
 CREATE TABLE dim_server_db(
- server_db_key INT(2) AUTO_INCREMENT PRIMARY KEY,
+ server_db_key INT(3) not null AUTO_INCREMENT UNIQUE,
  row_server VARCHAR(40),
- row_database VARCHAR(40)
+ row_database VARCHAR(40),
+ CONSTRAINT location_key PRIMARY KEY 
+ (row_server, row_database) 
  );
 
 CREATE TABLE dim_type(
- type_key INT(2) AUTO_INCREMENT PRIMARY KEY,
- row_type VARCHAR(40)
+ type_key INT(4) not null AUTO_INCREMENT UNIQUE,
+ row_type VARCHAR(40),
+ CONSTRAINT location_key PRIMARY KEY 
+ (row_type) 
  );
 
 CREATE TABLE fact_SkyServer(
