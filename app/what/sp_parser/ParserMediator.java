@@ -26,7 +26,7 @@ public class ParserMediator {
 	/**
 	 * The poolsize of parsingTasks.
 	 */
-	private int poolsize = 10;
+	private int poolsize = 5;
 	
 	
 	/**
@@ -123,6 +123,8 @@ public class ParserMediator {
 	public boolean parseLogFile(String path) {
 		assert (path != null);
 		
+		finishedTasks = 0;
+		
 		System.out.println("Parsing log file started for path: " + path);
 		
 		//Initialization for Logfile, ThreadPool and GeoIPTool.
@@ -205,7 +207,9 @@ public class ParserMediator {
 	 * This method is called when a task is finished. If it hits the poolsize the parser is shut down.
 	 */
 	protected void increaseFT() {
-		finishedTasks++;		
+		
+		finishedTasks++;	
+		System.out.println("Task finished:" + finishedTasks);
 	}
 	
 	/**

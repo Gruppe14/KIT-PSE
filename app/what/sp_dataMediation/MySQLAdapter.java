@@ -158,7 +158,7 @@ public class MySQLAdapter {
 					key = executeKeyRequest(keyQuery);
 	
 					if (key <= 0) {
-						System.out.println("ERROR: Receiving a key failed!");
+						System.out.println("ERROR: Receiving a key failed for " + keyQuery);
 						return false;
 					}
 					
@@ -320,6 +320,7 @@ public class MySQLAdapter {
 		Statement s = getStatement(c);
 		
 		if (s == null) {
+			System.out.println("ERROR: Did not get a Statement");
 			return false;
 		}
 		

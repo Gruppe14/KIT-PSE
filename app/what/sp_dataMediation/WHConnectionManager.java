@@ -100,7 +100,7 @@ public class WHConnectionManager {
             connectionPool.removeElementAt(0);
         }
         //Giving away the connection from the connection pool
-        System.out.println("Connection taken from pool. Size of pool: " + connectionPool.size());
+        // System.out.println("Connection taken from pool. Size of pool: " + connectionPool.size());
         return connection;
     }
     
@@ -112,6 +112,6 @@ public class WHConnectionManager {
     protected synchronized void returnConnectionToPool(Connection connection) {
         //Adding the connection from the client back to the connection pool
         connectionPool.addElement(connection);
-        System.out.println("Connection returned to pool. Size of pool: " + connectionPool.size());
+       //  System.out.println("Connection returned to pool. Size of pool: " + connectionPool.size());
     }
 }

@@ -69,6 +69,12 @@ public class GeoIPTool {
 			pt.getDe().setInfo(loc.countryName, 6);	
 			pt.getDe().setInfo(loc.city, 7);
 
+			if (pt.getDe().getInfo(6) == null) {
+			    pt.getDe().setInfo("other", 6);
+			}
+			 if (pt.getDe().getInfo(7) == null) {
+			    pt.getDe().setInfo("other", 7);
+			 }
 			
 			lastLoc = loc;
 			lastIp = (String) pt.getDe().getInfo(6);
