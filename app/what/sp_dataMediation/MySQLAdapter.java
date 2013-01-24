@@ -243,23 +243,75 @@ public class MySQLAdapter {
 		return result;
 	} 
 
-	
-	protected ResultSet requestStringsWithParent(String child, String parentType, String parentFilter, String table) {
+	/**
+	 * Returns a TreeSet of strings of type child with parent as filter from the given table.
+	 * 
+	 * @param child type of child (like city) for that strings are requested
+	 * @param parentType the type of the parent (like country) for which gets filtered 
+	 * @param parentFilter parent for which gets filtered (like Germany)
+	 * @param table table in which child and parent are stored
+	 * @return a TreeSet of strings of type child with parent as filter
+	 */
+	protected TreeSet<String> requestStringsWithParent(String child, String parentType, String parentFilter, String table) {
 		assert (parentFilter != null);
 		assert (table != null);
 		assert (child != null);
 		
 		String query = "" + SELECT + child + FROM + table
-						+ WHERE + parentType + EQL + parentFilter;
+						+ WHERE + parentType + EQL + APOS + parentFilter + APOS;
 		
-		ResultSet result = executeRequest(query);
-		if (result == null) {
-			System.out.println("ERROR: No ResultSet returned...");
-		}
-		
-		return null;
+		return requestStringSet(query);
 	}
 
+	protected TreeSet<String> requestStringsOf(String rowName, String tableName) {
+		assert (rowName != null);
+		assert (tableName != null);
+
+		
+		String query = SELECT + rowName + FROM + tableName + GROUPBY + rowName;
+				
+		return requestStringSet(query);
+	}
+	
+	private TreeSet<String> requestStringSet(String query) {
+		assert (query != null);
+		
+		Connection c = getConnection();
+		Statement s = getStatement(c);
+		if (s == null) {
+			System.out.println("ERROR: Opening statement failed...");
+			return null;
+		}
+		
+		ResultSet re = null;
+		try {
+			re = s.executeQuery(query);
+			
+		} catch (SQLException e) {
+			System.out.println("ERROR: Executing query not possible:\n >> " + query + "<<");
+			e.printStackTrace();
+			return null;
+		}
+		
+		TreeSet<String> requested = DataChanger.getTreeSetFromRS(re);
+		
+		if (requested == null) {
+			System.out.println("ERROR: Reading from result set failed.");
+		}
+		
+		try {
+			s.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("ERROR: Closing statement failed...");
+		}
+		
+		whConnections.returnConnectionToPool(c);
+		
+		return requested;		
+	}
+	
+		
 	private boolean executeUpload(String query) {
 		assert (query != null);
 		
@@ -291,9 +343,7 @@ public class MySQLAdapter {
 		assert (query != null);
 		
 		Connection c = getConnection();
-
 		Statement s = getStatement(c);
-		
 		if (s == null) {
 			return null;
 		}
@@ -409,6 +459,8 @@ public class MySQLAdapter {
         
 		return key;
 	}
+	
+
 	
 }
 

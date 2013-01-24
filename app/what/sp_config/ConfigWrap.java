@@ -149,7 +149,7 @@ public class ConfigWrap {
 	 * @return whether setting up the DimRows was successful
 	 */
 	private boolean buildConfigDimRows() {
-		for (int i = 0, l = getSize(); i < l; i++) {
+		for (int i = 0, l = getNumberOfRows(); i < l; i++) {
 			DimRow cur = new DimRow();
 			RowEntry re = entries[i];
 			
@@ -217,17 +217,6 @@ public class ConfigWrap {
 		return true;
 	}
 
-	// -- SETTER -- SETTER -- SETTER -- SETTER -- SETTER --
-	public boolean computeDimRows() {
-		for (int i = 0, l = getSize(); i < l; i++) {
-			if (!dimRows.get(i).setStrings()) {
-				System.out.println("Computing strings for DimRow #" + i + " failed!");
-				return false;
-			}
-		}
-				
-		return true;
-	}
 	
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 
 	/**
@@ -235,8 +224,17 @@ public class ConfigWrap {
 	 * 
 	 * @return the number of rows
 	 */
-	public int getSize() {
+	public int getNumberOfRows() {
 		return entries.length;
+	}
+	
+	/**
+	 * Returns the number of dimensions and rows.
+	 * 
+	 * @return the number of dimensions and rows
+	 */
+	public int getNumberOfDims() {
+		return dimRows.size();
 	}
 	
 	/**
@@ -262,7 +260,7 @@ public class ConfigWrap {
 	 * @return the RowEntry at the given position
 	 */
 	public RowEntry getEntryAt(int i) {
-		if ((i < 0) || (i >= getSize())) {
+		if ((i < 0) || (i >= getNumberOfRows())) {
 			throw new IllegalArgumentException();
 		}
 		
@@ -327,7 +325,7 @@ public class ConfigWrap {
 	public String toString() {
 		String s = "ConfigWrap [dbName= " + dbName + ", version= " + version
 				+ ", entries= \n[";
-		for (int i = 0, j = getSize(); i < j; i++) {
+		for (int i = 0, j = getNumberOfRows(); i < j; i++) {
 			s += getEntryAt(i).toString(); 
 		}
 		

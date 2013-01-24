@@ -22,7 +22,7 @@ public class VerificationTool {
 		String[] typeSplit = lf.getType().split(",");
 		
 		int i = 0;
-		while (i < cw.getSize()) {
+		while (i < cw.getNumberOfRows()) {
 			
 			//actual check for being identical
 			if (!cw.getEntryAt(i).getLogId().toLowerCase().equals(typeSplit[i].toLowerCase())) {

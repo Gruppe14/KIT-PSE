@@ -53,14 +53,16 @@ public class ParsingTask implements Runnable {
 				return;
 			} else {
 				splitStr = str.split(",");
-				de = new DataEntry(pm.getConfig().getSize() + 1);
+
+				de = new DataEntry(pm.getConfig().getNumberOfRows() + 2);
+
 				if (SplittingTool.split(this)) {
 					GeoIPTool.getLocationInfo(this);
-					
+							
 					System.out.println(de.toString());
-					
-				//	pm.getLoader().loadEntry(de);
-					
+
+					boolean success = pm.getLoader().loadEntry(de);
+					System.out.println("Loading DataEntry wwas successful: " + success);
 				} else {
 					pm.increaseLinedel();
 				}
