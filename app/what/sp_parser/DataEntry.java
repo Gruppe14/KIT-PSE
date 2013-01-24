@@ -10,7 +10,7 @@ import java.util.Arrays;
  * @author Alex
  *
  */
-public class DataEntry {
+public class DataEntry implements Comparable<DataEntry> {
 	
 	/**
 	 * The informations which are saved in a DataEntry
@@ -46,6 +46,22 @@ public class DataEntry {
 	public String toString() {
 		return "DataEntry [info=" + Arrays.toString(info)
 				+ "]";
+	}
+
+
+
+	@Override
+	public int compareTo(DataEntry o) {
+		
+		for (int i = 0; i < info.length; i++) {
+			if (!info[i].equals(o.getInfo(i))) {
+				return info[i].hashCode() - o.getInfo(i).hashCode();
+			}
+		}
+		
+		return 0;
+
+		
 	}
 
 	
