@@ -12,7 +12,6 @@
         <script type="text/javascript" src="/charts/@{chartName}.js"></script>
     </head>
     <body>
-	<div id="doc">
 	<div id="header">	
 	    <a href ="/"><img id="logo" src="/assets/images/logoText.png"></a>
 		<div id="lang">
@@ -110,7 +109,9 @@
 			</div>
 		</div>
 		<div id="send">@Localize.get("filter.send")</div>
-	</div>
+		<br /><div id="footer">
+			<a href="/admin">@Localize.get("admin.adminSection")</a>
+		</div>
 	</div>
     </body>
 </html>

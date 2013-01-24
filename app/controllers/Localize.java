@@ -7,6 +7,12 @@ import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+/**
+ * Static Class handling the localisation of the webpage and other parts of the program
+ * providing mainly two methods for translation, one with fallback (get) the other without(getString)
+ * @author Lukas Ehnle
+ *
+ */
 public class Localize extends Controller{
 	private static List<Lang> available = Lang.availables();
 	//default language

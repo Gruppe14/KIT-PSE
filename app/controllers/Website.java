@@ -6,9 +6,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import play.mvc.*;
+import play.data.Form;
+
+import what.AdminLogin;
+import what.AdminAuth;
+import what.LogfileUpload;
 
 
 public class Website extends Controller {
+	
+	// needed for admin login
+	private static Form<AdminLogin> form = form(AdminLogin.class);
+	// needed for logfilePathUpload
+	private static Form<LogfileUpload> log = form(LogfileUpload.class);
 
 	/**
 	 * method to render the index site with all available chart types
@@ -70,4 +80,57 @@ public class Website extends Controller {
     	return redirect(path);
     }
     
+    /**
+     * display login form
+     * @return returns a http response with the form page
+     */
+    public static Result adminLogin (){
+    	return ok(views.html.login.render(form));
+    }
+    
+    /**
+     * method to validate the login form
+     * @return returns the admin page or a badrequest
+     */
+    public static Result login() {
+		Form<AdminLogin> filledForm = form.bindFromRequest();
+		if (filledForm.hasErrors()) {
+			return badRequest(views.html.login.render(filledForm));
+		}
+		session().put("username", filledForm.get().username);
+		return redirect(routes.Website.admin());
+	}
+    
+    /**
+     * method to display admin page if authorized
+     * @return returns admin page or error
+     */
+    @Security.Authenticated(AdminAuth.class)
+	public static Result admin() {
+		return ok(views.html.adminPage.render(log));
+	}
+    
+    /**
+     * method to pass new log file path to the parser
+     * @return returns to the admin page
+     */
+    @Security.Authenticated(AdminAuth.class)
+    public static Result logfile() {
+    	Form<LogfileUpload> filledForm = log.bindFromRequest();
+		if (filledForm.hasErrors()) {
+			return badRequest(views.html.adminPage.render(filledForm));
+		}
+		//maybe START PARSER HERE?
+    	return ok(views.html.adminPage.render(log));
+    }
+    
+    
+    /**
+     * method to log out from admin
+     * @return returns to index
+     */
+    public static Result logout() {
+		session().clear();
+		return redirect(routes.Website.index());
+	}
 }

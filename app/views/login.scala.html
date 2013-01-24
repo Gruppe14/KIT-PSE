@@ -1,0 +1,26 @@
+@(loginForm: Form[what.AdminLogin])
+@import controllers.Localize
+@main(title = "Login"){
+	<link href="/assets/stylesheets/admin.css" rel="stylesheet" type="text/css">
+	<script>
+		$(document).ready(function() {
+			$("#send").click(function() {
+				$("form").submit();
+			})
+		});
+	</script>
+} {
+	<span id="heading">@Localize.get("admin.adminSection")</span>
+@helper.form(routes.Website.login) {
+	@if(loginForm.hasGlobalErrors) {<p style="color:red;">@loginForm.globalError.message</p>}
+	<div>
+		<label for="username">@Localize.get("admin.username")</label>
+		<input type="text" id="username" name="username" value="">
+	</div>
+	<div>
+		<label for="password">@Localize.get("admin.password")</label>
+		<input type="password" id="password" name="password" value="">
+	</div>
+	<div id="send">@Localize.get("admin.login")</div>
+}
+}

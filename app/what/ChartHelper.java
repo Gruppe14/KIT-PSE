@@ -61,19 +61,20 @@ public class ChartHelper {
 		ArrayList<DimRow> stringDim = new ArrayList<>();
 		ArrayList<String> measures = new ArrayList<>();
 		for (DimRow dim: dims) {
+			//if time dimension, add time options + time scale
 			if(dim.getName().equalsIgnoreCase("time")) {
 				html += time();
-				html += timeScale(1);
+				html += timeScale(dim, 1);
+			//if string dim add to list for later
 			} else if (dim.isStringDim()) {
-				html += "<div>" + dim.toString() + "</div>";
 				stringDim.add(dim);
+			//else add to measure list for later
 			} else {
 				measures.add(dim.getName());
 			}
 		}
 		html += stringDimHtml(stringDim);
 		html += measuresHtml(measures);
-		html += "dims:" + stringDim.size();
 		
 		return HtmlFormat.raw(html);
 	}
@@ -86,7 +87,6 @@ public class ChartHelper {
 	private String stringDimHtml(ArrayList<DimRow> dims) {
 		String html = "";
 		for(DimRow dim: dims) {
-			html += dim.getName();
 		}
 		return html;
 	}
@@ -112,23 +112,24 @@ public class ChartHelper {
 	 * @param dim wether only x or more dimensions are available
 	 * @return returns the html string
 	 */
-	private String timeScale(int dim) {
+	private String timeScale(DimRow dim, int y) {
 		String html = "<div id=\"timescale\" class=\"options\"><div>" +
 				Localize.get("time.scale") + "</div><div class=\"group type\">" +
 				"<span class=\"x\">" + Localize.get("filter.x.axis") + 	"</span>";
 		//if y can be chosen or not
-		if(dim > 1) {
+		if(y > 1) {
 			html += "<span class=\"y\">" + Localize.get("filter.y.axis") + 	"</span>";
 		}
 		html += "<span class=\"filter\">" + Localize.get("filter.filter") + "</span></div>" +
 				"<div class=\"group list\">";
+		
 		// maybe dynamic
 		html += "<span>" + Localize.get("time.year") + "</span>";
 		html += "<span>" + Localize.get("time.month") + "</span>";
 		html += "<span>" + Localize.get("time.day") + "</span>";
 		html += "<span>" + Localize.get("time.hour") + "</span>";
 		
-		html += "</div></div>";
+		html += "</div></div>\n";
 		return html;
 	}
 	/**
