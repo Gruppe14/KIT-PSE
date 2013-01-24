@@ -5,7 +5,7 @@
 	"Fields": [
 	{
 		"Type": "INT",
-		"Categorie": "TIME",
+		"Categorie": "time",
 		"Level": 1,
 		"Name": "year",
 		"LogId": "yy",
@@ -13,7 +13,7 @@
 	},
 	{
 		"Type": "INT",
-		"Categorie": "TIME",
+		"Categorie": "time",
 		"Level": 2,
 		"Name": "month",
 		"LogId": "mm",
@@ -21,7 +21,7 @@
 	},
 	{
 		"Type": "INT",
-		"Categorie": "TIME",
+		"Categorie": "time",
 		"Level": 3,
 		"Name": "day",
 		"LogId": "dd",
@@ -29,7 +29,7 @@
 	},
 	{
 		"Type": "INT",
-		"Categorie": "TIME",
+		"Categorie": "time",
 		"Level": 4,
 		"Name": "hour",
 		"LogId": "hh",
@@ -37,7 +37,7 @@
 	},
 	{
 		"Type": "INT",
-		"Categorie": "TIME",
+		"Categorie": "time",
 		"Level": 5,
 		"Name": "minute",
 		"LogId": "mi",
@@ -45,7 +45,7 @@
 	},
 	{
 		"Type": "INT",
-		"Categorie": "TIME",
+		"Categorie": "time",
 		"Level": 6,
 		"Name": "second",
 		"LogId": "ss",
@@ -54,8 +54,8 @@
 	
 	{
 		"Type": "IP",
-		"Categorie": "LOCATION",
-		"Level": 0,
+		"Categorie": "location",
+		"Level": 1,
 		"Name": "location",
 		"LogId": "clientIP",
 		"Scale": "location",
@@ -63,7 +63,7 @@
 	
 	{
 		"Type": "STRING",
-		"Categorie": "SERVER",
+		"Categorie": "server_db",
 		"Level": 1,
 		"Name": "server",
 		"LogId": "server",
@@ -74,7 +74,7 @@
 	
 	{
 		"Type": "STRING",
-		"Categorie": "SERVER",
+		"Categorie": "server_db",
 		"Level": 2,
 		"Name": "database",
 		"LogId": "dbname",
@@ -85,25 +85,25 @@
 	
 	{
 		"Type": "DOUBLE",
-		"Categorie": "ELAPSED",
+		"Categorie": "elapsed",
 		"Level": 0,
-		"Name": "elapsed time",
+		"Name": "elapsed-time",
 		"LogId": "elapsed", 
 		"Scale": "s",
 	},
 	
 	{
 		"Type": "DOUBLE",
-		"Categorie": "BUSY",
+		"Categorie": "busy",
 		"Level": 0,
-		"Name": "busy time",
+		"Name": "busy-time",
 		"LogId": "busy",
 		"Scale": "s",
 	},
 	
 	{
 		"Type": "INT",
-		"Categorie": "ROWS",
+		"Categorie": "rows",
 		"Level": 0,
 		"Name": "rows",
 		"LogId": "rows",
@@ -112,7 +112,7 @@
 	
 	{
 		"Type": "STRINGMAP",
-		"Categorie": "TYPE",
+		"Categorie": "type",
 		"Level": 0,
 		"Name": "type",
 		"Scale": "type",

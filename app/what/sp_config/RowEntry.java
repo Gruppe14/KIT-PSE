@@ -54,6 +54,8 @@ public abstract class RowEntry {
 	 */
 	private final String scale;
 	
+
+	
 	// -- CONSTRUCTOR -- CONSTRUCTOR -- CONSTRUCTOR -- CONSTRUCTOR --
 	/**
 	 * Constructor for a RowEntry.
@@ -145,4 +147,6 @@ public abstract class RowEntry {
 				+ ", level=" + level + ", category=" + category + ", scale="
 				+ scale + "]\n";
 	}
+	
+	public abstract String getTableType();
 }
