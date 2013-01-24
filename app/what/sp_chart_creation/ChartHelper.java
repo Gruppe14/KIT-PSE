@@ -95,14 +95,17 @@ public class ChartHelper {
 		HashMap<String, TreeSet<String>> filterSets = new HashMap<String, TreeSet<String>>();
 		
 		// x filters
+		TreeSet<String> xFilter = null;
 		try {
-			TreeSet<String> xFilter = getFilters(x, json);
+			xFilter = getFilters(x, json);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		// TODO other filters
+		if (xFilter != null ) {
+			
+		}
 		
 		
 		DimChart chart;
@@ -163,6 +166,8 @@ public class ChartHelper {
 
 
 	private static TreeSet<String> getSelectContent(JSONArray array, String curLvl) {
+		
+		
 		
 		
 		
