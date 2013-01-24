@@ -3,15 +3,12 @@ package what;
 // java imports
 import java.io.File;
 import java.util.ArrayList;
-
-// org.json imports
-import org.json.JSONException;
-
-
+import java.util.Collection;
 
 // intern imports
 import what.sp_config.ConfigWrap;
 import what.sp_config.DimRow;
+import what.sp_parser.DataEntry;
 import what.sp_parser.ParserMediator;
 import what.sp_chart_creation.ChartMediator;
 import what.sp_dataMediation.DataMediator;
@@ -250,7 +247,10 @@ public class Facade {
 		return FACADE_OBJECT;
 	}
 
-
+	// JUST a method for TESTING
+	public boolean upload(DataEntry d) {
+		return dataMedi.loadEntry(d);
+	}
 
 	
 }
