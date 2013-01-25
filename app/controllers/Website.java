@@ -10,6 +10,7 @@ import play.data.Form;
 
 import what.AdminLogin;
 import what.AdminAuth;
+import what.Facade;
 import what.LogfileUpload;
 
 
@@ -63,6 +64,7 @@ public class Website extends Controller {
     public static Result chartRequest() {
     	try {
 			JSONObject json = new JSONObject(request().body().asText());
+			Facade.getFacadeIstance().computeChart(json);
 			String chart = json.getString("chart");
 		    return ok(new File("./example/charts/" + chart + ".json")).as("application/json");
     	} catch (JSONException e) {

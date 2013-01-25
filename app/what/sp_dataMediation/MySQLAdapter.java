@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.TreeSet;
 
+import org.json.JSONObject;
+
 import what.sp_config.ConfigWrap;
 import what.sp_config.DimRow;
 import what.sp_config.RowId;
@@ -194,7 +196,7 @@ public class MySQLAdapter {
 	}
 	
 
-	protected ResultSet requestTable(String x, String xTable, String xKey, String measure,  HashMap<String, TreeSet<String>> filters) {
+	protected JSONObject requestTable(String x, String xTable, String xKey, String measure,  HashMap<String, TreeSet<String>> filters) {
 		assert (x != null);
 		assert (xTable != null);
 		assert (filters != null);
@@ -204,7 +206,7 @@ public class MySQLAdapter {
 						  + FROM + xTable + KOMMA + config.getFactTableName()
 						  + WHERE + xTable + DOT + xKey + EQL + config.getFactTableName() + DOT + xKey; 
 		
-
+		/* TODO check out how queries have to be...
 		TreeSet<String> keys = (TreeSet<String>) filters.keySet();		
 		String last = keys.last();
 		
@@ -230,15 +232,14 @@ public class MySQLAdapter {
 				query += RBR + AND;
 			}			
 		}
-		
+		*/
 		query += GROUPBY + x;
 		
 		
-		ResultSet result = executeRequest(query);
+		JSONObject result = executeRequest(query, x, measure);
 		if (result == null) {
-			System.out.println("ERROR: No ResultSet returned...");
+			System.out.println("ERROR: No File returned...");
 		}
-		
 		
 		return result;
 	} 
@@ -340,7 +341,7 @@ public class MySQLAdapter {
 		return true;
 	}
 	
-	private ResultSet executeRequest(String query) {
+	private JSONObject executeRequest(String query, String x, String measure) {
 		assert (query != null);
 		
 		Connection c = getConnection();
@@ -352,8 +353,10 @@ public class MySQLAdapter {
 		System.out.println("Try to execute: " + query);
 		
 		ResultSet re = null;
+		JSONObject json;
 		try {
 			re = s.executeQuery(query);
+			json = DataChanger.getFileFromResultSet(re, x, measure);
 			s.close();
 		} catch (SQLException e) {
 			System.out.println("ERROR: Executing query not possible:\n >> " + query + "<<");
@@ -363,7 +366,7 @@ public class MySQLAdapter {
 		
 		whConnections.returnConnectionToPool(c);
 		
-		return re;
+		return json;
 	}
 	
 	private Statement getStatement(Connection c) {

@@ -1,13 +1,13 @@
 package what.sp_dataMediation;
 
-import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.TreeSet;
 
+import org.json.JSONObject;
+
 import what.sp_config.ConfigWrap;
 import what.sp_config.DimRow;
-import what.sp_config.RowEntry;
 import what.sp_config.RowId;
 import what.sp_config.StringMapRow;
 import what.sp_parser.DataEntry;
@@ -150,7 +150,7 @@ public class DataMediator {
 	 * @param filters a map of filters, consisting of key1 = value1 or key1 = value2 and key2 = value3
 	 * @return
 	 */
-	public ResultSet requestTable(String x, String xTable, String xKey, String measure, HashMap<String, TreeSet<String>> filters) {
+	public JSONObject requestTwoDimJSON(String x, String xTable, String xKey, String measure, HashMap<String, TreeSet<String>> filters) {
 		return adapter.requestTable(x, xTable, xKey, measure, filters);
 	}
 
