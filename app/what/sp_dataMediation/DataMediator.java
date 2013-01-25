@@ -53,7 +53,7 @@ public class DataMediator {
 				TreeSet<String> strings = null;
 				if (d.getRowIdAt(posi).equals(RowId.STRINGMAP)) {
 					StringMapRow r = (StringMapRow) d.getRowAt(posi);
-					strings = r.getCompareTo();
+					strings = r.getTopicStrings();
 				} else if (d.getRowIdAt(posi).equals(RowId.STRING))  {
 					strings = requestStringsOf(d.getRowNameOfLevel(posi), d.getTableName());	
 				} else {
@@ -141,16 +141,17 @@ public class DataMediator {
 	}
 	
 	/**
-	 * Returns a resultset for a chart for given parameters
+	 * Returns a result set for a chart for given parameters
 	 * 
 	 * @param x x-axis 
 	 * @param xTable table where x-axis is stored
+	 * @param xKey key of this 
 	 * @param measure the measure requested
 	 * @param filters a map of filters, consisting of key1 = value1 or key1 = value2 and key2 = value3
 	 * @return
 	 */
-	public ResultSet requestTable(String x, String xTable, String measure, HashMap<String, TreeSet<String>> filters) {
-		return adapter.requestTable(x, xTable, measure, filters);
+	public ResultSet requestTable(String x, String xTable, String xKey, String measure, HashMap<String, TreeSet<String>> filters) {
+		return adapter.requestTable(x, xTable, xKey, measure, filters);
 	}
 
 	public TreeSet<String> requestStringsWithParent(String child, String parentType, String parentFilter, String table) {

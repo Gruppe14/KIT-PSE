@@ -2,7 +2,6 @@ package what.sp_config;
 
 import java.util.TreeSet;
 import java.util.Map;
-import java.util.Set;
 
 import what.sp_parser.DataEntry;
 
@@ -10,12 +9,12 @@ public class StringMapRow extends RowEntry {
 	
 	private static final String TABLE_TYPE = "VARCHAR(40)";
 	
-	private final Map<String, Set<String>> comparer;
+	private final Map<String, TreeSet<String>> comparer;
 	
 	private TreeSet<String> compareSet;
 	
 	protected StringMapRow(String name, String logId, int lvl, String categorie, String scale,
-							Map<String, Set<String>> comparer) {
+							Map<String, TreeSet<String>> comparer) {
 		super(name, logId, lvl, categorie, scale, RowId.STRINGMAP);
 	
 		this.comparer = comparer;
@@ -31,8 +30,10 @@ public class StringMapRow extends RowEntry {
 		return null;
 	}
 	
-	public Set<String> getTopicStrings() {
-		return comparer.keySet();
+	public TreeSet<String> getTopicStrings() {
+		TreeSet<String> a = new TreeSet<String>();
+		a.addAll(comparer.keySet());
+		return a;	
 	}
 	
 	public TreeSet<String> getCompareTo() {
