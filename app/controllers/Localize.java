@@ -71,7 +71,7 @@ public class Localize extends Controller{
 	 */
 	public static String language() {
 		String lang = session("lang");
-		if(lang == null){
+		if(lang == null || !available.contains(Lang.forCode(lang))){
 	    	List<Lang> want = request().acceptLanguages();
 	    	for (Lang w: want) {
 	    		if(available.contains(w)) {

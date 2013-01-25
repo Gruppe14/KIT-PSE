@@ -50,7 +50,7 @@ function scatterplot(json) {
             .tickFormat(format);
 
 
-
+        $("#chart").html("");
         //the svg chart!
         var svg = d3.select("#chart")
             .append("svg")

@@ -18,7 +18,7 @@ import what.sp_config.*;
  */
 public class ChartHelper {
 	//instance of charthelper --> singleton
-	private static ChartHelper instance = null;
+	private static HashMap<String, ChartHelper> instance = new HashMap<>();
 	//current config
 	private  ArrayList<DimRow> dims;
 	//charts available, currently overhead, but with further config files may be needed
@@ -37,23 +37,16 @@ public class ChartHelper {
 	}
 	
 	/**
-	 * If already initialized returns instance, else initializes ChartHelper
-	 * @return returns the only instance
-	 */
-	public static ChartHelper getInstance() {
-		if(ChartHelper.instance == null) {
-			ChartHelper.instance = new ChartHelper();
-		}
-		return ChartHelper.instance;
-	}
-	
-	/**
 	 * returns the options selection for a chart
 	 * @param the chart name
 	 * @return returns the option selection
 	 */
-	public Html getOptions(String name) {
-		return charts.get(name);
+	public static Html getOptions(String name) {
+		String lan = Localize.language();
+		if(!instance.containsKey(lan)) {
+			instance.put(lan, new ChartHelper());
+		}
+		return instance.get(lan).charts.get(name);
 	}
 	
 	//creates the option selection for a chart
@@ -91,29 +84,28 @@ public class ChartHelper {
 			String tmp = "<div id=\"" + dim.getName() + "\" class=\"options\"><div>" +
 					Localize.get("filter." + dim.getName()) + "</div>" +
 					"<div class=\"group type\"><span class=\"x\">" +
-					Localize.get("filter.x.axis") + "</span>";
+					Localize.get("filter.x.axis") + " </span>";
 			//if y axis should be shown
 			if(y > 1) {
-				tmp += "<span class=\"x\">" + Localize.get("filter.y.axis") + "</span>";
+				tmp += "<span class=\"x\">" + Localize.get("filter.y.axis") + " </span>";
 			}
 			tmp += "<span class=\"filter\">" + Localize.get("filter.filter") + "</span></div>";
+			tmp += "<div class=\"dim list\" data=\"" + dim.getRowNameOfLevel(0) + "\">";
 			//first level is build here because of dim list classes
 			//if HashMap recursivly
 			if(dim.getStrings() instanceof HashMap<?, ?>) {
-				tmp += "<div class=\"dim list\" data=\"" + dim.getRowNameOfLevel(0) + "\">";
+				
 				HashMap<String, Object> map = (HashMap<String, Object>) dim.getStrings();
 				tmp += dimObjectToString(map, dim, 1);
-				tmp += "</div>";
+				tmp += "</div></div> ";
 			//else TreeSet
 			} else if(dim.getStrings() instanceof TreeSet<?>) {
 				
-				tmp += "<div class=\"dim list\" data=\"" + dim.getRowNameOfLevel(0) + "\">";
 				for(String s: (TreeSet<String>) dim.getStrings()) {
 					tmp += "<span>" + s + "</span>";
 				}
-				tmp += "</div></div>";
+				tmp += "</div></div> ";
 			} else if(dim.getStrings() == null){
-				System.out.println("anyone?");
 				//should not happen but if a dimension is empty, delete the string
 				tmp = "";
 			}
@@ -140,7 +132,7 @@ public class ChartHelper {
 					html += dimObjectToString(newMap, dim, lvl + 1);
 				//else TreeSet
 				} else if(map.get(s) instanceof TreeSet<?>) {
-					html += "<div class=\"dim list\" data=\"" + dim.getRowNameOfLevel(lvl) + "\">";
+					html += "<div data=\"" + dim.getRowNameOfLevel(lvl) + "\">";
 					for(String newS: (TreeSet<String>) map.get(s)) {
 						html += "<span>" + newS + "</span>";
 					}
@@ -176,7 +168,7 @@ public class ChartHelper {
 	private String timeScale(DimRow dim) {
 		String html = "<div id=\"timescale\" class=\"options\"><div>" +
 				Localize.get("time.scale") + "</div><div class=\"group type\">" +
-				"<span class=\"x\">" + Localize.get("filter.x.axis") + 	"</span>";
+				"<span class=\"x\">" + Localize.get("filter.x.axis") + 	"&nbsp;</span>";
 		html += "<span class=\"filter\">" + Localize.get("filter.filter") + "</span></div>" +
 				"<div class=\"group list\">";
 		
@@ -205,16 +197,16 @@ public class ChartHelper {
 			for(int i = year[1]; i >= year[0]; i--) {
 				html += "<span>" + i + "</span>";
 			}
-			html += "</div></div><div><span>" + Localize.get("time.month") +
+			html += "</div></div> <div><span>" + Localize.get("time.month") +
 					"</span><span id=\"month" + s + "\">&nbsp;</span>" +
 					"<div class=\"dropdown\"><span>---</span>";
 			//add every month
 			for(int i = 1; i < 13; i++) {
 				html += "<span>" + i + "</span>";
 			}
-			html += "</div></div><div><span>" + Localize.get("time.day") +
+			html += "</div></div> <div><span>" + Localize.get("time.day") +
 					"</span><input id=\"day" + s + "\" type=\"number\" " +
-					"min=\"1\" max=\"31\" placeholder=\"1 - 31\"/></div>" +
+					"min=\"1\" max=\"31\" placeholder=\"1 - 31\"/></div> " +
 					"<div><span>" + Localize.get("time.hour") + "</span>" +
 					"<input id=\"hour" + s + "\" type=\"text\" " +
 					"pattern=\"(^[0-9]|^[1][0-9]|^[2][1-3]):[0-5][0-9]$\" " +

@@ -40,7 +40,7 @@ function piechart(json) {
             .sort(getY)
             .value(getY);
 
-
+        $("#chart").html("");
         var svg = d3.select("#chart").append("svg")
             .attr("width", w)
             .attr("height", h)

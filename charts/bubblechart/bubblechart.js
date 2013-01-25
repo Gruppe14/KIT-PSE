@@ -1,4 +1,4 @@
-function bubblescatter(json) {
+function bubblechart(json) {
 	//TODO: Scale the third dimension
 	//TODO: Add a fourth dimension, color
     var data;
@@ -57,7 +57,7 @@ function bubblescatter(json) {
             .tickFormat(format);
 
 
-
+        $("#chart").html("");
         //the svg chart!
         var svg = d3.select("#chart")
             .append("svg")

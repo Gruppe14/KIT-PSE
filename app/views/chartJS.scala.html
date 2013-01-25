@@ -140,6 +140,11 @@ function buildJson() {
 	json.chart = "@{chart}";
 	//save dim selected as x in object
 	json.x = $(".x.selected").parents(".options")[0].id;
+	//if y exists add it
+	var y = $(".y.selected");
+	if(y.length == 1) {
+		json.y = y.parents(".options")[0].id;
+	}
 	//save selected filter
 	json.filter = [];
 	var filter = $(".filter.selected").parents(".options");
@@ -221,7 +226,7 @@ $(document).ready(function() {
 				parent.children(".selected").removeClass("selected");
 			}
 			//if it has class x this case is handled further down
-			if(!$(this).hasClass("x")) {
+			if(!$(this).hasClass("x") && !$(this).hasClass("y")) {
 				$(this).toggleClass("selected");
 			}
 		} else {
@@ -233,11 +238,19 @@ $(document).ready(function() {
 				$("#selection").find(".x.selected").removeClass("selected");
 			}
 			$(this).toggleClass("selected");
+		}
+		//make sure only one y is selected
+		if($(this).hasClass("y")){
+			if(!$(this).hasClass("selected")) {
+				$("#selection").find(".y.selected").removeClass("selected");
+			}
+			$(this).toggleClass("selected");
 		} 
 	});
 	//register click function for chart request
 	$("#send").click(function(){
 		makeRequest();
+		$("#chart")[0].scrollIntoView(true);
 	});
 	//add chart css & js
 	$("head").append('<link href="/charts/@{chart}/@{chart}.css" rel="stylesheet" type="text/css">');
