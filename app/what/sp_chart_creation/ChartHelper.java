@@ -1,20 +1,22 @@
 package what.sp_chart_creation;
 
-import java.io.File;
+//java imports
 import java.util.HashMap;
 import java.util.TreeSet;
 
+//intern imports
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import what.JSON_Helper;
+//intern imports
+import what.sp_config.ConfigHelper;
 
 /**
- * Helper class
+ * Helper class to read information from a JSONObject.
  * 
  * @author Jonathan, PSE
- *
+ * @see ChartMediator
  */
 public class ChartHelper {
 
@@ -55,7 +57,7 @@ public class ChartHelper {
 		assert (json != null);
 		
 
-		// determin whether it's a one or two dimensional chart
+		// determine whether it's a one or two dimensional chart
 		DimChart chart = getDimChart(json);
 		
 		
@@ -81,25 +83,23 @@ public class ChartHelper {
 		String x = null;
 		String chartType = null;
 		String measure = null;
-		JSONArray filters = null;
 		try {
 			x = json.getString(JSON_X);
 			chartType = json.getString(JSON_CHART_TYPE);
 			measure = json.getString(JSON_MEASURE);
-			filters = json.getJSONArray(JSON_FILTER);
 		} catch (JSONException e) {
 			System.out.println("ERROR: Getting field in json file failed!");
 			e.printStackTrace();
 			return null;
 		}
 		
-		String xTable = "dim_"+ x;
+		String xTable = ConfigHelper.DIM_TABLE + x;
 		String xCategorie = x;
 		
 		if (measure.equalsIgnoreCase(JSON_COUNT)) {
 			measure = JSON_COUNT_SQL;
 		} else {
-			measure = "sum(row_" + measure + ")"; //TODO not hard coded...
+			measure = "sum("+ ConfigHelper.ROW_TABLE + measure + ")"; 
 		}
 		
 		
@@ -107,20 +107,22 @@ public class ChartHelper {
 		
 		// x filters
 		if (x.equalsIgnoreCase(JSON_TIMESCALE)) {
-			xTable = "dim_time";
+			xTable = ConfigHelper.DIM_TABLE + "time";
 			xCategorie = TIME;
 			
 			
 			try {
-				x = "row_" + json.getString(JSON_TIMESCALE);
+				if (json.has(JSON_TIMESCALE)) {
+					x = ConfigHelper.ROW_TABLE + json.getString(JSON_TIMESCALE);
+				} else {
+					x = TIME;
+				}
+				
 			} catch (JSONException e) {
-				System.out.println("ERROR: Getting time filter failed!");
-				e.printStackTrace();
+				System.out.println("ERROR: Getting time filter failed or all selected!");
 				return null;
 			}
-			
-		//	filterSets;
-			
+					
 		} else {
 			
 			TreeSet<String> xFilter = null;
@@ -128,6 +130,7 @@ public class ChartHelper {
 				xFilter = getFilters(x, json);
 				x = getLevel(x, json);
 			} catch (JSONException e) {
+				System.out.println("ERROR: Get filters failed for: " + x);
 
 			}
 		
@@ -186,7 +189,7 @@ public class ChartHelper {
 				end = getDate(timeObj, 1);
 			} 			
 		} catch (JSONException e) {
-			System.out.println("ERROR: Getting time field failed!");
+			System.out.println("ERROR: Getting time field failed!"); //TODO or is a string and says 'all'
 		}	
 		
 		
@@ -202,7 +205,7 @@ public class ChartHelper {
 				// won't happen..
 			}
 			
-			String yTable = "dim_" + y;
+			String yTable = ConfigHelper.DIM_TABLE + y;
 			String yCategorie = y;
 			TreeSet<String> sFilter = null;
 			try {

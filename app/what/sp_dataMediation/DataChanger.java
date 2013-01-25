@@ -9,6 +9,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Helper class providing methods 
+ * to transform result sets into specific other things
+ * 
+ * @author Jonathan, PSE
+ * @see MySQLAdapter
+ */
 public class DataChanger {
 	
 	private static final String ATT1 = "attribute1";

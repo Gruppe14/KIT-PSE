@@ -152,7 +152,9 @@ public class ConfigHelper {
 
 	// specific strings for the database
 	public static final String DIM_TABLE = "dim_";
+	public static final String ROW_TABLE = "row_";
 	public static final String KEY_TABLE = "_key";
+	public static final String FACT_TABLE = "fact_";
 	
 	
 	/**

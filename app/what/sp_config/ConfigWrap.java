@@ -322,9 +322,34 @@ public class ConfigWrap {
 	 * @return
 	 */
 	public String getFactTableName() {
-		return "fact_" + dbName;
+		return ConfigHelper.FACT_TABLE + dbName;
 	}
 	
+	
+	/**
+	 * Returns the row name for the highest level for a dimension
+	 * containing x as category or row
+	 * @param x String for which the dimension is searched
+	 * @return row name for the highest level for a dimension
+	 */
+	public String getHighestRowFor(String x) {
+		if (x == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		for (DimRow d : dimRows) {
+			if (d.getName().equalsIgnoreCase(x)) {
+				return d.getRowNameOfLevel(0);
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Returns the size of the history.
+	 * 
+	 * @return the size of the history
+	 */
 	public int getSizeOfHistory() {
 		return sizeOfHistory;
 	}
@@ -347,6 +372,22 @@ public class ConfigWrap {
 		
 		return s;
 	}
+
+
+	// -- CHECKER -- CHECKER -- CHECKER -- CHECKER -- CHECKER --
+	public boolean isCategorie(String x) {
+		if (x == null) {
+			throw new IllegalArgumentException();
+		}
+		for (DimRow d : dimRows) {
+			if (d.getName().equalsIgnoreCase(x)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	
 	
 	
 	

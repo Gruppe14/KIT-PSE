@@ -156,7 +156,13 @@
 					 "HoleObj", "Sector2Tile", "Region", "Sector", "BestTarget2Sector", "HalfSpace", 
 					 "Region2Box", "RegionArcs", "RegionConvex"
 					],
-				 }				 
+				 },
+
+				 { "ParentName" = "OTHER",
+					"List" = 
+					["other"
+					],
+				 }			 
 				],
 	}],
 }
