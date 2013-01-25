@@ -1,5 +1,5 @@
 { 
- "charttype": "bubblescatter"
+ "charttype": "bubblechart"
 , "attribute1": "x"
 , "attribute2": "y"
 , "attribute3": "r"
