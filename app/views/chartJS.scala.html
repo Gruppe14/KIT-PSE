@@ -171,7 +171,9 @@ function buildJson() {
 			json[op[0].id] = lvl;
 		// if it is a measure save selected measure
 		} else if(op.children(".list").hasClass("group")){
-			json[op[0].id] = op.children(".list").find(".selected").html();
+			var sel = op.children(".list").find(".selected");
+			//look in data attribute, if not found, take text
+			json[op[0].id] = typeof sel.attr("data") !== 'undefined' ? sel.attr("data") : sel.html();
 		}
 	}
 	return json;

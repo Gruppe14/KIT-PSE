@@ -1,9 +1,9 @@
 $(document).ready(function() {
 	$('#lang a').click(function(event) {
 		event.preventDefault();
-	    $('body').append('<form action="'+ window.location.pathname + 
-	    	'" name="language" method="POST" style="display:none;"><input type="text" name="lang" value="' 
-	    	+ $(this).attr('href') + '" /></form>');
+	    $('body').append('<form action="/language" name="language" method="POST" style="display:none;">' +
+			'<input type="text" name="lang" value="' + $(this).attr('href') + '" />' +
+			'<input type="text" name="path" value="' + window.location.pathname + '" /></form>');
 	
 	    document.forms['language'].submit();
 	})

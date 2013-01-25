@@ -5,13 +5,13 @@
 	<script>
 		$(document).ready(function() {
 			$("#send").click(function() {
-				$("form").submit();
+				document.forms['admin'].submit();
 			})
 		});
 	</script>
 } {
 	<span id="heading">@Localize.get("admin.adminSection")</span>
-@helper.form(routes.Website.login) {
+@helper.form(routes.Website.login, 'name -> "admin") {
 	@if(loginForm.hasGlobalErrors) {<p style="color:red;">@loginForm.globalError.message</p>}
 	<div>
 		<label for="username">@Localize.get("admin.username")</label>

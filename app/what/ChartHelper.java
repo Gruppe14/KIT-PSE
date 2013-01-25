@@ -173,10 +173,10 @@ public class ChartHelper {
 				"<div class=\"group list\">";
 		
 		// maybe dynamic
-		html += "<span>" + Localize.get("time.year") + "</span>";
-		html += "<span>" + Localize.get("time.month") + "</span>";
-		html += "<span>" + Localize.get("time.day") + "</span>";
-		html += "<span>" + Localize.get("time.hour") + "</span>";
+		html += "<span data=\"year\">" + Localize.get("time.year") + "</span>";
+		html += "<span data=\"month\">" + Localize.get("time.month") + "</span>";
+		html += "<span data=\"day\">" + Localize.get("time.day") + "</span>";
+		html += "<span data=\"hour\">" + Localize.get("time.hour") + "</span>";
 		
 		html += "</div></div>\n";
 		return html;

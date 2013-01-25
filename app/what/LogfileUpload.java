@@ -19,7 +19,11 @@ public class LogfileUpload {
 		 * method to check if the uploaded path exists on the serverside
 		 * @return returns null or an error message
 		 */
-		if (new File(pathToLogfile).exists()) return null;
+		if (new File(pathToLogfile).exists()) {
+			//start parser
+			Facade.getFacadeIstance().parseLogFile(pathToLogfile);
+			return null;
+		}
 		return Localize.get("admin.wrongPath");
 	}
 }
