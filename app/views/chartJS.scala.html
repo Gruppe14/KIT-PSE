@@ -166,7 +166,7 @@ function buildJson() {
 			json[op[0].id] = lvl;
 		// if it is a measure save selected measure
 		} else if(op.children(".list").hasClass("group")){
-			json[op[0].id] = op.find(".selected").html();
+			json[op[0].id] = op.children(".list").find(".selected").html();
 		}
 	}
 	return json;
