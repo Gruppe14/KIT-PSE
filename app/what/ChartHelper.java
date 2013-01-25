@@ -65,7 +65,7 @@ public class ChartHelper {
 			//if time dimension, add time options + time scale
 			if(dim.getName().equalsIgnoreCase("time")) {
 				html += time();
-				html += timeScale(dim, 1);
+				html += timeScale(dim);
 			//if string dim add to list for later
 			} else if (dim.isStringDim()) {
 				stringDim.add(dim);
@@ -173,14 +173,10 @@ public class ChartHelper {
 	 * @param dim wether only x or more dimensions are available
 	 * @return returns the html string
 	 */
-	private String timeScale(DimRow dim, int y) {
+	private String timeScale(DimRow dim) {
 		String html = "<div id=\"timescale\" class=\"options\"><div>" +
 				Localize.get("time.scale") + "</div><div class=\"group type\">" +
 				"<span class=\"x\">" + Localize.get("filter.x.axis") + 	"</span>";
-		//if y can be chosen or not
-		if(y > 1) {
-			html += "<span class=\"y\">" + Localize.get("filter.y.axis") + 	"</span>";
-		}
 		html += "<span class=\"filter\">" + Localize.get("filter.filter") + "</span></div>" +
 				"<div class=\"group list\">";
 		
