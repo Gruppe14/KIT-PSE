@@ -64,9 +64,9 @@ public class Website extends Controller {
     public static Result chartRequest() {
     	try {
 			JSONObject json = new JSONObject(request().body().asText());
-			Facade.getFacadeIstance().computeChart(json);
-			String chart = json.getString("chart");
-		    return ok(new File("./example/charts/" + chart + ".json")).as("application/json");
+			
+			//String chart = json.getString("chart");
+		    return ok(Facade.getFacadeIstance().computeChart(json).toString());
     	} catch (JSONException e) {
     		return internalServerError("Something went wrong :(");
     	}

@@ -107,10 +107,12 @@ public class ChartHelper {
 		
 		// x filters
 		if (x.equalsIgnoreCase(JSON_TIMESCALE)) {
-			x = TIME;	
+			xTable = "dim_time";
+			xCategorie = TIME;
+			
 			
 			try {
-				x = json.getString(JSON_TIMESCALE);
+				x = "row_" + json.getString(JSON_TIMESCALE);
 			} catch (JSONException e) {
 				System.out.println("ERROR: Getting time filter failed!");
 				e.printStackTrace();
@@ -185,7 +187,6 @@ public class ChartHelper {
 			} 			
 		} catch (JSONException e) {
 			System.out.println("ERROR: Getting time field failed!");
-			return null;
 		}	
 		
 		
