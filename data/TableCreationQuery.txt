@@ -6,7 +6,7 @@ CREATE TABLE dim_time(
  row_day INT(3),
  row_hour INT(3),
  row_minute INT(3),
- row_second INT(3);
+ row_second INT(3),
  CONSTRAINT time_key PRIMARY KEY 
  (row_year, row_month, row_day, row_hour, row_minute, row_second)
  );
@@ -34,18 +34,8 @@ CREATE TABLE dim_type(
  (row_type) 
  );
 
-CREATE TABLE fact_SkyServer(
- row_elapsed FLOAT,
- row_busy FLOAT,
- row_rows INT(3),
- location_key INT(4),
- server_db_key INT(2),
- time_key INT(5),
- type_key INT(1),
- FOREIGN KEY (location_key) REFERENCES dim_location(location_key),
- FOREIGN KEY (server_db_key) REFERENCES dim_server_db(server_db_key),
- FOREIGN KEY (time_key) REFERENCES dim_time(time_key),
- FOREIGN KEY (type_key) REFERENCES dim_type(type_key));
+
+ 
 
 // to create users, whatever play says he don't like
 CREATE USER 'masteWHAT'@'localhost' IDENTIFIED BY 'whatUP';

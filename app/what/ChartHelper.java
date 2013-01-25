@@ -2,6 +2,7 @@ package what;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeSet;
 
 import controllers.ChartIndex;
 import controllers.Localize;
@@ -73,7 +74,7 @@ public class ChartHelper {
 				measures.add(dim.getName());
 			}
 		}
-		html += stringDimHtml(stringDim);
+		html += stringDimHtml(stringDim, 1);
 		html += measuresHtml(measures);
 		
 		return HtmlFormat.raw(html);
@@ -84,9 +85,69 @@ public class ChartHelper {
 	 * @param dims the dimensions
 	 * @return the html string
 	 */
-	private String stringDimHtml(ArrayList<DimRow> dims) {
+	private String stringDimHtml(ArrayList<DimRow> dims, int y) {
 		String html = "";
 		for(DimRow dim: dims) {
+			String tmp = "<div id=\"" + dim.getName() + "\" class=\"options\"><div>" +
+					Localize.get("filter." + dim.getName()) + "</div>" +
+					"<div class=\"group type\"><span class=\"x\">" +
+					Localize.get("filter.x.axis") + "</span>";
+			//if y axis should be shown
+			if(y > 1) {
+				tmp += "<span class=\"x\">" + Localize.get("filter.y.axis") + "</span>";
+			}
+			tmp += "<span class=\"filter\">" + Localize.get("filter.filter") + "</span></div>";
+			//first level is build here because of dim list classes
+			//if HashMap recursivly
+			if(dim.getStrings() instanceof HashMap<?, ?>) {
+				tmp += "<div class=\"dim list\" data=\"" + dim.getRowNameOfLevel(0) + "\">";
+				HashMap<String, Object> map = (HashMap<String, Object>) dim.getStrings();
+				tmp += dimObjectToString(map, dim, 1);
+				tmp += "</div>";
+			//else TreeSet
+			} else if(dim.getStrings() instanceof TreeSet<?>) {
+				
+				tmp += "<div class=\"dim list\" data=\"" + dim.getRowNameOfLevel(0) + "\">";
+				for(String s: (TreeSet<String>) dim.getStrings()) {
+					tmp += "<span>" + s + "</span>";
+				}
+				tmp += "</div></div>";
+			} else if(dim.getStrings() == null){
+				System.out.println("anyone?");
+				//should not happen but if a dimension is empty, delete the string
+				tmp = "";
+			}
+			html += tmp;
+		}
+		return html;
+	}
+	
+	/**
+	 * build a single option recursivly
+	 * @param o the object given
+	 * @return returns a html string containing the options
+	 */
+	private String dimObjectToString(HashMap<String, Object> map,DimRow dim, int lvl){
+		String html = "";
+		for(String s: map.keySet()) {
+			html += "<span>" + s + "</span>";
+			//if has a subClass
+			if(map.get(s) != null) {
+				html += "<div class=\"sub\" data=\"" + dim.getNameOfLevel(lvl) + "\">";
+				//if has HashMap go on recursively
+				if(map.get(s) instanceof HashMap<?, ?>) {
+					HashMap<String, Object> newMap = (HashMap<String, Object>) map.get(s);
+					html += dimObjectToString(newMap, dim, lvl + 1);
+				//else TreeSet
+				} else if(map.get(s) instanceof TreeSet<?>) {
+					html += "<div class=\"dim list\" data=\"" + dim.getRowNameOfLevel(lvl) + "\">";
+					for(String newS: (TreeSet<String>) map.get(s)) {
+						html += "<span>" + newS + "</span>";
+					}
+					html += "</div>";
+				}
+				html += "</div>";
+			}
 		}
 		return html;
 	}

@@ -52,8 +52,10 @@ public class Test extends Controller {
 		 */
 		//System.out.println(f.parseLogFile(sourcePath + seperator + "example\\resultDay.csv"));
 		//f.parseLogFile(sourcePath + seperator + "example\\result10.csv");
+
 		//f.parseLogFile(sourcePath + seperator + "example\\result1000.csv");
 		//System.out.println("Parsing finished");
+
 		return ok("Please look on your console for output of your code");
 	}
 	
