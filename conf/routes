@@ -23,7 +23,7 @@ GET /logout								controllers.Website.logout()
 POST /chartRequest						controllers.Website.chartRequest()
 
 #change language
-POST *path								controllers.Website.changeLanguage(path)
+POST /language							controllers.Website.changeLanguage()
 
 
 # Map static resources from the /public folder to the /assets URL path

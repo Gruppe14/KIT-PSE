@@ -5,7 +5,7 @@
 	<script>
 		$(document).ready(function() {
 			$("#send").click(function() {
-				$("form").submit();
+				document.forms['admin'].submit();
 			})
 		});
 	</script>
@@ -15,7 +15,7 @@
 	<div>
 		<p>@Localize.get("admin.uploadMessage")<br />
 		@Localize.get("admin.uploadWarning")</p>
-	@helper.form(routes.Website.logfile) {
+	@helper.form(routes.Website.logfile, 'name -> "admin") {
 		@if(logfileForm.hasGlobalErrors) {<p style="color:red;">@logfileForm.globalError.message</p>}
 		<label for="pathToLogfile">@Localize.get("admin.logfilePath")</label>
 		<input type="text" id="pathToLogfile" name="pathToLogfile" value="">

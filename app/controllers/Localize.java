@@ -86,13 +86,4 @@ public class Localize extends Controller{
 		}
     	return lang;
 	}
-	/**
-	 * method to change the previous language to a selected
-	 */
-	public static void changeLanguage(){
-    	RequestBody body = request().body();
-    	if(body.asFormUrlEncoded() != null && body.asFormUrlEncoded().containsKey("lang")) {
-	    	session("lang", request().body().asFormUrlEncoded().get("lang")[0]);
-    	}
-    }
 }

@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import play.mvc.*;
+import play.mvc.Http.RequestBody;
 import play.data.Form;
 
 import what.AdminLogin;
@@ -75,9 +76,12 @@ public class Website extends Controller {
      * @param path the current path
      * @return returns the same page in chosen language
      */
-    public static Result changeLanguage(String path) {
-    	Localize.changeLanguage();
-    	return redirect(path);
+    public static Result changeLanguage() {
+    	RequestBody body = request().body();
+    	if(body.asFormUrlEncoded() != null && body.asFormUrlEncoded().containsKey("lang")) {
+	    	session("lang", request().body().asFormUrlEncoded().get("lang")[0]);
+    	}
+    	return redirect(body.asFormUrlEncoded().get("path")[0]);
     }
     
     /**

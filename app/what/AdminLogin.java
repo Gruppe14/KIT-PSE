@@ -16,7 +16,7 @@ public class AdminLogin {
 	
 	/**
 	 * method to check if a login was correct
-	 * @return returns null or an arror message
+	 * @return returns null or an error message
 	 */
 	public String validate() {
 		if (username.equals("test") && password.equals("secret")) return null;
