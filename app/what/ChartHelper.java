@@ -125,18 +125,16 @@ public class ChartHelper {
 			html += "<span>" + s + "</span>";
 			//if has a subClass
 			if(map.get(s) != null) {
-				html += "<div class=\"sub\" data=\"" + dim.getNameOfLevel(lvl) + "\">";
+				html += "<div class=\"sub\" data=\"" + dim.getRowNameOfLevel(lvl) + "\">";
 				//if has HashMap go on recursively
 				if(map.get(s) instanceof HashMap<?, ?>) {
 					HashMap<String, Object> newMap = (HashMap<String, Object>) map.get(s);
 					html += dimObjectToString(newMap, dim, lvl + 1);
 				//else TreeSet
 				} else if(map.get(s) instanceof TreeSet<?>) {
-					html += "<div data=\"" + dim.getRowNameOfLevel(lvl) + "\">";
 					for(String newS: (TreeSet<String>) map.get(s)) {
 						html += "<span>" + newS + "</span>";
 					}
-					html += "</div>";
 				}
 				html += "</div>";
 			}
@@ -186,7 +184,7 @@ public class ChartHelper {
 	 * @return returns the html String for it
 	 */
 	private String time() {
-		int[] year = {2009, 2012};
+		int[] year = {2011, 2012};
 		String html = "<div id=\"time\">";
 		String[] ft = {"From", "To"};
 		for(String s: ft) {

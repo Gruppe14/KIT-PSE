@@ -65,7 +65,7 @@
 	margin-left: -2px;
 	height: 100px;
 	width: 80px;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 .dropdown span:hover {
 	background-color: lightgray;

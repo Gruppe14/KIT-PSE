@@ -49,10 +49,17 @@ task copyMySQL(type: Copy, dependsOn: moveDist) {
 	from '../mysql'
 	into '../what/mysql'
 }
+task copyConfig(type: Copy, dependsOn: moveDist) {
+	from './conf/'
+	into '../what/conf/'
+	include '*.json'
+}
 
-task createStartBat(dependsOn: [delDistFolder, copyCharts, copyMySQL]) {
+
+task createStartBat(dependsOn: [delDistFolder, copyCharts, copyMySQL, copyConfig]) {
 	new File("../what").mkdir()
 	new File("../what/mysql").mkdir()
+	new File("../what/conf").mkdir()
 	new File('../what/mysql/start.bat').write("mysql\\bin\\mysqld --defaults-file=mysql\\my.ini --standalone --console\r\nexit")
 	new File('../what/start.bat').write("start mysql\\start.bat\r\njava %1  -cp ./lib/*; play.core.server.NettyServer .")
 }

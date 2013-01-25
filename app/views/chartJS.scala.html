@@ -191,7 +191,7 @@ function buildTree(lvl) {
 			obj.parent = el.html();
 			obj[el.html()] = buildTree(el.next().children(".selected"));
 			arr.push(obj);
-		//el is has no sub dimension and can be added itself	
+		//el has no sub dimension and can be added itself	
 		} else {
 			arr.push(el.html());
 		}
