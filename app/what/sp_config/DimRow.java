@@ -1,7 +1,7 @@
 package what.sp_config;
 
+//java imports
 import java.util.ArrayList;
-import java.util.Set;
 
 public class DimRow {
 
@@ -111,7 +111,7 @@ public class DimRow {
 			throw new IllegalArgumentException();
 		}
 		
-		return "row_" + rows.get(i).getName();
+		return ConfigHelper.ROW_TABLE + rows.get(i).getName();
 	}
 	
 	public String getNameOfLevel(int i) {

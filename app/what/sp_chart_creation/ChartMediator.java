@@ -1,16 +1,14 @@
 package what.sp_chart_creation;
 
 // java imports
-import java.io.File;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.TreeSet;
 
+// JSON imports
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import what.JSON_Helper;
-// intern imports
+//intern imports
+import what.sp_config.ConfigHelper;
 import what.sp_config.ConfigWrap;
 import what.sp_dataMediation.DataMediator;
 
@@ -36,7 +34,6 @@ public class ChartMediator {
 	/** The stored history of computed charts of this ChartMediator */
 	private LinkedList<DimChart> history;
 	
-
 	/**
 	 * Public constructor for a ChartMediator.
 	 * 
@@ -56,8 +53,6 @@ public class ChartMediator {
 		this.dataMedi = dataMedi;
 	}
 	
-	
-
 // -------- Handling of a Chart request -------------------------------
 	/**
 	 * Computes a chart for the given parameters.<br>
@@ -92,34 +87,47 @@ public class ChartMediator {
 		return host.getJson();
 	}
 
-	
-
-	private void computeFileFor(DimChart host) {
-		assert (host != null);
+	/**
+	 * Computes the file for the given chart and stores it in it.
+	 * @param chart DimChart for which the 
+	 */
+	private void computeFileFor(DimChart chart) {
+		assert (chart != null);
 		
-		if (host instanceof TwoDimChart) {
+		if (chart instanceof TwoDimChart) {
 			// TODO
 		} else {
-			String xKey = config.getTableKeyFor(host.getxCategorie());
+			String xKey = config.getTableKeyFor(chart.getxCategory());
+			
+			String x = chart.getX();
+			
+			// check if just a category is selected
+			if (!(x.contains(ConfigHelper.ROW_TABLE))) {
+				if (config.isCategorie(x)) {
+					x = config.getHighestRowFor(x);
+				}
+			}
+			
+			
+			
+			
 
-			JSONObject j = dataMedi.requestTwoDimJSON(host.getX(), host.getxTable(), xKey, host.getMeasure(), host.getFilters());
+			JSONObject j = dataMedi.requestTwoDimJSON(x, chart.getxTable(), xKey, chart.getMeasure(), chart.getFilters());
 			if (j == null) {
 				System.out.println("ERROR: No JSONObject retruned for chart request.");
 			}
 			try {
-				j.put("chartType", host.getChartType());
+				j.put("chartType", chart.getChartType());
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			host.setJSON(j);
+			chart.setJSON(j);
 			
 		}
 		
 	}
-
-
 
 	// -- REQUEST HISTORY -- REQUEST HISTORY -- REQUEST HISTORY --
 	/**

@@ -76,7 +76,14 @@ public class DataMediator {
 				
 		return true;
 	}
-	
+	/**
+	 * Helper class returning a recursive HashMap extracted from a DimRow.
+	 * 
+	 * @param strings TreeSet as keys
+	 * @param d DimRow from which to extract
+	 * @param posi position in DimRow
+	 * @return a recursive HashMap extracted from a DimRow
+	 */
 	private HashMap<String, Object> getHashMap(TreeSet<String> strings,	DimRow d, int posi) {
 		assert (strings != null);
 		assert (d != null);
@@ -104,6 +111,13 @@ public class DataMediator {
 		return result;
 	}
 
+	/**
+	 * Requests strings for a given string from a given table.
+	 * 
+	 * @param rowName name of row
+	 * @param tableName name of table
+	 * @return strings for a given string from a given table
+	 */
 	private TreeSet<String> requestStringsOf(String rowName, String tableName) {
 		assert (rowName != null);
 		assert (tableName != null);
@@ -153,6 +167,7 @@ public class DataMediator {
 	public JSONObject requestTwoDimJSON(String x, String xTable, String xKey, String measure, HashMap<String, TreeSet<String>> filters) {
 		return adapter.requestTable(x, xTable, xKey, measure, filters);
 	}
+
 
 	public TreeSet<String> requestStringsWithParent(String child, String parentType, String parentFilter, String table) {
 		return adapter.requestStringsWithParent(child, parentType, parentFilter, table);
