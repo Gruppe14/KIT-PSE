@@ -126,7 +126,7 @@ public class Website extends Controller {
     	Form<LogfileUpload> filledForm = log.bindFromRequest();
 		if (filledForm.hasErrors()) {
 			return badRequest(views.html.adminPage.render(filledForm));
-		}
+		} 
     	return ok(views.html.adminPage.render(log));
     }
     
