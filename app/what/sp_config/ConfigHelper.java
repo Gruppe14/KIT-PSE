@@ -246,7 +246,7 @@ public class ConfigHelper {
 		case LOCATION :
 			return new IpLocationRow(name, logId, lvl, cat, scale);
 		case STRINGMAP :
-			HashMap<String, Set<String>> maps;
+			HashMap<String, TreeSet<String>> maps;
 			try {
 				maps = getMap(jso);
 			} catch (JSONException e) {
@@ -270,16 +270,16 @@ public class ConfigHelper {
 	 * @return a HashMap extracted from a json object.
 	 * @throws JSONException something went wrong with the use of JSON lib
 	 */
-	private static HashMap<String, Set<String>> getMap(JSONObject jso) throws JSONException {
+	private static HashMap<String, TreeSet<String>> getMap(JSONObject jso) throws JSONException {
 		assert (jso != null);
 		
-		HashMap<String, Set<String>> maps = new HashMap<String, Set<String>>();
+		HashMap<String, TreeSet<String>> maps = new HashMap<String, TreeSet<String>>();
 		
 		JSONArray contents = jso.getJSONArray(ATRI_STRINGS);
 		
 		for (int i = 0, l = contents.length(); i < l; i++) {
 			JSONObject obj = (JSONObject) contents.get(i);	
-			Set<String> values = getStrings(obj);
+			TreeSet<String> values = getStrings(obj);
 			String key = obj.getString(STRING_NAME);
 			maps.put(key, values);
 		}
