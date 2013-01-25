@@ -8,7 +8,7 @@ CREATE TABLE dim_time(
  row_minute INT(3),
  row_second INT(3);
  CONSTRAINT time_key PRIMARY KEY 
- (row_year, row_month, row_day, row_hour, row_minute)
+ (row_year, row_month, row_day, row_hour, row_minute, row_second)
  );
 
 CREATE TABLE dim_location(
