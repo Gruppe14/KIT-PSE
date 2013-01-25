@@ -118,6 +118,7 @@ public class Website extends Controller {
     
     /**
      * method to pass new log file path to the parser
+     * see what.LogfileUpload
      * @return returns to the admin page
      */
     @Security.Authenticated(AdminAuth.class)
@@ -126,7 +127,6 @@ public class Website extends Controller {
 		if (filledForm.hasErrors()) {
 			return badRequest(views.html.adminPage.render(filledForm));
 		}
-		//maybe START PARSER HERE?
     	return ok(views.html.adminPage.render(log));
     }
     
