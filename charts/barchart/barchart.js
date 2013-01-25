@@ -27,7 +27,6 @@ function barchart(json) {
 
     function visualize(data) {
         //dimensions
-        var padding = 40;
         var margin = {
             top: 30,
             right: 30,
@@ -54,17 +53,14 @@ function barchart(json) {
             .domain(d3.range(data.length))
             .rangeRoundBands([0, w], 0.04);
 
-
-        var mx = d3.max(data,getY);
-        console.log("Max:" + mx);
         
         var yScale = d3.scale.linear()
-            .domain([0, d3.max(data, getY)])
-            .range([h, 0]);
+            .domain([ d3.max(data, getY), 0])
+            .range([0, h]);
 
         //the axes
-        var xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(5);
-        var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(2);
+        var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+        var yAxis = d3.svg.axis().scale(yScale).orient("left");
 
 
 
@@ -100,7 +96,7 @@ function barchart(json) {
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text(xAxisName);
+            .text(yAxisName);
             
     }
 }
