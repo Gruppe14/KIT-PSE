@@ -3,6 +3,12 @@ package what.sp_config;
 //java imports
 import java.util.ArrayList;
 
+/**
+ * A dimension in the warehouse or a just a normal row in the fact table
+ * 
+ * @author Jonathan, PSE
+ *
+ */
 public class DimRow {
 
 	private ArrayList<RowEntry> rows = new ArrayList<RowEntry>();
@@ -29,8 +35,6 @@ public class DimRow {
 		rows.add(rowEntry);		
 	}
 	
-	
-
 	public boolean setStrings(Object obj) {
 		if (!isStringDim()) {
 			return true;

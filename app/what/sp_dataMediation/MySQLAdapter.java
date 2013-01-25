@@ -196,6 +196,18 @@ public class MySQLAdapter {
 	}
 	
 
+	/**
+	 * NOT FINISHED
+	 * Returns a JSONObject with two rows containing for a given x from table xTable with key xKey
+	 * the measure (including aggregation) with given filters.
+	 * 
+	 * @param x for x
+	 * @param xTable from the table
+	 * @param xKey with the key
+	 * @param measure for the measure
+	 * @param filters with the filters
+	 * @return a JSONObject as a result of the given parameters
+	 */
 	protected JSONObject requestTable(String x, String xTable, String xKey, String measure,  HashMap<String, TreeSet<String>> filters) {
 		assert (x != null);
 		assert (xTable != null);
@@ -264,6 +276,13 @@ public class MySQLAdapter {
 		return requestStringSet(query);
 	}
 
+	/**
+	 * Requests strings for a given string from a given table.
+	 * 
+	 * @param rowName name of row
+	 * @param tableName name of table
+	 * @return strings for a given string from a given table
+	 */
 	protected TreeSet<String> requestStringsOf(String rowName, String tableName) {
 		assert (rowName != null);
 		assert (tableName != null);

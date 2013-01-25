@@ -326,7 +326,12 @@ public class ConfigWrap {
 	}
 	
 	
-	
+	/**
+	 * Returns the row name for the highest level for a dimension
+	 * containing x as category or row
+	 * @param x String for which the dimension is searched
+	 * @return row name for the highest level for a dimension
+	 */
 	public String getHighestRowFor(String x) {
 		if (x == null) {
 			throw new IllegalArgumentException();
