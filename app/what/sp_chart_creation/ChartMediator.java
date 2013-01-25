@@ -2,12 +2,17 @@ package what.sp_chart_creation;
 
 // java imports
 import java.io.File;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TreeSet;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import what.JSON_Helper;
 // intern imports
 import what.sp_config.ConfigWrap;
+import what.sp_dataMediation.DataMediator;
 
 /**
  * A ChartMediator mediates a chart request.<br>
@@ -26,18 +31,29 @@ public class ChartMediator {
 	/** Configuration on which this ChartMediator works on */
 	private ConfigWrap config;
 	
+	private DataMediator dataMedi;
+	
 	/** The stored history of computed charts of this ChartMediator */
 	private LinkedList<DimChart> history;
 	
 
-	public ChartMediator(ConfigWrap confi) {
+	/**
+	 * Public constructor for a ChartMediator.
+	 * 
+	 * @param confi config on which work bases
+	 * @param dataMedi DataMediator to which it must connect
+	 */
+	public ChartMediator(ConfigWrap confi, DataMediator dataMedi) {
 		if (confi == null) {
 			throw new IllegalArgumentException();
-		}
+		} else if (dataMedi == null) {
+			throw new IllegalArgumentException();
+		} 
 		
 		history = new LinkedList<DimChart>(); 
 		
 		this.config = confi;
+		this.dataMedi = dataMedi;
 	}
 	
 	
@@ -49,64 +65,61 @@ public class ChartMediator {
 	 * Returns the file of the computed chart. Also it saves the chart
 	 * in the history.
 	 * 
-	 * @param path list of parameters $%&/()
+	 * @param json list of parameters $%&/()
 	 * @return the computed chart for the given parameters
 	 */
-	public File computeChart(String path) {
-		if (path == null) { 
+	public JSONObject computeChart(JSONObject json) {
+		if (json == null) { 
 			throw new IllegalArgumentException();
 		}
 		
 		// get a chart host
-		DimChart host = ChartHelper.getChartHost(path);
-		
-		// manage visits
-		if(!manageVisits(host)) {
-			System.out.println("ERROR: A visit failed!");
+		DimChart host = ChartHelper.getChartHost(json);
+		System.out.println("Chart created!");
+		if (host == null) {
+			System.out.println("ERROR: Creating chart host failed!");
+			return null;
 		}
+		
+		computeFileFor(host);
+
+		
 		
 		// add to history, may be improved
 		addToHistory(host);
 		
 		
-		return host.getJSON();
+		return host.getJson();
 	}
 
 	
-	/**
-	 * Manages the visits to the chart host {@linkplain DimChart}.
-	 * 
-	 * @param host a chart host
-	 * @return whether the visits where successful
-	 * @see DimChart
-	 */
-	private boolean manageVisits(DimChart host) {
+
+	private void computeFileFor(DimChart host) {
 		assert (host != null);
 		
-		if (!host.accept(ChartDataRequester.getInstance())) {
-			return false;
+		if (host instanceof TwoDimChart) {
+			// TODO
+		} else {
+			String xKey = config.getTableKeyFor(host.getxCategorie());
+
+			JSONObject j = dataMedi.requestTwoDimJSON(host.getX(), host.getxTable(), xKey, host.getMeasure(), host.getFilters());
+			if (j == null) {
+				System.out.println("ERROR: No JSONObject retruned for chart request.");
+			}
+			try {
+				j.put("chartType", host.getChartType());
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			host.setJSON(j);
+			
 		}
 		
-		if (!host.accept(DataPreparer.getInstance())) {
-			return false;
-		}
-		
-		if (!host.accept(JsonWriter.getInstance())) {
-			return false;
-		}
-		
-		return true;
 	}
-	
-
-	
-
-	
-	
-	
 
 
-	
 
 	// -- REQUEST HISTORY -- REQUEST HISTORY -- REQUEST HISTORY --
 	/**
@@ -119,7 +132,7 @@ public class ChartMediator {
 	 * @param number number of the latest computed chart, range from 1 (latest) to 10 (oldest)
 	 * @return the json-file of the requested chart from the history, referring to the number
 	 */
-	public File getHistoryChart(int number) {
+	public JSONObject getHistoryChart(int number) {
 		if ((number <= 0) || (number > getSizeForHistory() )) {
 			throw new IllegalArgumentException();
 		}
@@ -129,10 +142,10 @@ public class ChartMediator {
 		// number to high, not enough charts in history!
 		if (number > l) {
 			System.out.println("ERROR: Not so many charts stored");
-			return history.get(history.size()).getJSON();
+			return history.get(history.size()).getJson();
 		}
 				
-		return history.get(number).getJSON();
+		return history.get(number).getJson();
 	}
 
 	/**

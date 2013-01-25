@@ -1,18 +1,39 @@
 package what.sp_chart_creation;
 
-import what.sp_config.ConfigWrap;
+import java.util.HashMap;
+import java.util.TreeSet;
 
-class TwoDimChart extends DimChart {
 
-	public TwoDimChart() {
-		
-		// TODO Auto-generated constructor stub
+public class TwoDimChart extends DimChart {
+	
+	private String y;
+	private String yTable;
+	private String yCategorie;
+
+	public TwoDimChart(String chartType, String x, String xTable, String xCategorie, String y, String yTable, String yCategorie, String measure, HashMap<String,TreeSet<String>> filterSets, int[] start, int[] end) {
+		super(chartType, x, xTable, xCategorie, measure, filterSets, start, end);
+		this.y = y;		
+		this.yCategorie = yCategorie;
+		this.yTable = yTable;
+
+	}
+	
+	/**
+	 * @return the yTable
+	 */
+	protected String getyTable() {
+		return yTable;
 	}
 
-	@Override
-	public boolean accept(ChartVisitor v) {
-		// TODO Auto-generated method stub
-		return false;
+	/**
+	 * @return the yCategorie
+	 */
+	protected String getyCategorie() {
+		return yCategorie;
+	}
+
+	protected String getY() {
+		return y;
 	}
 
 }

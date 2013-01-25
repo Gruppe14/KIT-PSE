@@ -1,7 +1,6 @@
 package what.sp_chart_creation;
 
 import java.io.File;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.TreeSet;
 
@@ -11,6 +10,12 @@ import org.json.JSONObject;
 
 import what.JSON_Helper;
 
+/**
+ * Helper class
+ * 
+ * @author Jonathan, PSE
+ *
+ */
 public class ChartHelper {
 
 	public static final String JSON_COUNT = "# of accesses";
@@ -40,33 +45,16 @@ public class ChartHelper {
 	
 	
 	// -- BUILDING CHARTHOST -- BUILDING CHARTHOST -- BUILDING CHARTHOST --
-	protected static DimChart getChartHost(String path) {
-		assert (path != null);
+	/**
+	 * Creates a DimChart from a JSON file.
+	 * 
+	 * @param json path for the JSON file
+	 * @return a DimChart from a JSON file
+	 */
+	protected static DimChart getChartHost(JSONObject json) {
+		assert (json != null);
 		
-		// gets the file
-		File chartFile = JSON_Helper.getJSONFile(path);
-		if (chartFile == null) { 
-			System.out.println("ERROR: File path incorrect: " + path);
-			return null;
-		}
-		
-		// gets the content of the file
-		String jsonContent = JSON_Helper.getJSONContent(chartFile);
-		if (jsonContent == null) { 
-			System.out.println("ERROR: Chart file empty for " + path);
-			return null;
-		}
-		
-		// get json object
-		JSONObject json;
-		try {
-			json = new JSONObject(jsonContent);
-		} catch (JSONException e) {
-			System.out.println("ERROR: Creating chart host failed for path:\n " + path);
-			e.printStackTrace();
-			return null;
-		}
-		
+
 		// determin whether it's a one or two dimensional chart
 		DimChart chart = getDimChart(json);
 		
@@ -75,20 +63,28 @@ public class ChartHelper {
 			System.out.println("ERROR: Creating chart host failed...");
 		}
 		
-		return null;
+		return chart;
 	}
 
-
+	//TODO change exception caching to .has(Stringblabla)
+	/**
+	 * Creates a DimChart from a given JSONObject.
+	 * 
+	 * @param json from which DimChart gets created
+	 * @return a DimChart from a given JSONObject
+	 */
 	private static DimChart getDimChart(JSONObject json) {
 		assert (json != null);
 
+		System.out.println(json.toString());
+
 		String x = null;
-		String chart_type = null;
+		String chartType = null;
 		String measure = null;
 		JSONArray filters = null;
 		try {
 			x = json.getString(JSON_X);
-			chart_type = json.getString(JSON_CHART_TYPE);
+			chartType = json.getString(JSON_CHART_TYPE);
 			measure = json.getString(JSON_MEASURE);
 			filters = json.getJSONArray(JSON_FILTER);
 		} catch (JSONException e) {
@@ -97,8 +93,13 @@ public class ChartHelper {
 			return null;
 		}
 		
+		String xTable = "dim_"+ x;
+		String xCategorie = x;
+		
 		if (measure.equalsIgnoreCase(JSON_COUNT)) {
 			measure = JSON_COUNT_SQL;
+		} else {
+			measure = "sum(row_" + measure + ")"; //TODO not hard coded...
 		}
 		
 		
@@ -106,10 +107,12 @@ public class ChartHelper {
 		
 		// x filters
 		if (x.equalsIgnoreCase(JSON_TIMESCALE)) {
-			x = TIME;	
+			xTable = "dim_time";
+			xCategorie = TIME;
+			
 			
 			try {
-				String timeFilter = json.getString(JSON_TIMESCALE);
+				x = "row_" + json.getString(JSON_TIMESCALE);
 			} catch (JSONException e) {
 				System.out.println("ERROR: Getting time filter failed!");
 				e.printStackTrace();
@@ -123,6 +126,7 @@ public class ChartHelper {
 			TreeSet<String> xFilter = null;
 			try {
 				xFilter = getFilters(x, json);
+				x = getLevel(x, json);
 			} catch (JSONException e) {
 
 			}
@@ -133,6 +137,7 @@ public class ChartHelper {
 		}
 		
 		// reading other filters
+		/*
 		JSONArray ary = null;
 		try {
 			ary = json.getJSONArray(JSON_FILTER);
@@ -158,6 +163,7 @@ public class ChartHelper {
 			TreeSet<String> sFilter = null;
 			try {
 				sFilter = getFilters(s, json.getJSONObject(s));
+				s = x = getLevel(s, json);
 			} catch (JSONException e) {
 				System.out.println("ERROR: Getting filter set failed for " + s);
 			}
@@ -167,31 +173,59 @@ public class ChartHelper {
 			}
 			
 		}
-		
-		
+		*/
 		
 		// reading time
 		JSONObject timeObj = null;
+		int[] start = {-1,-1,-1,-1,-1};
+		int[] end = {-1,-1,-1,-1,-1};
 		try {
-			timeObj = json.getJSONObject(TIME);
+			if (json.has(TIME)) {
+				timeObj = json.getJSONObject(TIME);
+				start = getDate(timeObj, 0);
+				end = getDate(timeObj, 1);
+			} 			
 		} catch (JSONException e) {
 			System.out.println("ERROR: Getting time field failed!");
-			return null;
 		}	
-		int[] start = getDate(timeObj, 0);
-		int[] end = getDate(timeObj, 1);
 		
 		
+
 		
 		DimChart chart;
 		if (json.has(JSON_Y)) {
-			chart = getTwoDimChart(json);
+			// it has to be ensured that y is not time!!
+			String y = null;
+			try {
+				y = json.getString(JSON_Y);
+			} catch (JSONException e) {
+				// won't happen..
+			}
+			
+			String yTable = "dim_" + y;
+			String yCategorie = y;
+			TreeSet<String> sFilter = null;
+			try {
+				sFilter = getFilters(y, json.getJSONObject(y));
+				y = getLevel(y, json);
+			} catch (JSONException e) {
+				System.out.println("ERROR: Getting filter set failed for " + y);
+			}
+			
+			if (sFilter != null ) {
+				filterSets.put(y, sFilter);
+			}
+			
+			chart = new TwoDimChart(chartType, x, xTable, xCategorie, y, yTable, yCategorie, measure, filterSets, start, end);
 		} else {
-			chart = getOneDimChart(json);
+			chart = new DimChart(chartType, x, xTable, xCategorie, measure, filterSets, start, end);
 		}
 		
 		return chart;
 	}
+
+
+
 
 
 	private static int[] getDate(JSONObject timeObj, int i) {
@@ -199,22 +233,39 @@ public class ChartHelper {
 		
 		int[] date = new int[5];
 		try {
-			date[0] = timeObj.getJSONArray(YEAR).getInt(i);
-			date[1] = timeObj.getJSONArray(MON).getInt(i);
-			date[2] = timeObj.getJSONArray(DAY).getInt(i);
-			date[3] = timeObj.getJSONArray(HOUR).getInt(i);
-			date[4] = timeObj.getJSONArray(MIN).getInt(i);
+			if (timeObj.has(YEAR)) {
+				date[0] = timeObj.getJSONArray(YEAR).getInt(i);
+			} else {
+				date[0] = -1;
+			}
+			if (timeObj.has(MON)) {
+				date[1] = timeObj.getJSONArray(MON).getInt(i);
+			} else {
+				date[1] = -1;
+			}
+			if (timeObj.has(DAY)) {
+				date[2] = timeObj.getJSONArray(DAY).getInt(i);
+			} else {
+				date[2] = -1;
+			}
+			if (timeObj.has(HOUR)) {
+				date[3] = timeObj.getJSONArray(HOUR).getInt(i);
+			} else {
+				date[3] = -1;
+			}
+			if (timeObj.has(MIN)) {
+				date[4] = timeObj.getJSONArray(MIN).getInt(i);
+			} else {
+				date[4] = -1;
+			}
 		} catch (JSONException e) {
 			System.out.println("ERROR: Getting time failed!");
 			e.printStackTrace();
 			return null;
 		}
-	
-		
-		
+
 		return date;
 	}
-
 
 
 	private static TreeSet<String> getFilters(String s, JSONObject json) throws JSONException {
@@ -234,7 +285,7 @@ public class ChartHelper {
 		TreeSet<String> filterSet = new TreeSet<String>();
 		int length = values.length();
 		for (int i = 0; i < length; i++) {
-			String curLvl = values.getString(JSON_LVL);
+			s = values.getString(JSON_LVL);	
 			Object selected = values.getJSONArray(JSON_SELEC);
 			
 			
@@ -247,7 +298,7 @@ public class ChartHelper {
 				}
 			} else if (selected instanceof JSONArray) {
 				JSONArray array = (JSONArray) selected;
-				TreeSet<String> content = getSelectContent(array, curLvl);
+				TreeSet<String> content = getSelectContent(array, s);
 				if (content != null) {
 					filterSet.addAll(content);
 				}
@@ -255,12 +306,10 @@ public class ChartHelper {
 			} else {
 				System.out.println("ERROR: Illegal statement for select, neither string nor array.");
 			}
-			
-			
 		}
 		
 		
-		return null;
+		return filterSet;
 	}
 
 
@@ -276,7 +325,7 @@ public class ChartHelper {
 					result.add(array.getString(i));
 				}
 				return result;
-			} else if (array.get(1) instanceof JSONObject) {
+			} else if (array.get(0) instanceof JSONObject) {
 				for (int i = 0, l = array.length(); i < l; i ++) {
 					JSONObject obj = array.getJSONObject(i);
 					curLvl = obj.getString(JSON_LVL);
@@ -294,20 +343,76 @@ public class ChartHelper {
 		return null;
 	}
 
-
-	private static DimChart getOneDimChart(JSONObject json) {
-		
-		return null;
-	}
-
-
-	private static TwoDimChart getTwoDimChart(JSONObject json) {
+	private static String getLevel(String s, JSONObject json) {
+		assert (s != null);
 		assert (json != null);
 		
+		// get JSON Array with strings to filter for
+		JSONObject values;
+		try {
+			values = json.getJSONObject(s);
+		} catch (JSONException e) {
+			System.out.println("ERROR: Getting level for " + s + " not possible!");
+			e.printStackTrace();
+			return null;
+		} 
 		
+		int length = values.length();
+		for (int i = 0; i < length; i++) {
+			Object selected = null;
+			try {
+				s = values.getString(JSON_LVL);
+				selected = values.getJSONArray(JSON_SELEC);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+			if (selected instanceof String) {
+				String sel = (String) selected;
+				if (sel.equalsIgnoreCase(JSON_ALL)) {
+					return s;
+				} else {
+					System.out.println("ERROR: Illegal statement for select: " + sel);
+				}
+			} else if (selected instanceof JSONArray) {
+				JSONArray array = (JSONArray) selected;
+				s = getLevelDeeper(array, s);
+
+				
+			} else {
+				System.out.println("ERROR: Illegal statement for select, neither string nor array.");
+			}
+		}
 		
+		return s;
+	}
+
+	private static String getLevelDeeper(JSONArray array, String s) {
+		assert (array != null);
+		assert (s != null);
 		
-		return null;
+		try {
+			if (array.get(0) instanceof String) {
+				return s;
+			} else if (array.get(0) instanceof JSONObject) {
+				for (int i = 0, l = array.length(); i < l; i ++) {
+					JSONObject obj = array.getJSONObject(i);
+					s = obj.getString(JSON_LVL);
+					String parent = obj.getString(JSON_PARENT);
+					JSONArray newArray = obj.getJSONArray(parent);
+					s = getLevelDeeper(newArray, s);
+				}
+				return s;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+			System.out.println("ERROR: Reading filter array failed.");
+		}
+	
+		return s;
 	}
 }
 

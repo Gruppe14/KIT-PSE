@@ -3,7 +3,9 @@ package what;
 // java imports
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
+
+// json imports
+import org.json.JSONObject;
 
 // intern imports
 import what.sp_config.ConfigWrap;
@@ -78,8 +80,8 @@ public class Facade {
 		}
 		
 		currentConfig = config;
-		chartMedi = new ChartMediator(config);	
 		dataMedi = new DataMediator(config);
+		chartMedi = new ChartMediator(config, dataMedi);	
 		parsMedi = new ParserMediator(config, dataMedi);
 		
 		System.out.println(dataMedi.organizeData());
@@ -151,11 +153,11 @@ public class Facade {
 	 * Referring to a given configuration (id), it directs a request
 	 * for a chart to a ChartMediator. 
 	 * 
-	 * @param path String path to a .json file where request information are stored
-	 * @return a json-file which contains all information about the requested chart
+	 * @param json String path to a .json file where request information are stored
+	 * @return a json-object which contains all information about the requested chart
 	 */
-	public File computeChart(String path) { 
-		if (path == null) { 
+	public JSONObject computeChart(JSONObject json) { 
+		if (json == null) { 
 			throw new IllegalArgumentException();
 		}
 
@@ -165,9 +167,9 @@ public class Facade {
 		}
 		
 		// direct request and receive file
-		File json = chartMedi.computeChart(path);	
+		JSONObject chart = chartMedi.computeChart(json);	
 		
-		if (json == null) {
+		if (chart == null) {
 			System.out.println("Computing chart failed!");
 			// TODO return dummy chart
 			return null;
@@ -175,7 +177,7 @@ public class Facade {
 			System.out.println("Computing chart succeeded!");
 		}
 		
-		return json;
+		return chart;
 	}
 	
 	/**
@@ -188,14 +190,14 @@ public class Facade {
 	 * @param number number of the latest computed chart, range from 1 (latest) to 10 (oldest)
 	 * @return the json-file of the requested chart, referring to the id and the number
 	 */
-	public File historyChart(int number) {
+	public JSONObject historyChart(int number) {
 		if ((number <= 0) || (getMaxSizeOfHistory() < number)) { 
 			throw new IllegalArgumentException();
 		}
 		
 		
 		// request the chart
-		File histo = chartMedi.getHistoryChart(number);	
+		JSONObject histo = chartMedi.getHistoryChart(number);	
 		if (histo == null) {
 			System.out.println("No history for " + number + " found!");
 			
