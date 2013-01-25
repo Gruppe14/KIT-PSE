@@ -40,7 +40,9 @@ public class MySQLAdapter {
 	private static final String VALUES = "VALUES ";
 	
 	private static final String APOS = "'";
+	private static final String DOT = ".";
 	private static final String SPACE = " ";
+	
 	
 	private WHConnectionManager whConnections = new WHConnectionManager();
 
@@ -148,8 +150,6 @@ public class MySQLAdapter {
 							keyQuery += d.getRowNameOfLevel(i) + EQL + de.getInfo(counter - l + i) + SPACE;
 						}
 						
-
-						
 						if ( i != (l - 1)) {
 							keyQuery += AND;
 						}
@@ -194,7 +194,7 @@ public class MySQLAdapter {
 	}
 	
 
-	protected ResultSet requestTable(String x, String xTable, String measure, HashMap<String, TreeSet<String>> filters) {
+	protected ResultSet requestTable(String x, String xTable, String xKey, String measure,  HashMap<String, TreeSet<String>> filters) {
 		assert (x != null);
 		assert (xTable != null);
 		assert (filters != null);
@@ -202,7 +202,7 @@ public class MySQLAdapter {
 		
 		String query = "" + SELECT + x + KOMMA + measure
 						  + FROM + xTable + KOMMA + config.getFactTableName()
-						  + WHERE; 
+						  + WHERE + xTable + DOT + xKey + EQL + config.getFactTableName() + DOT + xKey; 
 		
 
 		TreeSet<String> keys = (TreeSet<String>) filters.keySet();		

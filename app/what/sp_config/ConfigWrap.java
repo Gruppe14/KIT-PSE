@@ -290,7 +290,15 @@ public class ConfigWrap {
 		return dimRows;
 	}
 	
-	
+	public String getTableKeyFor(String s) {
+		for (DimRow d : dimRows) {
+			if (d.getName().equalsIgnoreCase(s)) {
+				return d.getTableKey();
+			}
+		}
+		
+		return null;
+	}
 	/**
 	 * Returns the name of the database for which this configuration is.
 	 * 
@@ -339,5 +347,7 @@ public class ConfigWrap {
 		
 		return s;
 	}
+	
+	
 	
 }

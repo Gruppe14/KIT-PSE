@@ -8,6 +8,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import what.Facade;
 import what.sp_config.ConfigWrap;
+import what.sp_config.DimRow;
 import what.sp_dataMediation.CreateDatabase;
 import what.sp_parser.DataEntry;
  
@@ -37,6 +38,11 @@ public class Test extends Controller {
 		// System.out.println("And if it's content is there:");
 		 ConfigWrap confi = f.getCurrentConfig();
 		 System.out.println(confi.toString());
+		 for (DimRow d : confi.getDims()) {
+			 if (d.isStringDim()) {
+				 System.out.println(d.getStrings() != null);
+			 }	 
+		 }
 		
 		//f.upload(DataEntry.getOne());
 		
@@ -44,10 +50,10 @@ public class Test extends Controller {
 		/* 
 		 * Uncomment first for 32k lines, second for 10 lines and third for 1k lines.
 		 */
-		System.out.println(f.parseLogFile(sourcePath + seperator + "example\\resultDay.csv"));
+		//System.out.println(f.parseLogFile(sourcePath + seperator + "example\\resultDay.csv"));
 		//f.parseLogFile(sourcePath + seperator + "example\\result10.csv");
 		//f.parseLogFile(sourcePath + seperator + "example\\result1000.csv");
-		
+		//System.out.println("Parsing finished");
 		return ok("Please look on your console for output of your code");
 	}
 	

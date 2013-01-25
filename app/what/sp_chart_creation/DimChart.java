@@ -13,6 +13,9 @@ public class DimChart {
 	
 	private String measure;
 	
+	private int[] from;
+	private int[] to;
+	
 	private HashMap<String, TreeSet<String>> filters;
 	
 	

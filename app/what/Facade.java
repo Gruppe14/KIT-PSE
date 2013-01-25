@@ -82,6 +82,8 @@ public class Facade {
 		dataMedi = new DataMediator(config);
 		parsMedi = new ParserMediator(config, dataMedi);
 		
+		System.out.println(dataMedi.organizeData());
+		
 		return true;
 	}
 	
