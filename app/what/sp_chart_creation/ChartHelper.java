@@ -10,7 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 //intern imports
-import what.sp_config.ConfigHelper;
+import what.sp_config.JSONReader;
 
 /**
  * Helper class to read information from a JSONObject.
@@ -93,13 +93,13 @@ public class ChartHelper {
 			return null;
 		}
 		
-		String xTable = ConfigHelper.DIM_TABLE + x;
+		String xTable = JSONReader.DIM_TABLE + x;
 		String xCategorie = x;
 		
 		if (measure.equalsIgnoreCase(JSON_COUNT)) {
 			measure = JSON_COUNT_SQL;
 		} else {
-			measure = "sum("+ ConfigHelper.ROW_TABLE + measure + ")"; 
+			measure = "sum("+ JSONReader.ROW_TABLE + measure + ")"; 
 		}
 		
 		
@@ -107,13 +107,13 @@ public class ChartHelper {
 		
 		// x filters
 		if (x.equalsIgnoreCase(JSON_TIMESCALE)) {
-			xTable = ConfigHelper.DIM_TABLE + "time";
+			xTable = JSONReader.DIM_TABLE + "time";
 			xCategorie = TIME;
 			
 			
 			try {
 				if (json.has(JSON_TIMESCALE)) {
-					x = ConfigHelper.ROW_TABLE + json.getString(JSON_TIMESCALE);
+					x = JSONReader.ROW_TABLE + json.getString(JSON_TIMESCALE);
 				} else {
 					x = TIME;
 				}
@@ -205,7 +205,7 @@ public class ChartHelper {
 				// won't happen..
 			}
 			
-			String yTable = ConfigHelper.DIM_TABLE + y;
+			String yTable = JSONReader.DIM_TABLE + y;
 			String yCategorie = y;
 			TreeSet<String> sFilter = null;
 			try {

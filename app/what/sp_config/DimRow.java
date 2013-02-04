@@ -103,11 +103,12 @@ public class DimRow {
 	}
 	
 	public String getTableName() {
-		return ConfigHelper.DIM_TABLE + getName();
+		return JSONReader.DIM_TABLE + getName();
 	}
 	
 	public String getTableKey() {
-		return getName() + ConfigHelper.KEY_TABLE;
+		//TODO change, if this is not a dimension, return the fact table
+		return getName() + JSONReader.KEY_TABLE;
 	}
 	
 	public String getRowNameOfLevel(int i) {
@@ -115,7 +116,7 @@ public class DimRow {
 			throw new IllegalArgumentException();
 		}
 		
-		return ConfigHelper.ROW_TABLE + rows.get(i).getName();
+		return JSONReader.ROW_TABLE + rows.get(i).getName();
 	}
 	
 	public String getNameOfLevel(int i) {

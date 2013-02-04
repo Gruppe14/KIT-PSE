@@ -1,0 +1,77 @@
+package what;
+
+/**
+ * This class provides static methods
+ * to print something to the console or elsewhere.<br>
+ * 
+ * Provides methods for normal printing, errors, failures,
+ * problems and success.<br>
+ * 
+ * If the output should be printed somewhere else, just
+ * this class has to be changed. 
+ * 
+ * @author Jonathan, PSE Grupp 14
+ *
+ */
+public class Printer {
+
+	/**
+	 * Prints the given String (and a new line).
+	 * 
+	 * @param s String to be printed
+	 */
+	public static void print(String s) {
+		if (s == null) {
+			perror("Something to be printed and a wrong given String to the perror Method!");
+		}
+		System.out.println(s);
+	}
+	
+	/**
+	 * Prints an error message for the given String (and a new line).
+	 * 
+	 * @param s String to be printed with an error message
+	 */
+	public static void perror(String s) {
+		if (s == null) {
+			perror("Something which went wrong and a wrong given String to the perror Method!");
+		}
+		print("ERROR: " + s); // or better System.err.println(..) ?
+	}
+	
+	/**
+	 * Prints an failure message for the given String (and a new line).
+	 * 
+	 * @param s String to be printed with an failure message
+	 */
+	public static void pfail(String s) {
+		if (s == null) {
+			perror("Something which failed and a wrong given String to the pfail Method!");
+		}
+		print("FAILURE: " + s);
+	}
+	
+	/**
+	 * Prints an problem message for the given String (and a new line).
+	 * 
+	 * @param s String to be printed with an problem message
+	 */
+	public static void pproblem(String s) {
+		if (s == null) {
+			perror("A problem occured and a wrong given String to the pfail Method!");
+		}
+		print("PROBLEM: " + s);
+	}
+	
+	/**
+	 * Prints an success message for the given String (and a new line).
+	 * 
+	 * @param s String to be printed with an success message
+	 */
+	public static void psuccess(String s) {
+		if (s == null) {
+			perror("Something which succeeded and a wrong given String to the pfail Method!");
+		}
+		print("SUCCESS: " + s);
+	}
+}

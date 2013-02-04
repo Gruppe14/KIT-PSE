@@ -45,6 +45,8 @@ public class MySQLAdapter {
 	private static final String DOT = ".";
 	private static final String SPACE = " ";
 	
+	/** Cached string for the fact query */
+	//private String factQueryStart;
 	
 	private WHConnectionManager whConnections = new WHConnectionManager();
 
@@ -60,6 +62,7 @@ public class MySQLAdapter {
 		assert (config != null);
 		
 		this.config = config;
+
 	}
 
 	/**
@@ -79,6 +82,7 @@ public class MySQLAdapter {
 		return false;
 	}
 
+	
 	// super complex computing of queries...
 	/**
 	 * Loads a DataEntry into the warehouse. 
@@ -194,7 +198,156 @@ public class MySQLAdapter {
 		String curQuery = factQuery + RBR + factValues + RBR;	
 		return executeUpload(curQuery);
 	}
+
 	
+	// super complex computing of queries...
+	/**
+	 * Loads a DataEntry into the warehouse. 
+	 * 
+	 * @param de DataEntry to be uploaded
+	 * @return whether it was successful
+	 *
+	protected boolean loadEntry(DataEntry de) {
+		assert (de != null);
+		
+		// counts the position in the info array of the data entry
+		int counter = 0;
+		
+		
+		// query for the fact table
+		String factQuery = getQueryStartFactTable();
+		String factValues = "";
+		
+		ArrayList<DimRow> dims = config.getDims();
+		// get last to set , at right positions
+		DimRow lastDim = dims.get(dims.size() - 1); 
+		for (DimRow d : dims) {
+			if (d.isDimension()) { // case it's a dimension
+				
+				// test if key exists
+				String keyQuery = SELECT + d.getTableKey() + FROM + d.getTableName() + WHERE;
+					
+				for (int i = 0, l = d.getSize(); i < l; i++) {
+						
+					// if it is a string we have to add '
+					RowId id = d.getRowIdAt(i);
+					if ((id.equals(RowId.STRING)) || id.equals(RowId.STRINGMAP)) {
+						keyQuery += d.getRowNameOfLevel(i) +  EQL + APOS + de.getInfo(counter - l + i) + APOS + SPACE;
+					} else {
+						keyQuery += d.getRowNameOfLevel(i) + EQL + de.getInfo(counter - l + i) + SPACE;
+					}
+						
+					if ( i != (l - 1)) {
+						keyQuery += AND;
+					}
+				}
+					
+				int key = executeKeyRequest(keyQuery);
+				
+				
+				if (key <= 0) {
+					
+					String dimQuery = INSERT + d.getTableName() + LBR ;
+					String dimValue = VALUES + LBR;
+				
+					// add all values to the query
+					for (int i = 0, l = d.getSize(); i < l; i++) {
+						// add level i for table and value
+						dimQuery += d.getRowNameOfLevel(i);
+					
+						// if it is a string we have to add '
+						RowId id = d.getRowIdAt(i);
+						if ((id.equals(RowId.STRING)) || id.equals(RowId.STRINGMAP)) {
+							dimValue += APOS + de.getInfo(counter) + APOS;
+							counter++;
+						} else {
+							dimValue += "" + de.getInfo(counter);
+							counter++;
+						}
+					
+						// not last entry -> , 
+						if (i != l -1) {
+							dimQuery += KOMMA;
+							dimValue += KOMMA;
+						}
+					}
+				
+					dimQuery += RBR;
+					dimValue += RBR;
+				
+					// execute dimension query  
+					String curQuery = dimQuery + dimValue;
+					System.out.println("Try to execute: " + curQuery);
+				
+					Connection c = whConnections.getConnectionFromPool(); 
+					Statement s = getStatement(c);
+				
+					key = getKeyOfUpload(curQuery, s); 
+					whConnections.returnConnectionToPool(c);
+				
+					if (key <= 0) {
+						System.out.println("ERROR: Receiving a key failed for " + keyQuery);
+						return false;
+					}					
+				}
+				
+				
+				factValues += "" + key;
+				
+				
+				
+			} else { // case it is fact
+				factValues += de.getInfo(counter);
+				counter++;		
+			}
+			
+			// not last one -> ,
+			if (!d.equals(lastDim)) {
+				factValues += KOMMA;
+			}
+		
+		}
+		
+		
+		// run fact query
+		String curQuery = factQuery + factValues + RBR;	
+		return executeUpload(curQuery);
+	}
+	
+	
+	private String getQueryStartFactTable() {
+		if (factQueryStart == null) {
+			factQueryStart = computeQueryFactTable();
+		}
+		return factQueryStart;
+	}
+
+	private String computeQueryFactTable() {
+		// query for the fact table
+		String factQuery = INSERT + config.getFactTableName() + LBR;
+			
+		ArrayList<DimRow> dims = config.getDims();
+		// get last to set , at right positions
+		DimRow lastDim = dims.get(dims.size() - 1); 
+		for (DimRow d : dims) {
+			if (d.isDimension()) { // case it's a dimension					
+				factQuery += d.getTableKey();					
+			} else { // case it is fact
+				factQuery += d.getRowNameOfLevel(0);				
+			}
+					
+			// not last one -> ,
+			if (!d.equals(lastDim)) {
+				factQuery += KOMMA;
+			}
+				
+		}
+				
+		return factQuery + RBR + VALUES + LBR;
+	}
+
+	*/
+
 
 	/**
 	 * NOT FINISHED

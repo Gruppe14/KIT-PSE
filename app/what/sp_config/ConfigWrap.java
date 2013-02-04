@@ -9,20 +9,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import what.JSON_Helper;
+// intern imports
+import what.FileHelper;
+import what.Printer;
  
 /**
  * A ConfigWrap stores all needed information about a database
  * extracted from a .json file given to the static factory.<br>
  * 
  *  It consists of general information and all rows (RowEntry) in
- *  a a parse log file and the warehouse tables.
+ *  a parse log file and the warehouse tables.
  * 
  * @author Jonathan, PSE Gruppe 14
  * @version 1.0
  * 
  * @see RowEntry
- * 
+ * @see DimRow
  */
 public class ConfigWrap {
 	
@@ -30,25 +32,22 @@ public class ConfigWrap {
 	private String dbName;
 	
 	/** Version of this ConfigWrap for a database. */
-	private String version; // not necessary yet, 
-						   // but i see potential and so it may be better to be in from the beginning
+	private String version; // not needed yet 
 	
 	/** The entries in order of the appearance in the log file. */
 	private RowEntry[] entries; 
 	
 	/** The dimensions or rows in order of appearance. */
 	private ArrayList<DimRow> dimRows;
-	
-	private int sizeOfHistory = 10;
-
+		
+	// -- CONSTRUCTION -- CONSTRUCTION -- CONSTRUCTION -- CONSTRUCTION --
 	/**
 	 * Private constructor as the building is solved with a static factory.
 	 */
 	private ConfigWrap() {
-		
+		// private constructor; you only get a ConfigWrap via static factory
 	}
 	
-	// -- CONSTRUCTION -- CONSTRUCTION -- CONSTRUCTION -- CONSTRUCTION -- 
 	/**
 	 * Static factory for ConfiWraps.<br>
 	 * Builds up ConfigWraps from a given configuration file. 
@@ -63,25 +62,32 @@ public class ConfigWrap {
 		}
 		
 		// gets the file
-		File configFile = JSON_Helper.getJSONFile(path);
+		File configFile = FileHelper.getFileForExtension(path, FileHelper.JSON);
+		if (configFile == null) {
+			Printer.pfail("Get a .json from the given path: " + path);
+			return null;
+		}
 		
 		// gets the content of the file
-		String jsonContent = JSON_Helper.getJSONContent(configFile);
+		String jsonContent = FileHelper.getStringContent(configFile);
+		if (jsonContent == null) {
+			Printer.pfail("Get the content from the given file of the path: " + path);
+			return null;
+		}
 		
 		// gets the json object (all content)
 		JSONObject json = null;
 		try {
 			json = new JSONObject(jsonContent);
 		} catch (JSONException e) {
-			System.out.println("ERROR: File content not a JSON Object!");
-			e.printStackTrace();
+			Printer.perror("File content not a JSON Object!");
 			return null;
 		}
 		
 		// build the ConfigWrap
 		ConfigWrap confi = buildConfig(json);
 		if (confi == null) {
-			System.out.println("Building ConfigWrap failed.");
+			Printer.pfail("Building ConfigWrap failed.");
 			return null;
 		}
 		
@@ -98,48 +104,109 @@ public class ConfigWrap {
 	private static ConfigWrap buildConfig(JSONObject json) {
 		assert (json != null);
 		
+		// ConfigWrap which will be filled continuously
 		ConfigWrap confi = new ConfigWrap();
 		
+		// get a ConfigReader to do all the work
+		JSONReader reader = new JSONReader(json);
+		
 		// get general information
-		try {
-			confi.dbName = json.getString(ConfigHelper.DB_NAME);
-		} catch (JSONException e) {
-			System.out.println("ERROR: Getting " + ConfigHelper.DB_NAME + " failed!");
-			e.printStackTrace();
+		if (!buildGeneralAttributes(confi, reader)) {
+			Printer.pfail("Getting genral information for config.");
 			return null;
 		}
-		try {
-			confi.version = json.getString(ConfigHelper.VERSION);
-		} catch (JSONException e) {
-			System.out.println("ERROR: Getting " + ConfigHelper.VERSION + " failed!");
-			e.printStackTrace();
-			return null;
-		}
+				
 		
 		// get the rows
-		JSONArray rows;
-		try {
-			rows = json.getJSONArray(ConfigHelper.FIELDS);
-		} catch (JSONException e) {
-			System.out.println("ERROR: Getting " + ConfigHelper.FIELDS + " failed!");
-			e.printStackTrace();
+		if (!buildRows(confi, reader)) {
+			Printer.pfail("Building RowEntry for config.");
 			return null;
-		}
-		
-		confi.entries = new RowEntry[rows.length()];
-		if (!confi.buildConfigEntries(rows)) {
-			System.out.println("Building RowEntries failed.");
-			return null;
-		}
+		} 
+		/* WARNING: JSONReader >> reader << changed JSONObject on which it works!!
+		 * If you need something more from him, use him before!
+		 */
 		
 		// compute the dimensions
 		confi.dimRows = new ArrayList<DimRow>();
 		if (!confi.buildConfigDimRows()) {
-			System.out.println("Building DimRow's failed.");
+			Printer.pfail("Building DimRow for config.");
 			return null;
 		}
 		
 		return confi;
+	}
+
+	/**
+	 * Private helper method which extracts general information
+	 * for the given ConfigWrap from the given JSONReader.
+	 * 
+	 * @param confi for which the information shall be extracted
+	 * @param reader from which the information get extracted
+	 * @return whether it was successful
+	 */
+	private static boolean buildGeneralAttributes(ConfigWrap confi, JSONReader reader) {
+		assert (confi != null);
+		assert (reader != null);
+
+		// get the name
+		String name = reader.getString(JSONReader.DB_NAME);
+		if (name == null) {
+			Printer.pproblem("No DB name found in config file.");
+			confi.dbName = "N.A.";
+		} else {
+			confi.dbName = name;
+		}
+		// get the version
+		String vers = reader.getString(JSONReader.VERSION);
+		confi.version = (vers != null) ? vers : "N.A."; 
+		
+		return true;
+	}
+	
+	/**
+	 * Private helper method which extracts the RowEntries
+	 * for the given ConfigWrap from the given JSONReader.
+	 * 
+	 * @param confi for which the RowEntries shall be extracted
+	 * @param reader from which the c get extracted
+	 * @return whether it was successful
+	 */
+	private static boolean buildRows(ConfigWrap confi, JSONReader reader) {
+		assert (confi != null);
+		assert (reader != null);
+		
+		// get the array of JSONObjects (containing rows) from the reader
+		JSONArray jsRows = reader.getJSONArray(JSONReader.FIELDS);
+		if (jsRows == null) {
+			Printer.pfail("Getting array of rows from the JSONObject.");
+			return false;
+		}
+		
+		// get the RowEntries
+		int length = jsRows.length();
+		confi.entries = new RowEntry[length];
+		for (int i = 0; i < length; i++) {
+			// get JSONObject for row i
+			JSONObject jso = JSONReader.getJSONObjectFromArray(jsRows, i);
+			if (jso == null) {
+				Printer.perror("No JSONObject found for RowEntry at position " + i);
+				return false;			
+			}
+			
+			// get RowEntry
+			reader.setJson(jso); // WARNING: changes the reader!
+			RowEntry re = reader.getRowEntry();
+			if (re == null) {
+				Printer.pfail("Constructing RowEntry " + i);
+				return false;
+			}
+			
+			// store row
+			confi.entries[i] = re;
+		}		
+		
+		
+		return true;
 	}
 
 	/**
@@ -180,43 +247,6 @@ public class ConfigWrap {
 		
 		return true;
 	}
-	
-
-	/**
-	 * Private helper method for buildConfig(json).<br>
-	 * Builds and stores the RowEntrys from a given JSONArray.  
-	 * 
-	 * @param jsRows JSONArray from which the entries will be extracted
-	 */
-	private boolean buildConfigEntries(JSONArray jsRows) {
-		assert (jsRows != null);
-	
-		for (int i = 0, l = jsRows.length(); i < l; i++) {
-			// get RowEntry
-			JSONObject jso;
-			try {
-				jso = (JSONObject) jsRows.get(i);
-			} catch (JSONException e) {
-				System.out.println("ERROR: Getting entry at " + i + " failed!");
-				e.printStackTrace();
-				return false;
-			} 
-			
-			RowEntry re = ConfigHelper.getEntry(jso);
-	
-			// failed?
-			if (re == null) {
-				System.out.println("Constructing RowEntry " + i + " failed.");
-				return false;
-			}
-			
-			// stores row
-			this.entries[i] = re;
-		}
-		
-		return true;
-	}
-
 	
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 
 	/**
@@ -290,15 +320,29 @@ public class ConfigWrap {
 		return dimRows;
 	}
 	
+	/**
+	 * Return the table key (in the warehouse) of a dimension
+	 * for a given String, which refers to a dimension name.
+	 * If non is found or it refers to a non-dimension DimRow
+	 * null is returned.
+	 * 
+	 * @param s String referring to a DimRow
+	 * @return table
+	 */
 	public String getTableKeyFor(String s) {
 		for (DimRow d : dimRows) {
 			if (d.getName().equalsIgnoreCase(s)) {
-				return d.getTableKey();
+				if (d.isDimension()) {
+					return d.getTableKey();
+				} else {
+					return null;
+				}
 			}
 		}
 		
 		return null;
 	}
+	
 	/**
 	 * Returns the name of the database for which this configuration is.
 	 * 
@@ -322,7 +366,7 @@ public class ConfigWrap {
 	 * @return
 	 */
 	public String getFactTableName() {
-		return ConfigHelper.FACT_TABLE + dbName;
+		return JSONReader.FACT_TABLE + dbName;
 	}
 	
 	
@@ -345,15 +389,7 @@ public class ConfigWrap {
 		return null;
 	}
 	
-	/**
-	 * Returns the size of the history.
-	 * 
-	 * @return the size of the history
-	 */
-	public int getSizeOfHistory() {
-		return sizeOfHistory;
-	}
-	
+
 	@Override
 	public String toString() {
 		String s = "ConfigWrap [dbName= " + dbName + ", version= " + version

@@ -8,7 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 //intern imports
-import what.sp_config.ConfigHelper;
+import what.sp_config.JSONReader;
 import what.sp_config.ConfigWrap;
 import what.sp_dataMediation.DataMediator;
 
@@ -30,6 +30,9 @@ public class ChartMediator {
 	private ConfigWrap config;
 	
 	private DataMediator dataMedi;
+	
+	private int maxSizeHistory = 10;
+	
 	
 	/** The stored history of computed charts of this ChartMediator */
 	private LinkedList<DimChart> history;
@@ -102,7 +105,7 @@ public class ChartMediator {
 			String x = chart.getX();
 			
 			// check if just a category is selected
-			if (!(x.contains(ConfigHelper.ROW_TABLE))) {
+			if (!(x.contains(JSONReader.ROW_TABLE))) {
 				if (config.isCategorie(x)) {
 					x = config.getHighestRowFor(x);
 				}
@@ -141,7 +144,7 @@ public class ChartMediator {
 	 * @return the json-file of the requested chart from the history, referring to the number
 	 */
 	public JSONObject getHistoryChart(int number) {
-		if ((number <= 0) || (number > getSizeForHistory() )) {
+		if ((number <= 0) || (number > getMaxSizeOfHistory() )) {
 			throw new IllegalArgumentException();
 		}
 		
@@ -165,7 +168,7 @@ public class ChartMediator {
 		assert (toSave != null);
 		
 		// ensures that history doesn't get bigger than wanted
-		if (history.size() >= getSizeForHistory()) {
+		if (history.size() >= getMaxSizeOfHistory()) {
 			history.removeLast();
 		}
 		
@@ -174,13 +177,21 @@ public class ChartMediator {
 	}
 
 	/**
-	 * Returns the number of charts stored in the history.
-	 * @return the number of charts stored in the history
+	 * Returns the maximal number of charts possible to store in the history.
+	 * 
+	 * @return the maximal number of charts possible to store in the history
 	 */
-	private int getSizeForHistory() {
-		// TODO global constant
-		return 10;
+	public int getMaxSizeOfHistory() {
+		return maxSizeHistory;
 	}
 
+	/**
+	 * Returns the current number of charts stored in the history.
+	 * 
+	 * @return the current number of charts stored in the history
+	 */
+	public int getCurrentSizeOfHistory() {
+		return  history.size();
+	}
 }
 
