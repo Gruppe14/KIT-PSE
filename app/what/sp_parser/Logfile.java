@@ -8,6 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import what.FileHelper;
+
 import controllers.Localize;
 
 /** 
@@ -88,9 +90,9 @@ public class Logfile {
 		
 		//Initialization and checks if file is correct.
 		this.pm = pm;
-		this.lines = 0;
+		this.lines = 1;
 		try {
-			this.file = new File(path);
+			this.file = FileHelper.getFileForExtension(path, FileHelper.CSV);
 		} catch (NullPointerException e) {
 			pm.error(Localize.getString("Error.50"));
 			return;
