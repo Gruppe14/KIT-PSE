@@ -6,6 +6,7 @@ import java.util.concurrent.RejectedExecutionException;
 
 import controllers.Localize;
 
+import what.Printer;
 import what.sp_config.ConfigWrap;
 import what.sp_dataMediation.DataMediator;
 
@@ -199,7 +200,7 @@ public class ParserMediator {
 	 * @param err
 	 */
 	protected void error(String err) {
-		System.out.println(err);		
+		Printer.print(err);		
 		fatalError = true;
 	}
 
