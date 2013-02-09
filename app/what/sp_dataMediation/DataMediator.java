@@ -53,9 +53,9 @@ public class DataMediator {
 				TreeSet<String> strings = null;
 				if (d.getRowIdAt(posi).equals(RowId.STRINGMAP)) {
 					StringMapRow r = (StringMapRow) d.getRowAt(posi);
-					strings = r.getTopicStrings();
+					strings = r.getKeyStrings();
 				} else if (d.getRowIdAt(posi).equals(RowId.STRING))  {
-					strings = requestStringsOf(d.getRowNameOfLevel(posi), d.getTableName());	
+					strings = requestStringsOf(d.getRowNameOfLevel(posi), d.getDimTableName());	
 				} else {
 					System.out.println("Unkown type at position " + posi + " found while computing Strings for web page.");
 				}
@@ -94,7 +94,7 @@ public class DataMediator {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		
 		for (String s : strings) {
-			TreeSet<String> childs = requestStringsWithParent(d.getRowNameOfLevel(posi), d.getRowNameOfLevel(posi - 1), s, d.getTableName());
+			TreeSet<String> childs = requestStringsWithParent(d.getRowNameOfLevel(posi), d.getRowNameOfLevel(posi - 1), s, d.getDimTableName());
 			if (childs == null) {
 				System.out.println("ERROR: Requesting chils for " + s + "failed.");
 				return null;

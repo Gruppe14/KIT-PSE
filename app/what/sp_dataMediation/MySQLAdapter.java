@@ -105,7 +105,7 @@ public class MySQLAdapter {
 		DimRow lastDim = dims.get(dims.size() - 1); 
 		for (DimRow d : dims) {
 			if (d.isDimension()) { // case it's a dimension
-				String dimQuery = INSERT + d.getTableName() + LBR ;
+				String dimQuery = INSERT + d.getDimTableName() + LBR ;
 				String dimValue = VALUES + LBR;
 				
 				// add all values to the query
@@ -144,7 +144,7 @@ public class MySQLAdapter {
 				whConnections.returnConnectionToPool(c);
 				
 				if (key <= 0) { // it seems that it already existed... we have to ask for the key
-					String keyQuery = SELECT + d.getTableKey() + FROM + d.getTableName() + WHERE;
+					String keyQuery = SELECT + d.getTableKey() + FROM + d.getDimTableName() + WHERE;
 					
 					for (int i = 0, l = d.getSize(); i < l; i++) {
 						

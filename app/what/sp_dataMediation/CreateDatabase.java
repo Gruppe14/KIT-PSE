@@ -42,7 +42,7 @@ public class CreateDatabase {
     	
     	for (DimRow d : dims) {
     		if (d.isDimension()) {
-    			keys.put(d.getTableKey(), d.getTableName());
+    			keys.put(d.getTableKey(), d.getDimTableName());
     			dimQueries.add(getTableQueryForDim(d));
     		} else {
     			query += d.getRowNameOfLevel(0) + " " + d.getTableTypeAt(0) + ",\n ";
@@ -71,7 +71,7 @@ public class CreateDatabase {
 
 
 	private static String getTableQueryForDim(DimRow d) {
-		String query = "CREATE TABLE " + d.getTableName() + "(\n ";
+		String query = "CREATE TABLE " + d.getDimTableName() + "(\n ";
 		
 		query += d.getTableKey() + ID_PART;
 		

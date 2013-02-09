@@ -234,9 +234,6 @@ public class JSONReader {
 		return requ;
 	}
 
-
-
-	
 	/**
 	 * Returns a JSONArray belonging to a given key (String) 
 	 * from the JSONObject of this JSONReader.
@@ -315,13 +312,16 @@ public class JSONReader {
 		name = getString(ATRI_NAME);
 		logId = getString(ATRI_LOG);
 		cat = getString(ATRI_CAT);
-		scale = getString(ATRI_SCL);
 		lvl = getInt(ATRI_LVL);
-		if ((name == null) || (logId == null) || (cat == null) 
-			 || (scale == null) || (lvl < 0)) {
+		if ((name == null) || (logId == null) || (cat == null) || (lvl < 0)) {
 			Printer.pfail("Getting a field for the RowEntry.");
 		}
 		
+		// special treatment for scale
+		scale = getString(ATRI_SCL);
+		if ((scale == null)) {
+				scale = ConfigWrap.NOT_AVAILABLE;
+			}
 		
 		// determine the case and create RowEntry
 		switch (id) {

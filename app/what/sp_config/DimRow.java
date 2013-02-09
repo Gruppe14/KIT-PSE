@@ -4,40 +4,73 @@ package what.sp_config;
 import java.util.ArrayList;
 
 /**
- * A dimension in the warehouse or a just a normal row in the fact table
+ * This class represents a dimension in the warehouse, 
+ * wrapping all the rows (levels of the dimension), or 
+ * just a row for itself, standing for a measure in the warehouse.<br>
+ * 
+ * Provides methods to check, whether it is a dimension, a dimension
+ * containing strings, methods to get the size, name, names for SQL
+ * specific things, ...
  * 
  * @author Jonathan, PSE
- *
+ * @see ConfigWrap
  */
 public class DimRow {
 
+	/** This are the actual content of this DimRow, the rows. */
 	private ArrayList<RowEntry> rows = new ArrayList<RowEntry>();
 	
-	private Object strings;
+	/** 
+	 * A tree of strings extracted from the warehouse containing
+	 * the strings for the selection boxes on the web page.
+	 */
+	private Object strings; // TODO wrap behind tree structure
 	
+	// -- LOCATION DIM -- LOCATION DIM -- LOCATION DIM -- 
+	// static Strings for the standard names
+	//private static final String CONTINENT = "continent";
 	private static final String CITY = "city";
 	private static final String COUNTRY = "country";
 	private static final String LOCATION = "location";
 	
+	// static initialization
 	private static final DimRow LOCATION_DIM_INSTANCE; 
 	static {
 		LOCATION_DIM_INSTANCE = new DimRow();
+		//LOCATION_DIM_INSTANCE.add(new StringRow(CONTINENT, "", 1, LOCATION, CONTINENT, null));
 		LOCATION_DIM_INSTANCE.add(new StringRow(COUNTRY, "", 1, LOCATION, COUNTRY, null));
 		LOCATION_DIM_INSTANCE.add(new StringRow(CITY, "", 2, LOCATION, CITY, null));
 	}
 		
 	// -- SETTER -- SETTER -- SETTER -- SETTER -- SETTER --
- 	protected void add(RowEntry rowEntry) {
+	/**
+	 * Adds a RowEntry to this DimRow.
+	 * 
+	 * @param rowEntry RowEntry to be added
+	 * @return whether adding was successful
+	 */
+ 	protected boolean add(RowEntry rowEntry) {
 		if (rowEntry == null) {
 			throw new IllegalArgumentException();
 		}
 		
-		rows.add(rowEntry);		
+		return rows.add(rowEntry);		
 	}
 	
+ 	/**
+ 	 * Sets the Tree of Strings for this DimRow,
+ 	 * if it is a StringDimension.
+ 	 * 
+ 	 * @param obj the Tree of String to set
+ 	 * @return 
+ 	 */
 	public boolean setStrings(Object obj) {
+		if (obj == null) {
+			throw new IllegalArgumentException();
+		}
+		
 		if (!isStringDim()) {
-			return true;
+			return false;
 		}
 		
 		strings = obj;
@@ -46,18 +79,30 @@ public class DimRow {
 		return true;
 	}
 	
-	
 	// -- CHECKER -- CHECKER -- CHECKER -- CHECKER -- CHECKER --
+	/**
+	 * Returns whether this is a dimension (and not just a row (measure)).
+	 * 
+	 * @return whether this is a dimension
+	 */
 	public boolean isDimension() {
 		if (!isNotEmpty()) {
 			return false;
 		}
+		
 		RowEntry re = rows.get(0);
 		
 		return ((re.getLevel() > 0) || (re.getId().equals(RowId.STRING)) || (re.getId().equals(RowId.STRINGMAP)));
 	}
 	
-	
+	/**
+	 * Returns whether this is a String dimension.<br>
+	 * This means, the dimension contains Strings.
+	 *
+	 * @return  whether this is a String dimension
+	 * @see StringRow
+	 * @see StringMapRow
+	 */
 	public boolean isStringDim() {
 		if (!isNotEmpty()) {
 			return false;
@@ -67,17 +112,34 @@ public class DimRow {
 		RowId cur = rows.get(0).getId();
 		return ((cur == RowId.STRING) || (cur == RowId.STRINGMAP));
 	}
-		
+	
+	/**
+	 * Private helper class to check whether this DimRow is empty
+	 * to avoid null pointer exceptions.
+	 * 
+	 * @return whether this DimRow is empty
+	 */
 	private boolean isNotEmpty() {
 		return (getSize() > 0);
 	}
 	
 	
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 
+	/**
+	 * Returns the size of this DimRow, which is the number of 
+	 * wrapped rows.
+	 * 
+	 * @return  the size of this DimRow
+	 */
 	public int getSize() {
 		return rows.size();
 	}
-		
+	
+	/**
+	 * Returns the name of this DimRow.
+	 * 
+	 * @return the name of this DimRow
+	 */
 	public String getName() {
 		if (!isNotEmpty()) {
 			return null;
@@ -86,39 +148,12 @@ public class DimRow {
 		return rows.get(0).getCategory();
 	}
 	
-	public String getScaleAt(int i) {
-		if (getSize() <= i) {
-			throw new IllegalArgumentException();
-		}
-		
-		return rows.get(i).getScale();
-	}
-
-	public Object getStrings() {
-		if (!isStringDim()) {
-			return null;
-		}
-		
-		return strings;
-	}
-	
-	public String getTableName() {
-		return JSONReader.DIM_TABLE + getName();
-	}
-	
-	public String getTableKey() {
-		//TODO change, if this is not a dimension, return the fact table
-		return getName() + JSONReader.KEY_TABLE;
-	}
-	
-	public String getRowNameOfLevel(int i) {
-		if ((i < 0) || (i >= getSize())) {
-			throw new IllegalArgumentException();
-		}
-		
-		return JSONReader.ROW_TABLE + rows.get(i).getName();
-	}
-	
+	/**
+	 * Returns the name of the row at position i.
+	 * 
+	 * @param i the position of the row for which the name is requested
+	 * @return the name of the row at position i
+	 */	
 	public String getNameOfLevel(int i) {
 		if ((i < 0) || (i >= getSize())) {
 			throw new IllegalArgumentException();
@@ -127,26 +162,12 @@ public class DimRow {
 		return rows.get(i).getName();
 	}
 	
-	public static DimRow getLocationDim() {
-		return LOCATION_DIM_INSTANCE;
-	}
-	
-	public String getTableTypeAt(int i) {
-		if ((i < 0) || (i >= getSize() )) {
-			throw new IllegalArgumentException();
-		}
-			
-		return rows.get(i).getTableType();
-	}
-	
-	public RowId getRowIdAt(int i) {
-		if ((i < 0) || (i >= getSize() )) {
-			throw new IllegalArgumentException();
-		}
-		
-		return rows.get(i).getId();
-	}
-	
+	/**
+	 * Returns the RowEntry at the position i.
+	 * 
+	 * @param i the position of the requested row
+	 * @return the RowEntry at the position i
+	 */
 	public RowEntry getRowAt(int i) {
 		if ((i < 0) || (i >= getSize() )) {
 			throw new IllegalArgumentException();
@@ -155,14 +176,121 @@ public class DimRow {
 		return rows.get(i);
 	}
 	
+	/**
+	 * Returns the RowId of the row at position i.
+	 * 
+	 * @param i the position of the row for which RowId is requested
+	 * @return the RowId of the row at position i
+	 */
+	public RowId getRowIdAt(int i) {
+		if ((i < 0) || (i >= getSize() )) {
+			throw new IllegalArgumentException();
+		}
+		
+		return rows.get(i).getId();
+	}
+	
+	// >> GETTER for the static DimRow location
+	/**
+	 * Returns a DimRow for location.
+	 * 
+	 * @return a DimRow for location
+	 */
+	public static DimRow getLocationDim() {
+		return LOCATION_DIM_INSTANCE;
+	}
+	
+	// >> GETTER for the WEB PAGE
+	/**
+	 * Returns the scale of this DimRow.
+	 * 
+	 * @return the scale of this DimRow
+	 */
+	public String getScale() {
+		if (isDimension()) {
+			return getName();
+		}
+		if (isNotEmpty()) {
+			rows.get(0).getScale();
+		}
+		
+		return ConfigWrap.NOT_AVAILABLE;
+	}
+
+	/**
+	 * Returns the tree of Strings of this DimRow if it exists.
+	 * 
+	 * @return the tree of Strings of this DimRow
+	 */
+	public Object getStrings() {
+		if (!isStringDim()) {
+			return null;
+		}
+		
+		return strings;
+	}
+	
+	// >> GETTER for the SQL + WAREHOUSE
+	/**
+	 * Returns the table name in the warehouse of this dimension,
+	 * or null if it is a just a measure.
+	 * 
+	 * @return the table name in the warehouse of this dimension
+	 */
+	public String getDimTableName() {
+		if (isDimension()) {
+			return JSONReader.DIM_TABLE + getName();
+		}
+		return null;
+	}
+	
+	/**
+	 * Returns the table key in the warehouse of this dimension,
+	 * or null if it is a just a measure.
+	 * 
+	 * @return the table key in the warehouse of this dimension
+	 */
+	public String getTableKey() {
+		if (isDimension()) {
+			return getName() + JSONReader.KEY_TABLE;
+		}
+		return null;
+	}
+	
+	/**
+	 * Returns the type of the the row at the given position i in the warehouse.
+	 * E.g. "INT(3)", "VARCHAR(40)", ... 
+	 * 
+	 * @param i position of the Row from which the table type is requested
+	 * @return the table type of the row at position i
+	 */
+	public String getTableTypeAt(int i) {
+		if ((i < 0) || (i >= getSize() )) {
+			throw new IllegalArgumentException();
+		}
+			
+		return rows.get(i).getTableType();
+	}
+	
+	/**
+	 * Returns the row name of the row at position i.<br>
+	 * This is the name of the row in the warehouse.
+	 * 
+	 * @param i the position of the row for which the row name is requested
+	 * @return the row name in the warehouse of the row at position i
+	 */
+	public String getRowNameOfLevel(int i) {
+		if ((i < 0) || (i >= getSize())) {
+			throw new IllegalArgumentException();
+		}
+		
+		return JSONReader.ROW_TABLE + rows.get(i).getName();
+	}
+	
 	// -- OVERRIDES -- OVERRIDES -- OVERRIDES -- OVERRIDES --	
 	@Override
 	public String toString() {
 		return "DimRow [name= " + getName() +", size= " + getSize() + "]";
 	}
-	
-
-
-
 	
 }

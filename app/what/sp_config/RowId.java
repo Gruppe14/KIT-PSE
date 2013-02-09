@@ -1,7 +1,7 @@
 package what.sp_config;
 
 /**
- * Enum class wrapping Strings for
+ * Enumeration class wrapping Strings for
  * specific row types, making it easier
  * to determine the type of RowEntries, while
  * reading from the JSON file and later.

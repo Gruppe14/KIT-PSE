@@ -28,6 +28,9 @@ import what.Printer;
  */
 public class ConfigWrap {
 	
+	/** This constant Strings stand for a attribute which is not available. */
+	protected static String NOT_AVAILABLE = "N/A";
+	
 	/** Name of the data base for which this ConfigWrap is */
 	private String dbName;
 	
@@ -152,13 +155,13 @@ public class ConfigWrap {
 		String name = reader.getString(JSONReader.DB_NAME);
 		if (name == null) {
 			Printer.pproblem("No DB name found in config file.");
-			confi.dbName = "N.A.";
+			confi.dbName = NOT_AVAILABLE;
 		} else {
 			confi.dbName = name;
 		}
 		// get the version
 		String vers = reader.getString(JSONReader.VERSION);
-		confi.version = (vers != null) ? vers : "N.A."; 
+		confi.version = (vers != null) ? vers : NOT_AVAILABLE; 
 		
 		return true;
 	}
@@ -389,7 +392,7 @@ public class ConfigWrap {
 		return null;
 	}
 	
-
+	// -- OVERRIDES -- OVERRIDES -- OVERRIDES -- OVERRIDES --	
 	@Override
 	public String toString() {
 		String s = "ConfigWrap [dbName= " + dbName + ", version= " + version
@@ -410,7 +413,13 @@ public class ConfigWrap {
 	}
 
 
-	// -- CHECKER -- CHECKER -- CHECKER -- CHECKER -- CHECKER --
+	// -- CHECKS -- CHECKS -- CHECKS -- CHECKS -- CHECKS -- CHECKS --
+	/**
+	 * Returns whether the given String equals a category of any dimension.
+	 * 
+	 * @param x String to compare with category names
+	 * @return whether the given String equals a category of any dimension
+	 */
 	public boolean isCategorie(String x) {
 		if (x == null) {
 			throw new IllegalArgumentException();

@@ -9,7 +9,6 @@
 		"Level": 1,
 		"Name": "year",
 		"LogId": "yy",
-		"Scale": ".",
 	},
 	{
 		"Type": "INT",
@@ -17,7 +16,6 @@
 		"Level": 2,
 		"Name": "month",
 		"LogId": "mm",
-		"Scale": ".",
 	},
 	{
 		"Type": "INT",
@@ -25,7 +23,6 @@
 		"Level": 3,
 		"Name": "day",
 		"LogId": "dd",
-		"Scale": ",",
 	},
 	{
 		"Type": "INT",
@@ -33,7 +30,6 @@
 		"Level": 4,
 		"Name": "hour",
 		"LogId": "hh",
-		"Scale": ":",
 	},
 	{
 		"Type": "INT",
@@ -41,7 +37,6 @@
 		"Level": 5,
 		"Name": "minute",
 		"LogId": "mi",
-		"Scale": ":",
 	},
 	{
 		"Type": "INT",
@@ -49,7 +44,6 @@
 		"Level": 6,
 		"Name": "second",
 		"LogId": "ss",
-		"Scale": " ",
 	},
 	
 	{
@@ -58,7 +52,6 @@
 		"Level": 1,
 		"Name": "location",
 		"LogId": "clientIP",
-		"Scale": "location",
 	},
 	
 	{
@@ -67,7 +60,6 @@
 		"Level": 1,
 		"Name": "server",
 		"LogId": "server",
-		"Scale": "server",
 		"List": ["SDSS3J" , "SDSS3D", "SDSS2A", "SDSS2B", "SDSSSQL007",
 				 "SDSSSQL005", "JHU-SDSS002",],
 	},
@@ -78,7 +70,6 @@
 		"Level": 2,
 		"Name": "database",
 		"LogId": "dbname",
-		"Scale": "db",
 		"List": ["BESTDR1", "BESTDR2", "BESTDR3", "BESTDR4", "BESTDR5",
 				 "BESTDR6", "BESTDR7" , "BESTDR8" , "BESTDR9",],
 	},
@@ -115,7 +106,6 @@
 		"Categorie": "type",
 		"Level": 0,
 		"Name": "type",
-		"Scale": "type",
 		"LogId": "statement",
 		"List": [
 				 { "ParentName" = "PHOTO",

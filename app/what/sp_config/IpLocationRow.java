@@ -1,10 +1,28 @@
 package what.sp_config;
 
+// intern imports
 import what.sp_parser.DataEntry;
 
+/**
+ * This class represents a ip and location row as a RowEntry.<br>
+ * 
+ * This means a Row of this type  represents the row storing the IP,
+ * from which the location like city and country is extracted.
+ * 
+ * @author Jonathan, Alex, PSE Gruppe 14
+ * @see RowEntry
+ */
 public class IpLocationRow extends RowEntry {
 	
-	
+	/**
+	 * Protected constructor for the class IpLocationRow.
+	 * 
+	 * @param name the name
+	 * @param logId the logId
+	 * @param lvl the level
+	 * @param category the category
+	 * @param scale the scale String
+	 */
 	protected IpLocationRow(String name, String logId, int lvl,	String categorie, String scale) {
 		super(name, logId, lvl, categorie, scale, RowId.LOCATION);
 		
@@ -21,5 +39,5 @@ public class IpLocationRow extends RowEntry {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }

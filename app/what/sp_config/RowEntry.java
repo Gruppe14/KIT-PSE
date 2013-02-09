@@ -10,14 +10,12 @@ import what.sp_parser.DataEntry;
  * 
  * This is the abstract parent class for specific RowEntries.
  * 
- * @author Jonathan, PSE Gruppe 14
- * @version 1.0
- *
+ * @author Jonathan, Alex, PSE Gruppe 14
  * @see ConfigWrap
+ * @see ParserMediator
  */
 public abstract class RowEntry {
 	
-
 	// -- ATTRIBUTES -- ATTRIBUTES -- ATTRIBUTES -- ATTRIBUTES --
 	/**
 	 * The RowId of this RowEntry to determine the type without using instanceOf().
@@ -33,6 +31,7 @@ public abstract class RowEntry {
 	
 	/**
 	 * The logId of this RowEntry, like "yy" or "yyyy" for year.
+	 * @see ParserMediator
 	 */
 	private final String logId;
 	
@@ -49,12 +48,10 @@ public abstract class RowEntry {
 	private final String category;
 	
 	/**
-	 * The scale stands for the String on the axis in a chart for this RowEntry.<br>
-	 * Examples are: "ms", "#rows", "database", ...
+	 * The scale stands for the String describing the scale for this RowEntry.<br>
+	 * Examples are: "ms", "rows", ...
 	 */
 	private final String scale;
-	
-
 	
 	// -- CONSTRUCTOR -- CONSTRUCTOR -- CONSTRUCTOR -- CONSTRUCTOR --
 	/**
@@ -126,6 +123,10 @@ public abstract class RowEntry {
 	 * @return the scale
 	 */
 	public String getScale() {
+		if (this.scale == ConfigWrap.NOT_AVAILABLE) {
+			return getName();
+		}
+		
 		return scale;
 	}
 
@@ -138,6 +139,25 @@ public abstract class RowEntry {
 		return id;
 	} 
 	
+	/**
+	 * Returns the table type of this RowEntry.
+	 * 
+	 * @return  the table type of this RowEntry
+	 */
+	public abstract String getTableType();
+	
+	// -- PARSER STRATEGIE -- PARSER STRATEGIE -- PARSER STRATEGIE --
+	/**
+	 * Splits the given String and stores it at the given location in the given DataEntry.
+	 * Returns whether it was successful.<br>
+	 * 
+	 * This method represents a strategie, because every RowEntry type, parses differently.
+	 * 
+	 * @param de DataEntry where the result is stored
+	 * @param string String from which shall
+	 * @param location int location in the dataEntry where the split result will be stored
+	 * @return whether it was successful
+	 */
 	public abstract boolean split(DataEntry de, String string, int location);
 	
 	// -- OVERRIDES -- OVERRIDES -- OVERRIDES -- OVERRIDES --
@@ -148,5 +168,5 @@ public abstract class RowEntry {
 				+ scale + "]\n";
 	}
 	
-	public abstract String getTableType();
+	
 }
