@@ -16,6 +16,11 @@ public class ParsingTask implements Runnable {
 	private String str;
 	
 	/**
+	 * The number of this task.
+	 */
+	private int number;
+	
+	/**
 	 * String str, splitted by commas
 	 */
 	private String[] splitStr;
@@ -34,8 +39,9 @@ public class ParsingTask implements Runnable {
 	 * This is the constructor for a new <code>ParsingTask</code>
 	 * @param pm the ParserMediator which is connected to this <code>ParsingTask</code>
 	 */
-	protected ParsingTask(ParserMediator pm) {
+	protected ParsingTask(ParserMediator pm, int number) {
 		this.pm = pm;
+		this.number = number;
 	}
 
 
@@ -49,20 +55,21 @@ public class ParsingTask implements Runnable {
 		while (true) {
 			str = pm.readLine();
 			if (str == null) {
-				pm.increaseFT();
+				pm.increaseFT(this);
 				return;
 			} else {
 				splitStr = str.split(",");
 
 				de = new DataEntry(pm.getConfig().getNumberOfRows() + 1);
-
+				
 				if (SplittingTool.split(this)) {
 					GeoIPTool.getLocationInfo(this);
 							
-					System.out.println(de.toString());
+					//System.out.println(de.toString());
+					pm.getWatchDog().addWork(number);
 
 					boolean success = pm.getLoader().loadEntry(de);
-					System.out.println("Loading DataEntry wwas successful: " + success);
+					System.out.println("Loading DataEntry was successful: " + success);
 				} else {
 					pm.increaseLinedel();
 				}
@@ -108,6 +115,13 @@ public class ParsingTask implements Runnable {
 	 */
 	protected String getStr() {
 		return str;
+	}
+	
+	/**
+	 * @return the number of this task
+	 */
+	protected int getNumber() {
+		return number;
 	}
 	
 }

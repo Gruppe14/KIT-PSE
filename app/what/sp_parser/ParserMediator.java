@@ -40,6 +40,16 @@ public class ParserMediator {
 	 * This variable indicates how many lines have been deleted due to mistakes
 	 */	
 	private int linesDeleted = 0;
+
+	/**
+	 * This variable indicates after how much idle time a thread gets killed. (seconds)
+	 */
+	private int watchTime = 1;
+	
+	/**
+	 * The WatchDogTimer.
+	 */
+	private WatchDogTimer wdt = WatchDogTimer.getInstance();
 	
 	/**
 	 * Represents the used logfile
@@ -107,7 +117,7 @@ public class ParserMediator {
 		}
 						
 		for (int i = 0; i < poolsize; i++) {
-			tasks[i] = new ParsingTask(this);
+			tasks[i] = new ParsingTask(this, i);
 		}
 		
 		
@@ -131,6 +141,9 @@ public class ParserMediator {
 		//Initialization for Logfile, ThreadPool and GeoIPTool.
 		
 		usedFile = new Logfile(path, this);
+		
+			
+		wdt.initialize(this);
 		
 		if (fatalError) {
 			return false;
@@ -159,14 +172,15 @@ public class ParserMediator {
 			if (fatalError) {
 				threadPool.shutdown();
 				return false;
-			}
-			
+			}			
 		}
+		
+		
 		
 		// Checks all 1000ms if all tasks are finished or if there was a fatal error. Returns true if 
 		// all tasks are finished and false, if there was a fatal error.
 		while (true) {
-			if (finishedTasks == poolsize) {
+			if (finishedTasks >= poolsize) {
 				System.out.println("lines: " + usedFile.getLines());
 				threadPool.shutdown();
 				return true;
@@ -181,11 +195,15 @@ public class ParserMediator {
 					return false;
 				}
 			}
+
+			wdt.check(this);
 		}
 		
 
 	}
 	
+
+
 	/**
 	 * This method reads a line from <code>usedFile</code>
 	 * @return the next line from <code>usedFile</code>
@@ -207,10 +225,10 @@ public class ParserMediator {
 	/**
 	 * This method is called when a task is finished. If it hits the poolsize the parser is shut down.
 	 */
-	protected void increaseFT() {
+	protected void increaseFT(ParsingTask pt) {
 		
 		finishedTasks++;	
-		System.out.println("Task finished:" + finishedTasks);
+		System.out.println("Task " + pt.getNumber() + " finished - now finished: " + finishedTasks);
 	}
 	
 	/**
@@ -251,6 +269,34 @@ public class ParserMediator {
 		return loader;
 	}
 
+	/**
+	 * @return the poolsize
+	 */
+	protected int getPoolsize() {
+		return poolsize;
+	}
+
+	/**
+	 * @return the watchtime
+	 */
+	protected int getWatchTime() {
+		return watchTime;
+	}
+
+	/**
+	 * @return the watchdogtimer
+	 */
+	protected WatchDogTimer getWatchDog() {
+		return wdt;		
+	}
+
+
+	protected void resetThread(int i) {
+		ParsingTask newTask = new ParsingTask(this, i);
+		threadPool.submit(newTask);
+		tasks[i] = newTask;
+		System.out.println("geht");
+	}
 	
 	
 	
