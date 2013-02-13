@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import what.Facade;
 import what.sp_parser.ParserMediator;
@@ -33,7 +34,6 @@ public class ParserTest {
 	public void smallParseTestStandardSize() {
 		assertTrue(f.parseLogFile(sourcePath + seperator + "example\\result10.csv"));
 		assertEquals(10, pm.getLogfile().getLines());
-		assertEquals(5, pm.getPoolsize());
 		assertEquals(pm.getPoolsize(), pm.getFinishedTasks());
 	}
 	
@@ -83,8 +83,6 @@ public class ParserTest {
 	public void mediumParseTestStandardSize() {
 		assertTrue(f.parseLogFile(sourcePath + seperator + "example\\result1000.csv"));
 		assertEquals(1000, pm.getLogfile().getLines());
-		assertEquals(5, pm.getPoolsize());
-		assertEquals(pm.getPoolsize(), pm.getFinishedTasks());
 	}
 	
 	@Test
@@ -100,8 +98,12 @@ public class ParserTest {
 	public void bigParseTestStandardSize() {
 		assertTrue(f.parseLogFile(sourcePath + seperator + "example\\resultDay.csv"));
 		assertEquals(32041, pm.getLogfile().getLines());
-		assertEquals(5, pm.getPoolsize());
-		assertEquals(pm.getPoolsize(), pm.getFinishedTasks());
+	}
+	
+	@Ignore
+	public void veryBigParseTestStandardSize() {
+		assertTrue(f.parseLogFile("C:\\Users\\Alex\\Downloads\\resultDez.csv"));
+		assertEquals(1226224, pm.getPoolsize());
 	}
 
 

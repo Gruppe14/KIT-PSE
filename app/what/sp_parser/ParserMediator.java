@@ -45,7 +45,7 @@ public class ParserMediator {
 	/**
 	 * This variable indicates after how much idle time a thread gets killed. (seconds)
 	 */
-	private int watchTime = 1;
+	private int watchTime = 2;
 	
 	/**
 	 * The WatchDogTimer.
@@ -209,6 +209,7 @@ public class ParserMediator {
 			}
 			
 			if (finishedTasks < poolsize) {
+				System.out.println("es macht was");
 				wdt.check(this);
 			}
 		}

@@ -135,8 +135,6 @@ public class Logfile {
 		
 	}
 	
-	//For speed-testing purposes
-	private long first;
 	/**
 	 * Returns the next line from <code>file</code> and iterates <code>lines</code>.
 	 * @return the next line from <code>file</code>
@@ -145,15 +143,7 @@ public class Logfile {
 		String str = null;
 		String str2;
 		try {
-			// For speed-testing purposed. Prints how many ms the parser needed for 10k lines.
-			if (lines == 0) {
-				first = System.currentTimeMillis();
-			}
-			if (lines % 10000 == 0) {
-				System.out.println(System.currentTimeMillis() - first);
-				first = System.currentTimeMillis();
-			} 
-			
+						
 			
 			str = br.readLine();
 						
