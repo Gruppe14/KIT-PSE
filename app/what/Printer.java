@@ -22,7 +22,7 @@ public class Printer {
 	 */
 	public static void print(String s) {
 		if (s == null) {
-			perror("Something to be printed and a wrong given String to the perror Method!");
+			perror("Something to be printed and a wrong given String to the print method!");
 		}
 		System.out.println(s);
 	}
@@ -34,7 +34,7 @@ public class Printer {
 	 */
 	public static void perror(String s) {
 		if (s == null) {
-			perror("Something which went wrong and a wrong given String to the perror Method!");
+			perror("Something which went wrong and a wrong given String to the perror method!");
 		}
 		print("ERROR: " + s); // or better System.err.println(..) ?
 	}
@@ -42,11 +42,11 @@ public class Printer {
 	/**
 	 * Prints an failure message for the given String (and a new line).
 	 * 
-	 * @param s String to be printed with an failure message
+	 * @param s String to be printed with a failure message
 	 */
 	public static void pfail(String s) {
 		if (s == null) {
-			perror("Something which failed and a wrong given String to the pfail Method!");
+			perror("Something which failed and a wrong given String to the pfail method!");
 		}
 		print("FAILURE: " + s);
 	}
@@ -58,7 +58,7 @@ public class Printer {
 	 */
 	public static void pproblem(String s) {
 		if (s == null) {
-			perror("A problem occured and a wrong given String to the pfail Method!");
+			perror("A problem occured and a wrong given String to the pproblem method!");
 		}
 		print("PROBLEM: " + s);
 	}
@@ -66,12 +66,25 @@ public class Printer {
 	/**
 	 * Prints an success message for the given String (and a new line).
 	 * 
-	 * @param s String to be printed with an success message
+	 * @param s String to be printed with a success message
 	 */
 	public static void psuccess(String s) {
 		if (s == null) {
-			perror("Something which succeeded and a wrong given String to the pfail Method!");
+			perror("Something which succeeded and a wrong given String to the psuccess method!");
 		}
 		print("SUCCESS: " + s);
 	}
+
+	/**
+	 * Prints an test message for the given String (and a new line).
+	 * 
+	 * @param s String to be printed with a test message
+	 */
+	public static void ptest(String s) {
+		if (s == null) {
+			perror("Something which succeeded and a wrong given String to the ptest method!");
+		}
+		print("TEST: " + s);
+	}
+	
 }

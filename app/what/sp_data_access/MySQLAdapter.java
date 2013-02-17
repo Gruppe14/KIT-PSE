@@ -9,14 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.TreeSet;
 
-// JSON imports
-import org.json.JSONObject;
-
 // intern imports
 import what.Printer;
 import what.sp_chart_creation.DimChart;
-import what.sp_chart_creation.Filter;
-import what.sp_chart_creation.TwoDimChart;
 import what.sp_config.ConfigWrap;
 import what.sp_config.DimRow;
 import what.sp_config.RowId;
@@ -39,6 +34,8 @@ public class MySQLAdapter {
 	
 	public static final String SELECT = "SELECT ";
 	public static final String FROM = " FROM ";
+	public static final String JOIN = " JOIN ";
+	public static final String ON = " ON ";
 	public static final String WHERE = " WHERE ";	
 	protected static final String GROUPBY = " GROUP BY ";
 	
@@ -51,7 +48,7 @@ public class MySQLAdapter {
 	public static final String ALL = " * ";
 	
 	public static final String LBR = " ( ";
-	private static final String KOMMA = ",  ";
+	public static final String KOMMA = ",  ";
 	public static final String RBR = " ) ";
 	
 	private static final String INSERT = "INSERT INTO ";
@@ -203,7 +200,6 @@ public class MySQLAdapter {
 		return executeUpload(curQuery);
 	}
 
-	
 	// -- EXTRACTING -- EXTRACTING -- EXTRACTING -- EXTRACTING -- EXTRACTING --
 	// EXTRACTNING >> 1 dim Table (x + measure)
 	/**
@@ -217,55 +213,37 @@ public class MySQLAdapter {
 	 * @param filters with the filters
 	 * @return a JSONObject as a result of the given parameters
 	 */
-	protected JSONObject requestOneDimTable(DimChart chart) {
+	protected boolean requestChartJSON(DimChart chart) {
 		assert (chart != null);
-
+		Printer.ptest("Start chart request.");
+		
 		String factTable = config.getFactTableName();
-		// if (!checkMeasure()) { ;); TODO
 		
 		// -- SELECT part -- SELECT part -- SELECT part --
-		String select = "" + SELECT + chart.getXColumn() + KOMMA + chart.getMeasure();
+		String select = SELECT + chart.getSelect();
 		
 		// -- FROM part -- FROM part -- FROM part --
-		String from = FROM;
+		//  FROM >> fact Table;	
+		String from = FROM + factTable + AS + AS_FACTTABLE;
 		
-		//  FROM >> x Table;
-		from += chart.getXFilter().getTableQuery();		
+		// -- JOIN part -- JOIN part -- JOIN part --
+		String join = JOIN + LBR + chart.getTableQuery() + RBR; 		
 		
+		// -- WHERE/ON part -- WHERE/ON part -- WHERE/ON part --	
+		String on = ON;
 		
-		//  FROM >> fact Table;
-		from += KOMMA + factTable+ AS + AS_FACTTABLE;
-		
-		//  FROM >> -- FILTER -- FILTER -- FILTER --
-		for (Filter f : chart.getFilters()) {
-			from += KOMMA + f.getTableQuery();
-		}
-				
-		// -- WHERE part -- WHERE part -- WHERE part --	
-		String where = WHERE;
 		// WHERE >> x.key = fact.key
-		where += chart.getXFilter().getKeyQuery() + EQL + factTable + DOT + chart.getXFilter().getTableKey(); 
+		on += chart.getKeyRestrictions(AS_FACTTABLE); 
 		
-		for (Filter f : chart.getFilters()) {
-			where += AND + factTable + DOT + f.getTableKey() + EQL + f.getKeyQuery(); 
-		}
-		
+		// WHERE >> filter restrictions;
+		on += chart.getRestrictions();
+				
 		// -- GROUPBY PART -- GROUPBY PART -- GROUPBY PART -- 
-		String groupBy = GROUPBY + chart.getXColumn();
+		String groupBy = GROUPBY + chart.getGroupBy();
 		
 		// -- EXECUTE -- EXECUTE -- EXECUTE -- EXECUTE --
-		JSONObject result = executeRequest(select + from + where + groupBy, chart);
-		if (result == null) {
-			Printer.pfail("Executing request is without result.");
-		}
-		
-		return result;
+		return executeChartRequest(select + from + join + on + groupBy, chart);
 	} 
-
-	public JSONObject requestTwoDimTable(TwoDimChart chart) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	// EXTRACTNING >> all values of a Row
 	/**
@@ -339,7 +317,6 @@ public class MySQLAdapter {
 		return true;
 	}
 	
-
 	/**
 	 * Executes a given query.<br>
 	 * This is a upload request if ofUpload is true, otherwise it is a request.
@@ -430,7 +407,7 @@ public class MySQLAdapter {
 		}
 		
 		// changing result to what is requested
-		TreeSet<String> requested = DataChanger.getTreeSetFromRS(re);
+		TreeSet<String> requested = getTreeSetFromRS(re);
 		if (requested == null) {
 			Printer.pfail("Receive changed data.");
 		}
@@ -440,13 +417,14 @@ public class MySQLAdapter {
 	}
 	
 	/**
+	 * Executes the given query and stores the result in
+	 * the given chart.
 	 * 
-	 * @param query
-	 * @param x
-	 * @param measure
-	 * @return
+	 * @param query 
+	 * @param chart DimChart in which the result will be changed and stored
+	 * @return whether it as successful
 	 */
-	private JSONObject executeRequest(String query, DimChart chart) {
+	private boolean executeChartRequest(String query, DimChart chart) {
 		assert (query != null);
 		assert (chart != null);
 		
@@ -456,29 +434,30 @@ public class MySQLAdapter {
 		if (s == null) {
 			Printer.pfail("Getting statement.");
 			close(c);
-			return null;
+			return false;
 		}
 		
-		// Printer.print("Try to execute: " + query);
+		Printer.ptest("Try to execute: " + query);
 		
 		// execute query
 		ResultSet re = null;
 		try {
 			re = s.executeQuery(query);
 		} catch (SQLException e) {
-		 //	Printer.pfail("Executing query: \n >> " + query + " <<");
+			Printer.pfail("Executing query: \n >> " + query + " <<");
 			close(s, c);
-			return null;
+			return false;
 		}
 		
-		JSONObject json;
-		json = DataChanger.getOneDimJSONFromResultSet(re, chart);
+		if (!(chart.createJSONFromResultSet(re))) {
+			Printer.pfail("Creating JSON from ResultSet.");
+			close(s, c);
+			return false;
+		}
 
 		close(s, c);
-		return json;
+		return true;
 	}
-	
-
 	
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER --
 	/**
@@ -525,7 +504,6 @@ public class MySQLAdapter {
 		return c;
 	}
 	
- 	
  	private void close(Statement s, Connection c) {
 		assert (s != null);
 		assert (c != null);
@@ -540,12 +518,32 @@ public class MySQLAdapter {
 		
 	}
 	
-
 	private void close(Connection c) {
 		whConnections.returnConnectionToPool(c);		
 	}
-
 	
-
+	// -- WORKER -- WORKER -- WORKER -- WORKER -- WORKER -- WORKER --
+	/**
+	 * Transforms a ResultSet into a TreeSet of Strings.
+	 *  
+	 * @param re ResultSet from which data will be extracted
+	 * @return TreeSet of Strings extracted from the ResultSet
+	 */
+	protected static TreeSet<String> getTreeSetFromRS(ResultSet re) {
+		assert (re != null);
+		
+		TreeSet<String> strings = new TreeSet<String>();
+		
+		try {
+			while (re.next()) {
+				strings.add(re.getString(1));
+			}
+		} catch (SQLException e) {
+			Printer.perror("Reading from ResultSet.");
+			return null;
+		}
+		
+		return strings;
+	}
  	
 }
