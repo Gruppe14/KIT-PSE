@@ -90,7 +90,7 @@ public class ChartHelper {
 				tmp += "<span class=\"x\">" + Localize.get("filter.y.axis") + " </span>";
 			}
 			tmp += "<span class=\"filter\">" + Localize.get("filter.filter") + "</span></div>";
-			tmp += "<div class=\"dim list\" data=\"" + dim.getRowNameOfLevel(0) + "\">";
+			tmp += "<div class=\"dim list\" data=\"" + dim.getNameOfLevel(0) + "\">";
 			//first level is build here because of dim list classes
 			//if HashMap recursivly
 			if(dim.getStrings() instanceof HashMap<?, ?>) {
@@ -125,7 +125,7 @@ public class ChartHelper {
 			html += "<span>" + s + "</span>";
 			//if has a subClass
 			if(map.get(s) != null) {
-				html += "<div class=\"sub\" data=\"" + dim.getRowNameOfLevel(lvl) + "\">";
+				html += "<div class=\"sub\" data=\"" + dim.getNameOfLevel(lvl) + "\">";
 				//if has HashMap go on recursively
 				if(map.get(s) instanceof HashMap<?, ?>) {
 					HashMap<String, Object> newMap = (HashMap<String, Object>) map.get(s);
@@ -164,7 +164,7 @@ public class ChartHelper {
 	 * @return returns the html string
 	 */
 	private String timeScale(DimRow dim) {
-		String html = "<div id=\"timescale\" class=\"options\"><div>" +
+		String html = "<div id=\"time\" class=\"options\"><div>" +
 				Localize.get("time.scale") + "</div><div class=\"group type\">" +
 				"<span class=\"x\">" + Localize.get("filter.x.axis") + 	"&nbsp;</span>";
 		html += "<span class=\"filter\">" + Localize.get("filter.filter") + "</span></div>" +
@@ -185,7 +185,7 @@ public class ChartHelper {
 	 */
 	private String time() {
 		int[] year = {2011, 2012};
-		String html = "<div id=\"time\">";
+		String html = "<div id=\"timescale\">";
 		String[] ft = {"From", "To"};
 		for(String s: ft) {
 			html += "<div>" + Localize.get("time." + s) + "<br /><div><span>" +
