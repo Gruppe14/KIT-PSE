@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 
 import what.FileHelper;
 
-import controllers.Localize;
+import forTesting.Localize;
 
 /** 
  * 
@@ -69,7 +69,7 @@ public class Logfile {
 	/**
 	 * @return the number of lines which are already read
 	 */
-	protected int getLines() {
+	public int getLines() {
 		return lines;
 	}
 
@@ -91,23 +91,23 @@ public class Logfile {
 		//Initialization and checks if file is correct.
 		this.pm = pm;
 		this.lines = 1;
-		try {
-			this.file = FileHelper.getFileForExtension(path, FileHelper.CSV);
-		} catch (NullPointerException e) {
+		
+		this.file = FileHelper.getFileForExtension(path, FileHelper.CSV);
+		
+		if (file == null) {
 			pm.error(Localize.getString("Error.50"));
 			return;
 		}
+		
 		try {
 			fstream = new FileInputStream(file);
 		} catch (FileNotFoundException e) {
-			pm.error(Localize.getString("Error.60P1") + " " + path + " " + Localize.getString("Error.60P2"));
+			//@throws FileNotFoundException - only if the file doesn't exist after checking that it does exist : Shouldn't happen.
+			e.printStackTrace();
 			return;
 		}
 		
-		if (!file.getPath().endsWith(".csv")) {
-			pm.error(Localize.getString("Error.90"));
-			return;
-		}
+		
 		
 		//Creates BufferedReader which will read the file.
 		in = new DataInputStream(fstream);
@@ -135,8 +135,6 @@ public class Logfile {
 		
 	}
 	
-	//For speed-testing purposes
-	private long first;
 	/**
 	 * Returns the next line from <code>file</code> and iterates <code>lines</code>.
 	 * @return the next line from <code>file</code>
@@ -145,15 +143,7 @@ public class Logfile {
 		String str = null;
 		String str2;
 		try {
-			// For speed-testing purposed. Prints how many ms the parser needed for 10k lines.
-			if (lines == 0) {
-				first = System.currentTimeMillis();
-			}
-			if (lines % 10000 == 0) {
-				System.out.println(System.currentTimeMillis() - first);
-				first = System.currentTimeMillis();
-			} 
-			
+						
 			
 			str = br.readLine();
 						

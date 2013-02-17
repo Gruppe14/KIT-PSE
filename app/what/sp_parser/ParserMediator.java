@@ -1,10 +1,11 @@
 package what.sp_parser;
 
+import java.io.FileNotFoundException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 
-import controllers.Localize;
+import forTesting.Localize;
 
 import what.Printer;
 import what.sp_config.ConfigWrap;
@@ -44,7 +45,7 @@ public class ParserMediator {
 	/**
 	 * This variable indicates after how much idle time a thread gets killed. (seconds)
 	 */
-	private int watchTime = 1;
+	private int watchTime = 2;
 	
 	/**
 	 * The WatchDogTimer.
@@ -75,6 +76,11 @@ public class ParserMediator {
 	 * The DataMediator which loads the data into the warehouse.
 	 */
 	private DataMediator loader;
+	
+	/**
+	 * The error which occurred.
+	 */
+	private String error;
 	
 	/**
 	 * True if a fatalError occurred. Program will shut down.
@@ -108,13 +114,18 @@ public class ParserMediator {
 	 * <code>ParsingTask</code>.
 	 */
 	private boolean createThreadPool() {
-		
-		tasks = new ParsingTask[poolsize];
-		
-		if (poolsize < 1) {
+				
+		if (poolsize <= 1) {
 			error(Localize.getString("Error.10"));
 			return false;
+		}		
+		
+		if (poolsize > 50) {
+			error(Localize.getString("Error.20"));
+			return false;
 		}
+
+		tasks = new ParsingTask[poolsize];
 						
 		for (int i = 0; i < poolsize; i++) {
 			tasks[i] = new ParsingTask(this, i);
@@ -142,9 +153,7 @@ public class ParserMediator {
 		
 		usedFile = new Logfile(path, this);
 		
-			
-		wdt.initialize(this);
-		
+					
 		if (fatalError) {
 			return false;
 		}
@@ -158,6 +167,9 @@ public class ParserMediator {
 		if (!GeoIPTool.setUpIpTool(this)) {
 			return false;
 		}
+		
+
+		wdt.initialize(this);
 		
 		//Submits all threads to the pool and starts them.
 		for (int i = 0; i < poolsize; i++) {
@@ -195,8 +207,11 @@ public class ParserMediator {
 					return false;
 				}
 			}
-
-			wdt.check(this);
+			
+			if (finishedTasks < poolsize) {
+				System.out.println("es macht was");
+				wdt.check(this);
+			}
 		}
 		
 
@@ -218,7 +233,8 @@ public class ParserMediator {
 	 * @param err
 	 */
 	protected void error(String err) {
-		Printer.print(err);		
+		Printer.print(err);	
+		error = err;
 		fatalError = true;
 	}
 
@@ -238,7 +254,7 @@ public class ParserMediator {
 		
 		linesDeleted++;
 		
-		System.out.println(Localize.get("Warning.10P1") + " " + linesDeleted + " " + Localize.getString("Warning.10P2"));
+		System.out.println(Localize.getString("Warning.10P1") + " " + linesDeleted + " " + Localize.getString("Warning.10P2"));
 		
 			
 	}
@@ -258,7 +274,9 @@ public class ParserMediator {
 	 * @param poolsize the poolsize to set
 	 */
 	public void setPoolsizeParsing(int poolsize) {
+		
 		this.poolsize = poolsize;
+		
 	}
 
 
@@ -272,22 +290,26 @@ public class ParserMediator {
 	/**
 	 * @return the poolsize
 	 */
-	protected int getPoolsize() {
+	public int getPoolsize() {
 		return poolsize;
 	}
 
 	/**
 	 * @return the watchtime
 	 */
-	protected int getWatchTime() {
+	public int getWatchTime() {
 		return watchTime;
 	}
 
 	/**
 	 * @return the watchdogtimer
 	 */
-	protected WatchDogTimer getWatchDog() {
+	public WatchDogTimer getWatchDog() {
 		return wdt;		
+	}
+	
+	public Logfile getLogfile() {
+		return usedFile;
 	}
 
 
@@ -295,7 +317,15 @@ public class ParserMediator {
 		ParsingTask newTask = new ParsingTask(this, i);
 		threadPool.submit(newTask);
 		tasks[i] = newTask;
-		System.out.println("geht");
+	}
+
+
+	public int getFinishedTasks() {
+		return finishedTasks;
+	}
+	
+	public String getError() {
+		return error;
 	}
 	
 	
