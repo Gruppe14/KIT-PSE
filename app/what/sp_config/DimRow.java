@@ -2,6 +2,10 @@ package what.sp_config;
 
 //java imports
 import java.util.ArrayList;
+import java.util.TreeSet;
+
+// intern imports
+import what.sp_data_access.MySQLAdapter;
 
 /**
  * This class represents a dimension in the warehouse, 
@@ -25,6 +29,9 @@ public class DimRow {
 	 * the strings for the selection boxes on the web page.
 	 */
 	private Object strings; // TODO wrap behind tree structure
+	
+	/** The trees with the content in the warehouse for this dimension. */
+ 	private TreeSet<DimKnot> trees = new TreeSet<DimKnot>(); 
 	
 	// -- LOCATION DIM -- LOCATION DIM -- LOCATION DIM -- 
 	// static Strings for the standard names
@@ -79,6 +86,20 @@ public class DimRow {
 		return true;
 	}
 	
+	/**
+	 * Adds a DimKnot to the collection of trees.
+	 * 
+	 * @param dk DimKnot to be added
+	 * @return whether adding was successful
+	 */
+	public boolean addTree(DimKnot dk) {
+		if (dk == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		return trees.add(dk);		
+	}
+	
 	// -- CHECKER -- CHECKER -- CHECKER -- CHECKER -- CHECKER --
 	/**
 	 * Returns whether this is a dimension (and not just a row (measure)).
@@ -122,8 +143,7 @@ public class DimRow {
 	private boolean isNotEmpty() {
 		return (getSize() > 0);
 	}
-	
-	
+		
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 
 	/**
 	 * Returns the size of this DimRow, which is the number of 
@@ -190,6 +210,25 @@ public class DimRow {
 		return rows.get(i).getId();
 	}
 	
+	/**
+	 * Returns the row of this dimension with the given name.
+	 * 
+	 * @param name String as the name for the row which is requested
+	 * @return the row of this dimension with the given name
+	 */
+	public RowEntry getRowEntryFor(String name) {
+		if (name == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		for (RowEntry r : rows) {
+			if (r.getName().equalsIgnoreCase(name)) {
+				return r;
+			}
+		}
+		return null;
+	}
+	
 	// >> GETTER for the static DimRow location
 	/**
 	 * Returns a DimRow for location.
@@ -229,7 +268,7 @@ public class DimRow {
 		
 		return strings;
 	}
-	
+		
 	// >> GETTER for the SQL + WAREHOUSE
 	/**
 	 * Returns the table name in the warehouse of this dimension,
@@ -239,7 +278,7 @@ public class DimRow {
 	 */
 	public String getDimTableName() {
 		if (isDimension()) {
-			return JSONReader.DIM_TABLE + getName();
+			return MySQLAdapter.DIM_TABLE + getName();
 		}
 		return null;
 	}
@@ -252,7 +291,7 @@ public class DimRow {
 	 */
 	public String getTableKey() {
 		if (isDimension()) {
-			return getName() + JSONReader.KEY_TABLE;
+			return getName() + MySQLAdapter.KEY_TABLE;
 		}
 		return null;
 	}
@@ -284,7 +323,29 @@ public class DimRow {
 			throw new IllegalArgumentException();
 		}
 		
-		return JSONReader.ROW_TABLE + rows.get(i).getName();
+		return rows.get(i).getColumnName();
+	}
+	
+	/**
+	 * Returns the row name of the row at position i.<br>
+	 * This is the name of the row in the warehouse.
+	 * 
+	 * @param i the position of the row for which the row name is requested
+	 * @return the row name in the warehouse of the row at position i
+	 */
+	public int getLevelOfRow(String s) {
+		if (s == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		int level = -1;
+		for (int i = 0, l = getSize(); i < l; i++) {
+			if (rows.get(i).getName().equalsIgnoreCase(s)) {
+				return i;
+			}
+		}
+		
+		return level;
 	}
 	
 	// -- OVERRIDES -- OVERRIDES -- OVERRIDES -- OVERRIDES --	
@@ -292,5 +353,9 @@ public class DimRow {
 	public String toString() {
 		return "DimRow [name= " + getName() +", size= " + getSize() + "]";
 	}
+
+	
+	
+
 	
 }

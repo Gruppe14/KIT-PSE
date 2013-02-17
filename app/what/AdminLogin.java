@@ -2,6 +2,7 @@ package what;
 
 import controllers.Localize;
 import play.data.validation.Constraints.Required;
+
 /**
  * Class to help with login form and validation
  * @author Lukas Ehnle

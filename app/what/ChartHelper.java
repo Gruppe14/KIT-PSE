@@ -115,7 +115,7 @@ public class ChartHelper {
 	}
 	
 	/**
-	 * build a single option recursivly
+	 * build a single option recursively
 	 * @param o the object given
 	 * @return returns a html string containing the options
 	 */

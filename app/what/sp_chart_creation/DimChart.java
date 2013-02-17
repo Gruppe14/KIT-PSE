@@ -1,15 +1,19 @@
 package what.sp_chart_creation;
 
-// java imports
-import java.util.HashMap;
-import java.util.TreeSet;
+// JSON imports
+import java.util.ArrayList;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import what.Printer;
+// intern imports
 
 /**
  * A chart with 1 dimension and a measure.<br>
  * 
  * @author Jonathan, PSE Group 14
+ * @see ChartMediator
  */
 public class DimChart {
 	
@@ -17,28 +21,19 @@ public class DimChart {
 	private JSONObject json;
 
 	/** The chart type of this DimChart. */
-	private String chartType;
+	private final String chartType;
 	
 	/** x axis of this DimChart */
-	private String x;
+	private final String x;
 	
 	/** name of the table of the x-axis of this DimChart */
-	private String xTable;
-	
-	/** category of the x axis of this DimChart */
-	private String xCategory;
-	
+	private final Filter xFilter;
+		
 	/** measure of this DimChart */
-	private String measure;
-	
-	/** start time for request */
-	private int[] from;
-	
-	/** end time for request */
-	private int[] to;
+	private final String measure;
 	
 	/** Map of filters. */
-	private HashMap<String, TreeSet<String>> filters;
+	private final ArrayList<Filter> filters;
 	
 	/**
 	 * Protected constructor for a 2 dimension chart.
@@ -52,26 +47,32 @@ public class DimChart {
 	 * @param start start time for request
 	 * @param end end time for request
 	 */
-	protected DimChart(String chartType, String x, String xTable, String xCategory,String measure, HashMap<String, TreeSet<String>> filterSets, int[] start, int[] end) {
+	protected DimChart(String chartType, String x, Filter xFilter, String measure, ArrayList<Filter> filters) {
+		
 		assert (chartType != null);
 		assert (x != null);
-		assert (xTable != null);
-		assert (xCategory != null);
+		assert (xFilter != null);
 		assert (measure != null);
-		assert (filterSets != null);
-		assert ((start != null) && (start.length == 5));
-		assert ((end != null) && (end.length == 5));
-		
+		assert (filters != null);
+			
 		this.chartType = chartType;
 		this.x = x;
-		this.xTable= xTable;
-		this.xCategory = xCategory;
+		this.xFilter= xFilter;
 		this.measure = measure;
-		this.filters = filterSets;
-		this.from = start;
-		this.to = end;		
+		this.filters = filters;	
 	}
 	
+	// -- CHECKER -- CHECKER -- CHECKER -- CHECKER -- CHECKER -- 
+	/**
+	 * Returns whether the chart JSONObject is exists.
+	 * 
+	 * @return whether the chart JSONObject is exists
+	 */
+	protected boolean hasJSON() {
+		return (json != null);
+	}
+	
+	// -- SETTER -- SETTER -- SETTER -- SETTER -- SETTER -- 
 	/**
 	 * Sets the JSONObject for this DimChart
 	 * @param j
@@ -79,74 +80,98 @@ public class DimChart {
 	protected void setJSON(JSONObject j) {
 		this.json = j;
 	}
-	
+		
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 
 	/**
-	 * @return the json
+	 * Returns the chart JSONObject of this DimChart.
+	 * May be null if not initialized yet.
+	 * 
+	 * @return the chart JSONObject of this DimChart 
 	 */
 	protected JSONObject getJson() {
 		return json;
 	}
 
 	/**
-	 * @return the chartType
+	 * Returns the chart type of this DimChart.
+	 * 
+	 * @return the chart type of this DimChart
 	 */
 	protected String getChartType() {
 		return chartType;
 	}
 
 	/**
-	 * @return the x
+	 * Returns the x-axis.
+	 * 
+	 * @return the x-axis
 	 */
-	protected String getX() {
+	public String getX() {
 		return x;
 	}
 
 	/**
+	 * Returns the x Filter.
+	 * 
+	 * @return the x Filter
+	 */
+	public Filter getXFilter() {
+		return xFilter;
+	}
+	
+	/**
+	 * Returns the column of x in the warehouse.
+	 * 
+	 * @return the column of x in the warehouse
+	 */
+	public String getXColumn() {
+		return x; // TODO
+	}
+	
+	/**
+	 * Returns the measure of this DimChart.
+	 * 
 	 * @return the measure
 	 */
-	protected String getMeasure() {
+	public String getMeasure() {
 		return measure;
 	}
-
+	
 	/**
-	 * @return the from
+	 * Returns the array of Filters from this DimChart.
+	 * 
+	 * @return the array of Filters
 	 */
-	protected int[] getFrom() {
-		return from;
-	}
-
-	/**
-	 * @return the to
-	 */
-	protected int[] getTo() {
-		return to;
-	}
-
-	/**
-	 * @return the filters
-	 */
-	protected HashMap<String, TreeSet<String>> getFilters() {
+	public ArrayList<Filter> getFilters() {
 		return filters;
 	}
 
 	
-
+	// -- WORKING -- WORKING -- WORKING -- WORKING -- WORKING -- 
 	/**
-	 * @return the xTable
+	 * Puts all additional information needed in the given JSONObject,
+	 * which should be the chart JSONObject for this chart.
+	 * 
+	 * @param j JSONObject (chart) in which more information will be put
+	 * @return whether putting information was successful
 	 */
-	public String getxTable() {
-		return xTable;
-	}
-
-	/**
-	 * @return the xCategorie
-	 */
-	public String getxCategory() {
-		return xCategory;
-	}
-
-
-	
+	public boolean putAdditionalInformation(JSONObject j) {
+		assert (j != null);
 		
+		// TODO anything more to put?
+		
+		try {
+			j.put("chartType", getChartType());
+		} catch (JSONException e) {
+			Printer.pproblem("Putting chart type into JSONObject.");
+			return false;
+		}
+		
+		return true;
+	}
+
+
+
+
+
 }

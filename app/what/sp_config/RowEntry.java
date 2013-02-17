@@ -1,5 +1,7 @@
 package what.sp_config;
 
+// intern imports
+import what.sp_data_access.MySQLAdapter;
 import what.sp_parser.DataEntry;
 
 /**
@@ -15,6 +17,53 @@ import what.sp_parser.DataEntry;
  * @see ParserMediator
  */
 public abstract class RowEntry {
+	
+	// -- STATIC STRINGS -- STATIC STRINGS -- STATIC STRINGS --
+	/** 
+	 * Static Strings for a specific type of a field/row in the .json configuration file 
+	 * @see RowEntry
+	 * @see RowId
+	 * @see IntRow
+	 */
+	protected static final String TYPE_INT = "INT";
+	
+	/** 
+	 * Static Strings for a specific type of a field/row in the .json configuration file 
+	 * @see RowEntry
+	 * @see RowId
+	 * @see DoubleRow
+	 */
+	protected static final String TYPE_DOUBLE = "DOUBLE";
+	
+	/** 
+	 * Static Strings for a specific type of a field/row in the .json configuration file 
+	 * @see RowEntry
+	 * @see RowId
+	 * @see StringRow
+	 */
+	protected static final String TYPE_STRING = "STRING";
+	
+	/** 
+	 * Static Strings for a specific type of a field/row in the .json configuration file 
+	 * @see RowEntry
+	 * @see RowId
+	 * @see IpLocationRow
+	 */
+	protected static final String TYPE_LOCATION = "IP";
+	
+	/** Static Strings for a specific type of a field/row in the .json configuration file 
+	 * @see RowEntry
+	 * @see RowId
+	 * @see StringMapRow
+	 */
+	protected static final String TYPE_STRINGMAP = "STRINGMAP";
+	
+	/** Static Strings for a specific type of a field/row in the .json configuration file 
+	 * @see RowEntry
+	 * @see RowId
+	 * @see DummyRow
+	 */
+	protected static final String TYPE_DUMMY = "NULL";	
 	
 	// -- ATTRIBUTES -- ATTRIBUTES -- ATTRIBUTES -- ATTRIBUTES --
 	/**
@@ -53,6 +102,8 @@ public abstract class RowEntry {
 	 */
 	private final String scale;
 	
+	private final String columnName;
+	
 	// -- CONSTRUCTOR -- CONSTRUCTOR -- CONSTRUCTOR -- CONSTRUCTOR --
 	/**
 	 * Constructor for a RowEntry.
@@ -78,8 +129,16 @@ public abstract class RowEntry {
 		this.scale = scale;
 		
 		this.id = id;
+		
+		columnName = generateColumnName(name);
 	}
 	
+	private static String generateColumnName(String name) {
+		// TODO ensure that  / . _ space ist not in the name; 
+		
+		return MySQLAdapter.ROW_TABLE + name;
+	}
+
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 
 	/**
 	 * Returns the name.
@@ -146,6 +205,15 @@ public abstract class RowEntry {
 	 */
 	public abstract String getTableType();
 	
+	/**
+	 * Returns the column name in the warehouse for this row.
+	 * 
+	 * @return the columnName in the warehouse for this row
+	 */
+	public String getColumnName() {
+		return columnName;
+	}
+	
 	// -- PARSER STRATEGIE -- PARSER STRATEGIE -- PARSER STRATEGIE --
 	/**
 	 * Splits the given String and stores it at the given location in the given DataEntry.
@@ -167,6 +235,9 @@ public abstract class RowEntry {
 				+ ", level=" + level + ", category=" + category + ", scale="
 				+ scale + "]\n";
 	}
+
+	
+
 	
 	
 }

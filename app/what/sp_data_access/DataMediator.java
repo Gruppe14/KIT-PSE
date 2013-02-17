@@ -1,4 +1,4 @@
-package what.sp_dataMediation;
+package what.sp_data_access;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -6,6 +6,9 @@ import java.util.TreeSet;
 
 import org.json.JSONObject;
 
+import what.sp_chart_creation.DimChart;
+import what.sp_chart_creation.Filter;
+import what.sp_chart_creation.TwoDimChart;
 import what.sp_config.ConfigWrap;
 import what.sp_config.DimRow;
 import what.sp_config.RowId;
@@ -21,9 +24,10 @@ import what.sp_parser.DataEntry;
  */
 public class DataMediator {
 	
-	/** Configuration on which this ChartMediator works on */
+	/** Configuration on which this ChartMediator works on. */
 	private ConfigWrap config;
-		
+	
+	/** MySQL adapter with which this DataMediator will work. */
 	private MySQLAdapter adapter;
 	
 	/**
@@ -36,6 +40,7 @@ public class DataMediator {
 		this.adapter = new MySQLAdapter(config);
 	}
 	
+	// -- ORGANIZE DATA -- ORGANIZE DATA -- ORGANIZE DATA -- ORGANIZE DATA --
 	/**
 	 * Organizes things after data got uploaded.<br>
 	 * Sets the String sets in the DimRows in the config and
@@ -76,6 +81,7 @@ public class DataMediator {
 				
 		return true;
 	}
+	
 	/**
 	 * Helper class returning a recursive HashMap extracted from a DimRow.
 	 * 
@@ -111,21 +117,7 @@ public class DataMediator {
 		return result;
 	}
 
-	/**
-	 * Requests strings for a given string from a given table.
-	 * 
-	 * @param rowName name of row
-	 * @param tableName name of table
-	 * @return strings for a given string from a given table
-	 */
-	private TreeSet<String> requestStringsOf(String rowName, String tableName) {
-		assert (rowName != null);
-		assert (tableName != null);
-		
-		return adapter.requestStringsOf(rowName, tableName);
-	}
-	
-
+	// -- LOADING REQUEST -- LOADING REQUEST -- LOADING REQUEST - LOADING REQUEST --
 	/**
 	 * Loads a collection of DataEntry into the warehouse.
 	 * 
@@ -154,6 +146,7 @@ public class DataMediator {
 		return adapter.loadEntry(tbl);
 	}
 	
+	// -- EXTRACTING REQUEST -- EXTRACTING REQUEST -- EXTRACTING REQUEST - EXTRACTING REQUEST --
 	/**
 	 * Returns a result set for a chart for given parameters
 	 * 
@@ -164,14 +157,57 @@ public class DataMediator {
 	 * @param filters a map of filters, consisting of key1 = value1 or key1 = value2 and key2 = value3
 	 * @return
 	 */
-	public JSONObject requestTwoDimJSON(String x, String xTable, String xKey, String measure, HashMap<String, TreeSet<String>> filters) {
-		return adapter.requestTable(x, xTable, xKey, measure, filters);
+	public JSONObject requestOneDimJSON(DimChart chart) {
+		if (chart == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		return adapter.requestOneDimTable(chart);
 	}
 
-
+	/**
+	 * Returns a result set for a chart for given parameters
+	 * 
+	 * @param x x-axis 
+	 * @param xTable table where x-axis is stored
+	 * @param xKey key of this 
+	 * @param measure the measure requested
+	 * @param filters a map of filters, consisting of key1 = value1 or key1 = value2 and key2 = value3
+	 * @return
+	 */
+	public JSONObject requestTwoDimJSON(TwoDimChart chart) {
+		if (chart == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		return adapter.requestTwoDimTable(chart);
+	}
+	
+	/**
+	 * Returns a TreeSet of strings of type child with parent as filter from the given table.
+	 * 
+	 * @param child type of child (like city) for that strings are requested
+	 * @param parentType the type of the parent (like country) for which gets filtered 
+	 * @param parentFilter parent for which gets filtered (like Germany)
+	 * @param table table in which child and parent are stored
+	 * @return a TreeSet of strings of type child with parent as filter
+	 */
 	public TreeSet<String> requestStringsWithParent(String child, String parentType, String parentFilter, String table) {
 		return adapter.requestStringsWithParent(child, parentType, parentFilter, table);
 	}
 	
+	/**
+	 * Requests strings for a given string from a given table.
+	 * 
+	 * @param rowName name of row
+	 * @param tableName name of table
+	 * @return strings for a given string from a given table
+	 */
+	private TreeSet<String> requestStringsOf(String rowName, String tableName) {
+		assert (rowName != null);
+		assert (tableName != null);
+		
+		return adapter.requestStringsOf(rowName, tableName);
+	}
 
 }

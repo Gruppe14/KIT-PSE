@@ -11,7 +11,7 @@ import what.sp_config.ConfigWrap;
 import what.sp_config.DimRow;
 import what.sp_parser.ParserMediator;
 import what.sp_chart_creation.ChartMediator;
-import what.sp_dataMediation.DataMediator;
+import what.sp_data_access.DataMediator;
 
 /**
  * This class Facade represents a facade.<br>

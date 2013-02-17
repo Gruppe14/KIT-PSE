@@ -1,5 +1,7 @@
 package what.sp_config;
 
+import what.JSONReader;
+
 /**
  * Enumeration class wrapping Strings for
  * specific row types, making it easier
@@ -11,15 +13,16 @@ package what.sp_config;
  * @see JSONReader
  */
 public enum RowId {
-	INT(JSONReader.TYPE_INT), DOUBLE(JSONReader.TYPE_DOUBLE), 
-	LOCATION(JSONReader.TYPE_LOCATION), STRING(JSONReader.TYPE_STRING), 
-	STRINGMAP(JSONReader.TYPE_STRINGMAP), DUMMY(JSONReader.TYPE_DUMMY);
+	
+	INT(RowEntry.TYPE_INT), DOUBLE(RowEntry.TYPE_DOUBLE), 
+	LOCATION(RowEntry.TYPE_LOCATION), STRING(RowEntry.TYPE_STRING), 
+	STRINGMAP(RowEntry.TYPE_STRINGMAP), DUMMY(RowEntry.TYPE_DUMMY);
 
 	/** The String defining this RowId. */
 	private final String id;
 
 	/**
-	 * Priavte enum Constructor.
+	 * Private enumeration Constructor.
 	 * 
 	 * @param id String defining the RowId.
 	 */

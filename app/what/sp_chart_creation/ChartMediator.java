@@ -4,13 +4,12 @@ package what.sp_chart_creation;
 import java.util.LinkedList;
 
 // JSON imports
-import org.json.JSONException;
 import org.json.JSONObject;
 
 //intern imports
-import what.sp_config.JSONReader;
+import what.Printer;
 import what.sp_config.ConfigWrap;
-import what.sp_dataMediation.DataMediator;
+import what.sp_data_access.DataMediator;
 
 /**
  * A ChartMediator mediates a chart request.<br>
@@ -19,7 +18,6 @@ import what.sp_dataMediation.DataMediator;
  * which follows the visitor pattern. 
  * 
  * @author Jonathan, PSE Gruppe 14
- * @version 1.0
  *
  * @see ChartVisitor
  * @see DimChart
@@ -29,8 +27,13 @@ public class ChartMediator {
 	/** Configuration on which this ChartMediator works on */
 	private ConfigWrap config;
 	
+	/** The DataMediator with which this ChartMediator works. */
 	private DataMediator dataMedi;
 	
+	/** The ChartHostBuilder with which this ChartMediator works. */
+	private ChartHostBuilder builder;
+	
+	/** The maximal size of the history. */
 	private int maxSizeHistory = 10;
 	
 	
@@ -40,7 +43,7 @@ public class ChartMediator {
 	/**
 	 * Public constructor for a ChartMediator.
 	 * 
-	 * @param confi config on which work bases
+	 * @param confi configuration on which work bases
 	 * @param dataMedi DataMediator to which it must connect
 	 */
 	public ChartMediator(ConfigWrap confi, DataMediator dataMedi) {
@@ -54,9 +57,11 @@ public class ChartMediator {
 		
 		this.config = confi;
 		this.dataMedi = dataMedi;
+		
+		this.builder = new ChartHostBuilder(config);
 	}
 	
-// -------- Handling of a Chart request -------------------------------
+	// -- CHART REQUEST -- CHART REQUEST -- CHART REQUEST -- CHART REQUEST --
 	/**
 	 * Computes a chart for the given parameters.<br>
 	 * 
@@ -72,76 +77,60 @@ public class ChartMediator {
 		}
 		
 		// get a chart host
-		DimChart host = ChartHelper.getChartHost(json);
-		System.out.println("Chart created!");
-		if (host == null) {
-			System.out.println("ERROR: Creating chart host failed!");
+		DimChart chart = builder.getChartHost(json);
+		if (chart == null) {
+			Printer.pfail("Creating chart host.");
 			return null;
+		} else {
+			Printer.psuccess("Creating chart host.");
 		}
 		
-		computeFileFor(host);
+		// compute the JSON chart for it
+		if (computeJSONFor(chart)) {
+			addToHistory(chart);
+			return chart.getJson();
+		}
 
-		
-		
-		// add to history, may be improved
-		addToHistory(host);
-		
-		
-		return host.getJson();
+		return null;
 	}
 
 	/**
-	 * Computes the file for the given chart and stores it in it.
-	 * @param chart DimChart for which the 
+	 * Computes the JSONObject for the given chart and stores it in it.
+	 * 
+	 * @param chart DimChart for which the JSONObject will be created
 	 */
-	private void computeFileFor(DimChart chart) {
+	private boolean computeJSONFor(DimChart chart) {
 		assert (chart != null);
 		
+		JSONObject j;
 		if (chart instanceof TwoDimChart) {
-			// TODO
+			j = dataMedi.requestTwoDimJSON((TwoDimChart) chart);
 		} else {
-			String xKey = config.getTableKeyFor(chart.getxCategory());
-			
-			String x = chart.getX();
-			
-			// check if just a category is selected
-			if (!(x.contains(JSONReader.ROW_TABLE))) {
-				if (config.isCategorie(x)) {
-					x = config.getHighestRowFor(x);
-				}
-			}
-			
-			
-			
-			
-
-			JSONObject j = dataMedi.requestTwoDimJSON(x, chart.getxTable(), xKey, chart.getMeasure(), chart.getFilters());
-			if (j == null) {
-				System.out.println("ERROR: No JSONObject retruned for chart request.");
-			}
-			try {
-				j.put("chartType", chart.getChartType());
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			chart.setJSON(j);
-			
+			j = dataMedi.requestOneDimJSON(chart);
 		}
 		
+		if (j == null) {
+			Printer.pfail("No JSONObject returned for chart request.");
+			return false;
+		}
+		
+		if (chart.putAdditionalInformation(j)) {
+			chart.setJSON(j);
+		}
+		
+		return true;		
 	}
 
 	// -- REQUEST HISTORY -- REQUEST HISTORY -- REQUEST HISTORY --
 	/**
-	 * Returns the json-file of a requested chart from the history.<br>
+	 * Returns the JSONObject of a requested chart from the history.<br>
 	 * 
-	 * Referring to the given number a chart from the history is returened.
+	 * Referring to the given number a chart from the history is returned.
 	 * Thereby the a lower number indicates a later chart.
 	 * E.g. 1 stands for the newest one, 6 for the 6 latest. 
 	 * 
 	 * @param number number of the latest computed chart, range from 1 (latest) to 10 (oldest)
-	 * @return the json-file of the requested chart from the history, referring to the number
+	 * @return the JSONObject of the requested chart from the history, referring to the number
 	 */
 	public JSONObject getHistoryChart(int number) {
 		if ((number <= 0) || (number > getMaxSizeOfHistory() )) {

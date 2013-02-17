@@ -1,8 +1,8 @@
 package what.sp_chart_creation;
 
-//java imports
-import java.util.HashMap;
-import java.util.TreeSet;
+import java.util.ArrayList;
+
+//intern imports
 
 /**
  * A chart with 2 dimensions and a measure.<br>
@@ -17,11 +17,8 @@ public class TwoDimChart extends DimChart {
 	private String y;
 	
 	/** name of the table of the y-axis of this TwoDimChart */
-	private String yTable;
+	private Filter yFilter;
 	
-	/** category of the y axis of this TwoDimChart */
-	private String yCategory;
-
 	/**
 	 * Protected constructor for a 2 dimension chart.
 	 * 
@@ -37,32 +34,16 @@ public class TwoDimChart extends DimChart {
 	 * @param start start time for request
 	 * @param end end time for request
 	 */
-	protected TwoDimChart(String chartType, String x, String xTable, String xCategory, String y, String yTable, String yCategory, String measure, HashMap<String,TreeSet<String>> filterSets, int[] start, int[] end) {
-		super(chartType, x, xTable, xCategory, measure, filterSets, start, end);
+	protected TwoDimChart(String chartType, String x, Filter xFilter, String y, Filter yFilter, String measure, ArrayList<Filter> filters) {
+		super(chartType, x, xFilter, measure, filters);
+		
+		assert (yFilter != null);
+		assert (y != null);
+		
 		this.y = y;		
-		this.yCategory = yCategory;
-		this.yTable = yTable;
-
+		this.yFilter = yFilter;
 	}
 	
-	/**
-	 * Returns the y-axis table.
-	 * 
-	 * @return the yTable
-	 */
-	protected String getyTable() {
-		return yTable;
-	}
-
-	/**
-	 * Returns the y-axis category.
-	 * 
-	 * @return the yCategory
-	 */
-	protected String getYCategory() {
-		return yCategory;
-	}
-
 	/**
 	 * Returns the y-axis.
 	 * 
@@ -72,4 +53,12 @@ public class TwoDimChart extends DimChart {
 		return y;
 	}
 
+	/**
+	 * Returns the y Filter.
+	 * 
+	 * @return the y Filter
+	 */
+	protected Filter getYFilter() {
+		return yFilter;
+	}
 }
