@@ -27,8 +27,8 @@ import what.sp_config.RowEntry;
  */
 public class ChartHostBuilder {
 	
-	public static final String JSON_COUNT = "# of accesses";
-	public static final String JSON_COUNT_SQL = "count(*)";
+	
+	
 	
 	public static final String JSON_FILTER = "filter";
 	
@@ -36,7 +36,12 @@ public class ChartHostBuilder {
 	
 	public static final String JSON_X = "x";
 	public static final String JSON_Y = "y";
+	public static final String JSON_X_DIM = "xDim";
+	public static final String JSON_Y_DIM = "yDim";
+	
 	public static final String JSON_MEASURE = "measures";
+	public static final String JSON_AGGREGATION = "aggregation";
+	public static final String JSON_COUNT = "# of accesses";
 	
 	public static final String JSON_ALL = "all";
 	
@@ -105,38 +110,48 @@ public class ChartHostBuilder {
 		// getting basic fields
 		String chartType = reader.getString(JSON_CHART_TYPE);
 		String x = reader.getString(JSON_X);		
+		String xDim = reader.getString(JSON_X_DIM);
 		String measure = reader.getString(JSON_MEASURE);
+		String aggregation = reader.getString(JSON_AGGREGATION);
 		if (chartType == null) {
 			Printer.pproblem("Chart type not found.");
 			chartType = ConfigWrap.NOT_AVAILABLE;
 		}
-		if ((x == null) || (measure == null)) {
+		if ((x == null) || (xDim == null) || (measure == null) || (aggregation == null)) {
 			Printer.pfail("Get basic field for DimChart.");
 			return null;
 		}
 		
+		// create the measure
+		Measure msr = getMeasure(measure, aggregation);
+		if (msr == null) {
+			Printer.pfail("Get measure.");
+			return null;
+		}
+		
 		// create x-Filter
-		Filter xFilter = getFilterFor(x, reader);
+		Filter xFilter = getFilterFor(xDim, reader);
 		if (xFilter == null) {
 			Printer.pfail("Get x filter.");
 			return null;
 		}
 		
-		// TODO change X to the right thing that is requested! not the category!!!!
 		
 		// create y-Filter
 		boolean hasY = json.has(JSON_Y);
 
 		String y = null;
+		String yDim = null;
 		Filter yFilter = null;
 		if (hasY) {
 			y = reader.getString(JSON_Y);
-			if (y == null) {
+			yDim = reader.getString(JSON_Y_DIM);
+			if ((y == null) || (yDim == null)) {
 				Printer.pfail("Get y field for DimChart.");
 				return null;
 			}
 			
-			yFilter = getFilterFor(y, reader);
+			yFilter = getFilterFor(yDim, reader);
 			if (yFilter == null) {
 				Printer.pfail("Get y filter.");
 				return null;
@@ -152,12 +167,24 @@ public class ChartHostBuilder {
 
 		// create the DimCharts
 		if(hasY) {
-			return new TwoDimChart(chartType, x, xFilter, y, yFilter, measure, filters);
+			return new TwoDimChart(chartType, x, xFilter, y, yFilter, msr, filters);
 		} else {
-			return new DimChart(chartType, x, xFilter, measure, filters);
+			return new DimChart(chartType, x, xFilter, msr, filters);
 		}
 	}
 
+
+	private Measure getMeasure(String measure, String aggregation) {
+		assert (measure != null);
+		
+		RowEntry row = config.getRowEntryFor(measure);
+		if (row == null) {
+			Printer.pfail("Getting row for measure: " + measure);
+			return null;
+		}
+		
+		return Measure.getMeasure(aggregation, row);
+	}
 
 	// -- FILTER -- FILTER -- FILTER -- FILTER -- FILTER -- FILTER --
 	// filter summary method

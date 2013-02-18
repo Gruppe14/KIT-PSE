@@ -632,6 +632,28 @@ public class ConfigWrap {
 	}
 	
 	/**
+	 * Returns the RowEntry with the name of the given String.
+	 * 
+	 * @param s name of the RowEntry which is searched
+	 * @return the RowEntry with the name of the given String
+	 */
+	public RowEntry getRowEntryFor(String s) {
+		if (s == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		RowEntry row = null;
+		for (DimRow d : dimRows) {
+			row = d.getRowEntryFor(s);
+			if (row != null) {
+				return row;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
 	 * Return the table key (in the warehouse) of a dimension
 	 * for a given String, which refers to a dimension name.
 	 * If non is found or it refers to a non-dimension DimRow
@@ -683,7 +705,6 @@ public class ConfigWrap {
 		return null;
 	}
 	
-	
 	/**
 	 * Returns the row name for the highest level for a dimension
 	 * containing x as category or row
@@ -706,6 +727,7 @@ public class ConfigWrap {
 			
 		return null;
 	}
+	
 	// -- OVERRIDES -- OVERRIDES -- OVERRIDES -- OVERRIDES --	
 	@Override
 	public String toString() {

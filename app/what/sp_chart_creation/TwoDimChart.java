@@ -45,7 +45,7 @@ public class TwoDimChart extends DimChart {
 	 * @param start start time for request
 	 * @param end end time for request
 	 */
-	protected TwoDimChart(String chartType, String x, Filter xFilter, String y, Filter yFilter, String measure, ArrayList<Filter> filters) {
+	protected TwoDimChart(String chartType, String x, Filter xFilter, String y, Filter yFilter, Measure measure, ArrayList<Filter> filters) {
 		super(chartType, x, xFilter, measure, filters);
 		
 		assert (yFilter != null);
@@ -79,8 +79,7 @@ public class TwoDimChart extends DimChart {
 	 * @return the column of y in the warehouse
 	 */
 	private String getYColumn() {
-		// TODO Auto-generated method stub
-		return null;
+		return getYFilter().getDimension().getRowEntryFor(getY()).getColumnName();
 	}
 	
 	@Override
@@ -128,7 +127,7 @@ public class TwoDimChart extends DimChart {
 		JSONObject json = new JSONObject();
 		String x = getX();
 		String y = getY();
-		String m = getMeasure();
+		String m = getMeasure().getName();
 		try {
 			json.put(ATT1, x);
 			json.put(ATT2, y);
