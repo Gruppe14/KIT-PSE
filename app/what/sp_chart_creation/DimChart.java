@@ -41,9 +41,9 @@ public class DimChart {
 	private final Filter xFilter;
 		
 	/** measure of this DimChart */
-	private final String measure;
+	private final Measure measure;
 	
-	/** Map of filters. */
+	/** List of filters. */
 	private final ArrayList<Filter> filters;
 	
 	/**
@@ -53,13 +53,12 @@ public class DimChart {
 	 * @param x x-axis
 	 * @param xTable table of x-axis
 	 * @param xCategorie category of x-axis
-	 * @param measure measures like sum(*), rows, ...
+	 * @param measure Measure of this chart
 	 * @param filterSets a Map containing filters
 	 * @param start start time for request
 	 * @param end end time for request
 	 */
-	protected DimChart(String chartType, String x, Filter xFilter, String measure, ArrayList<Filter> filters) {
-		
+	protected DimChart(String chartType, String x, Filter xFilter, Measure measure, ArrayList<Filter> filters) {
 		assert (chartType != null);
 		assert (x != null);
 		assert (xFilter != null);
@@ -86,7 +85,8 @@ public class DimChart {
 	// -- SETTER -- SETTER -- SETTER -- SETTER -- SETTER -- 
 	/**
 	 * Sets the JSONObject for this DimChart
-	 * @param j
+	 * 
+	 * @param j the JSONObject of this chart
 	 */
 	protected void setJSON(JSONObject j) {
 		this.json = j;
@@ -206,7 +206,7 @@ public class DimChart {
 	 * @return the column of x in the warehouse
 	 */
 	private String getXColumn() {
-		return x; // TODO
+		return getXFilter().getDimension().getRowEntryFor(getX()).getColumnName();
 	}
 	
 	/**
@@ -214,7 +214,7 @@ public class DimChart {
 	 * 
 	 * @return the measure
 	 */
-	protected String getMeasure() {
+	protected Measure getMeasure() {
 		return measure;
 	}
 	
@@ -272,7 +272,7 @@ public class DimChart {
 		// create JSONObject and put first variables
 		JSONObject json = new JSONObject();
 		String x = getX();
-		String m = getMeasure();
+		String m = getMeasure().getName();
 		try {
 			json.put(ATT1, x);
 			json.put(ATT2, m);
