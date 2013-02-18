@@ -7,7 +7,6 @@ import java.util.TreeSet;
 import org.json.JSONObject;
 
 import what.sp_chart_creation.DimChart;
-import what.sp_chart_creation.Filter;
 import what.sp_chart_creation.TwoDimChart;
 import what.sp_config.ConfigWrap;
 import what.sp_config.DimRow;
@@ -117,6 +116,36 @@ public class DataMediator {
 		return result;
 	}
 
+	
+	/**
+	 * Organizes things after data got uploaded.<br>
+	 * Sets the String sets in the DimRows in the configuration and
+	 * tells the OLAP Cubes to prae-compute it's data new.
+	 * @return
+	 */
+	public boolean organizeData2() {
+		for (int i = 0, l = config.getNumberOfDims(); i < l; i++) {
+			getDimKnot(null, null, 0);
+		}
+				
+		return true;
+	}
+	
+	/**
+	 * Helper class returning a recursive HashMap extracted from a DimRow.
+	 * 
+	 * @param strings TreeSet as keys
+	 * @param d DimRow from which to extract
+	 * @param posi position in DimRow
+	 * @return a recursive HashMap extracted from a DimRow
+	 */
+	private HashMap<String, Object> getDimKnot(TreeSet<String> strings,	DimRow d, int posi) {
+		// TODO
+
+		return null;
+	}
+
+	
 	// -- LOADING REQUEST -- LOADING REQUEST -- LOADING REQUEST - LOADING REQUEST --
 	/**
 	 * Loads a collection of DataEntry into the warehouse.
@@ -148,39 +177,17 @@ public class DataMediator {
 	
 	// -- EXTRACTING REQUEST -- EXTRACTING REQUEST -- EXTRACTING REQUEST - EXTRACTING REQUEST --
 	/**
-	 * Returns a result set for a chart for given parameters
+	 * Returns whether the request for the given chart was successful.
 	 * 
-	 * @param x x-axis 
-	 * @param xTable table where x-axis is stored
-	 * @param xKey key of this 
-	 * @param measure the measure requested
-	 * @param filters a map of filters, consisting of key1 = value1 or key1 = value2 and key2 = value3
-	 * @return
+	 * @param chart DimChart on which the request is based and the result stored
+	 * @return whether the request for the given chart was successful
 	 */
-	public JSONObject requestOneDimJSON(DimChart chart) {
+	public boolean requestDimJSON(DimChart chart) {
 		if (chart == null) {
 			throw new IllegalArgumentException();
 		}
 		
-		return adapter.requestOneDimTable(chart);
-	}
-
-	/**
-	 * Returns a result set for a chart for given parameters
-	 * 
-	 * @param x x-axis 
-	 * @param xTable table where x-axis is stored
-	 * @param xKey key of this 
-	 * @param measure the measure requested
-	 * @param filters a map of filters, consisting of key1 = value1 or key1 = value2 and key2 = value3
-	 * @return
-	 */
-	public JSONObject requestTwoDimJSON(TwoDimChart chart) {
-		if (chart == null) {
-			throw new IllegalArgumentException();
-		}
-		
-		return adapter.requestTwoDimTable(chart);
+		return adapter.requestChartJSON(chart);
 	}
 	
 	/**

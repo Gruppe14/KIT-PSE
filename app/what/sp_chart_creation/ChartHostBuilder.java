@@ -366,7 +366,7 @@ public class ChartHostBuilder {
 		}	
 		
 	
-		return null;
+		return dk;
 	}
 
 	// -- TIME FILTER -- TIME FILTER -- TIME FILTER -- TIME FILTER --
@@ -444,78 +444,6 @@ public class ChartHostBuilder {
 
 		return ary;
 	}
-	
-	/*
-	private static String getLevel(String s, JSONObject json) {
-		assert (s != null);
-		assert (json != null);
-		
-		// get JSON Array with strings to filter for
-		JSONObject values;
-		try {
-			values = json.getJSONObject(s);
-		} catch (JSONException e) {
-			System.out.println("ERROR: Getting level for " + s + " not possible!");
-			e.printStackTrace();
-			return null;
-		} 
-		
-		int length = values.length();
-		for (int i = 0; i < length; i++) {
-			Object selected = null;
-			try {
-				s = values.getString(JSON_LVL);
-				selected = values.getJSONArray(JSON_SELEC);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			
-			
-			if (selected instanceof String) {
-				String sel = (String) selected;
-				if (sel.equalsIgnoreCase(JSON_ALL)) {
-					return s;
-				} else {
-					System.out.println("ERROR: Illegal statement for select: " + sel);
-				}
-			} else if (selected instanceof JSONArray) {
-				JSONArray array = (JSONArray) selected;
-				s = getLevelDeeper(array, s);
 
-				
-			} else {
-				System.out.println("ERROR: Illegal statement for select, neither string nor array.");
-			}
-		}
-		
-		return s;
-	}
-
-	private static String getLevelDeeper(JSONArray array, String s) {
-		assert (array != null);
-		assert (s != null);
-		
-		try {
-			if (array.get(0) instanceof String) {
-				return s;
-			} else if (array.get(0) instanceof JSONObject) {
-				for (int i = 0, l = array.length(); i < l; i ++) {
-					JSONObject obj = array.getJSONObject(i);
-					s = obj.getString(JSON_LVL);
-					String parent = obj.getString(JSON_PARENT);
-					JSONArray newArray = obj.getJSONArray(parent);
-					s = getLevelDeeper(newArray, s);
-				}
-				return s;
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-			System.out.println("ERROR: Reading filter array failed.");
-		}
-	
-		return s;
-	}*/
 }
 

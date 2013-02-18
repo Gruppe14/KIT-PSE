@@ -1,13 +1,19 @@
 package what.sp_chart_creation;
 
 // JSON imports
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
+// JSON imports
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+//intern imports
 import what.Printer;
-// intern imports
+import what.sp_data_access.MySQLAdapter;
 
 /**
  * A chart with 1 dimension and a measure.<br>
@@ -16,6 +22,11 @@ import what.Printer;
  * @see ChartMediator
  */
 public class DimChart {
+	
+	protected static final String ATT1 = "attribute1";
+	protected static final String ATT2 = "attribute2";
+	protected static final String ATT3 = "attribute3";
+	protected static final String DATA = "data";
 	
 	/** JSONObject storing this DimCharts representation for D3 */
 	private JSONObject json;
@@ -80,7 +91,7 @@ public class DimChart {
 	protected void setJSON(JSONObject j) {
 		this.json = j;
 	}
-		
+	
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 
 	/**
 	 * Returns the chart JSONObject of this DimChart.
@@ -93,11 +104,81 @@ public class DimChart {
 	}
 
 	/**
+	 * Returns the select statement of this chart.
+	 * 
+	 * @return the select statement of this chart
+	 */
+	public String getSelect() {
+		return getMeasure() + MySQLAdapter.KOMMA + getXColumn();
+	}
+	
+	/**
+	 * Returns the from/join statement of this chart.<br>
+	 * e.g.: "dim_time as timeID, filter1_table as f1" 
+	 * 
+	 * @return the from/join statement of this chart
+	 */
+	public String getTableQuery() {
+		return getXFilter().getTableQuery() + getFilterSelect();
+	}
+	
+	/**
+	 * Returns the key restrictions for this chart.<br>
+	 * e.g.: ft.xkey = xtable.xkey and ft.f1key = f1.table=f1key 
+	 * 
+	 * @param facttableShort the short of the fact table for: "ft.key"
+	 * @return the key restrictions for this chart
+	 */
+	public String getKeyRestrictions(String facttableShort) {
+		if (facttableShort == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		// ft.
+		String ft = facttableShort.trim() + MySQLAdapter.DOT;
+			
+		// x
+		String restri = ft + getXFilter().getTableKey() + MySQLAdapter.EQL + getXFilter().getKeyQuery();
+		
+		// filters
+		for (Filter f : getFilters()) {
+			restri += MySQLAdapter.AND + ft + f.getTableKey() + MySQLAdapter.EQL + f.getKeyQuery();
+		}
+				
+		return restri;
+	}
+	
+	/**
+	 * Returns the restrictions of this chart leaded by an AND.
+	 * 
+	 * @return the restrictions of this chart leaded by an AND
+	 */
+	public String getRestrictions() {
+		String restri = getXFilter().getRestrictions();
+
+		for (Filter f : getFilters()) {
+			restri += f.getRestrictions();
+		}
+		
+		return restri;
+	}
+	
+	/**
+	 * Returns the group by statement of this chart.
+	 * 
+	 * @return  the group by statement
+	 */
+	public String getGroupBy() {
+		return getXColumn();
+	}
+	
+	// GETTER >> private or protected
+	/**
 	 * Returns the chart type of this DimChart.
 	 * 
 	 * @return the chart type of this DimChart
 	 */
-	protected String getChartType() {
+	private String getChartType() {
 		return chartType;
 	}
 
@@ -106,7 +187,7 @@ public class DimChart {
 	 * 
 	 * @return the x-axis
 	 */
-	public String getX() {
+	protected String getX() {
 		return x;
 	}
 
@@ -115,7 +196,7 @@ public class DimChart {
 	 * 
 	 * @return the x Filter
 	 */
-	public Filter getXFilter() {
+	private Filter getXFilter() {
 		return xFilter;
 	}
 	
@@ -124,7 +205,7 @@ public class DimChart {
 	 * 
 	 * @return the column of x in the warehouse
 	 */
-	public String getXColumn() {
+	private String getXColumn() {
 		return x; // TODO
 	}
 	
@@ -133,7 +214,7 @@ public class DimChart {
 	 * 
 	 * @return the measure
 	 */
-	public String getMeasure() {
+	protected String getMeasure() {
 		return measure;
 	}
 	
@@ -146,6 +227,13 @@ public class DimChart {
 		return filters;
 	}
 
+	private String getFilterSelect() {
+		String select = "";
+		for (Filter f : getFilters()) {
+			select += MySQLAdapter.KOMMA + f.getTableQuery();
+		}
+		return select;
+	}
 	
 	// -- WORKING -- WORKING -- WORKING -- WORKING -- WORKING -- 
 	/**
@@ -169,6 +257,71 @@ public class DimChart {
 		
 		return true;
 	}
+
+	/**
+	 * Creates the JSONObject for this chart from
+	 * the given result set.
+	 * 
+	 * @param re ResultSet containing the information
+	 * @return whether it was successful
+	 */
+	public  boolean createJSONFromResultSet(ResultSet re) {
+		assert (re != null);
+		
+
+		// create JSONObject and put first variables
+		JSONObject json = new JSONObject();
+		String x = getX();
+		String m = getMeasure();
+		try {
+			json.put(ATT1, x);
+			json.put(ATT2, m);
+		} catch (JSONException e) {
+			Printer.perror("Putting into JSONObject.");
+			return false;
+		}
+		
+		// reading from ResultSet
+		JSONArray aray = null;
+		HashSet<JSONObject> sum = new HashSet<JSONObject>();
+		try {
+			while (re.next()) {
+				JSONObject a = new JSONObject();
+				a.put(x, re.getString(2));
+				a.put(m, re.getDouble(1));
+				sum.add(a);
+			}
+			aray = new JSONArray(sum);
+			json.put(DATA, aray);
+		} catch (SQLException e) {
+			Printer.perror("Reading from ResultSet.");
+			return false;
+		} catch (JSONException e) {
+			Printer.perror("Putting into JSONObject.");
+			return false;
+		}
+		
+		// additional information
+		if (!(putAdditionalInformation(json))) {
+			Printer.pproblem("Putting addiotnal information into JSONObject.");
+			return false;
+		}
+		
+		// success (?!)
+		Printer.psuccess("Creating JSON for chart from ResultSet.");
+		setJSON(json);
+		return true;
+	}
+
+	
+
+	@Override
+	public String toString() {
+		return "DimChart [chartType=" + chartType +  ", measure=" + measure + 
+				", x="+ x + ",  xFilter=" + xFilter 
+				+ ", filters=" + filters + "]";
+	}
+
 
 
 

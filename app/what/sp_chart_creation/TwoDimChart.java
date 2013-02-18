@@ -1,8 +1,19 @@
 package what.sp_chart_creation;
 
+// java imports
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
-//intern imports
+// JSON imports
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+// intern imports
+import what.Printer;
+import what.sp_data_access.MySQLAdapter;
 
 /**
  * A chart with 2 dimensions and a measure.<br>
@@ -60,5 +71,103 @@ public class TwoDimChart extends DimChart {
 	 */
 	protected Filter getYFilter() {
 		return yFilter;
+	}
+
+	/**
+	 * Returns the column of y in the warehouse.
+	 * 
+	 * @return the column of y in the warehouse
+	 */
+	private String getYColumn() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public String getSelect() {
+		return super.getSelect() + MySQLAdapter.KOMMA + getYColumn();
+	}
+	
+	@Override
+	public String getKeyRestrictions(String facttableShort) {
+		if (facttableShort == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		String restri = super.getKeyRestrictions(facttableShort);
+		
+		// ft.
+		String ft = facttableShort.trim() + MySQLAdapter.DOT;
+			
+		// x
+		restri += ft + getYFilter().getTableKey() + MySQLAdapter.EQL + getYFilter().getKeyQuery();
+		
+
+				
+		return restri;
+	}
+	
+	@Override
+	public String getRestrictions() {
+		String restri = super.getRestrictions();
+		
+		return restri + getYFilter().getRestrictions();
+	}
+
+	@Override
+	public String getGroupBy() {
+		return super.getGroupBy() +  MySQLAdapter.KOMMA + getYColumn();
+	}
+
+	@Override
+	public  boolean createJSONFromResultSet(ResultSet re) {
+		assert (re != null);
+		
+
+		// create JSONObject and put first variables
+		JSONObject json = new JSONObject();
+		String x = getX();
+		String y = getY();
+		String m = getMeasure();
+		try {
+			json.put(ATT1, x);
+			json.put(ATT2, y);
+			json.put(ATT3, m);
+		} catch (JSONException e) {
+			Printer.perror("Putting into JSONObject.");
+			return false;
+		}
+		
+		// reading from ResultSet
+		JSONArray aray = null;
+		HashSet<JSONObject> sum = new HashSet<JSONObject>();
+		try {
+			while (re.next()) {
+				JSONObject a = new JSONObject();
+				a.put(x, re.getString(2));
+				a.put(y, re.getString(3));
+				a.put(m, re.getDouble(1));
+				sum.add(a);
+			}
+			aray = new JSONArray(sum);
+			json.put(DATA, aray);
+		} catch (SQLException e) {
+			Printer.perror("Reading from ResultSet.");
+			return false;
+		} catch (JSONException e) {
+			Printer.perror("Putting into JSONObject.");
+			return false;
+		}
+		
+		// additional information
+		if (!(putAdditionalInformation(json))) {
+			Printer.pproblem("Putting addiotnal information into JSONObject.");
+			return false;
+		}
+		
+		// success (?!)
+		Printer.psuccess("Creating JSON for chart from ResultSet.");
+		setJSON(json);
+		return true;
 	}
 }

@@ -83,6 +83,7 @@ public class ChartMediator {
 			return null;
 		} else {
 			Printer.psuccess("Creating chart host.");
+			Printer.ptest(chart.toString());
 		}
 		
 		// compute the JSON chart for it
@@ -102,20 +103,9 @@ public class ChartMediator {
 	private boolean computeJSONFor(DimChart chart) {
 		assert (chart != null);
 		
-		JSONObject j;
-		if (chart instanceof TwoDimChart) {
-			j = dataMedi.requestTwoDimJSON((TwoDimChart) chart);
-		} else {
-			j = dataMedi.requestOneDimJSON(chart);
-		}
-		
-		if (j == null) {
-			Printer.pfail("No JSONObject returned for chart request.");
+		if (!(dataMedi.requestDimJSON(chart))) {
+			Printer.pfail("Executing chart request.");
 			return false;
-		}
-		
-		if (chart.putAdditionalInformation(j)) {
-			chart.setJSON(j);
 		}
 		
 		return true;		

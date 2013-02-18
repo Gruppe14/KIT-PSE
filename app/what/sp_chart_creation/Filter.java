@@ -164,38 +164,42 @@ public class Filter {
 	 * @return the query from part for this table
 	 */
 	public String getTableQuery() {
-		// returns the query part, if all is requested
+		return getTable() + MySQLAdapter.AS + getTableNickName();
+	}
+	
+	/**
+	 * Returns the restriction represented by this filter
+	 * in with AND and brackets.<b>
+	 * like that: AND ( MySQL part )
+	 * 
+	 * @return the restriction represented by this filter
+	 * 			or "" if nothing is to be filtered
+	 */
+	public String getRestrictions() {	
 		if (noFilter()) {
-			return getTable() + MySQLAdapter.AS + getTableNickName();
+			return "";
 		}
+		String query = MySQLAdapter.AND + MySQLAdapter.LBR; // (
 		
-		// ( SELECT *
-		String query = MySQLAdapter.LBR + MySQLAdapter.SELECT +  MySQLAdapter.ALL;
-		
-		// FROM table WHERE
-		query += MySQLAdapter.FROM + getTable() + MySQLAdapter.WHERE;
-		
-		// restrictions
-		query += MySQLAdapter.LBR; // (
 		DimKnot last = trees.last();
-		
 		for (DimKnot dk : trees) {
 			
-			query += dk.getQuery();
-			
+			query += dk.getQuery(getTableNickName());
+					
 			// more restrictions?
 			if (last != dk) {
 				query += MySQLAdapter.OR;
 			}
 		}
 		query += MySQLAdapter.RBR; // )
+				
 		
-		// AS table nick name
-		query +=  MySQLAdapter.AS + getTableNickName();
-		
-		return query;
+		return query;				
 	}
-
-
 	
+	
+	@Override
+	public String toString() {
+		return "\n>> Filter [dimension=" + dimension.getName() + ", all=" + all + ", trees=" + trees  + "]";
+	}
 }
