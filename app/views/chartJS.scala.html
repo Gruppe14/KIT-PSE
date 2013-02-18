@@ -46,7 +46,7 @@ function checkOptions() {
 		errOp.push($("#y").children(":first"));
 	}
 	//check wether a measure is selected
-	if ($("#measures").find(".selected").length == 0) {
+	if ($("#measures").find(".sub").children(".selected").length == 0) {
 		errOp.push($("#measures").children(":first"));
 	}
 	//remove old marked fields
@@ -188,10 +188,11 @@ function buildJson() {
 			}
 			json[op[0].id] = lvl;
 		// if it is a measure save selected measure
-		} else if(op.children(".list").hasClass("group")){
-			var sel = op.children(".list").find(".selected");
+		} else if(op.attr("id") == "measures"){
+			var sel = op.find(".sub").children(".selected");
 			//look in data attribute, if not found, take text
-			json[op[0].id] = typeof sel.attr("data") !== 'undefined' ? sel.attr("data") : sel.html();
+			json.measure = sel.parent().prev().attr("data");
+			json.aggregation = sel.attr("data");
 		}
 	}
 	return json;
@@ -235,7 +236,7 @@ $(document).ready(function() {
 	//register click function to all options
 	$(".options").find("span").click(function() {
 		var parent = $(this).parent();
-		var axes = $(this).parents(".axes");
+		var single = $(this).parents(".single");
 		//if the clicked option has sub selections
 		if($(this).next().hasClass('sub')) {
 			$(this).toggleClass("selected");
@@ -246,14 +247,14 @@ $(document).ready(function() {
 				parent.children(".selected").removeClass("selected");
 			}
 			$(this).toggleClass("selected");
-		//if no axes selection
-		} else if (axes.length == 0){ 
+		//if no single selection
+		} else if (single.length == 0){ 
 			$(this).toggleClass("selected");
 		}
-		//if axes selection
-		if (axes.length > 0 && parent.hasClass("sub")) {
+		//if single selection
+		if (single.length > 0 && parent.hasClass("sub")) {
 			if(!$(this).hasClass("selected")) {
-				axes.find(".sub:visible").children(".selected").removeClass("selected");
+				single.find(".sub:visible").children(".selected").removeClass("selected");
 			}
 			$(this).toggleClass("selected");
 		}

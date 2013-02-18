@@ -77,7 +77,7 @@ public class ChartHelper {
 		//create the html content
 		String html = "";
 		html += time();
-		html += axes(stringDim, name);
+		html += axis(stringDim, name);
 		html += measuresHtml(measures) + "<br />";
 		html += stringDimHtml(stringDim);
 		
@@ -88,7 +88,7 @@ public class ChartHelper {
 	 * method that creates the selection for the axes
 	 * @return returns the html string
 	 */
-	private String axes(ArrayList<DimRow> dims, String chart) {
+	private String axis(ArrayList<DimRow> dims, String chart) {
 		String html = "";
 		String tmp = "";
 		for(DimRow dim : dims) {
@@ -100,7 +100,7 @@ public class ChartHelper {
 			tmp += VID;
 		}
 		for(int i = 0; i < ChartIndex.getInstance().getDim(chart); i++) {
-			html += "<div id=\"" + (char)('x' + i) + "\" class=\"axes options\">" + DIV + (char)('x' + i) + 
+			html += "<div id=\"" + (char)('x' + i) + "\" class=\"single options\">" + DIV + (char)('x' + i) + 
 					"-" + Localize.get("filter.axis") + VID +
 					"<div class=\"list\">";
 			//for x axis add time
@@ -180,11 +180,16 @@ public class ChartHelper {
 	 * @return returns a html string with the measure selection
 	 */
 	private String measuresHtml(ArrayList<String> measures) {
-		String html = "<div id=\"measures\" class=\"options\">" +
+		String html = "<div id=\"measures\" class=\"single options\">" +
 				DIV + Localize.get("filter.measures") +
-				VID + "<div class=\"group list\">";
+				VID + "<div class=\"list\">";
 		for(String m: measures) {
-			html += SPAN + m + NAPS;
+			html += "<span data=\"" + m + "\">" + Localize.get("measure." + m) + NAPS + "<div class=\"sub\">";
+			for(String s: Measure.getAggregations()) {
+				html += "<span data=\"" + s + "\">" + Localize.get("aggregation." + s) + NAPS;
+			}
+			html += VID;
+			
 		}
 		html += VID + VID;
 		return html;

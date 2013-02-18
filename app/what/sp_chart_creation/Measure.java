@@ -107,7 +107,7 @@ public class Measure {
 		return row.getName();
 	}
 	
-	public ArrayList<String> getAggregations() {
+	public static ArrayList<String> getAggregations() {
 		return aggregations;
 	}
 	
