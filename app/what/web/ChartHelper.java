@@ -117,6 +117,8 @@ public class ChartHelper {
 	 * @param dims the dimensions
 	 * @return the html string
 	 */
+	//they are checked if no one messes up the methods
+	@SuppressWarnings("unchecked")
 	private String stringDimHtml(ArrayList<DimRow> dims) {
 		String html = "";
 		for(DimRow dim: dims) {
@@ -151,6 +153,8 @@ public class ChartHelper {
 	 * @param o the object given
 	 * @return returns a html string containing the options
 	 */
+	//they are checked if no one messes with the methods
+	@SuppressWarnings("unchecked")
 	private String dimObjectToString(HashMap<String, Object> map,DimRow dim, int lvl){
 		String html = "";
 		for(String s: map.keySet()) {

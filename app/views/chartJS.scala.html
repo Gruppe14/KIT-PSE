@@ -165,7 +165,8 @@ function buildJson() {
 	//save selected filter
 	json.filter = [];
 	$(".dim").parent().each(function(i) {
-		if($(this).find(".selected").length > 0) {
+		var id = $(this).attr("id");
+		if($(this).find(".selected").length > 0 && id != json.xDim && id != json.yDim) {
 			json.filter.push($(this).attr("id"));
 		}
 	});
