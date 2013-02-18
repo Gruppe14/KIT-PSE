@@ -9,7 +9,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 //intern imports
 import what.Printer;
 import what.JSONReader;
@@ -35,7 +34,7 @@ public class ChartHostBuilder {
 	public static final String JSON_X_DIM = "xDim";
 	public static final String JSON_Y_DIM = "yDim";
 	
-	public static final String JSON_MEASURE = "measures";
+	public static final String JSON_MEASURE = "measure";
 	public static final String JSON_AGGREGATION = "aggregation";
 	
 	
@@ -169,7 +168,14 @@ public class ChartHostBuilder {
 		}
 	}
 
-
+	/**
+	 * Returns a Measure for the given measure name,
+	 * describing a RowEntry in the configuration and an aggregation.
+	 * 
+	 * @param measure name of a RowEntry describing a measure in the configuration
+	 * @param aggregation aggregation for the measure
+	 * @return a Measure for the given parameters or null if it fails
+	 */
 	private Measure getMeasure(String measure, String aggregation) {
 		assert (measure != null);
 		
@@ -184,6 +190,15 @@ public class ChartHostBuilder {
 
 	// -- FILTER -- FILTER -- FILTER -- FILTER -- FILTER -- FILTER --
 	// filter summary method
+	/**
+	 * Returns a ArrayList of Filters extracted with the given
+	 * JSONReader.
+	 * 
+	 * @param reader JSONReader containing the JSONObject 
+	 * 			from which they get extracted
+	 * @return a ArrayList of Filters extracted with the given
+	 * 			JSONReader, null if it fails.
+	 */
 	private ArrayList<Filter> getFilters(JSONReader reader) {
 		assert (reader != null);
 		
@@ -217,7 +232,6 @@ public class ChartHostBuilder {
 			
 			filters.add(curFilter);
 		}
-		
 		
 		return filters;
 	}
@@ -423,7 +437,6 @@ public class ChartHostBuilder {
 					
 		return new TimeFilter(dim, filterTree, from, to);		
 	}
-	
 	
 	private int[] getDate(JSONObject timeObj, int i) {
 		assert ((i == 0) || (i == 1));
