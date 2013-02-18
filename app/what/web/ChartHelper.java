@@ -187,7 +187,7 @@ public class ChartHelper {
 	 * @return returns the html string
 	 */
 	private String timeScale() {
-		String html = "<span data=\"time\">" + Localize.get("time.scale") + "</span><div class=\"sub\">";
+		String html = "<span data=\"time\">" + Localize.get("time") + "</span><div class=\"sub\">";
 		// maybe dynamic
 		html += "<span data=\"year\">" + Localize.get("time.year") + "</span>";
 		html += "<span data=\"month\">" + Localize.get("time.month") + "</span>";

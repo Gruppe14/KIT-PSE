@@ -25,9 +25,13 @@ function makeRequest() {
 		  		@{chart}(data);
 			},
 			error:function(q, err, ex) {
+				$("#chart").html("");
 		 		displayError("@Localize.get("charts.requestErr")");
 			}
 		});
+	//if error
+	} else {
+		$("#chart").html("");
 	}
 }
 //check wether all requirements for a successful chart request are met
@@ -35,22 +39,28 @@ function checkOptions() {
 	var errOp = [];
 	//check wether value for x axis is selected
 	if ($("#x").length == 1 && $("#x").find(".sub:visible").children(".selected").length != 1) {
-		errOp.push($("#x").children(":first").html());
+		errOp.push($("#x").children(":first"));
 	}
 	//check also y
 	if ($("#y").length == 1 && $("#y").find(".sub:visible").children(".selected").length != 1) {
-		errOp.push($("#y").children(":first").html());
+		errOp.push($("#y").children(":first"));
 	}
 	//check wether a measure is selected
 	if ($("#measures").find(".selected").length == 0) {
-		errOp.push($("#measures").children(":first").html());
+		errOp.push($("#measures").children(":first"));
 	}
+	//remove old marked fields
+	$(".required").css("background-color", "lightgray");
+	$(".required").removeClass("required");
 	//if not all correct
 	if(errOp.length != 0) {
 		var info = "";
-		for(var i = 0; i < errOp.length; i++) {
-			info += "<br />" + errOp[i];
-		}
+		$(errOp).each(function(i) {
+			info += "<br />" + $(this).html();
+			//make required fields red
+			$(this).addClass("required");
+			$(this).css("background-color", "#FF7777");
+		});
 		displayError("@Localize.get("filter.err")" ,info);
 		return false;
 	//if everything correct
