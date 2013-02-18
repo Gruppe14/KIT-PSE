@@ -142,11 +142,15 @@ function buildJson() {
 	//save chartName
 	json.chart = "@{chart}";
 	//save dim selected as x in object
-	json.x = $("#x").find(".sub").children(".selected").attr("data");
+	var xSel = $("#x").find(".sub").children(".selected");
+	json.x = xSel.attr("data");
+	json.xDim = xSel.parent().prev().attr("data");
 	//if y exists add it
 	var y = $("#y");
 	if(y.length == 1) {
-		json.y = y.find(".sub").children(".selected").attr("data");
+		var xSel = $("#y").find(".sub").children(".selected");
+		json.y = ySel.attr("data");
+		json.yDim = ySel.parent().prev().attr("data");
 	}
 	//save selected filter
 	json.filter = [];

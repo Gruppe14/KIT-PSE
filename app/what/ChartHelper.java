@@ -84,7 +84,7 @@ public class ChartHelper {
 		String html = "";
 		String tmp = "";
 		for(DimRow dim : dims) {
-			tmp += "<span>" + Localize.get("dim." + dim.getName()) + "</span><div class=\"sub\">";
+			tmp += "<span data=\"" + dim.getName() + "\">" + Localize.get("dim." + dim.getName()) + "</span><div class=\"sub\">";
 				for(int i = 0; i < dim.getSize(); i++){
 					tmp += "<span data=\"" + dim.getNameOfLevel(i) + "\">" +
 							Localize.get("dim." + dim.getName() + "." + dim.getNameOfLevel(i)) + "</span>";
