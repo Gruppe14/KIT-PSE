@@ -109,7 +109,7 @@ public class DimChart {
 	 * @return the select statement of this chart
 	 */
 	public String getSelect() {
-		return getMeasure() + MySQLAdapter.KOMMA + getXColumn();
+		return getMeasure().getMeasureSelect() + MySQLAdapter.KOMMA + getXColumn();
 	}
 	
 	/**
@@ -317,7 +317,7 @@ public class DimChart {
 
 	@Override
 	public String toString() {
-		return "DimChart [chartType=" + chartType +  ", measure=" + measure + 
+		return "DimChart [chartType=" + chartType +  ", measure=" + measure.getMeasureSelect() +
 				", x="+ x + ",  xFilter=" + xFilter 
 				+ ", filters=" + filters + "]";
 	}

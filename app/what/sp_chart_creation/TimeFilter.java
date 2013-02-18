@@ -16,6 +16,12 @@ public class TimeFilter extends Filter {
 	/** End time for request */
 	private final int[] to;
 
+	private final static int[] noFilter = {-1,-1,-1,-1,-1};
+	
+	public TimeFilter(DimRow dimension, TreeSet<DimKnot> trees) {
+		this(dimension, trees, noFilter, noFilter);
+	}
+	
 	public TimeFilter(DimRow dimension, TreeSet<DimKnot> trees, int[] from, int[] to) {
 		super(dimension, trees);
 		
@@ -63,38 +69,38 @@ public class TimeFilter extends Filter {
 	}
 	
 	// -- SQL GETTER -- SQL GETTER -- SQL GETTER -- SQL GETTER --
-	/**
-	 * Returns the query from part for this table.<br>
-	 * E.g.: (SELECT * FROM dim_type WHERE ... restrictions ...) AS dim_typeID
-	 * 
-	 * @return the query from part for this table
-	 */
+	@Override
 	public String getTableQuery() {
+			return getTable() + MySQLAdapter.AS + getTableNickName();
+		
+	}
+
+	@Override
+	public String getRestrictions() {
 		if (hasTimeRestrictions()) {
-			return super.getTableQuery();
+			return "";
 		}
 		
-		// ( SELECT *
-		String query = MySQLAdapter.LBR + MySQLAdapter.SELECT +  MySQLAdapter.ALL;
+		// (
+		String query = MySQLAdapter.AND + MySQLAdapter.LBR; // (
 		
-		// FROM table WHERE
-		query += MySQLAdapter.FROM + getTable() + MySQLAdapter.WHERE + MySQLAdapter.LBR;
-		
-		// hard coded time restrictions
 		boolean and = false;
 		for (int i = 0; i < 5; i++) {
-			query += getRestriction(from, i, and);
-			query += getRestriction(to, i, and);
+			query += getTimeRestriction(from, i, and);
+			query += getTimeRestriction(to, i, and);
 		}
 		
 		
-		// ) AS table nick name
-		query += MySQLAdapter.RBR + MySQLAdapter.AS + getTableNickName();
+		// ) 
+		query += MySQLAdapter.RBR;
 		
 		return query;
 	}
 
-	private String getRestriction(int[] ary, int i, boolean and) {
+	
+	private String getTimeRestriction(int[] ary, int i, boolean and) {
+		
+		
 		String query = "";
 		
 		if (ary[i] > 0) {
@@ -102,12 +108,12 @@ public class TimeFilter extends Filter {
 				query += MySQLAdapter.AND;
 			}
 			
+			and = true;
 			query += getDimension().getRowAt(i).getColumnName() + MySQLAdapter.EQL + ary[i]; 
 		}
 		
 		
 		return query;
 	}
-
 	
 }

@@ -45,7 +45,6 @@ public class ChartHostBuilder {
 	public static final String JSON_PARENT = "parent";
 	
 	public static final String JSON_TIME = "time";
-	public static final String JSON_TIMESCALE = "timescale";
 	public static final String YEAR = "years";
 	public static final String MON = "months";
 	public static final String DAY = "days";
@@ -249,7 +248,7 @@ public class ChartHostBuilder {
 		}		
 		
 		// special treatment for time
-		if (name.equalsIgnoreCase(JSON_TIMESCALE)) {
+		if (name.equalsIgnoreCase(JSON_TIME)) {
 			return getTimeFilter(name, dim, reader);
 		}
 		
@@ -280,11 +279,31 @@ public class ChartHostBuilder {
 		TreeSet<DimKnot> filterSet = new TreeSet<DimKnot>();
 
 		// get the filter field
-		Object filterField = reader.getObject(name);
+		JSONObject obj = reader.getJSONObject(name);
+		
+		JSONReader subReader = new JSONReader(obj);
+		
+		
+		// get the level on which we work and determine the RowEntry for it
+		String level = subReader.getString(JSON_LVL);
+		if (level == null) {
+			Printer.pfail("Getting level field.");
+		}
+		RowEntry row = dim.getRowEntryFor(level);
+		if (row == null) {
+			Printer.pfail("Getting RowEntry for given level: " + level);
+			return null;
+		}
+		
+		// get the select array
+		Object o = subReader.getObject(JSON_SELEC);
+		if (o == null) {
+			Printer.pfail("Getting JSONArray of filters for: " + JSON_SELEC);
+			return null;
+		}
 			
-			
-		if (filterField instanceof String) { // all selected?
-			String sel = (String) filterField;
+		if (o instanceof String) { // all selected?
+			String sel = (String) o;
 			if (sel.equalsIgnoreCase(JSON_ALL)) { 
 				// ALL is selected! >> return empty set to show that nothing has to be filtered
 				return filterSet;
@@ -292,47 +311,26 @@ public class ChartHostBuilder {
 				Printer.perror("Illegal statement for select: " + sel);
 				return null;
 			}
-		} else if (filterField instanceof JSONObject) { // it as a object so now the first level and then recursive things start
-				JSONObject obj = (JSONObject) filterField;
-				JSONReader subReader = new JSONReader(obj);
+		} else if (o instanceof JSONArray) { // it as a object so now the first level and then recursive things start
+			JSONArray array = (JSONArray) o;
 			
+			// get all DimKnot of the first level
+			DimKnot cur = null;
+			for (int i = 0, l = array.length(); i < l; i++) {
 				
-				// get the level on which we work and determine the RowEntry for it
-				String level = subReader.getString(JSON_LVL);
-				if (level == null) {
-					Printer.pfail("Getting level field.");
-				}
-				RowEntry row = dim.getRowEntryFor(level);
-				if (row == null) {
-					Printer.pfail("Getting RowEntry for given level: " + level);
+				try {
+					cur = getDimKnot(array.get(i), dim, row);
+				} catch (JSONException e) {
+					Printer.pfail("Getting a object from " + JSON_SELEC + " array.");
 					return null;
 				}
 				
-				// get the select array
-				JSONArray array = subReader.getJSONArray(JSON_SELEC);
-				if (array == null) {
-					Printer.pfail("Getting JSONArray of filters for: " + JSON_SELEC);
+				if (cur == null) {
+					Printer.pfail("Getting a DimKnot of first level.");
 					return null;
-				}
-				
-				
-				// get all DimKnot of the first level
-				DimKnot cur = null;
-				for (int i = 0, l = array.length(); i < l; i++) {
-					
-					try {
-						cur = getDimKnot(array.get(i), dim, row);
-					} catch (JSONException e) {
-						Printer.pfail("Getting a object from " + JSON_SELEC + " array.");
-						return null;
-					}
-					
-					if (cur == null) {
-						Printer.pfail("Getting a DimKnot of first level.");
-						return null;
-					} 
-					filterSet.add(cur);
-				}	
+				} 
+				filterSet.add(cur);
+			}
 								
 	
 		} else {
@@ -412,30 +410,45 @@ public class ChartHostBuilder {
 		assert (dim != null);
 		assert (reader != null);
 		
-		
-	
-		// get the filters 
+		// get the empty filters 
 		TreeSet<DimKnot> filterTree = new TreeSet<DimKnot>();
 		
-		// get the time scale field
-		JSONObject timeObj = reader.getJSONObject(JSON_TIME); // TODO TIMESCALE
+		// get the filter field
+		Object timeObj = reader.getObject(JSON_TIME);		
+		if (timeObj instanceof String) { // all selected?
+				String sel = (String) timeObj;
+				if (sel.equalsIgnoreCase(JSON_ALL)) { 
+					// ALL is selected! >> return empty set to show that nothing has to be filtered
+					return new TimeFilter(dim, filterTree);
+				} else {
+					Printer.perror("Illegal statement for select: " + sel);
+					return null;
+				}
+		} if (timeObj instanceof JSONObject) {		
 		
+			// get the time scale field
+			JSONObject timeObject = (JSONObject) timeObj;
 		
-		// get start and end
-		int[] from = {0, 0, 0, 0, 0};
-		int[] to = {0, 0, 0, 0, 0};
+			// get start and end
+			int[] from = {0, 0, 0, 0, 0};
+			int[] to = {0, 0, 0, 0, 0};
 		
-		int[] cur = getDate(timeObj, 0);
-		if (cur != null) {
-			from = cur;
-		}
+			int[] cur = getDate(timeObject, 0);
+			if (cur != null) {
+				from = cur;
+			}
 		
-		cur = getDate(timeObj, 1);
-		if (cur != null) {
-			to = cur;
-		}
+			cur = getDate(timeObject, 1);
+			if (cur != null) {
+				to = cur;
+			}
 					
-		return new TimeFilter(dim, filterTree, from, to);		
+			return new TimeFilter(dim, filterTree, from, to);
+		} else {
+			Printer.perror("Illegal statement for the filter, neither String nor JSONObject.");
+			return null;
+		}
+		
 	}
 	
 	private int[] getDate(JSONObject timeObj, int i) {

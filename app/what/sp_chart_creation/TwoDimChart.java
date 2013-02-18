@@ -88,6 +88,11 @@ public class TwoDimChart extends DimChart {
 	}
 	
 	@Override
+	public String getTableQuery() {
+		return super.getTableQuery() + MySQLAdapter.KOMMA + getYFilter().getTableQuery();
+	}
+	
+	@Override
 	public String getKeyRestrictions(String facttableShort) {
 		if (facttableShort == null) {
 			throw new IllegalArgumentException();
@@ -99,7 +104,7 @@ public class TwoDimChart extends DimChart {
 		String ft = facttableShort.trim() + MySQLAdapter.DOT;
 			
 		// x
-		restri += ft + getYFilter().getTableKey() + MySQLAdapter.EQL + getYFilter().getKeyQuery();
+		restri += MySQLAdapter.AND + ft + getYFilter().getTableKey() + MySQLAdapter.EQL + getYFilter().getKeyQuery();
 		
 
 				

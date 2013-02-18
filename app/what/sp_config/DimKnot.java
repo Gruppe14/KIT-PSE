@@ -75,7 +75,7 @@ public class DimKnot implements Comparable<DimKnot> {
 	    
 		// get children's query part
 		if (hasChildren()) {
-			query += MySQLAdapter.AND ;
+			query += MySQLAdapter.AND + MySQLAdapter.LBR;
 			
 			DimKnot last = children.last();
 			for (DimKnot dk : children) {
@@ -86,10 +86,11 @@ public class DimKnot implements Comparable<DimKnot> {
 				
 			}
 			
+			query +=  MySQLAdapter.RBR;	
 		}
 		
 		// end )
-		query += MySQLAdapter.RBR;
+		query +=  MySQLAdapter.RBR;
 		
 		return query;
 	}

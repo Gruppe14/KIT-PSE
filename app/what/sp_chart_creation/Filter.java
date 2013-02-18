@@ -179,7 +179,9 @@ public class Filter {
 		if (noFilter()) {
 			return "";
 		}
-		String query = MySQLAdapter.AND + MySQLAdapter.LBR; // (
+		
+		// (
+		String query = MySQLAdapter.AND + MySQLAdapter.LBR; 
 		
 		DimKnot last = trees.last();
 		for (DimKnot dk : trees) {
