@@ -1,4 +1,4 @@
-package what;
+package what.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +8,7 @@ import controllers.ChartIndex;
 import controllers.Localize;
 import play.api.templates.HtmlFormat;
 import play.api.templates.Html;
+import what.Facade;
 import what.sp_config.*;
 
 
@@ -69,7 +70,6 @@ public class ChartHelper {
 		String html = "";
 		html += time();
 		html += axes(stringDim, name);
-		html += timeScale();
 		html += measuresHtml(measures) + "<br />";
 		html += stringDimHtml(stringDim);
 		
@@ -94,7 +94,12 @@ public class ChartHelper {
 		for(int i = 0; i < ChartIndex.getInstance().getDim(chart); i++) {
 			html += "<div id=\"" + (char)('x' + i) + "\" class=\"axes options\"><div>" + (char)('x' + i) + 
 					"-" + Localize.get("filter.axis") + "</div>" +
-					"<div class=\"list\">" + tmp + "</div></div> ";
+					"<div class=\"list\">";
+			//for x axis add time
+			if(i == 0) {
+				html += timeScale();
+			}
+			html += tmp + "</div></div> ";
 		}
 		return html;
 	}
@@ -182,15 +187,14 @@ public class ChartHelper {
 	 * @return returns the html string
 	 */
 	private String timeScale() {
-		String html = "<div id=\"time\" class=\"options\"><div>" +
-				Localize.get("time.scale") + "</div><div class=\"group list\">";
+		String html = "<span data=\"time\">" + Localize.get("time.scale") + "</span><div class=\"sub\">";
 		// maybe dynamic
 		html += "<span data=\"year\">" + Localize.get("time.year") + "</span>";
 		html += "<span data=\"month\">" + Localize.get("time.month") + "</span>";
 		html += "<span data=\"day\">" + Localize.get("time.day") + "</span>";
 		html += "<span data=\"hour\">" + Localize.get("time.hour") + "</span>";
 		
-		html += "</div></div>\n";
+		html += "</div>\n";
 		return html;
 	}
 	/**

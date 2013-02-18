@@ -148,16 +148,17 @@ function buildJson() {
 	//if y exists add it
 	var y = $("#y");
 	if(y.length == 1) {
-		var xSel = $("#y").find(".sub").children(".selected");
+		var ySel = $("#y").find(".sub").children(".selected");
 		json.y = ySel.attr("data");
 		json.yDim = ySel.parent().prev().attr("data");
 	}
 	//save selected filter
 	json.filter = [];
-	var filter = $(".filter.selected").parents(".options");
-	for(var i = 0; i < filter.length; i++) {
-		json.filter.push(filter[i].id);
-	}
+	$(".dim").parent().each(function(i) {
+		if($(this).find(".selected").length > 0) {
+			json.filter.push($(this).attr("id"));
+		}
+	});
 	//save all selected options in object
 	var options = $(".options");
 	for(var i = 0; i < options.length; i++) {

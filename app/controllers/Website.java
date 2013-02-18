@@ -9,10 +9,10 @@ import play.mvc.*;
 import play.mvc.Http.RequestBody;
 import play.data.Form;
 
-import what.AdminAuth;
-import what.AdminLogin;
 import what.Facade;
-import what.LogfileUpload;
+import what.web.AdminAuth;
+import what.web.AdminLogin;
+import what.web.LogfileUpload;
 
 
 public class Website extends Controller {
