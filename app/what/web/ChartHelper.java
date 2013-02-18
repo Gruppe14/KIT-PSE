@@ -9,15 +9,23 @@ import controllers.Localize;
 import play.api.templates.HtmlFormat;
 import play.api.templates.Html;
 import what.Facade;
+import what.sp_chart_creation.Measure;
 import what.sp_config.*;
 
 
 /**
  * class to create the html stuff from config for charts
- * @author Lukas Ehnle
+ * @author Lukas Ehnle, Jonathan, PSE Gruppe 14
  *
  */
 public class ChartHelper {
+	
+	private static final String SPAN = "<span>";
+	private static final String NAPS = "</span>";
+	
+	private static final String DIV = "<div>";
+	private static final String VID = "</div>";
+	
 	//instance of charthelper --> singleton
 	private static HashMap<String, ChartHelper> instance = new HashMap<>();
 	//current config
@@ -84,22 +92,22 @@ public class ChartHelper {
 		String html = "";
 		String tmp = "";
 		for(DimRow dim : dims) {
-			tmp += "<span data=\"" + dim.getName() + "\">" + Localize.get("dim." + dim.getName()) + "</span><div class=\"sub\">";
+			tmp += "<span data=\"" + dim.getName() + "\">" + Localize.get("dim." + dim.getName()) + NAPS + "<div class=\"sub\">";
 				for(int i = 0; i < dim.getSize(); i++){
 					tmp += "<span data=\"" + dim.getNameOfLevel(i) + "\">" +
-							Localize.get("dim." + dim.getName() + "." + dim.getNameOfLevel(i)) + "</span>";
+							Localize.get("dim." + dim.getName() + "." + dim.getNameOfLevel(i)) + NAPS;
 				}
-			tmp += "</div>";
+			tmp += VID;
 		}
 		for(int i = 0; i < ChartIndex.getInstance().getDim(chart); i++) {
-			html += "<div id=\"" + (char)('x' + i) + "\" class=\"axes options\"><div>" + (char)('x' + i) + 
-					"-" + Localize.get("filter.axis") + "</div>" +
+			html += "<div id=\"" + (char)('x' + i) + "\" class=\"axes options\">" + DIV + (char)('x' + i) + 
+					"-" + Localize.get("filter.axis") + VID +
 					"<div class=\"list\">";
 			//for x axis add time
 			if(i == 0) {
 				html += timeScale();
 			}
-			html += tmp + "</div></div> ";
+			html += tmp + VID + VID;
 		}
 		return html;
 	}
@@ -112,8 +120,8 @@ public class ChartHelper {
 	private String stringDimHtml(ArrayList<DimRow> dims) {
 		String html = "";
 		for(DimRow dim: dims) {
-			String tmp = "<div id=\"" + dim.getName() + "\" class=\"options\"><div>" +
-					Localize.get("dim." + dim.getName()) + "</div>" +
+			String tmp = "<div id=\"" + dim.getName() + "\" class=\"options\">" + DIV +
+					Localize.get("dim." + dim.getName()) + VID +
 					"<div class=\"dim list\" data=\"" + dim.getNameOfLevel(0) + "\">";
 			//first level is build here because of dim list classes
 			//if HashMap recursivly
@@ -121,14 +129,14 @@ public class ChartHelper {
 				
 				HashMap<String, Object> map = (HashMap<String, Object>) dim.getStrings();
 				tmp += dimObjectToString(map, dim, 1);
-				tmp += "</div></div> ";
+				tmp += VID + VID;
 			//else TreeSet
 			} else if(dim.getStrings() instanceof TreeSet<?>) {
 				
 				for(String s: (TreeSet<String>) dim.getStrings()) {
-					tmp += "<span>" + s + "</span>";
+					tmp += SPAN + s + NAPS;
 				}
-				tmp += "</div></div> ";
+				tmp += VID + VID;
 			} else if(dim.getStrings() == null){
 				//should not happen but if a dimension is empty, delete the string
 				tmp = "";
@@ -146,7 +154,7 @@ public class ChartHelper {
 	private String dimObjectToString(HashMap<String, Object> map,DimRow dim, int lvl){
 		String html = "";
 		for(String s: map.keySet()) {
-			html += "<span>" + s + "</span>";
+			html += SPAN + s + NAPS;
 			//if has a subClass
 			if(map.get(s) != null) {
 				html += "<div class=\"sub\" data=\"" + dim.getNameOfLevel(lvl) + "\">";
@@ -157,10 +165,10 @@ public class ChartHelper {
 				//else TreeSet
 				} else if(map.get(s) instanceof TreeSet<?>) {
 					for(String newS: (TreeSet<String>) map.get(s)) {
-						html += "<span>" + newS + "</span>";
+						html += SPAN + newS + NAPS;
 					}
 				}
-				html += "</div>";
+				html += VID;
 			}
 		}
 		return html;
@@ -173,30 +181,32 @@ public class ChartHelper {
 	 */
 	private String measuresHtml(ArrayList<String> measures) {
 		String html = "<div id=\"measures\" class=\"options\">" +
-				"<div>" + Localize.get("filter.measures") +
-				"</div><div class=\"group list\">";
+				DIV + Localize.get("filter.measures") +
+				VID + "<div class=\"group list\">";
 		for(String m: measures) {
-			html += "<span>" + m + "</span>";
+			html += SPAN + m + NAPS;
 		}
-		html += "</div></div>";
+		html += VID + VID;
 		return html;
 	}
+	
 	/**
 	 * method to add the time scale options
 	 * @param dim wether only x or more dimensions are available
 	 * @return returns the html string
 	 */
 	private String timeScale() {
-		String html = "<span data=\"time\">" + Localize.get("time") + "</span><div class=\"sub\">";
+		String html = "<span data=\"time\">" + Localize.get("time") + NAPS + "<div class=\"sub\">";
 		// maybe dynamic
-		html += "<span data=\"year\">" + Localize.get("time.year") + "</span>";
-		html += "<span data=\"month\">" + Localize.get("time.month") + "</span>";
-		html += "<span data=\"day\">" + Localize.get("time.day") + "</span>";
-		html += "<span data=\"hour\">" + Localize.get("time.hour") + "</span>";
+		html += "<span data=\"year\">" + Localize.get("time.year") + NAPS;
+		html += "<span data=\"month\">" + Localize.get("time.month") + NAPS;
+		html += "<span data=\"day\">" + Localize.get("time.day") + NAPS;
+		html += "<span data=\"hour\">" + Localize.get("time.hour") + NAPS;
 		
-		html += "</div>\n";
+		html += VID + "\n";
 		return html;
 	}
+	
 	/**
 	 * creates the option selection for time
 	 * @return returns the html String for it
@@ -206,29 +216,29 @@ public class ChartHelper {
 		String html = "<div id=\"timescale\">";
 		String[] ft = {"From", "To"};
 		for(String s: ft) {
-			html += "<div>" + Localize.get("time." + s) + "<br /><div><span>" +
+			html += DIV + Localize.get("time." + s) + "<br />" + DIV + SPAN +
 					Localize.get("time.year") + "</span><span id=\"year" + s + 
-					"\">&nbsp;</span><div class=\"dropdown\"><span>---</span>";
+					"\">&nbsp;" + NAPS + "<div class=\"dropdown\"><span>---</span>";
 			//add every year to selection
 			for(int i = year[1]; i >= year[0]; i--) {
-				html += "<span>" + i + "</span>";
+				html += SPAN + i + NAPS;
 			}
-			html += "</div></div> <div><span>" + Localize.get("time.month") +
-					"</span><span id=\"month" + s + "\">&nbsp;</span>" +
-					"<div class=\"dropdown\"><span>---</span>";
+			html += VID + VID + DIV + SPAN + Localize.get("time.month") +
+					NAPS + "<span id=\"month" + s + "\">&nbsp;" + NAPS +
+					"<div class=\"dropdown\">" + SPAN + "---" + NAPS;
 			//add every month
 			for(int i = 1; i < 13; i++) {
-				html += "<span>" + i + "</span>";
+				html += SPAN + i + NAPS;
 			}
-			html += "</div></div> <div><span>" + Localize.get("time.day") +
-					"</span><input id=\"day" + s + "\" type=\"number\" " +
+			html += VID + VID + DIV + SPAN + Localize.get("time.day") +
+					NAPS + "<input id=\"day" + s + "\" type=\"number\" " +
 					"min=\"1\" max=\"31\" placeholder=\"1 - 31\"/></div> " +
-					"<div><span>" + Localize.get("time.hour") + "</span>" +
+					DIV + SPAN + Localize.get("time.hour") + NAPS +
 					"<input id=\"hour" + s + "\" type=\"text\" " +
 					"pattern=\"(^[0-9]|^[1][0-9]|^[2][1-3]):[0-5][0-9]$\" " +
-					"placeholder=\"0:00\"/></div></div>";
+					"placeholder=\"0:00\"/>" + VID + VID;
 		}
-		html += "</div>";
+		html += VID;
 		return	html;
 	}
 }

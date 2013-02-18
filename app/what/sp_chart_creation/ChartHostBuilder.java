@@ -25,11 +25,7 @@ import what.sp_config.RowEntry;
  * @see ChartMediator
  * @see DimChart
  */
-public class ChartHostBuilder {
-	
-	
-	
-	
+public class ChartHostBuilder {	
 	public static final String JSON_FILTER = "filter";
 	
 	public static final String JSON_CHART_TYPE = "chart";
@@ -41,7 +37,7 @@ public class ChartHostBuilder {
 	
 	public static final String JSON_MEASURE = "measures";
 	public static final String JSON_AGGREGATION = "aggregation";
-	public static final String JSON_COUNT = "# of accesses";
+	
 	
 	public static final String JSON_ALL = "all";
 	

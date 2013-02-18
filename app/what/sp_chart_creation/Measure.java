@@ -1,9 +1,13 @@
 package what.sp_chart_creation;
 
+import java.util.ArrayList;
+
 import what.Printer;
 import what.sp_config.RowEntry;
 
 public class Measure {
+	
+	public static final String COUNT = "#";
 
 	public static final String COUNT_SQL = "count(*)";
 	
@@ -17,6 +21,15 @@ public class Measure {
 	private static final String LBR = "(";
 	private static final String RBR = ") ";
 	
+	private static ArrayList<String> aggregations = new ArrayList<String>();
+	
+	static {
+		aggregations.add(COUNT);
+		aggregations.add(SUM);
+		aggregations.add(MAX);
+		aggregations.add(AVG);
+		
+	}
 	
 	private String aggregation;
 	
@@ -94,6 +107,8 @@ public class Measure {
 		return row.getName();
 	}
 	
-	
+	public ArrayList<String> getAggregations() {
+		return aggregations;
+	}
 	
 }
