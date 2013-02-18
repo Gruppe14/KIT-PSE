@@ -155,11 +155,14 @@ public class Measure {
 		return row.getName();
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * Return a collection of the static aggregations.
 	 * 
 	 * @return a collection of the static aggregations
 	 */
+=======
+>>>>>>> 87f311e5625ddcb0fde11971658442678fa65e18
 	public static ArrayList<String> getAggregations() {
 		return aggregations;
 	}
