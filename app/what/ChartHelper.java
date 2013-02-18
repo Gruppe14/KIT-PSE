@@ -51,14 +51,12 @@ public class ChartHelper {
 	
 	//creates the option selection for a chart
 	private Html createChart(String name) {
-		String html = "";
 		ArrayList<DimRow> stringDim = new ArrayList<>();
 		ArrayList<String> measures = new ArrayList<>();
 		for (DimRow dim: dims) {
 			//if time dimension, add time options + time scale
 			if(dim.getName().equalsIgnoreCase("time")) {
-				html += time();
-				html += timeScale(dim);
+				//if time do nothing is handled seperately
 			//if string dim add to list for later
 			} else if (dim.isStringDim()) {
 				stringDim.add(dim);
@@ -67,10 +65,38 @@ public class ChartHelper {
 				measures.add(dim.getName());
 			}
 		}
-		html += stringDimHtml(stringDim, 1);
-		html += measuresHtml(measures);
+		//create the html content
+		String html = "";
+		html += time();
+		html += axes(stringDim, name);
+		html += timeScale();
+		html += measuresHtml(measures) + "<br />";
+		html += stringDimHtml(stringDim);
 		
 		return HtmlFormat.raw(html);
+	}
+	
+	/**
+	 * method that creates the selection for the axes
+	 * @return returns the html string
+	 */
+	private String axes(ArrayList<DimRow> dims, String chart) {
+		String html = "";
+		String tmp = "";
+		for(DimRow dim : dims) {
+			tmp += "<span>" + Localize.get("dim." + dim.getName()) + "</span><div class=\"sub\">";
+				for(int i = 0; i < dim.getSize(); i++){
+					tmp += "<span data=\"" + dim.getNameOfLevel(i) + "\">" +
+							Localize.get("dim." + dim.getName() + "." + dim.getNameOfLevel(i)) + "</span>";
+				}
+			tmp += "</div>";
+		}
+		for(int i = 0; i < ChartIndex.getInstance().getDim(chart); i++) {
+			html += "<div id=\"" + (char)('x' + i) + "\" class=\"axes options\"><div>" + (char)('x' + i) + 
+					"-" + Localize.get("filter.axis") + "</div>" +
+					"<div class=\"list\">" + tmp + "</div></div> ";
+		}
+		return html;
 	}
 	
 	/**
@@ -78,19 +104,12 @@ public class ChartHelper {
 	 * @param dims the dimensions
 	 * @return the html string
 	 */
-	private String stringDimHtml(ArrayList<DimRow> dims, int y) {
+	private String stringDimHtml(ArrayList<DimRow> dims) {
 		String html = "";
 		for(DimRow dim: dims) {
 			String tmp = "<div id=\"" + dim.getName() + "\" class=\"options\"><div>" +
-					Localize.get("filter." + dim.getName()) + "</div>" +
-					"<div class=\"group type\"><span class=\"x\">" +
-					Localize.get("filter.x.axis") + " </span>";
-			//if y axis should be shown
-			if(y > 1) {
-				tmp += "<span class=\"x\">" + Localize.get("filter.y.axis") + " </span>";
-			}
-			tmp += "<span class=\"filter\">" + Localize.get("filter.filter") + "</span></div>";
-			tmp += "<div class=\"dim list\" data=\"" + dim.getNameOfLevel(0) + "\">";
+					Localize.get("dim." + dim.getName()) + "</div>" +
+					"<div class=\"dim list\" data=\"" + dim.getNameOfLevel(0) + "\">";
 			//first level is build here because of dim list classes
 			//if HashMap recursivly
 			if(dim.getStrings() instanceof HashMap<?, ?>) {
@@ -150,8 +169,7 @@ public class ChartHelper {
 	private String measuresHtml(ArrayList<String> measures) {
 		String html = "<div id=\"measures\" class=\"options\">" +
 				"<div>" + Localize.get("filter.measures") +
-				"</div><div class=\"type\">&nbsp;</div>" +
-				"<div class=\"group list\">";
+				"</div><div class=\"group list\">";
 		for(String m: measures) {
 			html += "<span>" + m + "</span>";
 		}
@@ -163,13 +181,9 @@ public class ChartHelper {
 	 * @param dim wether only x or more dimensions are available
 	 * @return returns the html string
 	 */
-	private String timeScale(DimRow dim) {
+	private String timeScale() {
 		String html = "<div id=\"time\" class=\"options\"><div>" +
-				Localize.get("time.scale") + "</div><div class=\"group type\">" +
-				"<span class=\"x\">" + Localize.get("filter.x.axis") + 	"&nbsp;</span>";
-		html += "<span class=\"filter\">" + Localize.get("filter.filter") + "</span></div>" +
-				"<div class=\"group list\">";
-		
+				Localize.get("time.scale") + "</div><div class=\"group list\">";
 		// maybe dynamic
 		html += "<span data=\"year\">" + Localize.get("time.year") + "</span>";
 		html += "<span data=\"month\">" + Localize.get("time.month") + "</span>";

@@ -27,7 +27,7 @@ public class Website extends Controller {
 	 * @return returns the html index site
 	 */
     public static Result index() {
-    	return ok(views.html.index.render(ChartIndex.getInstance().getCharts()));
+    	return ok(views.html.index.render());
     }
     /**
      * method to dynamically return a chart site depending on the chartName

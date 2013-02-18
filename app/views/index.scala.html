@@ -1,16 +1,17 @@
-@(chartTypes: Array[String])
 @import controllers.Localize
+@defining(controllers.ChartIndex.getInstance) { ChartIndex =>
 @main(title = "index.title") {
-	<style>@for(chart <- chartTypes) {
+	<style>@for(chart <- ChartIndex.getCharts()) {
 		#@{chart} {
-			background-image: url(/charts/@{chart}/thumb.png);
+			background-image: url(/charts/@{chart}/@{ChartIndex.getThumb(chart)});
 		}
 	}</style>
 } {
-	@for(chart <- chartTypes) {
+	@for(chart <- ChartIndex.getCharts()) {
 		<a href="/charts/@{chart}.html">
 		<div class="bigTile" id="@chart">
 			<span>@{Localize.get("charts." + chart)}</span>
 		</div></a>
 	}
+}
 }

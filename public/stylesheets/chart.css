@@ -16,38 +16,38 @@
 #selection > div {
 	margin-bottom: 5px;
 }
-#time {
+#timescale {
 	vertical-align: top;
 }
-#time span{
+#timescale span{
 	display:block;
 	padding: 0px 3px;
 	text-align:right;
 	cursor: pointer;
 }
-#time > div {
+#timescale > div {
 	display:inline-block;
 }
-#time > div:first-line {
+#timescale > div:first-line {
 	font-weight: bold;
 }
-#time > div:last-child {
+#timescale > div:last-child {
 	right: 0px;
 	float: right;
 }
-#time > div > div {
+#timescale > div > div {
 	width: 80px;
 	display:inline-block;
 	position: relative;
 	border: 2px solid lightgray;
 }
-#time > div > div > span:first-child {
+#timescale > div > div > span:first-child {
 	background-color: lightgray;
 	font-weight: bold;
 	text-align: left;
 	cursor: default;
 }
-#time input {
+#timescale input {
 	outline: 0px;
 	border: 0px;
 	width:inherit;

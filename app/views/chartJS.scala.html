@@ -34,14 +34,17 @@ function makeRequest() {
 function checkOptions() {
 	var errOp = [];
 	//check wether value for x axis is selected
-	if ($(".x.selected").length == 0) {
-		errOp.push($(".x").html());
+	if ($("#x").length == 1 && $("#x").find(".sub:visible").children(".selected").length != 1) {
+		errOp.push($("#x").children(":first").html());
+	}
+	//check also y
+	if ($("#y").length == 1 && $("#y").find(".sub:visible").children(".selected").length != 1) {
+		errOp.push($("#y").children(":first").html());
 	}
 	//check wether a measure is selected
 	if ($("#measures").find(".selected").length == 0) {
 		errOp.push($("#measures").children(":first").html());
 	}
-	
 	//if not all correct
 	if(errOp.length != 0) {
 		var info = "";
@@ -139,11 +142,11 @@ function buildJson() {
 	//save chartName
 	json.chart = "@{chart}";
 	//save dim selected as x in object
-	json.x = $(".x.selected").parents(".options")[0].id;
+	json.x = $("#x").find(".sub").children(".selected").attr("data");
 	//if y exists add it
-	var y = $(".y.selected");
+	var y = $("#y");
 	if(y.length == 1) {
-		json.y = y.parents(".options")[0].id;
+		json.y = y.find(".sub").children(".selected").attr("data");
 	}
 	//save selected filter
 	json.filter = [];
@@ -211,13 +214,13 @@ $(document).ready(function() {
 		var drop = $(this).parents(".dropdown");
 		drop.prev().html($(this).html());
 		drop.slideToggle(200);
-		
 	});
 	//hide all subsections
 	$(".sub").hide();
 	//register click function to all options
 	$(".options").find("span").click(function() {
 		var parent = $(this).parent();
+		var axes = $(this).parents(".axes");
 		//if the clicked option has sub selections
 		if($(this).next().hasClass('sub')) {
 			$(this).toggleClass("selected");
@@ -227,30 +230,22 @@ $(document).ready(function() {
 			if(!$(this).hasClass("selected")) {
 				parent.children(".selected").removeClass("selected");
 			}
-			//if it has class x this case is handled further down
-			if(!$(this).hasClass("x") && !$(this).hasClass("y")) {
-				$(this).toggleClass("selected");
-			}
-		} else {
+			$(this).toggleClass("selected");
+		//if no axes selection
+		} else if (axes.length == 0){ 
 			$(this).toggleClass("selected");
 		}
-		//make sure only one x is selected
-		if($(this).hasClass("x")){
+		//if axes selection
+		if (axes.length > 0 && parent.hasClass("sub")) {
 			if(!$(this).hasClass("selected")) {
-				$("#selection").find(".x.selected").removeClass("selected");
+				axes.find(".sub:visible").children(".selected").removeClass("selected");
 			}
 			$(this).toggleClass("selected");
 		}
-		//make sure only one y is selected
-		if($(this).hasClass("y")){
-			if(!$(this).hasClass("selected")) {
-				$("#selection").find(".y.selected").removeClass("selected");
-			}
-			$(this).toggleClass("selected");
-		} 
 	});
 	//register click function for chart request
 	$("#send").click(function(){
+		$("#chart").append("<div>Loading</div>");
 		makeRequest();
 		$("#chart")[0].scrollIntoView(true);
 	});
