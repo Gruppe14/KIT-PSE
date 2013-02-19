@@ -36,7 +36,6 @@ public class WatchDogTimer {
 			} else {
 				lastTimes[i]++;
 				if (lastTimes[i] >= watchTimeSeconds) {
-					System.out.println("Thread " + i + " wird gekillt");
 					pm.resetThread(i);
 					lastTimes[i] = 0;
 				}

@@ -65,9 +65,16 @@ public class GeoIPTool {
 			}
 			
 			
+			if (loc.countryName.toLowerCase().contains("proxy")) {
+				loc.countryName = "other";
+			}
+			if (loc.city.toLowerCase().contains("proxy")) {
+				loc.city = "other";
+			}
+			
 			//Sets country and city to their spots of the DataEntry.
-			pt.getDe().setInfo(loc.countryName, 6);	
-			pt.getDe().setInfo(loc.city, 7);
+			pt.getDe().setInfo(loc.countryName.trim(), 6);	
+			pt.getDe().setInfo(loc.city.trim(), 7);
 
 			if (pt.getDe().getInfo(6) == null) {
 			    pt.getDe().setInfo("other", 6);

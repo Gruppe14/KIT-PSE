@@ -1,5 +1,6 @@
 package what.sp_parser;
 
+import java.io.FileNotFoundException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
@@ -8,7 +9,7 @@ import forTesting.Localize;
 
 import what.Printer;
 import what.sp_config.ConfigWrap;
-import what.sp_data_access.DataMediator;
+import what.sp_dataMediation.DataMediator;
 
 
 /**
@@ -25,7 +26,7 @@ import what.sp_data_access.DataMediator;
 public class ParserMediator {
 	
 	/**
-	 * The pool-size of parsingTasks.
+	 * The poolsize of parsingTasks.
 	 */
 	private int poolsize = 5;
 	
@@ -52,7 +53,7 @@ public class ParserMediator {
 	private WatchDogTimer wdt = WatchDogTimer.getInstance();
 	
 	/**
-	 * Represents the used log file
+	 * Represents the used logfile
 	 */
 	private Logfile usedFile = null;
 	
@@ -208,7 +209,6 @@ public class ParserMediator {
 			}
 			
 			if (finishedTasks < poolsize) {
-				System.out.println("es macht was");
 				wdt.check(this);
 			}
 		}
