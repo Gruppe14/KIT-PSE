@@ -23,13 +23,7 @@ public class DimRow {
 
 	/** This are the actual content of this DimRow, the rows. */
 	private ArrayList<RowEntry> rows = new ArrayList<RowEntry>();
-	
-	/** 
-	 * A tree of strings extracted from the warehouse containing
-	 * the strings for the selection boxes on the web page.
-	 */
-	private Object strings; // TODO wrap behind tree structure
-	
+		
 	/** The trees with the content in the warehouse for this dimension. */
  	private TreeSet<DimKnot> trees = new TreeSet<DimKnot>(); 
 	
@@ -62,28 +56,6 @@ public class DimRow {
 		}
 		
 		return rows.add(rowEntry);		
-	}
-	
- 	/**
- 	 * Sets the Tree of Strings for this DimRow,
- 	 * if it is a StringDimension.
- 	 * 
- 	 * @param obj the Tree of String to set
- 	 * @return 
- 	 */
-	public boolean setStrings(Object obj) {
-		if (obj == null) {
-			throw new IllegalArgumentException();
-		}
-		
-		if (!isStringDim()) {
-			return false;
-		}
-		
-		strings = obj;
-		
-		
-		return true;
 	}
 	
 	/**
@@ -261,12 +233,12 @@ public class DimRow {
 	 * 
 	 * @return the tree of Strings of this DimRow
 	 */
-	public Object getStrings() {
+	public TreeSet<DimKnot> getStrings() {
 		if (!isStringDim()) {
 			return null;
 		}
 		
-		return strings;
+		return trees;
 	}
 		
 	// >> GETTER for the SQL + WAREHOUSE

@@ -1,6 +1,5 @@
 package what.sp_parser;
 
-import java.io.FileNotFoundException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
@@ -26,7 +25,7 @@ import what.sp_data_access.DataMediator;
 public class ParserMediator {
 	
 	/**
-	 * The poolsize of parsingTasks.
+	 * The pool-size of parsingTasks.
 	 */
 	private int poolsize = 5;
 	
@@ -53,7 +52,7 @@ public class ParserMediator {
 	private WatchDogTimer wdt = WatchDogTimer.getInstance();
 	
 	/**
-	 * Represents the used logfile
+	 * Represents the used log file
 	 */
 	private Logfile usedFile = null;
 	

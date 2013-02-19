@@ -105,20 +105,37 @@ public class DimKnot implements Comparable<DimKnot> {
 	}
 
 	/**
+	 * Returns the name of the row of this knot.
+	 * 
+	 * @return the name of the row of this knot
+	 */
+	public String getRowName() {
+		return row.getName();
+	}
+
+	/**
+	 * Returns a Collection of the children of this knot.
+	 * 
+	 * @return a Collection of the children of this knot
+	 */
+	public TreeSet<DimKnot> getChildren() {
+		return children;
+	}
+
+	
+	/**
 	 * Returns the row of this knot.
 	 * 
 	 * @return the row of this knot
 	 */
-	protected RowEntry getRow() {
+	private RowEntry getRow() {
 		return row;
 	}
-
 	
 	@Override
 	public int compareTo(DimKnot o) {
-		return o.getValue().compareTo(this.getValue());
+		return this.getValue().compareTo(o.getValue());
 	}
-
 
 	@Override
 	public String toString() {

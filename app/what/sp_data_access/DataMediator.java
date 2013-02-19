@@ -1,14 +1,14 @@
 package what.sp_data_access;
 
+// java imports
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.TreeSet;
 
-import org.json.JSONObject;
-
+// intern imports
+import what.Printer;
 import what.sp_chart_creation.DimChart;
-import what.sp_chart_creation.TwoDimChart;
 import what.sp_config.ConfigWrap;
+import what.sp_config.DimKnot;
 import what.sp_config.DimRow;
 import what.sp_config.RowId;
 import what.sp_config.StringMapRow;
@@ -19,7 +19,7 @@ import what.sp_parser.DataEntry;
  * 
  * It directs all requests to the right class.
  * 
- * @author Jonathan, PSE
+ * @author Jonathan, PSE Gruppe 14
  */
 public class DataMediator {
 	
@@ -41,39 +41,56 @@ public class DataMediator {
 	
 	// -- ORGANIZE DATA -- ORGANIZE DATA -- ORGANIZE DATA -- ORGANIZE DATA --
 	/**
-	 * Organizes things after data got uploaded.<br>
-	 * Sets the String sets in the DimRows in the config and
-	 * tells the OLAP Cubes to prae-compute it's data new.
-	 * @return
+	 * Organizes things after data got uploaded or at the start of the program.<br>
+	 * This means it computes the tree of DimKnots containing the String
+	 * for the selection boxes.
+	 * 
+	 * @return whether it was successful
 	 */
 	public boolean organizeData() {
 		for (int i = 0, l = config.getNumberOfDims(); i < l; i++) {
-			
 			DimRow d = config.getDimRowAt(i);
+			
+			// if is no String dimension no computing is necessary 
 			if (d.isStringDim()) {
 				int posi = 0;
 				int size = d.getSize();
-
 				TreeSet<String> strings = null;
+				
+				
 				if (d.getRowIdAt(posi).equals(RowId.STRINGMAP)) {
+					// case 1: it's a StringMap and the strings are known
 					StringMapRow r = (StringMapRow) d.getRowAt(posi);
 					strings = r.getKeyStrings();
+				
+				
 				} else if (d.getRowIdAt(posi).equals(RowId.STRING))  {
+					// case 2: it's a StringRow, request all string of the highest level from the warehouse
 					strings = requestStringsOf(d.getRowNameOfLevel(posi), d.getDimTableName());	
+					
 				} else {
-					System.out.println("Unkown type at position " + posi + " found while computing Strings for web page.");
+					// error
+					Printer.perror("Unkown row type at pos. " + posi + " for dim: " + d.getName());
+					return false;
 				}
 				
-				if (size == 1) {
-					d.setStrings(strings);
-					continue;
-				} 
-				
-				HashMap<String, Object> object = getHashMap(strings, d, posi + 1);	
-				
-				d.setStrings(object);
-		
+				// for every String add a DimKnot
+				for (String s : strings) {			
+					DimKnot dk =  new DimKnot(s, d.getRowAt(posi));
+					
+					// if it has deeper levels, add children
+					if (size > 1) {
+						if(!addChildrenTo(dk, d, posi + 1)) {
+							Printer.pproblem("Adding children to DimKnot: " + dk);
+						}
+					}
+					
+					d.addTree(dk);
+				}
+
 			} else {
+				// nothing to do here, cause only String dimensions give selection boxes
+				// time is handled specially
 				continue;
 			}
 		}
@@ -82,70 +99,49 @@ public class DataMediator {
 	}
 	
 	/**
-	 * Helper class returning a recursive HashMap extracted from a DimRow.
+	 * Adds to the given DimKnot  all it's children knots. 
+	 * The given position describes the
+	 * position/level of the children (!) in the given DimRow.
 	 * 
-	 * @param strings TreeSet as keys
-	 * @param d DimRow from which to extract
-	 * @param posi position in DimRow
-	 * @return a recursive HashMap extracted from a DimRow
+	 * @param dk DimKnot for which the children are requested
+	 * @param d DimRow dimension of the DimKnots
+	 * @param posi position of the children(!), position of dk + 1
+	 * @return whether it was successful
 	 */
-	private HashMap<String, Object> getHashMap(TreeSet<String> strings,	DimRow d, int posi) {
-		assert (strings != null);
+	private boolean addChildrenTo(DimKnot dk, DimRow d, int posi) {
+		assert (dk != null);
 		assert (d != null);
 		assert ((posi >= 0) && (posi < d.getSize()));
 		
 		int size = d.getSize();
 		
-		HashMap<String, Object> result = new HashMap<String, Object>();
+		// request children
+		TreeSet<String> children = requestStringsWithParent(d.getRowNameOfLevel(posi), d.getRowNameOfLevel(posi - 1), 
+															dk.getValue(), d.getDimTableName());
+		// request failed
+		if (children == null) {
+			Printer.pfail("Requesting children for: " + dk.getValue());
+			return false;
+		}
 		
-		for (String s : strings) {
-			TreeSet<String> childs = requestStringsWithParent(d.getRowNameOfLevel(posi), d.getRowNameOfLevel(posi - 1), s, d.getDimTableName());
-			if (childs == null) {
-				System.out.println("ERROR: Requesting chils for " + s + "failed.");
-				return null;
-			}
+		// for every String add a DimKnot
+		for (String s : children) {			
+			DimKnot child =  new DimKnot(s, d.getRowAt(posi));
 			
+			// if it has deeper levels, add children
 			if (posi < (size - 1)) {
-				result.put(s, (getHashMap(childs, d, posi + 1)));
-			} else {
-				result.put(s, childs);
+				if(!addChildrenTo(child, d, posi + 1)) {
+					Printer.pfail("Adding children to DimKnot: " + dk);
+					return false;
+				}
 			}
 			
+			dk.addChild(child);
 		}
 
-		return result;
-	}
-
-	
-	/**
-	 * Organizes things after data got uploaded.<br>
-	 * Sets the String sets in the DimRows in the configuration and
-	 * tells the OLAP Cubes to prae-compute it's data new.
-	 * @return
-	 */
-	public boolean organizeData2() {
-		for (int i = 0, l = config.getNumberOfDims(); i < l; i++) {
-			getDimKnot(null, null, 0);
-		}
-				
 		return true;
 	}
-	
-	/**
-	 * Helper class returning a recursive HashMap extracted from a DimRow.
-	 * 
-	 * @param strings TreeSet as keys
-	 * @param d DimRow from which to extract
-	 * @param posi position in DimRow
-	 * @return a recursive HashMap extracted from a DimRow
-	 */
-	private HashMap<String, Object> getDimKnot(TreeSet<String> strings,	DimRow d, int posi) {
-		// TODO
 
-		return null;
-	}
-
-	
 	// -- LOADING REQUEST -- LOADING REQUEST -- LOADING REQUEST - LOADING REQUEST --
 	/**
 	 * Loads a collection of DataEntry into the warehouse.

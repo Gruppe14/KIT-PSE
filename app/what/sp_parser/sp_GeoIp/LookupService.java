@@ -126,8 +126,8 @@ public class LookupService {
 
     private final Country UNKNOWN_COUNTRY = new Country("--", "N/A");
 
-    private static final HashMap hashmapcountryCodetoindex = new HashMap(512);
-    private static final HashMap hashmapcountryNametoindex = new HashMap(512);
+    private static final HashMap<String, Integer> hashmapcountryCodetoindex = new HashMap<String, Integer>(512);
+    private static final HashMap<String, Integer>  hashmapcountryNametoindex = new HashMap<String, Integer>(512);
     private static final String[] countryCode = {
    "--","AP","EU","AD","AE","AF","AG","AI","AL","AM","CW",
 	"AO","AQ","AR","AS","AT","AU","AW","AZ","BA","BB",
@@ -186,7 +186,7 @@ public class LookupService {
 	};
 
 
-    /* init the hashmap once at startup time */
+    /* initializes the HashMap once at startup time */
     static {
         int i;
         if(countryCode.length!=countryName.length)
@@ -630,7 +630,7 @@ public class LookupService {
 
     String getDnsAttributes(String ip) {
         try {
-            Hashtable env = new Hashtable();
+            Hashtable<String, String>  env = new Hashtable<String, String>();
             env.put("java.naming.factory.initial", "com.sun.jndi.dns.DnsContextFactory");
 	    // TODO don't specify ws1, instead use ns servers for s.maxmind.com
             env.put("java.naming.provider.url","dns://ws1.maxmind.com/");
@@ -864,8 +864,9 @@ public class LookupService {
         int record_buf_offset = 0;
         Location record = new Location();
         int str_length = 0;
-        int j, seek_country;
-        double latitude = 0, longitude = 0;
+        int seek_country;
+       // int j;
+       // double latitude = 0, longitude = 0;
 
         try {
             seek_country = seekCountry(ipnum);
@@ -876,8 +877,8 @@ public class LookupService {
 
             if ((dboptions & GEOIP_MEMORY_CACHE) == 1) {
                 //read from memory
-		System.arraycopy(dbbuffer, record_pointer, record_buf, 0, Math.min(dbbuffer.length - record_pointer, FULL_RECORD_LENGTH));
-} else {
+            	System.arraycopy(dbbuffer, record_pointer, record_buf, 0, Math.min(dbbuffer.length - record_pointer, FULL_RECORD_LENGTH));
+            } else {
                 //read from disk
                 file.seek(record_pointer);
                 file.readFully(record_buf);

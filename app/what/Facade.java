@@ -102,6 +102,9 @@ public class Facade {
 		chartMedi = new ChartMediator(config, dataMedi);	
 		parsMedi = new ParserMediator(config, dataMedi);
 
+		// testing
+		Printer.ptest(config.toString());
+		
 		// precompute strings for the web page selection boxes
 		computeDimensionData();
 		

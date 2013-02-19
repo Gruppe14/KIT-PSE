@@ -1,9 +1,11 @@
 package what.web;
 
+// java imports
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeSet;
 
+// intern imports
 import controllers.ChartIndex;
 import controllers.Localize;
 import play.api.templates.HtmlFormat;
@@ -12,9 +14,8 @@ import what.Facade;
 import what.sp_chart_creation.Measure;
 import what.sp_config.*;
 
-
 /**
- * class to create the html stuff from config for charts
+ * class to create the HTML stuff from configuration for charts
  * @author Lukas Ehnle, Jonathan, PSE Gruppe 14
  *
  */
@@ -29,7 +30,7 @@ public class ChartHelper {
 	//instance of charthelper --> singleton
 	private static HashMap<String, ChartHelper> instance = new HashMap<>();
 	//current config
-	private  ArrayList<DimRow> dims;
+	private ArrayList<DimRow> dims;
 	//charts available, currently overhead, but with further config files may be needed
 	private HashMap<String, Html> charts;
 	
@@ -65,7 +66,7 @@ public class ChartHelper {
 		for (DimRow dim: dims) {
 			//if time dimension, add time options + time scale
 			if(dim.getName().equalsIgnoreCase("time")) {
-				//if time do nothing is handled seperately
+				//if time do nothing is handled separately
 			//if string dim add to list for later
 			} else if (dim.isStringDim()) {
 				stringDim.add(dim);
@@ -113,71 +114,61 @@ public class ChartHelper {
 	}
 	
 	/**
-	 * method to create the option selections for dimensions
-	 * @param dims the dimensions
-	 * @return the html string
+	 * Creates the option selections for the String dimensions
+	 * 
+	 * @param dims the dimensions, only String dimensions allowed
+	 * @return HTML String for this String dimension
 	 */
-	//they are checked if no one messes up the methods
-	@SuppressWarnings("unchecked")
 	private String stringDimHtml(ArrayList<DimRow> dims) {
+		assert (dims != null);
+		
 		String html = "";
 		for(DimRow dim: dims) {
 			String tmp = "<div id=\"" + dim.getName() + "\" class=\"options\">" + DIV +
-					Localize.get("dim." + dim.getName()) + VID +
-					"<div class=\"dim list\" data=\"" + dim.getNameOfLevel(0) + "\">";
+					Localize.get("dim." + dim.getName()) + VID;
+					
+			assert (dim.isStringDim());
+			
 			//first level is build here because of dim list classes
-			//if HashMap recursivly
-			if(dim.getStrings() instanceof HashMap<?, ?>) {
-				
-				HashMap<String, Object> map = (HashMap<String, Object>) dim.getStrings();
-				tmp += dimObjectToString(map, dim, 1);
-				tmp += VID + VID;
-			//else TreeSet
-			} else if(dim.getStrings() instanceof TreeSet<?>) {
-				
-				for(String s: (TreeSet<String>) dim.getStrings()) {
-					tmp += SPAN + s + NAPS;
-				}
-				tmp += VID + VID;
-			} else if(dim.getStrings() == null){
-				//should not happen but if a dimension is empty, delete the string
-				tmp = "";
+			TreeSet<DimKnot> trees = dim.getStrings();
+			
+			tmp += "<div class=\"dim list\" data=\"" + trees.first().getRowName() + "\">";
+			for (DimKnot dk : trees) {
+				tmp += getHtmlForDimKnot(dk);	
 			}
+			tmp += VID + VID;
+			
 			html += tmp;
 		}
 		return html;
 	}
 	
 	/**
-	 * build a single option recursively
-	 * @param o the object given
-	 * @return returns a html string containing the options
+	 * Returns the HTML part for a DimKnot and it's children.
+	 * 
+	 * @param dk DimKnot for which the HTML part is requested
+	 * @return the HTML part for a DimKnot and it's children
 	 */
-	//they are checked if no one messes with the methods
-	@SuppressWarnings("unchecked")
-	private String dimObjectToString(HashMap<String, Object> map,DimRow dim, int lvl){
-		String html = "";
-		for(String s: map.keySet()) {
-			html += SPAN + s + NAPS;
-			//if has a subClass
-			if(map.get(s) != null) {
-				html += "<div class=\"sub\" data=\"" + dim.getNameOfLevel(lvl) + "\">";
-				//if has HashMap go on recursively
-				if(map.get(s) instanceof HashMap<?, ?>) {
-					HashMap<String, Object> newMap = (HashMap<String, Object>) map.get(s);
-					html += dimObjectToString(newMap, dim, lvl + 1);
-				//else TreeSet
-				} else if(map.get(s) instanceof TreeSet<?>) {
-					for(String newS: (TreeSet<String>) map.get(s)) {
-						html += SPAN + newS + NAPS;
-					}
-				}
-				html += VID;
+	private String getHtmlForDimKnot(DimKnot dk) {
+		assert (dk != null);
+		
+		String tmp = SPAN + dk.getValue() + NAPS;
+		
+		if (dk.hasChildren()) {
+			tmp += "<div class=\"sub\" data=\"" + dk.getChildren().first().getRowName() + "\">";
+			for (DimKnot child : dk.getChildren()) {
+				tmp += getHtmlForDimKnot(child);
 			}
+			
+			tmp += VID;
 		}
-		return html;
+		
+		
+
+		return tmp;
 	}
 	
+
 	/**
 	 * creates the option selection for the measures
 	 * @param measures the measures to add
