@@ -85,7 +85,6 @@ public class WHConnectionManager {
     }
 
     // -- GET AND BRING BACK -- GET AND BRING BACK -- GET AND BRING BACK -- GET AND BRING BACK --
-    
     /**
      * Returns a connection from the pool if one is available.
      * 
@@ -103,7 +102,7 @@ public class WHConnectionManager {
         //Giving away the connection from the connection pool
         // Printer.print("Connection taken from pool. Size of pool: " + connectionPool.size());
         return connection;
-    }
+    }   
     
     /**
      * Returns a connection to the pool.
@@ -115,4 +114,5 @@ public class WHConnectionManager {
         connectionPool.addElement(connection);
        // Printer.print("Connection returned to pool. Size of pool: " + connectionPool.size());
     }
+
 }

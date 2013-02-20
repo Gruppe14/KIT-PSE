@@ -1,0 +1,6 @@
+SELECT TOP 1000 
+YY,MM,DD,HH,MI,SS,clientIP,server,dbname,elapsed,busy,rows,statement 
+FROM SqlLog
+WHERE yy=datepart(yy,getdate()) 
+and mm=datepart(mm,getdate()) 
+and dd=datepart(dd,getdate())

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.TreeSet;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 // intern imports
 import what.Printer;
 import what.sp_chart_creation.DimChart;
@@ -52,6 +54,7 @@ public class MySQLAdapter {
 	public static final String RBR = " ) ";
 	
 	private static final String INSERT = "INSERT INTO ";
+	private static final String IIFNOTEX = "INSERT IF NOT EXIST INTO ";
 	private static final String VALUES = "VALUES ";
 	
 	public static final String APOS = "'";
@@ -77,6 +80,9 @@ public class MySQLAdapter {
 		assert (config != null);
 		
 		this.config = config;
+		if (!(computeUploadTrunk())) {
+			Printer.pfail("Computing upload trunk.");
+		}
 
 	}
 
@@ -107,6 +113,9 @@ public class MySQLAdapter {
 	 */
 	protected boolean loadEntry(DataEntry de) {
 		assert (de != null);
+		
+		// TEST
+		//loadEntries(de);
 		
 		// counts the position in the info array of the data entry
 		int counter = 0;
@@ -504,6 +513,26 @@ public class MySQLAdapter {
 		return c;
 	}
 	
+ 	/**
+	 * Returns a Connection with auto committing disabled.
+	 * 
+	 * @return a Connection with auto committing disabled
+	 */
+ 	private Connection getNoAutoCommitConnection() {
+		Connection c = getConnection();
+
+		try {
+			c.setAutoCommit(false);
+		} catch (SQLException e) {
+			Printer.perror("Changing auto commit to false.");
+			
+			// yeah f**k it... will work anyway :D
+			return c;
+		}
+		
+		return c;
+	}
+
  	private void close(Statement s, Connection c) {
 		assert (s != null);
 		assert (c != null);
@@ -546,4 +575,189 @@ public class MySQLAdapter {
 		return strings;
 	}
  	
+	
+	
+	// NEW UPLOAD NEW UPLOAD NEW UPLOAD NEW UPLOAD NEW UPLOAD NEW UPLOAD
+	
+	/**
+	 * The trunks of the uploads.<br>
+	 * [0] is for the fact table,
+	 * [>0] is for the dimensions in ordering of the appearance
+	 * when getting the DimRows from a configuration
+	 * via getDims(). 
+	 * Trunks contain: INSERT ... VALUE
+	 */
+	private String[] uploadTrunks;
+	
+	/**
+	 * Computes the upload trunks for the the fact table and the dimension.
+	 * 
+	 * @return whether it was successful
+	 */
+	private boolean computeUploadTrunk() {
+		int dimCounter = 0;
+		
+		String[] trunks = new String[config.getNumberOfDimsWitoutRows() + 1];
+		// query for the fact table
+		String factTrunk = INSERT + config.getFactTableName() + LBR;
+		
+		
+		ArrayList<DimRow> dims = config.getDims();
+		// get last to set "," at right positions
+		DimRow lastDim = dims.get(dims.size() - 1); 
+		for (DimRow d : dims) {
+			if (d.isDimension()) { // case it's a dimension
+				dimCounter++;
+				String curDimTrunk = IIFNOTEX + d.getDimTableName() + LBR ;
+				
+				// add all rows to the trunk
+				for (int i = 0, l = d.getSize(); i < l; i++) {
+					curDimTrunk += d.getRowNameOfLevel(i) + KOMMA;
+				}
+				
+				
+				// end this trunk: key + ) + VALUES
+				curDimTrunk += d.getTableKey() + RBR + VALUES;
+				// add to trunks
+				trunks[dimCounter] = curDimTrunk;
+	
+				// store key row of this dimension to the fact trunk
+				factTrunk += d.getTableKey();				
+			} else { // case it is fact
+				factTrunk += d.getRowNameOfLevel(0);	
+			}
+			
+			// not last one -> ,
+			if (!d.equals(lastDim)) {
+				factTrunk += KOMMA;
+			}
+		
+		}
+		
+		// end fact trunk
+		factTrunk += RBR + VALUES;
+		
+		// add the fact trunk
+		trunks[0] = factTrunk;
+
+		this.uploadTrunks = trunks;
+		
+		// TEST
+		//for (int i = 0, j = trunks.length; i < j; i++) {
+		//	Printer.ptest("Trunk " + i + ": " + trunks[i]);
+		//}
+		
+		return true;
+	}
+	
+	
+	/**
+	 * Returns the upload trunks.
+	 * 
+	 * @return the upload trunks
+	 */
+	protected String[] getUploadTrunk() {
+		if (uploadTrunks == null) {
+			Printer.perror("UploadTrunk not computed.");
+			if (!(computeUploadTrunk())) {
+				return null;
+			}
+		}
+		
+		// make defensive copy
+		int l = uploadTrunks.length;
+		String[] copy = new String[l];
+		for (int i = 0; i < l; i++) {
+			copy[i] = "" + uploadTrunks[i];
+		}
+		
+		return copy;
+	}
+
+	protected boolean loadEntries(DataEntry de) {
+		assert (de != null);
+		
+		String[] queries = getUploadTrunk();
+		if (queries == null) {
+			Printer.perror("No upload trunk accessable, we die here...");
+			return false;
+		}
+				
+		// counts the position in the info array of the data entry
+		int rowCounter = 0;
+		int dimCounter = 0;
+		
+		// fact query (
+		queries[0] += LBR;
+		
+		ArrayList<DimRow> dims = config.getDims();
+		// get last to set "," at right positions
+		DimRow lastDim = dims.get(dims.size() - 1); 
+		for (DimRow d : dims) {
+			if (d.isDimension()) { // case it's a dimension
+				dimCounter++;
+				
+				// get a HashCode Builder which will produce the key
+				HashCodeBuilder hashi = new HashCodeBuilder(17, 37);
+				
+				// dim query (
+				queries[dimCounter] += LBR;
+				
+				
+				// add all values to the query
+				for (int i = 0, l = d.getSize(); i < l; i++) {			
+					// if it is a string we have to add '
+					RowId id = d.getRowIdAt(i);
+					if ((id.equals(RowId.STRING)) || id.equals(RowId.STRINGMAP)) {
+						queries[dimCounter] += APOS + de.getInfo(rowCounter) + APOS;
+						hashi.append(de.getInfo(rowCounter));
+						rowCounter++;
+					} else {
+						queries[dimCounter] += "" + de.getInfo(rowCounter);
+						hashi.append(de.getInfo(rowCounter));
+						rowCounter++;
+					}
+					queries[dimCounter] += KOMMA;
+				}
+				
+				// get the key 
+				int key = hashi.toHashCode();
+				
+				// add key to the fact and dimension query..
+				queries[dimCounter] += key + RBR;
+				queries[0] += "" + key;
+				
+			} else { // case it is fact
+				queries[0] += de.getInfo(rowCounter);
+				rowCounter++;		
+			}
+			
+			// not last one -> ,
+			if (!d.equals(lastDim)) {
+				queries[0] += KOMMA;
+			}
+		
+		}
+		
+		// fact query )
+		queries[0] += RBR;
+	
+		return executeCompleteUpload(queries);
+	}
+
+	private boolean executeCompleteUpload(String[] queries) {
+		
+		for (int i = 0, l = queries.length; i < l; i++) {
+			Printer.ptest("Query part " + i + ": " + queries[i]);
+		}
+		
+		return true;
+	}
+	
+	
+	
+	
+	
+	
+	
 }
