@@ -27,7 +27,7 @@ public class ParserTest {
 	public void resetFacade() {
 		f.reset();
 		f.init(sourcePath + seperator + "conf\\ConfigurationFile.json");
-	//	pm = f.getParserMediator();
+		pm = f.getParserMediator();
 	}
 	
 	@Test
