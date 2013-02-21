@@ -9,7 +9,7 @@ import forTesting.Localize;
 
 import what.Printer;
 import what.sp_config.ConfigWrap;
-import what.sp_dataMediation.DataMediator;
+import what.sp_data_access.DataMediator;
 
 
 /**
