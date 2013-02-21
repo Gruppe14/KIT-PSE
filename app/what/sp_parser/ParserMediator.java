@@ -1,6 +1,5 @@
 package what.sp_parser;
 
-import java.io.FileNotFoundException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
@@ -9,7 +8,7 @@ import forTesting.Localize;
 
 import what.Printer;
 import what.sp_config.ConfigWrap;
-import what.sp_dataMediation.DataMediator;
+import what.sp_data_access.DataMediator;
 
 
 /**
@@ -53,7 +52,7 @@ public class ParserMediator {
 	private WatchDogTimer wdt = WatchDogTimer.getInstance();
 	
 	/**
-	 * Represents the used logfile
+	 * Represents the used log file
 	 */
 	private Logfile usedFile = null;
 	
@@ -94,6 +93,8 @@ public class ParserMediator {
 	 */
 	public ParserMediator(ConfigWrap confi, DataMediator dataMedi) {
 		if (confi == null) {
+			throw new IllegalArgumentException();
+		} else if (dataMedi == null)  {
 			throw new IllegalArgumentException();
 		}
 		
@@ -147,7 +148,7 @@ public class ParserMediator {
 		
 		finishedTasks = 0;
 		
-		System.out.println("Parsing log file started for path: " + path);
+		Printer.ptest("Start parsing log file: " + path);
 		
 		//Initialization for Logfile, ThreadPool and GeoIPTool.
 		
