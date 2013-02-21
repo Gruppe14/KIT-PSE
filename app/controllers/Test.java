@@ -1,17 +1,10 @@
 package controllers;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import play.mvc.Controller;
 import play.mvc.Result;
 import what.Facade;
-import what.sp_config.ConfigWrap;
-import what.sp_config.DimRow;
-import what.sp_data_access.CreateDatabase;
-import what.sp_parser.DataEntry;
- 
+
 // Class for test purposes only
 public class Test extends Controller {
 	public static Result test() {
@@ -36,13 +29,8 @@ public class Test extends Controller {
 		//System.out.println("Was it?" + f.init(pathJSONConfig));
 		
 		// System.out.println("And if it's content is there:");
-		 ConfigWrap confi = f.getCurrentConfig();
-		 System.out.println(confi.toString());
-		 for (DimRow d : confi.getDims()) {
-			 if (d.isStringDim()) {
-				 System.out.println(d.getStrings() != null);
-			 }	 
-		 }
+		// ConfigWrap confi = f.getCurrentConfig();
+		// DBTableBuilder.getDataBaseQuery(confi);
 		
 		//f.upload(DataEntry.getOne());
 		
@@ -53,7 +41,7 @@ public class Test extends Controller {
 		//System.out.println(f.parseLogFile(sourcePath + seperator + "example\\resultDay.csv"));
 		//f.parseLogFile(sourcePath + seperator + "example\\result10.csv");
 
-		//f.parseLogFile(sourcePath + seperator + "example\\result1000.csv");
+		f.parseLogFile(sourcePath + seperator + "example\\result1000.csv");
 		//System.out.println("Parsing finished");
 
 		return ok("Please look on your console for output of your code");

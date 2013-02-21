@@ -65,12 +65,12 @@ public class DBTableBuilder {
 				
 				
 				// end this trunk: key + ) + VALUES
-				curDim += d.getTableKey() + INT + UNIQUE + RBR + SEMI;
+				curDim += d.getTableKey() + SPACE+ INT + UNIQUE + RBR + SEMI;
 				// add to trunks
 				creates[dimCounter] = curDim;
 	
 				// store key row of this dimension to the fact trunk
-				fact += d.getTableKey() + INT;				
+				fact += d.getTableKey() + SPACE + INT;				
 			} else { // case it is fact
 				fact += d.getRowNameOfLevel(0) + SPACE + d.getRowAt(0).getTableType();	
 			}

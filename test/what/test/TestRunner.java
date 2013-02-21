@@ -8,4 +8,5 @@ public class TestRunner {
 
 	Result resultParser = JUnitCore.runClasses(ParserTest.class);
 	Result resultMySQL = JUnitCore.runClasses(MySQLStuff.class);
+
 }

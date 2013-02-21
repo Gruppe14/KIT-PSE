@@ -21,7 +21,7 @@ public class ParsingTask implements Runnable {
 	private int number;
 	
 	/**
-	 * String str, splitted by commas
+	 * String split at commas
 	 */
 	private String[] splitStr;
 	
@@ -68,8 +68,8 @@ public class ParsingTask implements Runnable {
 					//System.out.println(de.toString());
 					pm.getWatchDog().addWork(number);
 
-				//	boolean success = pm.getLoader().loadEntry(de);
-				//	System.out.println("Loading DataEntry was successful: " + success);
+					boolean success = pm.getLoader().loadEntry(de);
+					System.out.println("Loading DataEntry was successful: " + success);
 				} else {
 					pm.increaseLinedel();
 				}

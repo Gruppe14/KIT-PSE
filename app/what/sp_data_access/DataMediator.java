@@ -213,4 +213,14 @@ public class DataMediator {
 		return adapter.requestStringsOf(rowName, tableName);
 	}
 
+	
+	/**
+	 * Creates the warehouse tables for the configuration.
+	 * 
+	 * @return whether it was successful
+	 */
+	public boolean createDBTables() {
+		return adapter.createDBTables();
+	}
+
 }

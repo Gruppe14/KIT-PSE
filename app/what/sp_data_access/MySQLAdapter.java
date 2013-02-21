@@ -54,16 +54,22 @@ public class MySQLAdapter {
 	public static final String RBR = " ) ";
 	
 	private static final String INSERT = "INSERT INTO ";
-	private static final String IIFNOTEX = "INSERT IF NOT EXIST INTO ";
+	private static final String IIFNOTEX = "INSERT IGNORE INTO ";
 	private static final String VALUES = "VALUES ";
 	
 	public static final String APOS = "'";
 	public static final String DOT = ".";
-	private static final String SPACE = " ";
-	
-	/** Cached string for the fact query */
-	//private String factQueryStart;
-	
+		
+	/**
+	 * The trunks of the uploads.<br>
+	 * [0] is for the fact table,
+	 * [>0] is for the dimensions in ordering of the appearance
+	 * when getting the DimRows from a configuration
+	 * via getDims(). 
+	 * Trunks contain: INSERT ... VALUE
+	 */
+	private String[] uploadTrunks;
+		
 	/** The WHConnectionMangager for this MySQLAdapter. */
 	private WHConnectionManager whConnections = new WHConnectionManager();
 
@@ -86,6 +92,48 @@ public class MySQLAdapter {
 
 	}
 
+	// -- CREATING -- CREATING -- CREATING -- CREATING -- CREATING --
+	/**
+	 * Creates the tables for the warehouse 
+	 * for the configuration of this MySQLAdapter.
+	 * 
+	 * @return whether it was successful
+	 */
+	protected boolean createDBTables() {
+		Printer.print("Trying to create new tables in warehouse.");
+		
+		String[] queries = DBTableBuilder.getDataBaseQuery(config);
+		
+		Connection c = getNoAutoCommitConnection();
+		Statement s = getStatement(c);
+		if (s == null) {
+			Printer.pfail("Getting Statment.");
+			close(c);
+		}
+		
+		// add query to statement
+		for (String str : queries) {
+			try {
+				s.addBatch(str);
+			} catch (SQLException e) {
+				Printer.perror("Adding String to batch: " + str);
+				close(s, c);
+				return false;
+			}
+		}
+		
+		// execute
+		if (!(executeStatementBatch(s))) {
+			Printer.pfail("Executing table creating query.");
+			close(s, c);
+			return false;
+		} else {
+			Printer.psuccess("Creating tables.");
+			close(s,c);
+			return true;
+		}
+	}
+	
 	// -- LOADING -- LOADING -- LOADING -- LOADING -- LOADING --
 	/**
 	 * Loads a collection of DataEntry into the warehouse.
@@ -114,99 +162,72 @@ public class MySQLAdapter {
 	protected boolean loadEntry(DataEntry de) {
 		assert (de != null);
 		
-		// TEST
-		//loadEntries(de);
-		
+		String[] queries = getUploadTrunk();
+		if (queries == null) {
+			Printer.perror("No upload trunk accessable, we die here...");
+			return false;
+		}
+				
 		// counts the position in the info array of the data entry
-		int counter = 0;
+		int rowCounter = 0;
+		int dimCounter = 0;
 		
-		// query for the fact table
-		String factQuery = INSERT + config.getFactTableName() + LBR;
-		String factValues = VALUES + LBR;
+		// fact query (
+		queries[0] += LBR;
 		
 		ArrayList<DimRow> dims = config.getDims();
 		// get last to set "," at right positions
 		DimRow lastDim = dims.get(dims.size() - 1); 
 		for (DimRow d : dims) {
 			if (d.isDimension()) { // case it's a dimension
-				String dimQuery = INSERT + d.getDimTableName() + LBR ;
-				String dimValue = VALUES + LBR;
+				dimCounter++;
+				
+				// get a HashCode Builder which will produce the key
+				HashCodeBuilder hashi = new HashCodeBuilder(17, 7);
+				
+				// dim query (
+				queries[dimCounter] += LBR;
+				
 				
 				// add all values to the query
-				for (int i = 0, l = d.getSize(); i < l; i++) {
-					// add level i for table and value
-					dimQuery += d.getRowNameOfLevel(i);
-					
+				for (int i = 0, l = d.getSize(); i < l; i++) {			
 					// if it is a string we have to add '
 					RowId id = d.getRowIdAt(i);
 					if ((id.equals(RowId.STRING)) || id.equals(RowId.STRINGMAP)) {
-						dimValue += APOS + de.getInfo(counter) + APOS;
-						counter++;
+						queries[dimCounter] += APOS + de.getInfo(rowCounter) + APOS;
+						hashi.append(de.getInfo(rowCounter));
+						rowCounter++;
 					} else {
-						dimValue += "" + de.getInfo(counter);
-						counter++;
+						queries[dimCounter] += "" + de.getInfo(rowCounter);
+						hashi.append(de.getInfo(rowCounter));
+						rowCounter++;
 					}
-					
-					// not last entry -> , 
-					if (i != l -1) {
-						dimQuery += KOMMA;
-						dimValue += KOMMA;
-					}
+					queries[dimCounter] += KOMMA;
 				}
 				
-				dimQuery += RBR;
-				dimValue += RBR;
+				// get the key 
+				int key = hashi.toHashCode();
 				
-				// execute dimension query  
-				String curQuery = dimQuery + dimValue;
-				int key = getKey(curQuery, true); 
-				
-				if (key <= 0) { // it seems that it already existed... we have to ask for the key
-					String keyQuery = SELECT + d.getTableKey() + FROM + d.getDimTableName() + WHERE;
-					
-					for (int i = 0, l = d.getSize(); i < l; i++) {
-						
-						// if it is a string we have to add '
-						RowId id = d.getRowIdAt(i);
-						if ((id.equals(RowId.STRING)) || id.equals(RowId.STRINGMAP)) {
-							keyQuery += d.getRowNameOfLevel(i) +  EQL + APOS + de.getInfo(counter - l + i) + APOS + SPACE;
-						} else {
-							keyQuery += d.getRowNameOfLevel(i) + EQL + de.getInfo(counter - l + i) + SPACE;
-						}
-						
-						if ( i != (l - 1)) {
-							keyQuery += AND;
-						}
-					}
-					
-					key = getKey(keyQuery, false);
-	
-					if (key <= 0) {
-						Printer.pfail("Receiving a key.");
-						return false;
-					}	
-				}
-				
-				factQuery += d.getTableKey();
-				factValues += "" + key;
+				// add key to the fact and dimension query..
+				queries[dimCounter] += key + RBR;
+				queries[0] += "" + key;
 				
 			} else { // case it is fact
-				factQuery += d.getRowNameOfLevel(0);
-				factValues += de.getInfo(counter);
-				counter++;		
+				queries[0] += de.getInfo(rowCounter);
+				rowCounter++;		
 			}
 			
 			// not last one -> ,
 			if (!d.equals(lastDim)) {
-				factQuery += KOMMA;
-				factValues += KOMMA;
+				queries[0] += KOMMA;
 			}
 		
 		}
-
-		// run fact query
-		String curQuery = factQuery + RBR + factValues + RBR;	
-		return executeUpload(curQuery);
+		
+		// fact query )
+		queries[0] += RBR;
+	
+		return executeCompleteUpload(queries);
 	}
 
 	// -- EXTRACTING -- EXTRACTING -- EXTRACTING -- EXTRACTING -- EXTRACTING --
@@ -294,93 +315,70 @@ public class MySQLAdapter {
 	// -- EXECUTING -- EXECUTING -- EXECUTING -- EXECUTING -- EXECUTING --
 	// EXECUTING >> UPLOAD concerning
 	/**
-	 * Executes a upload request from a given query (String).
+	 * Executes the given array of Strings.
 	 * 
-	 * @param query query which will be excuted as upload
-	 * @return whether uploading was successful
+	 * @param queries Strings to be executed
+	 * @return whether it was successful
 	 */
-	private boolean executeUpload(String query) {
-		assert (query != null);
-		
-		// getting Connection and statement
-		Connection c = getConnection();
-		Statement s = getStatement(c);		
+	private boolean executeCompleteUpload(String[] queries) {
+		Connection c = getNoAutoCommitConnection();
+		Statement s = getStatement(c);
 		if (s == null) {
-			Printer.pfail("Getting statement.");
+			Printer.pfail("Getting Statment.");
 			close(c);
-			return false;
 		}
 		
-		// Printer.print("Try to execute: " + query);
+		// add query to statement
+		for (String str : queries) {
+			try {
+				//Printer.ptest(str);
+				s.addBatch(str);
+			} catch (SQLException e) {
+				Printer.perror("Adding String to batch: " + str);
+				close(s, c);
+				return false;
+			}
+		}
 		
-		// execute upload
-		try {
-			s.executeUpdate(query);
-		} catch (SQLException e) {
-			Printer.pfail("Executing update for query: \n >> " + query + " <<");
+		
+		if (!(executeStatementBatch(s))) {
+			Printer.pfail("Executing queries.");
 			close(s, c);
 			return false;
+		} else {
+			//Printer.psuccess("Upload.");
+			close(s,c);
+			return true;
 		}
-		
-		close(s, c);
-		return true;
 	}
 	
 	/**
-	 * Executes a given query.<br>
-	 * This is a upload request if ofUpload is true, otherwise it is a request.
-	 * Returns the generated key received for this upload or
-	 * -1 if it failed.
+	 * Executes the batch of the given statement.
 	 * 
-	 * @param query query for the update
-	 * @param ofUpload boolean which tells whether it is a upload or a request
-	 * @return the generated key received or -1 if it failed
+	 * @param s Statement which batch will be executed
+	 * @return whether all query in the batch were successful
 	 */
-	private int getKey(String query, boolean ofUpload) {
-		assert (query != null);
-		
-		int key = -1;
-		
-		// getting Connection and statement
-		Connection c = getConnection();
-		Statement s = getStatement(c);		
-		if (s == null) {
-		//	Printer.pfail("Getting statement.");
-			close(c);
-			return key;
-		}
-	
-		// Printer.print("Try to execute: " + query);
-		
-		// execute upload
-		ResultSet rs = null;
+	private boolean executeStatementBatch(Statement s) {
+		assert (s != null);
+
+		int[] result;
 		try {
-			if (ofUpload) {
-				s.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
-				rs = s.getGeneratedKeys();
-			} else {
-				rs = s.executeQuery(query);
-			}
+			result = s.executeBatch();
 		} catch (SQLException e) {
-		//	Printer.pfail("Executing query: \n >> " + query + " <<");
-			close(s, c);
-			return key;
+			Printer.perror("Clearing batch of statement.");
+			return false;
 		}
-
-		// get generated key
-		try {
-			if (rs.next()){
-	            key = rs.getInt(1);
-	        }
-		} catch (SQLException e1) {
-			Printer.pfail("Getting generated key from result set.");
-			close(s, c);
-			return key;
-		}    
 		
-
-		close(s,c);
-		return key;
+		if (result != null) {
+			for (int i = 0, l = result.length; i < l; i++) {
+				if (result[i] == Statement.EXECUTE_FAILED) {
+					Printer.pfail("Query number " + i + "failed.");
+					return false;
+				}
+			}
+		}
+		
+		return true;
 	}
 	
 	// EXECUTING >> REQUEST	
@@ -533,24 +531,29 @@ public class MySQLAdapter {
 		return c;
 	}
 
- 	private void close(Statement s, Connection c) {
-		assert (s != null);
-		assert (c != null);
-		
-		close(c);
-		
-		try {
-			s.close();
-		} catch (SQLException e) {
-			Printer.perror("Closing statement.");
+	/**
+	 * Returns the upload trunks.
+	 * 
+	 * @return the upload trunks
+	 */
+	protected String[] getUploadTrunk() {
+		if (uploadTrunks == null) {
+			Printer.perror("UploadTrunk not computed.");
+			if (!(computeUploadTrunk())) {
+				return null;
+			}
 		}
 		
+		// make defensive copy
+		int l = uploadTrunks.length;
+		String[] copy = new String[l];
+		for (int i = 0; i < l; i++) {
+			copy[i] = "" + uploadTrunks[i];
+		}
+		
+		return copy;
 	}
-	
-	private void close(Connection c) {
-		whConnections.returnConnectionToPool(c);		
-	}
-	
+ 	
 	// -- WORKER -- WORKER -- WORKER -- WORKER -- WORKER -- WORKER --
 	/**
 	 * Transforms a ResultSet into a TreeSet of Strings.
@@ -575,19 +578,38 @@ public class MySQLAdapter {
 		return strings;
 	}
  	
-	
-	
-	// NEW UPLOAD NEW UPLOAD NEW UPLOAD NEW UPLOAD NEW UPLOAD NEW UPLOAD
+	/**
+	 * Closes given Statement and returns given Connection to pool
+	 * @param s Statement to be closed
+	 * @param c Connection to be returned to pool
+	 */
+	private void close(Statement s, Connection c) {
+		assert (s != null);
+		assert (c != null);
+		
+		close(c);
+		
+		try {
+			s.close();
+		} catch (SQLException e) {
+			Printer.perror("Closing statement.");
+		}
+		
+	}
 	
 	/**
-	 * The trunks of the uploads.<br>
-	 * [0] is for the fact table,
-	 * [>0] is for the dimensions in ordering of the appearance
-	 * when getting the DimRows from a configuration
-	 * via getDims(). 
-	 * Trunks contain: INSERT ... VALUE
+	 * Returns given Connection to pool
+	 * @param c Connection to be returned to pool
 	 */
-	private String[] uploadTrunks;
+	private void close(Connection c) {
+		try {
+			c.setAutoCommit(true);
+		} catch (SQLException e) {
+			Printer.pfail("Changing back to auto commit.");
+		}
+		
+		whConnections.returnConnectionToPool(c);		
+	}
 	
 	/**
 	 * Computes the upload trunks for the the fact table and the dimension.
@@ -649,115 +671,5 @@ public class MySQLAdapter {
 		
 		return true;
 	}
-	
-	
-	/**
-	 * Returns the upload trunks.
-	 * 
-	 * @return the upload trunks
-	 */
-	protected String[] getUploadTrunk() {
-		if (uploadTrunks == null) {
-			Printer.perror("UploadTrunk not computed.");
-			if (!(computeUploadTrunk())) {
-				return null;
-			}
-		}
-		
-		// make defensive copy
-		int l = uploadTrunks.length;
-		String[] copy = new String[l];
-		for (int i = 0; i < l; i++) {
-			copy[i] = "" + uploadTrunks[i];
-		}
-		
-		return copy;
-	}
-
-	protected boolean loadEntries(DataEntry de) {
-		assert (de != null);
-		
-		String[] queries = getUploadTrunk();
-		if (queries == null) {
-			Printer.perror("No upload trunk accessable, we die here...");
-			return false;
-		}
-				
-		// counts the position in the info array of the data entry
-		int rowCounter = 0;
-		int dimCounter = 0;
-		
-		// fact query (
-		queries[0] += LBR;
-		
-		ArrayList<DimRow> dims = config.getDims();
-		// get last to set "," at right positions
-		DimRow lastDim = dims.get(dims.size() - 1); 
-		for (DimRow d : dims) {
-			if (d.isDimension()) { // case it's a dimension
-				dimCounter++;
-				
-				// get a HashCode Builder which will produce the key
-				HashCodeBuilder hashi = new HashCodeBuilder(17, 37);
-				
-				// dim query (
-				queries[dimCounter] += LBR;
-				
-				
-				// add all values to the query
-				for (int i = 0, l = d.getSize(); i < l; i++) {			
-					// if it is a string we have to add '
-					RowId id = d.getRowIdAt(i);
-					if ((id.equals(RowId.STRING)) || id.equals(RowId.STRINGMAP)) {
-						queries[dimCounter] += APOS + de.getInfo(rowCounter) + APOS;
-						hashi.append(de.getInfo(rowCounter));
-						rowCounter++;
-					} else {
-						queries[dimCounter] += "" + de.getInfo(rowCounter);
-						hashi.append(de.getInfo(rowCounter));
-						rowCounter++;
-					}
-					queries[dimCounter] += KOMMA;
-				}
-				
-				// get the key 
-				int key = hashi.toHashCode();
-				
-				// add key to the fact and dimension query..
-				queries[dimCounter] += key + RBR;
-				queries[0] += "" + key;
-				
-			} else { // case it is fact
-				queries[0] += de.getInfo(rowCounter);
-				rowCounter++;		
-			}
-			
-			// not last one -> ,
-			if (!d.equals(lastDim)) {
-				queries[0] += KOMMA;
-			}
-		
-		}
-		
-		// fact query )
-		queries[0] += RBR;
-	
-		return executeCompleteUpload(queries);
-	}
-
-	private boolean executeCompleteUpload(String[] queries) {
-		
-		for (int i = 0, l = queries.length; i < l; i++) {
-			Printer.ptest("Query part " + i + ": " + queries[i]);
-		}
-		
-		return true;
-	}
-	
-	
-	
-	
-	
-	
 	
 }

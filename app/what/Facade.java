@@ -132,6 +132,16 @@ public class Facade {
 		dataMedi = null;
 	}
 	
+	/**
+	 * Creates the warehouse tables for the configuration.
+	 * 
+	 * @return whether it was successful
+	 */
+	public boolean createDBTables() {
+		// TODO ensure it only happens one time... needs little data base.
+		return dataMedi.createDBTables();
+	}
+	
 	// -- REQUESTS -- REQUESTS -- REQUESTS -- -- REQUESTS --
 	/**
 	 * Directs a parsing request to a ParserMediator.<br>
@@ -149,6 +159,12 @@ public class Facade {
 			throw new IllegalArgumentException();
 		}
 		
+		//Printer.ptest("creating tables: " + createDBTables());
+		
+		// testing
+		Printer.ptest("Start parsing task.");
+		long start = System.currentTimeMillis();
+		
 		// checks whether a request is allowed
 		if (!isInitialized()) {
 			Printer.pproblem("Configurations & mediators not initalized!");
@@ -163,10 +179,14 @@ public class Facade {
 		}  else {
 			Printer.psuccess("Parsing.");
 		}
+		
+		// testing
+		Printer.ptest("Completed parsing task. Time needed: " + (System.currentTimeMillis() - start));
+		
 
 		// precompute strings for the web page selection boxes after parsinng
 		computeDimensionData();
-		
+			
 		return true;
 	}
 

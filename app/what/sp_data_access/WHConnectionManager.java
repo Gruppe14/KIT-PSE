@@ -72,12 +72,12 @@ public class WHConnectionManager {
         try {        	
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(databaseUrl, userName, password);
-            Printer.print("Connection: " + connection);
+            //Printer.print("Connection: " + connection);
         } catch(SQLException sqle) {
         	Printer.perror("SQLException: " + sqle);
             return null;
         } catch(ClassNotFoundException cnfe) {
-            System.err.println("ClassNotFoundException: " + cnfe);
+            Printer.perror("ClassNotFoundException: " + cnfe);
             return null;
         }
 
