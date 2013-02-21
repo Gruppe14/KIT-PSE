@@ -1,6 +1,5 @@
 package what.sp_parser;
 
-import java.io.FileNotFoundException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
@@ -48,6 +47,11 @@ public class ParserMediator {
 	private int watchTime = 2;
 	
 	/**
+	 * This variable indicates how many percent of the lines have to get uploaded correctly.
+	 */
+	private final static int CORRECT = 98;
+	
+	/**
 	 * The WatchDogTimer.
 	 */
 	private WatchDogTimer wdt = WatchDogTimer.getInstance();
@@ -60,7 +64,7 @@ public class ParserMediator {
 	/**
 	 * The thread-pool which contains all objects of the class ParsingTask.
 	 */
-	private ExecutorService threadPool = Executors.newFixedThreadPool(poolsize);
+	private ExecutorService threadPool;
 	
 	/**
 	 * An array of all tasks.
@@ -131,6 +135,7 @@ public class ParserMediator {
 			tasks[i] = new ParsingTask(this, i);
 		}
 		
+		threadPool = Executors.newFixedThreadPool(poolsize);
 		
 		return true;
 	}
@@ -155,16 +160,19 @@ public class ParserMediator {
 		
 					
 		if (fatalError) {
+			this.reset();
 			return false;
 		}
 		
 		usedFile.setPm(this);
 
 		if (!createThreadPool()) {
+			this.reset();
 			return false;
 		}
 		
 		if (!GeoIPTool.setUpIpTool(this)) {
+			this.reset();
 			return false;
 		}
 		
@@ -183,6 +191,7 @@ public class ParserMediator {
 			
 			if (fatalError) {
 				threadPool.shutdown();
+				this.reset();
 				return false;
 			}			
 		}
@@ -195,7 +204,7 @@ public class ParserMediator {
 			if (finishedTasks >= poolsize) {
 				System.out.println("lines: " + usedFile.getLines());
 				threadPool.shutdown();
-				return true;
+				return enoughLinesSubmitted();
 			} else {
 				try {
 					Thread.sleep(1000);
@@ -204,6 +213,7 @@ public class ParserMediator {
 				}
 				
 				if (fatalError) {
+					this.reset();
 					return false;
 				}
 			}
@@ -216,6 +226,27 @@ public class ParserMediator {
 
 	}
 	
+
+
+	private boolean enoughLinesSubmitted() {
+		
+		boolean toReturn = (usedFile.getLines() * (CORRECT / 100) <= (usedFile.getLines() - linesDeleted));
+		
+		this.reset();
+		
+		return toReturn;
+	}
+
+
+	private void reset() {
+		finishedTasks = 0;
+		linesDeleted = 0;
+		usedFile = null;
+		tasks = null;
+		error = null;
+		fatalError = false;
+		threadPool = null;		
+	}
 
 
 	/**
@@ -316,6 +347,7 @@ public class ParserMediator {
 		ParsingTask newTask = new ParsingTask(this, i);
 		threadPool.submit(newTask);
 		tasks[i] = newTask;
+		Printer.pproblem(Localize.getString("Warning.20"));
 	}
 
 
