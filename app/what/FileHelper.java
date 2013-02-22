@@ -33,6 +33,7 @@ public class FileHelper {
 		// Method class, not to be instanced
 	}
 	
+	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 
 	/**
 	 * Returns a file from a given path. Also checks if it exists and is readable.
 	 * 
@@ -96,33 +97,6 @@ public class FileHelper {
 	}
 	
 	/**
-	 * Returns the file extension for a given file (without the dot).
-	 * 
-	 * @param file File from which the extension is requested
-	 * @return the file extension for a given file
-	 */
-	private static String getFileExtension(File file) {
-		assert (file != null);
-		
-		// get the file name
-		String fileName = file.getName();
-		if ((fileName == null) || (fileName.equalsIgnoreCase(""))) {
-			Printer.perror("Reading file name");
-			return null;
-		}
-		
-		String extension = null;
-		int i = fileName.lastIndexOf('.');
-		if (i > 0) {
-		    extension = fileName.substring(i+1);
-		} else {
-			Printer.pfail("No extension found for: " + fileName);
-		}
-		
-		return extension;
-	}
-
-	/**
 	 * Extracts the String from the file.
 	 * 
 	 * @param configFile file from which is to be read
@@ -160,6 +134,34 @@ public class FileHelper {
 		}
 		
 		return content;
+	}
+	
+	// -- PRIVATE -- PRIVATE -- PRIVATE -- PRIVATE -- PRIVATE -- 
+	/**
+	 * Returns the file extension for a given file (without the dot).
+	 * 
+	 * @param file File from which the extension is requested
+	 * @return the file extension for a given file
+	 */
+	private static String getFileExtension(File file) {
+		assert (file != null);
+		
+		// get the file name
+		String fileName = file.getName();
+		if ((fileName == null) || (fileName.equalsIgnoreCase(""))) {
+			Printer.perror("Reading file name");
+			return null;
+		}
+		
+		String extension = null;
+		int i = fileName.lastIndexOf('.');
+		if (i > 0) {
+		    extension = fileName.substring(i+1);
+		} else {
+			Printer.pfail("No extension found for: " + fileName);
+		}
+		
+		return extension;
 	}
 
 	/**

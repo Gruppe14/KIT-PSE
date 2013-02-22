@@ -11,6 +11,10 @@ import what.sp_parser.ParserMediator;
 
 public class ParserTest {
 	
+	private static final String SMALL_PARSING1 = "01TestParsing1k.csv";
+	private static final String SMALL_PARSING2 = "02TestParsing1k.csv";
+	private static final String PARSING1 = "01TestParsing10k.csv";
+	
 	private static Facade f;
 	private static ParserMediator pm;
 	
@@ -37,7 +41,7 @@ public class ParserTest {
 	
 	@Test
 	public void smallParseTestStandardSize() {
-		assertTrue(f.parseLogFile(sourcePath + seperator + "example\\result10.csv"));
+		assertTrue(f.parseLogFile(sourcePath + seperator + "example\\" + SMALL_PARSING1));
 	}
 	
 	@Test
@@ -57,14 +61,7 @@ public class ParserTest {
 		pm.setPoolsizeParsing(-2);
 		assertFalse(f.parseLogFile(sourcePath + seperator + "example\\result10.csv"));
 	}
-	
-	@Test
-	public void nonexistentFile() {
-		assertFalse(f.parseLogFile("nonexistentpath.csv"));
-	}
-	
-	
-	
+		
 	@Test
 	public void flawedFile() {
 		assertFalse(f.parseLogFile(sourcePath + seperator + "example\\flawedFile.csv"));
