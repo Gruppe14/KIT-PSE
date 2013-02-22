@@ -21,14 +21,12 @@ import what.sp_data_access.DataMediator;
  * @author Alex
  *
  */
-
 public class ParserMediator {
 	
 	/**
-	 * The poolsize of parsingTasks.
+	 * The pool size of parsingTasks.
 	 */
 	private int poolsize = 5;
-	
 	
 	/**
 	 * This variable saves how many tasks have been finished. it is used to 
@@ -47,6 +45,11 @@ public class ParserMediator {
 	private int watchTime = 2;
 	
 	/**
+	 * This variable indicates how many percent of the lines have to get uploaded correctly.
+	 */
+	private final static int CORRECT = 98;
+	
+	/**
 	 * The WatchDogTimer.
 	 */
 	private WatchDogTimer wdt = WatchDogTimer.getInstance();
@@ -59,7 +62,7 @@ public class ParserMediator {
 	/**
 	 * The thread-pool which contains all objects of the class ParsingTask.
 	 */
-	private ExecutorService threadPool = Executors.newFixedThreadPool(poolsize);
+	private ExecutorService threadPool;
 	
 	/**
 	 * An array of all tasks.
@@ -130,6 +133,7 @@ public class ParserMediator {
 			tasks[i] = new ParsingTask(this, i);
 		}
 		
+		threadPool = Executors.newFixedThreadPool(poolsize);
 		
 		return true;
 	}
@@ -154,16 +158,19 @@ public class ParserMediator {
 		
 					
 		if (fatalError) {
+			this.reset();
 			return false;
 		}
 		
 		usedFile.setPm(this);
 
 		if (!createThreadPool()) {
+			this.reset();
 			return false;
 		}
 		
 		if (!GeoIPTool.setUpIpTool(this)) {
+			this.reset();
 			return false;
 		}
 		
@@ -182,6 +189,7 @@ public class ParserMediator {
 			
 			if (fatalError) {
 				threadPool.shutdown();
+				this.reset();
 				return false;
 			}			
 		}
@@ -194,7 +202,7 @@ public class ParserMediator {
 			if (finishedTasks >= poolsize) {
 				System.out.println("lines: " + usedFile.getLines());
 				threadPool.shutdown();
-				return true;
+				return enoughLinesSubmitted();
 			} else {
 				try {
 					Thread.sleep(1000);
@@ -203,6 +211,7 @@ public class ParserMediator {
 				}
 				
 				if (fatalError) {
+					this.reset();
 					return false;
 				}
 			}
@@ -215,6 +224,27 @@ public class ParserMediator {
 
 	}
 	
+
+
+	private boolean enoughLinesSubmitted() {
+		
+		boolean toReturn = (usedFile.getLines() * (CORRECT / 100) <= (usedFile.getLines() - linesDeleted));
+		
+		this.reset();
+		
+		return toReturn;
+	}
+
+
+	private void reset() {
+		finishedTasks = 0;
+		linesDeleted = 0;
+		usedFile = null;
+		tasks = null;
+		error = null;
+		fatalError = false;
+		threadPool = null;		
+	}
 
 
 	/**
@@ -258,8 +288,6 @@ public class ParserMediator {
 	}
 
 	
-	
-	
 	/**
 	 * @return the config
 	 */
@@ -267,7 +295,7 @@ public class ParserMediator {
 		return cw;
 	}
 
-	
+
 	/**
 	 * @param poolsize the poolsize to set
 	 */
@@ -310,13 +338,12 @@ public class ParserMediator {
 		return usedFile;
 	}
 
-
 	protected void resetThread(int i) {
 		ParsingTask newTask = new ParsingTask(this, i);
 		threadPool.submit(newTask);
 		tasks[i] = newTask;
+		Printer.pproblem(Localize.getString("Warning.20"));
 	}
-
 
 	public int getFinishedTasks() {
 		return finishedTasks;
@@ -326,8 +353,4 @@ public class ParserMediator {
 		return error;
 	}
 	
-	
-	
-	
-
 }

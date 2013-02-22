@@ -47,14 +47,9 @@ public class Facade {
 	private static Facade FACADE_OBJECT;
 	 
 	static {
-		// get the default path for the first use
-	    String sourcePath = System.getProperty("user.dir");
-		String seperator = System.getProperty("file.separator");
-		String pathJSONConfig = sourcePath + seperator + "conf\\ConfigurationFile.json";
-		
 		// initialize the Facade singleton
 		FACADE_OBJECT = new Facade();
-		FACADE_OBJECT.init(pathJSONConfig);
+		FACADE_OBJECT.init(getStandardPath());
 	}
 	
 	/**
@@ -72,9 +67,26 @@ public class Facade {
 	 * @return the singleton Facade object
 	 */
 	public static Facade getFacadeIstance() {
-		return FACADE_OBJECT;
+		if (FACADE_OBJECT.isInitialized()) {
+			return FACADE_OBJECT;
+		} else {
+			FACADE_OBJECT.init(getStandardPath());
+			return FACADE_OBJECT;
+		}
 	}
 	
+	/**
+	 * Returns the standard path of the configuration for this what application.
+	 * 
+	 * @return the standard path of the configuration
+	 */
+	private static String getStandardPath() {
+		// get the default path
+	    String sourcePath = System.getProperty("user.dir");
+		String seperator = System.getProperty("file.separator");
+		return sourcePath + seperator + "conf\\ConfigurationFile.json";
+	}
+
 	// -- INIT -- RESET -- INIT -- RESET -- INIT --
 	/**
 	 * Initializes this facade with a ConfigWrap, what is necessary
