@@ -30,7 +30,7 @@ public class ParserTest {
 		pm = f.getParserMediator();
 	}
 	
-	@Testsmal
+	@Test
 	public void smallParseTestStandardSize() {
 		assertTrue(f.parseLogFile(sourcePath + seperator + "example\\result10.csv"));
 	}
