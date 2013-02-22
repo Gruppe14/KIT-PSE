@@ -40,23 +40,20 @@ public class DimChart {
 	/** name of the table of the x-axis of this DimChart */
 	private final Filter xFilter;
 		
-	/** measure of this DimChart */
+	/** Measure of this DimChart. */
 	private final Measure measure;
 	
 	/** List of filters. */
 	private final ArrayList<Filter> filters;
 	
 	/**
-	 * Protected constructor for a 2 dimension chart.
+	 * Protected constructor for a 1 dimension chart.
 	 * 
 	 * @param chartType chart type like bubble chart, ...
-	 * @param x x-axis
-	 * @param xTable table of x-axis
-	 * @param xCategorie category of x-axis
+	 * @param x the name of the x-axis
+	 * @param xFilter Filter for the x-axis
 	 * @param measure Measure of this chart
-	 * @param filterSets a Map containing filters
-	 * @param start start time for request
-	 * @param end end time for request
+	 * @param filters Collection of Filters for the other dimensions
 	 */
 	protected DimChart(String chartType, String x, Filter xFilter, Measure measure, ArrayList<Filter> filters) {
 		assert (chartType != null);
@@ -67,7 +64,7 @@ public class DimChart {
 			
 		this.chartType = chartType;
 		this.x = x;
-		this.xFilter= xFilter;
+		this.xFilter = xFilter;
 		this.measure = measure;
 		this.filters = filters;	
 	}
@@ -187,7 +184,7 @@ public class DimChart {
 	 * 
 	 * @return the x-axis
 	 */
-	protected String getX() {
+	protected final String getX() {
 		return x;
 	}
 

@@ -42,7 +42,6 @@ public class Facade {
 	/** DataMediator to which work is directed from this Facade. */
 	private DataMediator dataMedi;
 	
-	
 	// -- SINGLETON PATTERN -- SINGLETON PATTERN -- SINGLETON PATTERN --
 	/** The singleton facade object */
 	private static Facade FACADE_OBJECT;
@@ -265,7 +264,6 @@ public class Facade {
 		return histo;
 	}
 	
-	
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 
 	/**
 	 * Returns the current ConfigWrap.
@@ -320,6 +318,15 @@ public class Facade {
 			Printer.pfail("Precomputing strings for dimensions.");
 		}
 		Printer.psuccess("Precompunting strings for dimensions.");
+	}
+
+	// -- TESTING -- TESTING -- TESTING -- -- TESTING --
+	/**
+	 * Just for testing
+	 * @return the parser mediator
+	 */
+	public ParserMediator getParserMediator() {
+		return parsMedi;
 	}	
 
 }

@@ -101,12 +101,10 @@ public class ParserMediator {
 		this.cw = confi;
 		this.loader = dataMedi;
 	}
-	
 		
 	public ParserMediator(ConfigWrap config) {
 		this.cw = config;
 	}
-
 
 	/**
 	 * Creates a new <code>threadPool</code> with <code>poolsize</code> objects of the type 

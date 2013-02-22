@@ -37,7 +37,6 @@ public class ChartHostBuilder {
 	public static final String JSON_MEASURE = "measure";
 	public static final String JSON_AGGREGATION = "aggregation";
 	
-	
 	public static final String JSON_ALL = "all";
 	
 	public static final String JSON_LVL = "level";
@@ -424,7 +423,7 @@ public class ChartHostBuilder {
 					Printer.perror("Illegal statement for select: " + sel);
 					return null;
 				}
-		} if (timeObj instanceof JSONObject) {		
+		} else if (timeObj instanceof JSONObject) {		
 		
 			// get the time scale field
 			JSONObject timeObject = (JSONObject) timeObj;
