@@ -30,9 +30,24 @@ public class ParserTest {
 		pm = f.getParserMediator();
 	}
 	
-	@Test
+	@Testsmal
 	public void smallParseTestStandardSize() {
 		assertTrue(f.parseLogFile(sourcePath + seperator + "example\\result10.csv"));
+	}
+	
+	@Test
+	public void testIntegerMistake() {
+		assertFalse(f.parseLogFile(sourcePath + seperator + "example\\fileWithMistake1.csv"));
+	}
+	
+	@Test
+	public void testMissingPart() {
+		assertFalse(f.parseLogFile(sourcePath + seperator + "example\\fileWithMistake2.csv"));
+	}
+	
+	@Test
+	public void testEmptyPart() {
+		assertFalse(f.parseLogFile(sourcePath + seperator + "example\\fileWithMistake3.csv"));
 	}
 	
 	@Test
@@ -45,6 +60,11 @@ public class ParserTest {
 	public void smallParseTestTooBig() {
 		pm.setPoolsizeParsing(100);
 		assertFalse(f.parseLogFile(sourcePath + seperator + "example\\result10.csv"));
+	}
+	
+	@Test
+	public void smallParseTestEmptyLine() {
+		assertTrue(f.parseLogFile(sourcePath + seperator + "example\\result10EmptyLine.csv"));
 	}
 	
 	@Test

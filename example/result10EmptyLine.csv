@@ -1,6 +1,7 @@
 YY,MM,DD,HH,MI,SS,clientIP,server,dbname,elapsed,busy,rows,statement
 2013,1,21,15,5,45,37.31.37.76,SDSS3J,BESTDR9,0.11,1E-3,1,"select top 1 * from Star JOIN dbo.fGetNearbyObjEq(265.56125, 54.31250
 , 1) AS SN ON Star.objID = SN.objID  "
+
 2013,1,21,15,5,43,37.31.37.76,SDSS3J,BESTDR9,0.17,1E-3,1,"select top 1 * from Star JOIN dbo.fGetNearbyObjEq(265.56125, 54.31250
 , 1) AS SN ON Star.objID = SN.objID  "
 2013,1,21,15,5,42,37.31.37.76,SDSS3J,BESTDR9,0.08,1E-3,1,"select top 1 * from Star JOIN dbo.fGetNearbyObjEq(265.47000, 54.17417

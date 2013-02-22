@@ -32,6 +32,9 @@ public class DoubleRow extends RowEntry {
 	@Override
 	public boolean split(DataEntry de, String string, int location) {
 		try {
+			if (string.length() == 0) {
+				return false;
+			}
 			de.setInfo(Double.parseDouble(string), location);
 		} catch (NumberFormatException e) {
 			return false;
