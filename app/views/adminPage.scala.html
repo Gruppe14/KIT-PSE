@@ -5,6 +5,7 @@
 	<script>
 		$(document).ready(function() {
 			$("#send").click(function() {
+				$("#loader").show();
 				document.forms['admin'].submit();
 			})
 		});
@@ -23,4 +24,5 @@
 		
 	}
 	</div>
+	<div id='loader'></div>
 }

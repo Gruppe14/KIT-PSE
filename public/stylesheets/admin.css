@@ -1,3 +1,19 @@
+#loader {
+	background-color: rgba(255,255,255, 0.7);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 10;
+	vertical-align: middle;
+	text-align: center;
+	background-image: url("/assets/images/loader.gif");
+	background-repeat: no-repeat;
+	background-position: 50% 240px;
+	display: none;
+}
+
 #send {
 	display:block;
 	border:2px solid lightgray;
