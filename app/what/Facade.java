@@ -84,7 +84,7 @@ public class Facade {
 		// get the default path
 	    String sourcePath = System.getProperty("user.dir");
 		String seperator = System.getProperty("file.separator");
-		return sourcePath + seperator + "conf" + separator + "ConfigurationFile.json";
+		return sourcePath + seperator + "conf" + seperator + "ConfigurationFile.json";
 	}
 
 	// -- INIT -- RESET -- INIT -- RESET -- INIT --
