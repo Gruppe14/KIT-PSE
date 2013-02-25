@@ -17,8 +17,7 @@ import what.sp_config.ConfigWrap;
  */
 public class SplittingTool {
 		
-	
-	private SplittingTool() {
+		private SplittingTool() {
 		//private constructor, because utility-class
 	}
 	
@@ -85,7 +84,9 @@ public class SplittingTool {
 		
 		
 		for (int i = 7; i < pt.getPm().getConfig().getNumberOfRows() - 1; i++) {
-			cw.getEntryAt(i).split(de, str[i], i + 1);
+			if(!cw.getEntryAt(i).split(de, str[i], i + 1)) {
+				return false;
+			}
 		}
 			
 		return true;		

@@ -38,6 +38,9 @@ public class StringRow extends RowEntry {
 	
 	@Override
 	public boolean split(DataEntry de, String string, int location) {
+		if (string.toUpperCase().trim().length() == 0) {
+			return false;
+		}
 		de.setInfo(string.toUpperCase().trim(), location);
 		return true;
 	}

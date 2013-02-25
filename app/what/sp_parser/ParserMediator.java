@@ -47,7 +47,7 @@ public class ParserMediator {
 	/**
 	 * This variable indicates how many percent of the lines have to get uploaded correctly.
 	 */
-	private final static int CORRECT = 98;
+	private final static double CORRECT = 98;
 	
 	/**
 	 * The WatchDogTimer.
@@ -202,7 +202,9 @@ public class ParserMediator {
 			if (finishedTasks >= poolsize) {
 				System.out.println("lines: " + usedFile.getLines());
 				threadPool.shutdown();
-				return enoughLinesSubmitted();
+				boolean toReturn = enoughLinesSubmitted();
+				this.reset();
+				return toReturn;
 			} else {
 				try {
 					Thread.sleep(1000);
@@ -228,11 +230,8 @@ public class ParserMediator {
 
 	private boolean enoughLinesSubmitted() {
 		
-		boolean toReturn = (usedFile.getLines() * (CORRECT / 100) <= (usedFile.getLines() - linesDeleted));
-		
-		this.reset();
-		
-		return toReturn;
+		return ((double) usedFile.getLines() * (double) (CORRECT / 100) <= (usedFile.getLines() - linesDeleted));
+						
 	}
 
 

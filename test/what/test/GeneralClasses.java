@@ -9,6 +9,10 @@ import what.Facade;
 
 public class GeneralClasses {
 
+	// file names
+	private static final String NONSENSE = "ahahaha what am I?";
+	private static final String WRONG = "WrongAmI.txt";
+	
 	// is needed every time... the heart of the system
 	private static Facade f;
 	
@@ -31,16 +35,20 @@ public class GeneralClasses {
 	// -- FileHelper -- FileHelper -- FileHelper -- FileHelper --
 	@Test
 	public void wrongFile() {
-		assertFalse(f.parseLogFile(sourcePath + seperator + "example\\wrongFile.txt"));
-		assertFalse(f.init(sourcePath + seperator + "example\\wrongFile.txt"));
+		assertFalse(f.parseLogFile(getPathFor(WRONG)));
+		assertFalse(f.init(getPathFor(WRONG)));
 		resetFacade();
 	}
 
 	@Test
 	public void nonexistentFile() {
-		assertFalse(f.parseLogFile("nonexistentpath.csv"));
-		assertFalse(f.parseLogFile("ahahaha what am I?"));
+		assertFalse(f.parseLogFile(getPathFor("nonexistentpath.csv")));
+		assertFalse(f.parseLogFile(getPathFor(NONSENSE)));
 	}
 	
+	// -- HELPER -- HELPER -- HELPER -- HELPER -- HELPER --
+	private String getPathFor(String s) {
+		return sourcePath + seperator + "example\\" + s;
+	}
 	
 }

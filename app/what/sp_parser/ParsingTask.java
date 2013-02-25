@@ -61,16 +61,19 @@ public class ParsingTask implements Runnable {
 				splitStr = str.split(",");
 
 				de = new DataEntry(pm.getConfig().getNumberOfRows() + 1);
-				
-				if (SplittingTool.split(this)) {
+				if (splitStr.length >= pm.getConfig().getNumberOfRows() &&
+						(splitStr[pm.getConfig().getNumberOfRows() - 1].toLowerCase().startsWith("select") ||
+						splitStr[pm.getConfig().getNumberOfRows() - 1].toLowerCase().startsWith("\"select") ||
+						splitStr[pm.getConfig().getNumberOfRows() - 1].toLowerCase().startsWith("exec"))
+						&& SplittingTool.split(this)) {
 					GeoIPTool.getLocationInfo(this);
 							
 					//System.out.println(de.toString());
 					pm.getWatchDog().addWork(number);
-				
 					
 					boolean success = pm.getLoader().loadEntry(de);
 					System.out.println("Loading DataEntry was successful: " + success);
+
 					if (!success) {
 						pm.increaseLinedel();
 					}
