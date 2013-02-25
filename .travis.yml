@@ -2,8 +2,10 @@ language: java
 env:
   - PLAY_VERSION=2.0.4
 before_script: 
-  - wget http://download.playframework.org/releases/play-${PLAY_VERSION}.zip
+  - mysql --user=root < conf/dbinit.sql
+  - wget http://downloads.typesafe.com/releases/play-${PLAY_VERSION}.zip
   - unzip -q play-${PLAY_VERSION}.zip
+  - mysql --user=root -e 'use WHATDataWarehouse; show tables; select * from mysql.user;'
 script: play-${PLAY_VERSION}/play test
 notifications:
   irc:

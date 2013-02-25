@@ -22,13 +22,13 @@ public class GeneralClasses {
 	
 	// strings for file tests
 	private static String sourcePath;
-	private static String seperator;
+	private static String separator;
 		
 	@BeforeClass
 	public static void initialize() {
 		f = Facade.getFacadeInstance();
 		sourcePath = System.getProperty("user.dir");
-		seperator = System.getProperty("file.separator");
+		separator = System.getProperty("file.separator");
 	}
 	
 	private void resetFacade() {
@@ -40,17 +40,32 @@ public class GeneralClasses {
 	//>> file names
 	private static final String NONSENSE = "ahahaha what am I?";
 	private static final String WRONG = "WrongAmI.txt";
+	
 	@Test
 	public void wrongFile() {
-		assertFalse(f.parseLogFile(getPathFor(WRONG)));
-		assertFalse(f.init(getPathFor(WRONG)));
+		assertFalse(f.parseLogFile(getPathForExample(WRONG)));
+		assertFalse(f.init(getPathForExample(WRONG)));
 		resetFacade();
 	}
 
 	@Test
 	public void nonexistentFile() {
-		assertNull(FileHelper.getFile(getPathFor("nonexistentpath.csv")));
-		assertNull(FileHelper.getFile(getPathFor(NONSENSE)));
+		assertNull(FileHelper.getFile(getPathForExample("nonexistentpath.csv")));
+		assertNull(FileHelper.getFile(getPathForExample(NONSENSE)));
+	}
+	
+	@Test
+	/**
+	 * Because making sure that needed files exist every time is... arduous.
+	 */
+	public void fileExistence() {
+        final String[] neededDataFiles = {"GeoIP.dat", "ParsLogFileDownloadQuery.txt", "GeoLiteCity.dat", "TableCreationQuery.txt"};
+        for (String needed : neededDataFiles) {
+            File f = new File(getPathForData(needed));
+            assertTrue(f.exists() && f.isFile());
+        }
+
+
 	}
 	
 	
@@ -61,11 +76,10 @@ public class GeneralClasses {
 	private static final String STRING = "testString";
 	private static final String OBJECT = "testObject";
 	private static final String ARRAY = "testArray";
-
 	
 	@Test
 	public void jsonReaderAllInOne() {
-		File f = FileHelper.getFile(getPathFor(JSON));
+		File f = FileHelper.getFile(getPathForExample(JSON));
 		String s = FileHelper.getStringContent(f);
 		assertNotNull(s);
 		
@@ -92,8 +106,11 @@ public class GeneralClasses {
 
 	
 	// -- HELPER -- HELPER -- HELPER -- HELPER -- HELPER --
-	private String getPathFor(String s) {
-		return sourcePath + seperator + "example\\" + s;
+	private String getPathForExample(String s) {
+		return sourcePath + separator + "example" + separator + s;
 	}
-	
+
+    private String getPathForData(String s) {
+        return sourcePath + separator + "data" + separator + s;
+    }
 }
