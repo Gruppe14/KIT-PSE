@@ -32,7 +32,7 @@ public class GeoIPTool {
 		
 		String dir = System.getProperty("user.dir");
 		String seperator = System.getProperty("file.separator");
-		String lookup = dir + seperator + "data\\geoLiteCity.dat";
+		String lookup = dir + seperator + "data" + seperator + "geoLiteCity.dat";
 				
 		
 		try {
