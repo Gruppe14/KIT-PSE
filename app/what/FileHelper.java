@@ -124,7 +124,6 @@ public class FileHelper {
 			content = readFile(bIn);
 		} catch (IOException e) {
 			Printer.perror("Reading file failed!");
-			e.printStackTrace();
 			return null;
 		}
 		
@@ -133,8 +132,15 @@ public class FileHelper {
 			 Printer.pfail("No content found in file!");
 		}
 		
+		// close this reader
+		try {
+			in.close();
+		} catch (IOException e) {
+			Printer.perror("Closing the Reader.");
+		}
+		
 		return content;
-	}
+	} 
 	
 	// -- PRIVATE -- PRIVATE -- PRIVATE -- PRIVATE -- PRIVATE -- 
 	/**
