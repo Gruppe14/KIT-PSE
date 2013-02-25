@@ -106,7 +106,8 @@ function checkBuildTime() {
 	//if days exist
 	else if(tF.length > 2) {
 		//check if # of days exist in the respective month, else --> error
-		if(daysOfMonth(tF[0], tF[1]) < tF[2] || daysOfMonth(tT[0], tT[1]) < tT[2]) { displayError("@Localize.get("time.err.monthsDays")"); return "err"; }
+		if(daysOfMonth(tF[0], tF[1]) < tF[2] || daysOfMonth(tT[0], tT[1]) < tT[2] 
+			|| tF[2] < 1 || tT[2] < 1) { displayError("@Localize.get("time.err.monthsDays")"); return "err"; }
 		//if months are the same, check if dayFrom < dayTo, else --> error
 		if(tF[1] == tT[1] && tF[2] > tT[2]) { displayError("@Localize.get("time.err.negativeTime")"); return "err"; }
 		//if hours exist
