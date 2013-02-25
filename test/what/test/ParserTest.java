@@ -47,15 +47,8 @@ public class ParserTest {
 		pm = f.getParserMediator();
 	}
 	
-<<<<<<< HEAD
+
 	// -- MISTAKES -- MISTAKES -- MISTAKES -- MISTAKES -- MISTAKES --
-=======
-	@Test
-	public void smallParseTestStandardSize() {
-		assertTrue(f.parseLogFile(sourcePath + seperator + "example\\result10.csv"));
-	}
-	
->>>>>>> 7b1e2757f2b4f06945535dc7c7e9c942788d4192
 	@Test
 	public void testIntegerMistake() {
 		assertFalse(f.parseLogFile(getPathFor(MISTAKE1)));
