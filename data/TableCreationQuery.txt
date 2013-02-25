@@ -1,39 +1,9 @@
-// crete this tables
-CREATE TABLE dim_time(
- time_key INT(5) not null AUTO_INCREMENT UNIQUE,
- row_year INT(3),
- row_month INT(3),
- row_day INT(3),
- row_hour INT(3),
- row_minute INT(3),
- row_second INT(3),
- CONSTRAINT time_key PRIMARY KEY 
- (row_year, row_month, row_day, row_hour, row_minute, row_second)
- );
-
-CREATE TABLE dim_location(
- location_key INT(5) not null AUTO_INCREMENT UNIQUE,
- row_country VARCHAR(40),
- row_city VARCHAR(40),
- CONSTRAINT location_key PRIMARY KEY 
- (row_country, row_city) 
- );
-
-CREATE TABLE dim_server_db(
- server_db_key INT(3) not null AUTO_INCREMENT UNIQUE,
- row_server VARCHAR(40),
- row_database VARCHAR(40),
- CONSTRAINT location_key PRIMARY KEY 
- (row_server, row_database) 
- );
-
-CREATE TABLE dim_type(
- type_key INT(4) not null AUTO_INCREMENT UNIQUE,
- row_type VARCHAR(40),
- CONSTRAINT location_key PRIMARY KEY 
- (row_type) 
- );
-
+in der facade gibt es die methode
+createDBTables()
+leer als erstes eure datenbank und dann
+ruft die irgendwie auf in irgend einer anderen methode 
+oder beim testen, iwo halt...
+die erzeugt dann die neuen tabellen.
 
  
 
