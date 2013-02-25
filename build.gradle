@@ -2,16 +2,22 @@ apply plugin: 'java'
 apply plugin: 'scala'
 
 def findPlay20(){
-  def pathEnvName = ['PATH', 'Path'].find{ System.getenv()[it] != null }
-  for(path in System.getenv()[pathEnvName].split(File.pathSeparator)){
-    for(playExec in ['play.bat', 'play.sh', 'play']){
-      if(new File(path, playExec).exists()){
-        project.ext.playHome = path
-        project.ext.playExec = new File(path, playExec)
+	if(new File( '../play-2.0.4', 'play').exists()){
+        project.ext.playHome = '../play-2.0.4'
+        project.ext.playExec = new File('../play-2.0.4', 'play')
         return
-      }
-    }
-  }
+    } else {
+		def pathEnvName = ['PATH', 'Path'].find{ System.getenv()[it] != null }
+		for(path in System.getenv()[pathEnvName].split(File.pathSeparator)){
+			for(playExec in ['play.bat', 'play.sh', 'play']){
+				if(new File(path, playExec).exists()){
+					project.ext.playHome = path
+					project.ext.playExec = new File(path, playExec)
+					return
+				}
+			}
+		}
+	}
   throw new RuntimeException("""'play' command was not found in PATH.
 Make sure you have Play Framework 2.0 installed and in your path""")
 }
