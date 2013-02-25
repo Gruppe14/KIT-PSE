@@ -23,7 +23,7 @@ function makeRequest() {
 			dataType: "json",
 			//display ajax loader
 			beforeSend: function() {
-				$("#chart").append("<div id='loader'><div></div></div>");
+				$("#chart").append("<div id='loader'></div>");
 				$("#chart")[0].scrollIntoView(true);
 			},
 			success:function(data) {
