@@ -28,7 +28,8 @@ public class ChartHelper {
 	private static final String DIV = "<div>";
 	private static final String VID = "</div>";
 	
-	//instance of ChartHelper --> singleton
+	//instances of ChartHelper --> singleton
+	//string indentifies the language
 	private static HashMap<String, ChartHelper> instance = new HashMap<>();
 	
 	//current configuration

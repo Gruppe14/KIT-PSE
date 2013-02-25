@@ -21,6 +21,11 @@ function makeRequest() {
 			contentType: "application/json; charset=UTF-8",
 			//expected result type
 			dataType: "json",
+			//display ajax loader
+			beforeSend: function() {
+				$("#chart").append("<div id='loader'><div></div></div>");
+				$("#chart")[0].scrollIntoView(true);
+			},
 			success:function(data) {
 		  		@{chart}(data);
 			},
@@ -261,11 +266,7 @@ $(document).ready(function() {
 		}
 	});
 	//register click function for chart request
-	$("#send").click(function(){
-		$("#chart").append("<div>Loading</div>");
-		makeRequest();
-		$("#chart")[0].scrollIntoView(true);
-	});
+	$("#send").click(makeRequest);
 	//add chart css & js
 	$("head").append('<link href="/charts/@{chart}/@{chart}.css" rel="stylesheet" type="text/css">');
 	$("head").append('<script type="text/javascript" src="/charts/@{chart}/@{chart}.js"></script>');
