@@ -66,7 +66,7 @@ public class Facade {
 	 * 
 	 * @return the singleton Facade object
 	 */
-	public static Facade getFacadeIstance() {
+	public static Facade getFacadeInstance() {
 		if (FACADE_OBJECT.isInitialized()) {
 			return FACADE_OBJECT;
 		} else {
@@ -116,11 +116,32 @@ public class Facade {
 		// testing
 		Printer.ptest(config.toString());
 		
-		// precompute strings for the web page selection boxes
+		// create tables for the configuration if necessary
+		if (!(tablesAreCreated())) {
+			if (!(createDBTables())) {
+				Printer.pfail("Creating tables for this configuration");
+				return false;
+			} else {
+				Printer.psuccess("Creating tables for this configuration");
+			}
+			
+		}
+		
+		// pre-compute strings for the web page selection boxes
 		computeDimensionData();
 		
 		return true;
 	}
+	
+	/**
+	 * Returns whether the tables in the warehouse are created yet.
+	 * 
+	 * @return whether the tables in the warehouse are created yet
+	 */
+	private boolean tablesAreCreated() {
+		return dataMedi.areTablesCreated();
+	}
+
 	
 	/**
 	 * Checks whether everything is initialized.
@@ -149,7 +170,6 @@ public class Facade {
 	 * @return whether it was successful
 	 */
 	public boolean createDBTables() {
-		// TODO ensure it only happens one time... needs little data base.
 		return dataMedi.createDBTables();
 	}
 	
@@ -326,6 +346,8 @@ public class Facade {
 	 * web page selection boxes. 
 	 */
 	private void computeDimensionData() {
+		assert (isInitialized());
+		
 		if (!(dataMedi.organizeData())) {
 			Printer.pfail("Precomputing strings for dimensions.");
 		}

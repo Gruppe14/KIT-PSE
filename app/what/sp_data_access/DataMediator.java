@@ -22,7 +22,7 @@ import what.sp_parser.DataEntry;
  * @author Jonathan, PSE Gruppe 14
  */
 public class DataMediator {
-	
+		
 	/** Configuration on which this ChartMediator works on. */
 	private ConfigWrap config;
 	
@@ -213,14 +213,39 @@ public class DataMediator {
 		return adapter.requestStringsOf(rowName, tableName);
 	}
 
-	
+	// -- TABLE CREATION -- TABLE CREATION -- TABLE CREATION -- TABLE CREATION --
 	/**
 	 * Creates the warehouse tables for the configuration.
 	 * 
 	 * @return whether it was successful
 	 */
 	public boolean createDBTables() {
-		return adapter.createDBTables();
+		if (adapter.createDBTables()) {
+			setTablesCreated();
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	
+	/**
+	 * Sets the boolean for the table is created to the given boolean.
+	 * 
+	 * @param b boolean to set
+	 */
+	private void setTablesCreated() {
+		 adapter.storeDataBase(config.getNameOfDB());
+	}
+	
+
+	/**
+	 * Returns whether the tables in the warehouse are created yet.
+	 * 
+	 * @return whether the tables in the warehouse are created yet
+	 */
+	public boolean areTablesCreated() {
+		return adapter.tablesAreSet(config.getNameOfDB());
 	}
 
 }

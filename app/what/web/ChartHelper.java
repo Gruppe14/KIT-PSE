@@ -11,6 +11,7 @@ import controllers.Localize;
 import play.api.templates.HtmlFormat;
 import play.api.templates.Html;
 import what.Facade;
+import what.Printer;
 import what.sp_chart_creation.Measure;
 import what.sp_config.*;
 
@@ -27,10 +28,12 @@ public class ChartHelper {
 	private static final String DIV = "<div>";
 	private static final String VID = "</div>";
 	
-	//instance of charthelper --> singleton
+	//instance of ChartHelper --> singleton
 	private static HashMap<String, ChartHelper> instance = new HashMap<>();
-	//current config
+	
+	//current configuration
 	private ArrayList<DimRow> dims;
+	
 	//charts available, currently overhead, but with further config files may be needed
 	private HashMap<String, Html> charts;
 	
@@ -39,7 +42,7 @@ public class ChartHelper {
 	 * refer to getInstance
 	 */
 	private ChartHelper () {
-		dims = Facade.getFacadeIstance().getCurrentConfig().getDims();
+		dims = Facade.getFacadeInstance().getCurrentConfig().getDims();
 		charts = new HashMap<>();
 		for(String chart : ChartIndex.getInstance().getCharts()) {
 			charts.put(chart, createChart(chart));
@@ -128,6 +131,7 @@ public class ChartHelper {
 					Localize.get("dim." + dim.getName()) + VID;
 					
 			assert (dim.isStringDim());
+			Printer.ptest(dim.toString());
 			
 			//first level is build here because of dim list classes
 			TreeSet<DimKnot> trees = dim.getStrings();

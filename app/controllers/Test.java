@@ -22,7 +22,7 @@ public class Test extends Controller {
 
 		//System.out.println("This is a test for checking whether reading the config file is successful:");
 
-		Facade f = Facade.getFacadeIstance();//new Facade();
+		Facade f = Facade.getFacadeInstance();//new Facade();
 		String sourcePath = System.getProperty("user.dir");
 		String seperator = System.getProperty("file.separator");
 		//String pathJSONConfig = sourcePath + seperator + "conf\\ConfigSkyServer.json";

@@ -671,5 +671,118 @@ public class MySQLAdapter {
 		
 		return true;
 	}
+
+	// -- WHAT CONFIG --  WHAT CONFIG  --  WHAT CONFIG  --  WHAT CONFIG  --
+	private static String SOURCE_DB = "sourceDB";
+	private static String CONFIG_NAME = "WHAT_CONFIG";
+	private static String CONFIG_TABLE = "CREATE TABLE " + CONFIG_NAME + LBR 
+										+ SOURCE_DB + " CHAR(40)" + RBR;
+	private static String TABLE_EXIST = "SHOW TABLES LIKE ";
+	
+	/**
+	 * Returns whether the tables are set for the given name of a database
+	 * which is operated on (like SkyServer)
+	 * @param name name of the database which is checked (like SkyServer)
+	 * @return whether the tables are set for the given name of a database
+	 */
+	protected boolean tablesAreSet(String name) {
+		assert (name != null);
+		
+		// getting Connection and statement
+		Connection c = getConnection();
+		Statement s = getStatement(c);
+		if (s == null) {
+			Printer.pfail("Getting statement.");
+			close(c);
+			return false;
+		}
+		
+		
+		
+		// if the table doesn't exist we create it and store the value for this configuration and set it false
+		if (!(tableExists(s, CONFIG_NAME))) {
+			try {
+				s.executeUpdate(CONFIG_TABLE);
+				Printer.psuccess("New configuration table created.");
+				s.execute(INSERT + CONFIG_NAME + LBR + SOURCE_DB + RBR
+						+ VALUES + LBR + APOS + config.getNameOfDB() + APOS + RBR);
+			} catch (SQLException e1) {
+				Printer.perror("Creating config table not possible.");
+			}
+			close(s, c);
+			return false;
+		} 
+		
+		// if it exists we try to get an answer
+		ResultSet re = null;
+		try {
+			s.execute(SELECT + SOURCE_DB + FROM + CONFIG_NAME + WHERE + SOURCE_DB + EQL + APOS + name + APOS);
+			re = s.getResultSet();
+			if (re.next()) {
+				close(s, c);
+				return true;
+			} else {
+				close(s, c);
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			Printer.pfail("Check whether it is set.");
+		}
+		
+		close(s, c);
+		return false; 
+	}
+	
+	/**
+	 * Returns whether the table with the given name exists.
+	 * 
+	 * @param s Statement to operate with
+	 * @param name of the table which is checked
+	 * @return whether the table with the given name exists
+	 */
+	private boolean tableExists(Statement s, String name) {
+		assert (s != null);
+		assert (name != null);
+		
+		ResultSet res = null;
+		try {
+			res = s.executeQuery(TABLE_EXIST + APOS + name + APOS);
+			if (res.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			Printer.perror("Checking whether table exists.");
+		}
+		
+		return false;
+	}
+
+	/**
+	 * Stores a database (table on which is operated, like SkyServer) 
+	 * as initialized by storing it in a table.
+	 * 
+	 * @param name Name of the database which shall be stored
+	 */
+	protected void storeDataBase(String name) {
+		assert (name != null);
+		
+		// getting Connection and statement
+		Connection c = getConnection();
+		Statement s = getStatement(c);
+		if (s == null) {
+			Printer.pfail("Getting statement.");
+			close(c);
+		}
+		
+		
+		// try to update
+		try {
+			s.executeUpdate(INSERT + CONFIG_TABLE + LBR + SOURCE_DB + RBR + VALUES + LBR + APOS + name + APOS + RBR);
+		} catch (SQLException e) {
+			Printer.pfail("Storing table: " + name);
+		}
+		
+	}
 	
 }

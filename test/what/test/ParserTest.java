@@ -33,7 +33,7 @@ public class ParserTest {
 	
 	@BeforeClass
 	public static void initialize() {
-		f = Facade.getFacadeIstance();
+		f = Facade.getFacadeInstance();
 		pm = f.getParserMediator();
 		
 		sourcePath = System.getProperty("user.dir");
@@ -43,7 +43,7 @@ public class ParserTest {
 	@Before
 	public void resetFacade() {
 		f.reset();
-		f = Facade.getFacadeIstance();
+		f = Facade.getFacadeInstance();
 		pm = f.getParserMediator();
 	}
 	

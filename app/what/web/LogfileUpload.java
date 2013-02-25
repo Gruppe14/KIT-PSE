@@ -23,7 +23,7 @@ public class LogfileUpload {
 		 */
 		if (new File(pathToLogfile).exists()) {
 			//start parser
-			Facade.getFacadeIstance().parseLogFile(pathToLogfile);
+			Facade.getFacadeInstance().parseLogFile(pathToLogfile);
 			return null;
 		}
 		return Localize.get("admin.wrongPath");

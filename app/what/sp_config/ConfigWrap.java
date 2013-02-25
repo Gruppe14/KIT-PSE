@@ -9,7 +9,6 @@ import java.util.TreeSet;
 
 // org.json imports
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 // intern imports
@@ -158,11 +157,9 @@ public class ConfigWrap {
 		}
 		
 		// gets the json object (all content)
-		JSONObject json = null;
-		try {
-			json = new JSONObject(jsonContent);
-		} catch (JSONException e) {
-			Printer.perror("File content not a JSON Object!");
+		JSONObject json = JSONReader.getJSONObjectForString(jsonContent);
+		if (json == null) {
+			Printer.pfail("Getting JSONObject from file of path: " + path);
 			return null;
 		}
 		

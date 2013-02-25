@@ -20,7 +20,7 @@ public class MySQLStuff {
 		
 	@BeforeClass
 	public static void initialize() {
-		f = Facade.getFacadeIstance();
+		f = Facade.getFacadeInstance();
 		confi = f.getCurrentConfig();
 	}
 	

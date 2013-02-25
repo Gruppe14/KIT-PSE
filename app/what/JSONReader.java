@@ -242,4 +242,22 @@ public class JSONReader {
 		return s;
 	}
 
+	/**
+	 * Returns a JSONObject for the given String.
+	 * 
+	 * @param s String which should describe a JSONObject
+	 * @return a JSONObject for the given String
+	 */
+	public static JSONObject getJSONObjectForString(String s) {
+		// gets the json object (all content)
+		JSONObject json = null;
+		try {
+			json = new JSONObject(s);
+		} catch (JSONException e) {
+			Printer.perror("File content not a JSON Object!");
+			return null;
+		}
+		
+		return json;
+	}
 }
