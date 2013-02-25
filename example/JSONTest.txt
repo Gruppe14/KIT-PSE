@@ -1,0 +1,13 @@
+{
+"testString":"I am a test string. Go get me.",
+
+"testArray":
+	["arrayString1", 
+	{"testString2":"You don't need me, but I didn't want a empty
+	JSONObjecct"},
+	],
+	
+"testObject": {"testString":"I am a test string. Go get me."},
+
+"testInt": 42,
+}

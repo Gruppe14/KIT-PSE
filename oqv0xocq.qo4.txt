@@ -1,0 +1,22 @@
+﻿automatic creating of tables
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   app/controllers/Test.java
+#	modified:   app/controllers/Website.java
+#	modified:   app/what/Facade.java
+#	modified:   app/what/JSONReader.java
+#	modified:   app/what/sp_config/ConfigWrap.java
+#	modified:   app/what/sp_data_access/DataMediator.java
+#	modified:   app/what/sp_data_access/MySQLAdapter.java
+#	modified:   app/what/web/ChartHelper.java
+#	modified:   app/what/web/LogfileUpload.java
+#	new file:   example/JSONTest.txt
+#	modified:   test/what/test/GeneralClasses.java
+#	modified:   test/what/test/MySQLStuff.java
+#	modified:   test/what/test/ParserTest.java
+#
+
