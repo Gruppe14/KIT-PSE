@@ -63,7 +63,12 @@ public class ChartHelper {
 		return instance.get(lan).charts.get(name);
 	}
 	
-	//creates the option selection for a chart
+	/**
+	 * creates the option selection for a specific chart and language
+	 * @param name the chart name
+	 * @return returns a HTML object with the option selection
+	 * or if the warehouse doesn't contain data it displays an error
+	 */
 	private Html createChart(String name) {
 		ArrayList<DimRow> stringDim = new ArrayList<>();
 		ArrayList<String> measures = new ArrayList<>();
@@ -79,14 +84,33 @@ public class ChartHelper {
 				measures.add(dim.getName());
 			}
 		}
-		//create the html content
 		String html = "";
-		html += time();
-		html += axis(stringDim, name);
-		html += measuresHtml(measures) + "<br />";
-		html += stringDimHtml(stringDim);
+		if(whContainsData()) {
+			//create the html content
+			html += time();
+			html += axis(stringDim, name);
+			html += measuresHtml(measures) + "<br />";
+			html += stringDimHtml(stringDim);	
+		} else {
+			html += Localize.get("err.noData");
+		}
+		
 		
 		return HtmlFormat.raw(html);
+	}
+	
+	/**
+	 * method to test wether the warehouse contains data
+	 * else no charts can be requested
+	 * @return true if WH contains data, false otherwise
+	 */
+	private boolean whContainsData() {
+		for (DimRow dim: dims) {
+			if(dim.getStrings() == null) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	/**
