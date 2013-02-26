@@ -124,14 +124,14 @@ public class ChartMediator {
 	 * @return the JSONObject of the requested chart from the history, referring to the number
 	 */
 	public JSONObject getHistoryChart(int number) {
-		if ((number <= 0) || (number > getMaxSizeOfHistory() )) {
+		if ((number < 0) || (number >= getMaxSizeOfHistory() )) {
 			throw new IllegalArgumentException();
 		}
 		
 		int l = history.size();
 		
 		// number to high, not enough charts in history!
-		if (number > l) {
+		if (number >= l) {
 			System.out.println("ERROR: Not so many charts stored");
 			return history.get(history.size()).getJson();
 		}

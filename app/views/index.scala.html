@@ -1,17 +1,11 @@
 @import controllers.Localize
-@defining(controllers.ChartIndex.getInstance) { ChartIndex =>
 @main(title = "index.title") {
-	<style>@for(chart <- ChartIndex.getCharts()) {
-		#@{chart} {
-			background-image: url(/charts/@{chart}/@{ChartIndex.getThumb(chart)});
-		}
-	}</style>
+	@what.web.ChartHelper.getStyle()
 } {
-	@for(chart <- ChartIndex.getCharts()) {
+	@for(chart <- what.web.ChartIndex.getInstance().getCharts()) {
 		<a href="/charts/@{chart}.html">
 		<div class="bigTile" id="@chart">
 			<span>@{Localize.get("charts." + chart)}</span>
 		</div></a>
 	}
-}
 }

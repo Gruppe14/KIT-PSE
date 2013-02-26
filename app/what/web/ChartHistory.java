@@ -3,7 +3,10 @@ package what.web;
 import java.util.Date;
 import java.util.LinkedList;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import controllers.Localize;
 
 import play.api.templates.HtmlFormat;
 import play.api.templates.Html;
@@ -29,6 +32,11 @@ public class ChartHistory {
 		this.timestamp = new Date();
 	}
 	
+	/**
+	 * method that creates a new history overview for a specific uuid
+	 * @param uuid the uuid
+	 * @return returns a Html object with the overview
+	 */
 	public static Html historySummary(String uuid) {
 		int num = f.getCurrentSizeOfHistory();
 		ChartHistory tmp = new ChartHistory();
@@ -37,9 +45,22 @@ public class ChartHistory {
 		String html = "";
 		for(int i = 0; i < num; i++) {
 			tmp.history[i] = f.historyChart(i);
-			
+			String chart = "";
+			// if something goes wrong, skip this history tile
+			try {
+				chart = tmp.history[i].getString("chartType");
+			} catch (JSONException e) {
+				continue;
+			}
+			html += "<a href=\"/charts/" + chart + ".html#hist=" + i + "\"><div class=\"bigTile\" id=\"" +
+					chart + "\"><span>#" + (i+1) + ": " + Localize.get("charts." + chart) + "</span></div></a>";
 		}
-		instances.add(tmp);
+		//if no history tiles at all
+		if(html.equals("")) {
+			html += Localize.get("err.noHist");
+		} else {
+			instances.add(tmp);
+		}
 		return HtmlFormat.raw(html);
 	}
 	/**
@@ -50,12 +71,15 @@ public class ChartHistory {
 	 */
 	public static JSONObject requestHistory(String uuid, int num) {
 		//remove the object for this request, a new one is created upon overview request
-		int i = instances.indexOf(uuid);
+		ChartHistory tmp = new ChartHistory();
+		tmp.uuid = uuid;
+		int i = instances.indexOf(tmp);
 		if (i > -1) {
 			JSONObject json = instances.get(i).history[num];
 			instances.remove(i);
 			//remove objects which are too old (15min), if someone left overview page without requesting history
-			while(new Date().getTime() - instances.getFirst().timestamp.getTime() < 900000) {
+			while(instances.size() > 0 && 
+					new Date().getTime() - instances.getFirst().timestamp.getTime() > 900000) {
 				instances.removeFirst();
 			}
 			return json;
@@ -65,9 +89,7 @@ public class ChartHistory {
 	
 	@Override
 	public boolean equals(Object elem) {
-		if(elem instanceof ChartHistory) {
-			return this.uuid.equals((String)elem);
-		} else if(elem instanceof String){ 
+		if(elem instanceof ChartHistory){ 
 			return this.uuid.equals(((ChartHistory)elem).uuid);
 		} else {
 			return false;

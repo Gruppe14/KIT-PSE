@@ -275,13 +275,13 @@ public class Facade {
 				}
 		
 		// checks whether the parameters are legal
-		if ((number <= 0) || (getMaxSizeOfHistory() < number)) { 
+		if ((number < 0) || (getMaxSizeOfHistory() <= number)) { 
 			throw new IllegalArgumentException();
 		
 		}
 		
 		// checks if enough charts are stored yet
-		if (number > getCurrentSizeOfHistory()) {
+		if (number >= getCurrentSizeOfHistory()) {
 			Printer.pproblem("Not so many charts stored yet.");
 			return null;
 		}

@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.TreeSet;
 
 // intern imports
-import controllers.ChartIndex;
 import controllers.Localize;
 import play.api.templates.HtmlFormat;
 import play.api.templates.Html;
@@ -27,6 +26,8 @@ public class ChartHelper {
 	
 	private static final String DIV = "<div>";
 	private static final String VID = "</div>";
+	
+	private static Html style = null;
 	
 	//instances of ChartHelper --> singleton
 	//string indentifies the language
@@ -61,6 +62,23 @@ public class ChartHelper {
 			instance.put(lan, new ChartHelper());
 		}
 		return instance.get(lan).charts.get(name);
+	}
+	/**
+	 * method that returns the computet style information for chart tiles, e.g. on the index page
+	 * @return a Html object containing the style information
+	 */
+	public static Html getStyle() {
+		if(style == null) {
+			String html = "<style>";
+			ChartIndex ind = ChartIndex.getInstance();
+			for(String chart : ind.getCharts()) {
+				html += "#" + chart + "{background-image: url(\"/charts/" + chart + "/" + 
+						ind.getThumb(chart) + "\");}\n";
+			}
+			html += "</style>";
+			style = HtmlFormat.raw(html);
+		}
+		return style;
 	}
 	
 	/**

@@ -290,9 +290,9 @@ $(document).ready(function() {
 			success:function(data) {
 		  		@{chart}(data);
 			},
+			//noContent remove loader
 			error:function(q, err, ex) {
 				$("#chart").html("");
-		 		displayError("@Localize.get("charts.requestErr")");
 			}
 		});
 	}

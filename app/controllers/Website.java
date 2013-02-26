@@ -13,6 +13,7 @@ import play.data.Form;
 import what.Facade;
 import what.web.AdminAuth;
 import what.web.AdminLogin;
+import what.web.ChartHelper;
 import what.web.ChartHistory;
 import what.web.LogfileUpload;
 
@@ -69,7 +70,7 @@ public class Website extends Controller {
 			JSONObject json = new JSONObject(request().body().asText());
 			json = Facade.getFacadeInstance().computeChart(json);
 			if(json != null) {
-				return ok(Facade.getFacadeInstance().computeChart(json).toString());
+				return ok(json.toString());
 			}
     	} catch (JSONException e) {}
     	return internalServerError("Something went wrong :(");
@@ -88,7 +89,7 @@ public class Website extends Controller {
     			return ok(json.toString());
     		}
     	}
-		return internalServerError("Something went wrong :(");
+		return noContent();
     }
     
     /**
@@ -102,7 +103,7 @@ public class Website extends Controller {
     	    session("uuid", uuid);
     	}
     	return ok(views.html.main.render(Localize.get("hist.title"), 
-    			HtmlFormat.raw(""), ChartHistory.historySummary(uuid)));
+    			ChartHelper.getStyle(), ChartHistory.historySummary(uuid)));
     }
     
     /**
