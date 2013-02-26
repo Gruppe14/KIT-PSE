@@ -8,10 +8,10 @@
 	src: local('Kalinga'), local('Kalinga-Regular'), url(Kalinga.ttf) format('ttf');
 }
 
-html, body {
-	background: #FFFFFF;
-	color: black;
+body {
 	font-family: Kalinga;
+	min-width: 690px;
+	margin: 0px;
 }
 a {
 	text-decoration: none;
@@ -20,15 +20,10 @@ a {
 img {
 	border: 0px;
 }
-#wrapper {
-	margin: auto;
-	width: 680px;
-	padding-bottom: 10px;
-}
 #logo {
     position:relative;
     z-index:1;
-	top: 40px;
+	top: 30px;
 	font-size: 17px;
 }
 #logo span {
@@ -38,7 +33,7 @@ img {
 #lang {
 	position: relative;
 	text-align:right;
-	top: -20px;
+	top: -10px;
 	color: #404040;
 }
 #lang span {
@@ -50,13 +45,19 @@ img {
 #content {
 	position: relative;
 	top: 60px;
+	margin: auto;
 }
-
 #footer {
-	display: block;
+	position: relative;
+	top: 60px;
 	font-size: 14px;
 	text-align: right;
 	margin-top: 15px;
+}
+.fixWidth {
+	width: 70%;
+	min-width: 690px;
+	margin: auto;
 }
 
 #error {
@@ -107,7 +108,7 @@ img {
 	background-position:center;
 	background-size: 100% 100%;
 	padding: 4px;
-	margin: 0px 7px 8px 0px;
+	margin: 4px;
 	border: 1px solid #EEEEEE;
 	user-select: none;
 	-webkit-user-select: none;
@@ -119,7 +120,7 @@ img {
 }
 .bigTile:active {
 	padding: 0px;
-	margin: 4px 11px 12px 4px;
+	margin: 8px;
 }
 .bigTile span {
 	display:block;

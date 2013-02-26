@@ -1,4 +1,13 @@
 $(document).ready(function() {
+    //center tiles
+    if($(".bigTile").length > 0) {
+       onResize();
+       $(window).resize(onResize);
+    } else {
+        $("#content").width("70%");
+    }
+    
+    
 	$('#lang a').click(function(event) {
 		event.preventDefault();
 	    $('body').append('<form action="/language" name="language" method="POST" style="display:none;">' +
@@ -8,6 +17,13 @@ $(document).ready(function() {
 	    document.forms['language'].submit();
 	})
 })
+
+//function to adjust width of content on resize;
+function onResize() {
+    //tile width
+    var tW = $(".bigTile").parent().width()+5;
+    $("#content").width(Math.floor($("body").width()/tW)*tW);
+}
 
 function displayError(err, info){
 	//if no additional info
