@@ -7,7 +7,7 @@ before_install:
   - unzip -q play-${PLAY_VERSION}.zip
   - export PLAY=`pwd`/play-${PLAY_VERSION}
   - export PATH=${PATH}:PLAY
-  - mysql --user=root -e 'use WHATDataWarehouse; show tables; select * from mysql.user;'
+  - mysql --user=root -e 'use WHATDataWarehouse; show tables;'
   - rm build.gradle
 
 script: play-${PLAY_VERSION}/play test
