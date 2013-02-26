@@ -7,11 +7,13 @@ import org.json.JSONObject;
 
 import play.mvc.*;
 import play.mvc.Http.RequestBody;
+import play.api.templates.HtmlFormat;
 import play.data.Form;
 
 import what.Facade;
 import what.web.AdminAuth;
 import what.web.AdminLogin;
+import what.web.ChartHistory;
 import what.web.LogfileUpload;
 
 
@@ -62,15 +64,45 @@ public class Website extends Controller {
      */
     //TolerantText because ContentType is json
     @BodyParser.Of(BodyParser.TolerantText.class)
-    public static Result chartRequest() {
+    public static Result requestChart() {
     	try {
 			JSONObject json = new JSONObject(request().body().asText());
-			
-			//String chart = json.getString("chart");
-		    return ok(Facade.getFacadeInstance().computeChart(json).toString());
-    	} catch (JSONException e) {
-    		return internalServerError("Something went wrong :(");
+			json = Facade.getFacadeInstance().computeChart(json);
+			if(json != null) {
+				return ok(Facade.getFacadeInstance().computeChart(json).toString());
+			}
+    	} catch (JSONException e) {}
+    	return internalServerError("Something went wrong :(");
+    }
+    /**
+     * method that returns a charthistory for a uuid provided in session information
+     * and a history number
+     * @param num the number for the history
+     * @return returns a json response or an internal server error
+     */
+    public static Result requestHistory(String num) {
+    	String uuid = session("uuid");
+    	if(uuid != null) {
+    		JSONObject json = ChartHistory.requestHistory(uuid, Integer.parseInt(num));
+    		if(json != null) {
+    			return ok(json.toString());
+    		}
     	}
+		return internalServerError("Something went wrong :(");
+    }
+    
+    /**
+     * method to return a wegpage containing an overview of the last chart requests
+     * @return returns a html page with the overview
+     */
+    public static Result historyOfCharts() {
+    	String uuid=session("uuid");
+    	if(uuid==null) {
+    	    uuid=java.util.UUID.randomUUID().toString();
+    	    session("uuid", uuid);
+    	}
+    	return ok(views.html.main.render(Localize.get("hist.title"), 
+    			HtmlFormat.raw(""), ChartHistory.historySummary(uuid)));
     }
     
     /**

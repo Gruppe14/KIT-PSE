@@ -14,7 +14,7 @@ function makeRequest() {
 		json.time = time;
 		$.ajax({
 			type: "POST",
-			url: "/chartRequest",
+			url: "/requestChart",
 			data: JSON.stringify(json),
 			processData: false,
 			//send type
@@ -268,7 +268,32 @@ $(document).ready(function() {
 	});
 	//register click function for chart request
 	$("#send").click(makeRequest);
+	
 	//add chart css & js
 	$("head").append('<link href="/charts/@{chart}/@{chart}.css" rel="stylesheet" type="text/css">');
 	$("head").append('<script type="text/javascript" src="/charts/@{chart}/@{chart}.js"></script>');
+	
+	//check url for history hash and make history request if needed
+	if(new RegExp("#hist=[0-9]{1,2}").test($(location).attr("hash"))) {
+		var obj = {};
+		obj["hist"] = parseInt($(location).attr("hash").substring(6));
+		$.ajax({
+			url: "/requestHistory",
+			data: obj,
+			//expected result type
+			dataType: "json",
+			//display ajax loader
+			beforeSend: function() {
+				$("#chart").append("<div id='loader'></div>");
+				$("#chart")[0].scrollIntoView(true);
+			},
+			success:function(data) {
+		  		@{chart}(data);
+			},
+			error:function(q, err, ex) {
+				$("#chart").html("");
+		 		displayError("@Localize.get("charts.requestErr")");
+			}
+		});
+	}
 });

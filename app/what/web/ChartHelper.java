@@ -85,12 +85,13 @@ public class ChartHelper {
 			}
 		}
 		String html = "";
-		if(whContainsData()) {
+		if(stringDimsContainData(stringDim)) {
 			//create the html content
 			html += time();
 			html += axis(stringDim, name);
 			html += measuresHtml(measures) + "<br />";
-			html += stringDimHtml(stringDim);	
+			html += stringDimHtml(stringDim);
+			html += "<div id=\"send\">" + Localize.get("filter.send") + VID;
 		} else {
 			html += Localize.get("err.noData");
 		}
@@ -104,7 +105,7 @@ public class ChartHelper {
 	 * else no charts can be requested
 	 * @return true if WH contains data, false otherwise
 	 */
-	private boolean whContainsData() {
+	private boolean stringDimsContainData(ArrayList<DimRow> dims) {
 		for (DimRow dim: dims) {
 			if(dim.getStrings() == null) {
 				return false;
