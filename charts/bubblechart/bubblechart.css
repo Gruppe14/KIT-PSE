@@ -13,3 +13,10 @@
                     stroke: grey;
                     fill: blue;
                 }
+                
+                #yAxisDescription {
+		    font-family: monospace;
+		    font-size: 10px;
+		    -moz-transform:rotate(-90deg); 
+		    -webkit-transform:rotate(-90deg);
+		}

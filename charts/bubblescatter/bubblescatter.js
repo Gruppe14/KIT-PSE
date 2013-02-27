@@ -119,15 +119,31 @@ function bubblescatter(json, radius) {
         //create the axes, too
         svg.append("g")
             .attr("class", "axis")
+			.attr("id", "x_axis")
             .attr("transform", "translate(0," + (h - padding) + ")")
-            .call(xAxis);
+            .call(xAxis)
+			.append("text")
+			.attr("class", "xAxisDescription")
+			.attr("x", (w -  2 * padding))
+			.text(xAxisName);
+			
 
         svg.append("g")
             .attr("class", "axis")
+			.attr("id", "y_axis")
             .attr("transform", "translate(" + padding + ",0)")
-            .call(yAxis);
+            .call(yAxis)
+			.append("text")
+			.attr("class", "yAxisDescription")
+			.attr("transform", "rotate(-90)")
+            .attr("y", 6)
+			.attr("x", -30)
+            .attr("dy", ".85em")
+            .style("text-anchor", "end")
+			.text(yAxisName);
 
 
+		//add the attribute names.
 
 
 
