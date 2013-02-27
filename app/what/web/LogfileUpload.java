@@ -20,15 +20,11 @@ public class LogfileUpload {
 	 * @return returns null or an error message
 	 */
 	public String validate() {
-		if (new File(pathToLogfile).exists()) {
+		if (pathToLogfile != null && new File(pathToLogfile).exists()) {
 			//start parser
-			Facade f = Facade.getFacadeInstance();
-			if(f == null) {
-				return Localize.get("Internal error!");
-			}
-			f.parseLogFile(pathToLogfile);
+			Facade.getFacadeInstance().parseLogFile(pathToLogfile);
 			return null;
 		}
-		return Localize.get("admin.wrongPath");
+		return Localize.get("admin.uploadErr");
 	}
 }
