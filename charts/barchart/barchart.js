@@ -37,7 +37,7 @@ function barchart(json) {
         var margin = {
             top: 30,
             right: 20,
-            bottom: 0,
+            bottom: 20,
             left: d3.max([11*(n+Math.floor(n/3)-1), 50]) 
         };
         var w = data.length * 30 - margin.left - margin.right;
@@ -94,7 +94,6 @@ function barchart(json) {
 
             
         //create axes
-
         //x axis
         svg.append("g").attr("class", "axis")
             .attr("transform", "translate(0," + h + ")")
@@ -118,6 +117,7 @@ function barchart(json) {
    			.attr("id", "yAxisDescription")
             .attr("y", 6)
             .attr("dy", ".71em")
+			.attr("transform", "rotate(270)")
             .style("text-anchor", "end")
             .text(yAxisName);
         
@@ -127,5 +127,8 @@ function barchart(json) {
 			.attr("y", "4")
 			.attr("x", "3")
 			.css("text-anchor", "");
+		//rotate text
+		$("#x_axis").find("text").attr("transform", "rotate(270)");
+		
     }
 }

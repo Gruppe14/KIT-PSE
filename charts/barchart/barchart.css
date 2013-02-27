@@ -17,16 +17,13 @@
 #x_axis text {
 	font-family: monospace;
 	font-size: 14px;
-	-moz-transform:rotate(-90deg); 
-	-webkit-transform:rotate(-90deg);
+	pointer-events: none;
 }
 
 #yAxisDescription {
 	font-family: monospace;
 	font-size: 14px;
 	font-weight: bold;
-	-moz-transform:rotate(-90deg); 
-	-webkit-transform:rotate(-90deg);
 }
 
 #xAxisDescription {
