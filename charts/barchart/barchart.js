@@ -30,10 +30,10 @@ function barchart(json) {
         var margin = {
             top: 30,
             right: 30,
-            bottom: 30,
+            bottom: 0,
             left: 50
         };
-        var w = 700 - margin.left - margin.right;
+        var w = data.length * 30 - margin.left - margin.right;
         var h = 400 - margin.top - margin.bottom;
 
         $("#chart").html("");
@@ -73,11 +73,11 @@ function barchart(json) {
         })
             .attr("y", function (d) {
                 
-            return h - yScale(getY(d));
+            return yScale(getY(d));
         })
             .attr("width", xScale.rangeBand())
             .attr("height", function (d) {
-            return yScale(getY(d));
+            return h - yScale(getY(d));
         })
             .attr("class", "bar");
 
@@ -91,8 +91,10 @@ function barchart(json) {
             .call(xAxis)
             .append("text") //here comes its description
             .attr("id", "xAxisDescription")
-			.attr("x", (w - 2 * margin.right))
-            .attr("y", 0)
+			//x and y are interchanged because it all is transformed by 90 degree
+			//see barchart.css
+			.attr("x", 5)
+            .attr("y", w)
 			.text(xAxisName);
 			
 		
@@ -107,6 +109,12 @@ function barchart(json) {
             .attr("dy", ".71em")
             .style("text-anchor", "end")
             .text(yAxisName);
-            
+        
+		//position names
+		$("#x_axis").children("g").children("text")
+			.attr("dy", "")
+			.attr("y", "4")
+			.attr("x", "3")
+			.css("text-anchor", "");
     }
 }

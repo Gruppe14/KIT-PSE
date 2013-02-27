@@ -1,49 +1,47 @@
-                .bar {
-                    fill: #543B5E;
-                    stroke: white;
-                    
-                }
-                .bar:hover {
-                    stroke:black;
-                    
-                }
-                
-                
-                .axis path,
-                .axis line {
-				fill: none;
-				stroke: black;
-				shape-rendering: crispEdges;    
-                                
-			}
-		
-		
-			
-		#x_axis text {
-		    font-family: monospace;
-		    font-size: 10px;
-		    -moz-transform:rotate(-90deg); 
-		    -webkit-transform:rotate(-90deg);
-		}
-		
-		#yAxisDescription {
-		    font-family: monospace;
-		    font-size: 10px;
-		    -moz-transform:rotate(-90deg); 
-		    -webkit-transform:rotate(-90deg);
-		}
-                
-                #container {
-                    margin: 10px; 
-                    
-                    padding:10px;
-                    border: 10px;
-                    
-                }
-                
-                svg {
-                    
-                    margin:10px; 
-                    padding:10px;
-                    border:10px 
-                }
+.bar {
+	fill: lightblue;
+	stroke: white;
+}
+
+.bar:hover {
+	stroke:black;
+}
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: black;
+	shape-rendering: crispEdges;    
+}
+
+#x_axis text {
+	font-family: monospace;
+	font-size: 14px;
+	-moz-transform:rotate(-90deg); 
+	-webkit-transform:rotate(-90deg);
+}
+
+#yAxisDescription {
+	font-family: monospace;
+	font-size: 14px;
+	font-weight: bold;
+	-moz-transform:rotate(-90deg); 
+	-webkit-transform:rotate(-90deg);
+}
+
+#xAxisDescription {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#container {
+	margin: 10px; 
+	padding:10px;
+	border: 10px;
+}
+
+svg {
+	margin:10px; 
+	padding:10px;
+	border:10px 
+}

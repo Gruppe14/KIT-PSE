@@ -1,6 +1,8 @@
 #chart {
 	text-align: center;
 	position: relative;
+	overflow: auto;
+	width: 100%;
 }
 #loader {
 	background-color: rgba(255,255,255, 0.7);
