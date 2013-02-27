@@ -15,15 +15,18 @@ public class LogfileUpload {
 	@Required
 	public String pathToLogfile;
 	
+	/**
+	 * method to check if the uploaded path exists on the serverside
+	 * @return returns null or an error message
+	 */
 	public String validate() {
-		
-		/**
-		 * method to check if the uploaded path exists on the serverside
-		 * @return returns null or an error message
-		 */
 		if (new File(pathToLogfile).exists()) {
 			//start parser
-			Facade.getFacadeInstance().parseLogFile(pathToLogfile);
+			Facade f = Facade.getFacadeInstance();
+			if(f == null) {
+				return Localize.get("Internal error!");
+			}
+			f.parseLogFile(pathToLogfile);
 			return null;
 		}
 		return Localize.get("admin.wrongPath");
