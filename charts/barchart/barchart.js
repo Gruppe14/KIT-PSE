@@ -83,12 +83,17 @@ function barchart(json) {
 
         //create axes
         svg.append("g").attr("class", "x axis")
-            .attr("transform", "translate(0," + h + ")").call(xAxis);
+            .attr("transform", "translate(0," + h + ")").call(xAxis)
+            .append("text")
+            .attr("class", "xAxisDescription")
+			.attr("x", (w -  margin.right))
+			.text(xAxisName);
 
         svg.append("g")
             .attr("class", "y axis")
             .call(yAxis)
             .append("text")
+   			.attr("class", "yAxisDescription")
             .attr("transform", "rotate(-90)")
             .attr("y", 6)
             .attr("dy", ".71em")
