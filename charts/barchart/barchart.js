@@ -36,8 +36,6 @@ function barchart(json) {
         var w = 700 - margin.left - margin.right;
         var h = 400 - margin.top - margin.bottom;
 
-
-
         $("#chart").html("");
         //the svg
         var svg = d3.select("#chart")
@@ -50,7 +48,7 @@ function barchart(json) {
 
         //the scales
         var xScale = d3.scale.ordinal()
-            .domain(d3.range(data.length))
+            .domain(data.map(getX))
             .rangeRoundBands([0, w], 0.04);
 
         
@@ -71,7 +69,7 @@ function barchart(json) {
             .enter()
             .append("rect")
             .attr("x", function (d, i) {
-            return xScale(i);
+            return xScale(getX(d));
         })
             .attr("y", function (d) {
                 
@@ -84,7 +82,6 @@ function barchart(json) {
             .attr("class", "bar");
 
         //create axes
-
         svg.append("g").attr("class", "x axis")
             .attr("transform", "translate(0," + h + ")").call(xAxis);
 
