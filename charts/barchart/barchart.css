@@ -22,8 +22,15 @@
 		#x_axis text {
 		    font-family: monospace;
 		    font-size: 10px;
-		    -moz-transform:rotate(90deg); 
-		    -webkit-transform:rotate(90deg);
+		    -moz-transform:rotate(-90deg); 
+		    -webkit-transform:rotate(-90deg);
+		}
+		
+		#yAxisDescription {
+		    font-family: monospace;
+		    font-size: 10px;
+		    -moz-transform:rotate(-90deg); 
+		    -webkit-transform:rotate(-90deg);
 		}
                 
                 #container {

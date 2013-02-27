@@ -90,7 +90,7 @@ function barchart(json) {
             .attr("id", "x_axis")
             .call(xAxis)
             .append("text") //here comes its description
-            .attr("class", "xAxisDescription")
+            .attr("id", "xAxisDescription")
 			.attr("x", (w - 2 * margin.right))
             .attr("y", 0)
 			.text(xAxisName);
@@ -102,8 +102,7 @@ function barchart(json) {
             .attr("id", "y_axis")
             .call(yAxis)
             .append("text")
-   			.attr("class", "yAxisDescription")
-            .attr("transform", "rotate(-90)")
+   			.attr("id", "yAxisDescription")
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
