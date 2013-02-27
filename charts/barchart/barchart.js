@@ -26,12 +26,19 @@ function barchart(json) {
  
 
     function visualize(data) {
+		
+		var yMax = d3.max(data, getY);
+		var n = 0;
+		for(var tmp = yMax; tmp > 1; tmp = tmp/10) {
+			n++;
+		}
+		
         //dimensions
         var margin = {
             top: 30,
-            right: 30,
+            right: 20,
             bottom: 0,
-            left: 50
+            left: d3.max([11*(n+Math.floor(n/3)-1), 50]) 
         };
         var w = data.length * 30 - margin.left - margin.right;
         var h = 400 - margin.top - margin.bottom;
@@ -53,12 +60,16 @@ function barchart(json) {
 
         
         var yScale = d3.scale.linear()
-            .domain([ d3.max(data, getY), 0])
+            .domain([ yMax, 0])
             .range([0, h]);
+			
 
         //the axes
         var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
         var yAxis = d3.svg.axis().scale(yScale).orient("left");
+		
+		
+		
 
 
 
@@ -94,7 +105,7 @@ function barchart(json) {
 			//x and y are interchanged because it all is transformed by 90 degree
 			//see barchart.css
 			.attr("x", 5)
-            .attr("y", w)
+            .attr("y", w + 5)
 			.text(xAxisName);
 			
 		
