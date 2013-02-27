@@ -81,16 +81,25 @@ function barchart(json) {
         })
             .attr("class", "bar");
 
+            
         //create axes
-        svg.append("g").attr("class", "x axis")
-            .attr("transform", "translate(0," + h + ")").call(xAxis)
-            .append("text")
-            .attr("class", "xAxisDescription")
-			.attr("x", (w -  margin.right))
-			.text(xAxisName);
 
+        //x axis
+        svg.append("g").attr("class", "axis")
+            .attr("transform", "translate(0," + h + ")")
+            .attr("id", "x_axis")
+            .call(xAxis)
+            .append("text") //here comes its description
+            .attr("class", "xAxisDescription")
+			.attr("x", (w - 2 * margin.right))
+            .attr("y", 0)
+			.text(xAxisName);
+			
+		
+        //y axis
         svg.append("g")
-            .attr("class", "y axis")
+            .attr("class", "axis")
+            .attr("id", "y_axis")
             .call(yAxis)
             .append("text")
    			.attr("class", "yAxisDescription")
