@@ -64,7 +64,7 @@ public class ChartIndex {
 							}
 						}
 					}
-					return thumb && css && js && config;
+					return thumb && js && config;
 				}
 				return false; 
 			}

@@ -182,7 +182,7 @@ public class Logfile {
 		return str;
 	}
 
-	public void close() {
+	public void close() throws IOException {
 		if (br != null) {
 			br.close();
 		}

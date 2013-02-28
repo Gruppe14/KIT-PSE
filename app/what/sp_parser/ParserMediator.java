@@ -1,10 +1,9 @@
 package what.sp_parser;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
-
-import sun.rmi.log.ReliableLog.LogFile;
 
 import forTesting.Localize;
 
@@ -59,7 +58,7 @@ public class ParserMediator {
 	/**
 	 * Represents the used log file
 	 */
-	private LogFile usedFile = null;
+	private Logfile usedFile = null;
 	
 	/**
 	 * The thread-pool which contains all objects of the class ParsingTask.
@@ -240,7 +239,12 @@ public class ParserMediator {
 	private void reset() {
 		finishedTasks = 0;
 		linesDeleted = 0;
-		usedFile.close();
+		try {
+			usedFile.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		usedFile = null;
 		tasks = null;
 		error = null;

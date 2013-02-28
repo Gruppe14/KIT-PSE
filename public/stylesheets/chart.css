@@ -127,8 +127,9 @@
 	font-size: 16px;
 	padding: 3px;
 }
-#send {
-	display:block;
+#send, #save {
+	float:right;
+	margin: 2px;
 	border:2px solid lightgray;
 	background-color: lightgray;
 	text-align: center;
@@ -136,7 +137,7 @@
 	width: 100px;
 	cursor: pointer;
 }
-#send:active {
+#send:active, #save:active {
 	background-color: white;
 }
 #header {

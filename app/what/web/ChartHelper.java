@@ -105,11 +105,12 @@ public class ChartHelper {
 		String html = "";
 		if(stringDimsContainData(stringDim)) {
 			//create the html content
+			html += "<div id=\"save\">" + Localize.get("filter.save") + VID;
+			html += "<div id=\"send\">" + Localize.get("filter.send") + VID;
 			html += time();
 			html += axis(stringDim, name);
 			html += measuresHtml(measures) + "<br />";
 			html += stringDimHtml(stringDim);
-			html += "<div id=\"send\">" + Localize.get("filter.send") + VID;
 		} else {
 			html += Localize.get("err.noData");
 		}
