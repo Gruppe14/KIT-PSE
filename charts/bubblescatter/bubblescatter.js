@@ -2,7 +2,7 @@ function bubblescatter(json, radius) {
 	//TODO: Scale the third dimension
 	//TODO: Add a fourth dimension, color
     //console.log("The radius is " + radius);
-	var bubble = (radius == undefined); //is it a bubblechart or a scatterplot?
+	var bubble = (radius == undefined); //is it a bubblescatter or a scatterplot?
 	//console.log("Bubblechart? " + bubble);
 	
 	var data;
@@ -40,19 +40,53 @@ function bubblescatter(json, radius) {
         var w = 720;
         var h = 640;
         var padding = 30;
-
         //the format of the data
         var format = d3.format(".0");
 
+		
+		//first, check whether the data is numeric
+		var xAxisNum = !data.some ( function (d) {
+			return isNaN(+getX(d));
+		})
+		var yAxisNum = !data.some ( function(d) {
+			return isNaN(+getY(d));
+		})
+		
+		console.log("xAxisNum- the axis x is numeric: " + xAxisNum);
+		console.log("yAxisNum- the axis y is numeric: " + yAxisNum);
+		//at what point do you use arrays to simplify code?
 
         //the scales
-        var xScale = d3.scale.linear()
-            .domain([d3.min(data, getX), d3.max(data, getX)])
-            .range([padding, w - padding]);
-        var yScale = d3.scale.linear()
-            .domain([d3.min(data, getY), d3.max(data, getY)])
-            .range([h - padding, padding]);
+        var xScale;
+		var yScale;
+		
+		if (xAxisNum) {
+			xScale = d3.scale.linear()
+	            .domain([d3.min(data, getX), d3.max(data, getX)])
+				.range([padding, w - padding]);
+		}
+		else {
+			xScale = d3.scale.ordinal()
+				.domain(data.map(getX))
+				.rangePoints([padding, w - padding]);
 			
+		}
+		
+		
+		if (xAxisNum) {
+	        yScale = d3.scale.linear()
+	            .domain([d3.min(data, getY), d3.max(data, getY)])
+				.range([h - padding, padding]);
+		}
+		else {
+			yScale = d3.scale.ordinal()
+				.domain(data.map(getY))
+				.rangePoints([h - padding, padding]);
+
+				
+		}
+		
+		
 		//now a scale that maps the radius, too!
 	    var rScale = d3.scale.linear()
 			    .domain([d3.min(data, getZ), d3.max(data, getZ)])
