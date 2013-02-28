@@ -25,6 +25,8 @@ GET /logout								controllers.Website.logout()
 #request a chart visualization in json
 POST /requestChart						controllers.Website.requestChart()
 GET	 /requestHistory					controllers.Website.requestHistory(hist)
+# mirror a download for a svg
+POST /downloadChart						controllers.Website.downloadChart()
 
 #change language
 POST /language							controllers.Website.changeLanguage()

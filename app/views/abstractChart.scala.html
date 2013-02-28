@@ -1,36 +1,12 @@
 @(chartName: String)
 @import controllers.Localize
-<!DOCTYPE html>
-    <head>
-        <title>@Localize.get("charts." + chartName)</title>
-        <link rel="icon" href="/assets/images/FavIcon.png" type="image/x-icon" />
-        <link href="/assets/stylesheets/main.css" rel="stylesheet" type="text/css">
+@main(title = "charts." + chartName) {
         <link href="/assets/stylesheets/chart.css" rel="stylesheet" type="text/css">
-        <script type="text/javascript" src="/assets/javascripts/jquery.js"></script>
         <script type="text/javascript" src="/assets/javascripts/d3.js"></script>
-        <script type="text/javascript" src="/assets/javascripts/main.js"></script>
         <script type="text/javascript" src="/charts/@{chartName}.js"></script>
-    </head>
-    <body>
-	<div id="header">	
-	    <a href ="/"><img id="logo" src="/assets/images/logoText.png"></a>
-		<div id="lang">
-			@for(l <- Localize.getAvailables()) {
-				@if(l.equals(Localize.language())) {
-					<span>@l</span>
-				}else {
-					<a href=@l>@l</a>
-				}
-			}
-		</div>	
-	</div>
-	<div id="chart"></div>
+}{
 	<div id="selection">
 		@Localize.get("charts." + chartName)<br />
 		@what.web.ChartHelper.getOptions(chartName)
-		<br /><div id="footer">
-			<a href="/admin">@Localize.get("admin.adminSection")</a>
-		</div>
 	</div>
-    </body>
-</html>
+}

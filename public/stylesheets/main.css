@@ -60,7 +60,7 @@ img {
 	margin: auto;
 }
 
-#error {
+#message {
 	z-index: 1;
 	position: fixed;
 	width: 100%;
@@ -69,7 +69,7 @@ img {
 	left: 0px;
 	background-color: rgba(255,255,255,0.7);
 }
-#error > div{
+#message > div{
 	position: fixed;
 	width: 300px;
 	top:50%;
@@ -79,20 +79,19 @@ img {
 	padding:10px;
 	background-color: lightgray;
 }
-#error span{
+#message span{
 	font-weight: bold;
 }
-#error > div > div{
+#message span:last-of-type{
 	font-weight: bold;
 	color: white;
-	margin: auto;
+	position:relative;
 	border: 2px solid gray;
 	padding: 0px 2px;
 	background-color: gray;
-	width: 22px;
 	cursor: pointer;
 }
-#error div:active {
+#message div:active {
 	background-color: lightgray;
 }
 

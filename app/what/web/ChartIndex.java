@@ -3,6 +3,7 @@ package what.web;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,11 +20,13 @@ public class ChartIndex {
 	private String[] charts;
 	//thumbs
 	private HashMap<String, String> thumbs;
+	private HashSet<String> css;
 	//dimensions for charts
 	private HashMap<String, Integer> dims;
 	//on initialisation scans the charts directory for subdirectories a.k.a. chartTypes
 	private ChartIndex() {
 		thumbs = new HashMap<>();
+		css = new HashSet<>();
 		dims = new HashMap<>();
 		File chartDir = new File("./charts");
 		File[] dirList = chartDir.listFiles(new FileFilter() {
@@ -31,7 +34,6 @@ public class ChartIndex {
 			public boolean accept(File file) {
 				if(file.isDirectory()) {
 					boolean thumb = false;
-					boolean css = false;
 					boolean js = false;
 					boolean config = false;
 					for(String s : file.list()) {
@@ -43,7 +45,7 @@ public class ChartIndex {
 							js = true;
 						}
 						if(s.equalsIgnoreCase(file.getName() + ".css")) {
-							css = true;
+							css.add(file.getName());
 						}
 						if(s.equalsIgnoreCase("config.json")) {
 							String jsonString = FileHelper.getStringContent(new File(file, s));
@@ -98,6 +100,15 @@ public class ChartIndex {
 	 */
 	public String getThumb(String chart) {
 		return thumbs.get(chart);
+	}
+	
+	/**
+	 * method that returns wether a chart has a chart specific css file
+	 * @param chart the chart name
+	 * @return returns true if a chart specific css file exists, false otherwise
+	 */
+	public boolean hasCss(String chart) {
+		return css.contains(chart);
 	}
 	
 	/**

@@ -1,13 +1,23 @@
 package controllers;
 
+import java.awt.Color;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.Map;
 
+import org.apache.batik.transcoder.TranscoderException;
+import org.apache.batik.transcoder.TranscoderInput;
+import org.apache.batik.transcoder.TranscoderOutput;
+import org.apache.batik.transcoder.image.PNGTranscoder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import play.mvc.*;
 import play.mvc.Http.RequestBody;
-import play.api.templates.HtmlFormat;
 import play.data.Form;
 
 import what.Facade;
@@ -73,6 +83,47 @@ public class Website extends Controller {
 				return ok(json.toString());
 			}
     	} catch (JSONException e) {}
+    	return internalServerError("Something went wrong :(");
+    }
+    //TolerantText because ContentType is svg
+    @BodyParser.Of(BodyParser.TolerantText.class)
+    public static Result downloadChart() {
+    	Map<String, String[]> body = request().body().asFormUrlEncoded();
+    	if(body != null && body.containsKey("svg")){
+    		String svg;
+			try {
+				svg = URLDecoder.decode(body.get("svg").toString(), "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+				return internalServerError("Something went wrong :(");
+			}
+    		if(body.containsKey("format") && body.get("format").equals("svg")){
+    			response().setHeader("Content-Disposition", "attachment; filename=\"chart.svg\"");
+    			return ok(svg).as("image/svg+xml");
+    		} else if(body.containsKey("format") && body.get("format").equals("png")){
+    			PNGTranscoder t = new PNGTranscoder();
+    			//white background instead of transparent
+    			t.addTranscodingHint(PNGTranscoder.KEY_BACKGROUND_COLOR, Color.white);
+    			TranscoderInput in = new TranscoderInput(new StringReader(svg));
+    			ByteArrayOutputStream png = new ByteArrayOutputStream();
+    			TranscoderOutput out = new TranscoderOutput(png);
+    			try {
+					t.transcode(in, out);
+				} catch (TranscoderException e) {
+					e.printStackTrace();
+					return internalServerError("Something went wrong :(");
+				}
+    			try {
+					png.flush();
+					png.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+					return internalServerError("Something went wrong :(");
+				}
+    			response().setHeader("Content-Disposition", "attachment; filename=\"chart.png\"");
+    			return ok(png.toByteArray()).as("image/png");
+    		}
+    	}
     	return internalServerError("Something went wrong :(");
     }
     /**

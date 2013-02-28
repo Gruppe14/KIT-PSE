@@ -25,14 +25,20 @@ function onResize() {
     $("#content").width(Math.floor($("body").width()/tW)*tW);
 }
 
+function displayMessage(header, info) {
+    //if no additional info
+    info = typeof info !== 'undefined' ? info : "";
+    //display message
+    $("body").append("<div id='message'><div><span>" + header + "</span><br />" 
+        + info + "<span>ok</span></div></div>");
+    var w = $("#message").children().width() - $("#message span:last").width();
+    $("#message span:last").css("left", w/2).click(function() {
+        $(this).parents("#message").remove();
+    });
+    $("#message span:last").focus();
+}
+
 function displayError(err, info){
-	//if no additional info
-	info = typeof info !== 'undefined' ? info : "";
-	//display message
-	$("body").append("<div id='error'><div><span>" + err + "</span>" 
-		+ info + "<div>ok</div></div></div>");
-	$("#error").find("div:last").click(function() {
-		$(this).parents("#error").remove();
-	});
-	$("#error").find("div:last").focus();
+	typeof info !== 'undefined' ? displayMessage(err, info) : displayMessage(err);
+	
 }
