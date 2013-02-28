@@ -11,7 +11,9 @@ object ApplicationBuild extends Build {
 		"mysql" % "mysql-connector-java" % "5.1.18",
 		"junit" % "junit" % "4.10",
 		"org.json" % "json" % "20090211",
-		"org.apache.commons" % "commons-lang3" % "3.1"
+		"org.apache.commons" % "commons-lang3" % "3.1",
+		"org.apache.xmlgraphics" % "batik-rasterizer" % "1.7",
+		"org.apache.xmlgraphics" % "batik-codec" % "1.7"
     )
 
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(

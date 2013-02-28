@@ -7,15 +7,16 @@ function bubblescatter(json, radius) {
 	
 	var data;
     var xAxisName;
-    var yAxisName;	
-	var zAxisName;
+    var yAxisName;
 	
+	var zAxisName;
 	
     console.log("I read " + json.data.length + " data points.");
     xAxisName = json.attribute1;
     yAxisName = json.attribute2;
 	
 	radius = json.attribute3;
+	
 	
     data = json.data;
     visualize(data); //then start the visualization
@@ -45,17 +46,14 @@ function bubblescatter(json, radius) {
 
 
         //the scales
-		var xScale;
-		var yScale;
-		
-        xScale = d3.scale.linear()
+        var xScale = d3.scale.linear()
             .domain([d3.min(data, getX), d3.max(data, getX)])
             .range([padding, w - padding]);
-        yScale = d3.scale.linear()
+        var yScale = d3.scale.linear()
             .domain([d3.min(data, getY), d3.max(data, getY)])
             .range([h - padding, padding]);
 			
-		//now a scale that maps the radius, too!		
+		//now a scale that maps the radius, too!
 	    var rScale = d3.scale.linear()
 			    .domain([d3.min(data, getZ), d3.max(data, getZ)])
 	            .range([0.6, 5]) //when the dimensions gets different, we will make these percentages
@@ -137,6 +135,7 @@ function bubblescatter(json, radius) {
             .call(yAxis)
 			.append("text")
 			.attr("id", "yAxisDescription")
+			.attr("transform", "rotate(-90)")
             .attr("y", 6)
 			.attr("x", -30)
             .attr("dy", ".85em")
@@ -144,8 +143,23 @@ function bubblescatter(json, radius) {
 			.text(yAxisName);
 
 
+		//add the attribute names.
 
-
+        //add styles
+        $(".axis path, .axis line").css({
+            "fill": "none",
+            "stroke": "black",
+            "shape-rendering": "crispEdges"
+        });
+        
+        $(".axis text").css({
+            "font-family": "sans-serif",
+            "font-size": "11px"
+        });
+                
+        $(".circle").css({
+            "stroke": "grey",
+            "fill": "blue"
+        });
     }
-
 }

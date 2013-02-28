@@ -1,10 +1,3 @@
-            .slice {
-            }
-            .slice:hover {
-                stroke: grey;
-            }
-            .data-title {
-                font-family: sans-serif;
-                dy:.35em;
-                text-anchor: middle;
-            }
+.slice:hover {
+    stroke: grey;
+}

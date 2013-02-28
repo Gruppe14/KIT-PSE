@@ -47,7 +47,7 @@ function bubblechart(json) {
 		var fakedata = Object;
 		//each node has children, and so on and so forth
 		fakedata.children = data;
-		
+
 		//add each point, but save to add text on it
 		var circle = svg.selectAll(".circle")
 			.data(bubble.nodes(fakedata)
@@ -76,9 +76,24 @@ function bubblechart(json) {
 			//it depends on the radius
 		    return getX(d).substring(0, d.r / 3.14);
 		});
-
-
-
-    }
-
+		//add styles
+		$("#yAxisDescription").attr("transform", "rotate(270)")
+			.css({
+				"font-family": "monospace",
+				"font-size": "10px"
+			})
+		$(".axis path, .axis line").css({
+			"fill": "none",
+			"stroke": "black",
+			"shape-rendering": "crispEdges"
+		});
+		$(".axis text").css({
+			"font-family": "sans-serif",
+			"font-size": "11px"
+		});
+		$(".circle").css({
+			"stroke": "grey",
+			"fill": "blue"
+		});
+	}
 }

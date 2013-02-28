@@ -38,7 +38,7 @@ function barchart(json) {
             top: 30,
             right: 20,
             bottom: 20,
-            left: d3.max([11*(n+Math.floor(n/3)-1), 50]) 
+            left: d3.max([12*(n+Math.floor(n/3)-1), 50]) 
         };
         var w = data.length * 30 - margin.left - margin.right;
         var h = 400 - margin.top - margin.bottom;
@@ -122,13 +122,37 @@ function barchart(json) {
             .text(yAxisName);
         
 		//position names
-		$("#x_axis").children("g").children("text")
+		$("#x_axis > g > text")
 			.attr("dy", "")
 			.attr("y", "4")
 			.attr("x", "3")
 			.css("text-anchor", "");
 		//rotate text
-		$("#x_axis").find("text").attr("transform", "rotate(270)");
+		$("#x_axis text").attr("transform", "rotate(270)")
+        
+        //####  all styles####
+			.css({
+				"font-family": "monospace",
+				"font-size": "14px",
+				"pointer-events": "none"
+			});
 		
+		$("#yAxisDescription").css({
+			"font-family": "monospace",
+			"font-size": "14px",
+			"font-weight": "bold"
+		});
+		
+		$(".bar").css({
+			"fill": "lightblue",
+			"stroke": "white"
+		});
+        
+        $(".axis path,.axis line").css({
+            "fill": "none",
+            "stroke": "black",
+            "shape-rendering": "crispEdges"    
+        });
+        $("#xAxisDescription").css("font-weight", "bold");
     }
 }
