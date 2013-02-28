@@ -1,4 +1,4 @@
-KIT-PSE
+KIT-PSE [![Build Status](https://travis-ci.org/Gruppe14/KIT-PSE.png)](https://travis-ci.org/Gruppe14/KIT-PSE)
 =======
 
 Visualizing and Statistically Analyzing Access Behavior to Scientific Databases:
