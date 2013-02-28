@@ -17,6 +17,8 @@ public class Localize extends Controller{
 	//default language
 	private static String standard = "en";
 	
+	private static UTF8Control control = new UTF8Control();
+	
 	//private because singleton
 	private Localize(Lang standard){
 	}
@@ -31,11 +33,11 @@ public class Localize extends Controller{
 	public static String get(String message) {
 		String loc = message;
 		try {
-			loc = ResourceBundle.getBundle("messages_" + language()).getString(message);
+			loc = ResourceBundle.getBundle("messages_" + language(), control).getString(message);
 			//default language if message not found
 		} catch (MissingResourceException e) {
 			try {
-				loc = ResourceBundle.getBundle("messages_" + standard).getString(message);
+				loc = ResourceBundle.getBundle("messages_" + standard, control).getString(message);
 			} catch (MissingResourceException f) {}
 		}
 		return loc;
