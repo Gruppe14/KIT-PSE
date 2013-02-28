@@ -76,7 +76,6 @@ public class ChartHistory {
 		int i = instances.indexOf(tmp);
 		if (i > -1) {
 			JSONObject json = instances.get(i).history[num];
-			instances.remove(i);
 			//remove objects which are too old (15min), if someone left overview page without requesting history
 			while(instances.size() > 0 && 
 					new Date().getTime() - instances.getFirst().timestamp.getTime() > 900000) {
