@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 
-import forTesting.Localize;
+import controllers.Localize;
 
 import what.Printer;
 import what.sp_config.ConfigWrap;

@@ -96,6 +96,11 @@ public class Website extends Controller {
     	Map<String, String[]> body = request().body().asFormUrlEncoded();
     	if(body != null && body.containsKey("svg")){
     		String svg;
+    		String name = "chart";
+    		if(body.containsKey("name") && !body.get("name")[0].equals("")) {
+    			name = body.get("name")[0];
+    			System.out.println("name: " + name);
+    		}
 			try {
 				svg = URLDecoder.decode(body.get("svg")[0], "UTF-8");
 			} catch (UnsupportedEncodingException e) {
@@ -103,7 +108,7 @@ public class Website extends Controller {
 				return internalServerError("Something went wrong :(");
 			}
     		if(body.containsKey("format") && body.get("format")[0].equals("svg")){
-    			response().setHeader("Content-Disposition", "attachment; filename=\"chart.svg\"");
+    			response().setHeader("Content-Disposition", "attachment; filename=\"" + name + ".svg\"");
     			return ok(svg).as("image/svg+xml");
     		} else if(body.containsKey("format") && body.get("format")[0].equals("png")){
     			PNGTranscoder t = new PNGTranscoder();
@@ -125,7 +130,7 @@ public class Website extends Controller {
 					e.printStackTrace();
 					return internalServerError("Something went wrong :(");
 				}
-    			response().setHeader("Content-Disposition", "attachment; filename=\"chart.png\"");
+    			response().setHeader("Content-Disposition", "attachment; filename=\"" + name + ".png\"");
     			return ok(png.toByteArray()).as("image/png");
     		}
     	}
