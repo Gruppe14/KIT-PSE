@@ -4,6 +4,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 
+import sun.rmi.log.ReliableLog.LogFile;
+
 import forTesting.Localize;
 
 import what.Printer;
@@ -47,7 +49,7 @@ public class ParserMediator {
 	/**
 	 * This variable indicates how many percent of the lines have to get uploaded correctly.
 	 */
-	private final static double CORRECT = 98;
+	private final static double CORRECT = 70;
 	
 	/**
 	 * The WatchDogTimer.
@@ -57,7 +59,7 @@ public class ParserMediator {
 	/**
 	 * Represents the used log file
 	 */
-	private Logfile usedFile = null;
+	private LogFile usedFile = null;
 	
 	/**
 	 * The thread-pool which contains all objects of the class ParsingTask.
@@ -238,11 +240,13 @@ public class ParserMediator {
 	private void reset() {
 		finishedTasks = 0;
 		linesDeleted = 0;
+		usedFile.close();
 		usedFile = null;
 		tasks = null;
 		error = null;
 		fatalError = false;
-		threadPool = null;		
+		threadPool = null;	
+		
 	}
 
 
