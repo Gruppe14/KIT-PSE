@@ -37,19 +37,17 @@ public class Filter {
 
 	/**
 	 * Public constructor for a Filter.<br>
-	 * Creates a Filter from a given table, 
-	 * it's corresponding table key and
-	 * the restrictions itself.
+	 * Creates a Filter for a given dimension
+	 * and the filter trees.
 	 * 
-	 * @param table table in which will be filtered
-	 * @param tableKey the corresponding tableKey to the table
+	 * @param dimension the DimRow of this Filter
 	 * @param trees DimKnots containing the restrictions for this filter;
 	 * 			if the Set is empty, nothing is filtered
 	 */
 	public Filter(DimRow dimension, TreeSet<DimKnot> trees) {
 		if (dimension == null) {
 			throw new IllegalArgumentException();
-		} if (trees == null) {
+		} else if (trees == null) {
 			throw new IllegalArgumentException();
 		}
 		
@@ -169,7 +167,7 @@ public class Filter {
 	
 	/**
 	 * Returns the restriction represented by this filter
-	 * in with AND and brackets.<b>
+	 * in with AND and brackets.<br>
 	 * like that: AND ( MySQL part )
 	 * 
 	 * @return the restriction represented by this filter

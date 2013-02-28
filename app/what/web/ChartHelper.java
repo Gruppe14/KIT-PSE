@@ -141,16 +141,18 @@ public class ChartHelper {
 		String html = "";
 		String tmp = "";
 		for(DimRow dim : dims) {
-			tmp += "<span data=\"" + dim.getName() + "\">" + Localize.get("dim." + dim.getName()) + NAPS + "<div class=\"sub\">";
+			tmp += "<span data=\"" + dim.getName() + "\">" + Localize.get("dim." 
+					+ dim.getName()) + NAPS + "<div class=\"sub\">";
 				for(int i = 0; i < dim.getSize(); i++){
 					tmp += "<span data=\"" + dim.getNameOfLevel(i) + "\">" +
-							Localize.get("dim." + dim.getName() + "." + dim.getNameOfLevel(i)) + NAPS;
+							Localize.get("dim." + dim.getName() + "." 
+					+ dim.getNameOfLevel(i)) + NAPS;
 				}
 			tmp += VID;
 		}
 		for(int i = 0; i < ChartIndex.getInstance().getDim(chart); i++) {
-			html += "<div id=\"" + (char)('x' + i) + "\" class=\"single options\">" + DIV + (char)('x' + i) + 
-					"-" + Localize.get("filter.axis") + VID +
+			html += "<div id=\"" + (char)('x' + i) + "\" class=\"single options\">" 
+					+ DIV + (char)('x' + i) + "-" + Localize.get("filter.axis") + VID +
 					"<div class=\"list\">";
 			//for x axis add time
 			if(i == 0) {
@@ -228,7 +230,8 @@ public class ChartHelper {
 				DIV + Localize.get("filter.measures") +
 				VID + "<div class=\"list\">";
 		for(String m: measures) {
-			html += "<span data=\"" + m + "\">" + Localize.get("measure." + m) + NAPS + "<div class=\"sub\">";
+			html += "<span data=\"" + m + "\">" + Localize.get("measure." + m) 
+					+ NAPS + "<div class=\"sub\">";
 			for(String s: Measure.getAggregations()) {
 				html += "<span data=\"" + s + "\">" + Localize.get("aggregation." + s) + NAPS;
 			}

@@ -13,14 +13,16 @@ import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.PNGTranscoder;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import play.mvc.*;
-import play.mvc.Http.RequestBody;
+import play.mvc.Http.RequestBody; 
 import play.data.Form;
 
 import what.Facade;
+import what.Printer;
 import what.web.AdminAuth;
 import what.web.AdminLogin;
 import what.web.ChartHelper;
@@ -30,7 +32,7 @@ import what.web.LogfileUpload;
 
 public class Website extends Controller {
 	
-	// needed for admin login
+	// needed for administrator login
 	private static Form<AdminLogin> form = form(AdminLogin.class);
 	// needed for logfilePathUpload
 	private static Form<LogfileUpload> log = form(LogfileUpload.class);
@@ -51,9 +53,9 @@ public class Website extends Controller {
     	return ok(views.html.abstractChart.render(chartName));
     }
     /**
-     * method to dynamically return a chart javascript depending on the chartName
+     * method to dynamically return a chart JavaScript depending on the chartName
      * @param chartName the name of the requested chart
-     * @return returns a valid http response, a javascript
+     * @return returns a valid HTTP response, a JavaScript
      */
     public static Result chartJS(String chartName) {
     	return ok(views.html.chartJS.render(chartName)).as("application/javascript");
@@ -73,7 +75,7 @@ public class Website extends Controller {
      * method to process chart requests
      * @return returns the needed chart data
      */
-    //TolerantText because ContentType is json
+    //TolerantText because ContentType is JSON
     @BodyParser.Of(BodyParser.TolerantText.class)
     public static Result requestChart() {
     	try {
@@ -82,15 +84,17 @@ public class Website extends Controller {
 			if(json != null) {
 				return ok(json.toString());
 			}
-    	} catch (JSONException e) {}
+    	} catch (JSONException e) {
+    		Printer.pproblem("JSON request from web page");
+    	}
     	return internalServerError("Something went wrong :(");
     }
     
     /**
-     * method to mirror svg back to download or convert svg to png
+     * method to mirror SVG back to download or convert SVG to PNG
      * image type via POST value of format
-     * svg data via value of svg
-     * @return returns the chart as svg/png or an serverError
+     * SVG data via value of SVG
+     * @return returns the chart as SVG/PNG or an serverError
      */
     public static Result downloadChart() {
     	Map<String, String[]> body = request().body().asFormUrlEncoded();
@@ -131,11 +135,12 @@ public class Website extends Controller {
     	}
     	return internalServerError("Something went wrong :(");
     }
+   
     /**
-     * method that returns a charthistory for a uuid provided in session information
+     * Returns a chart history for a uuid provided in session information
      * and a history number
      * @param num the number for the history
-     * @return returns a json response or an internal server error
+     * @return returns a JSON response or an internal server error
      */
     public static Result requestHistory(String num) {
     	String uuid = session("uuid");
@@ -149,8 +154,8 @@ public class Website extends Controller {
     }
     
     /**
-     * method to return a wegpage containing an overview of the last chart requests
-     * @return returns a html page with the overview
+     * method to return a weg page containing an overview of the last chart requests
+     * @return returns a HTML page with the overview
      */
     public static Result historyOfCharts() {
     	String uuid=session("uuid");

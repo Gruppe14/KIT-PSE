@@ -52,8 +52,10 @@ public class ChartHistory {
 			} catch (JSONException e) {
 				continue;
 			}
-			html += "<a href=\"/charts/" + chart + ".html#hist=" + i + "\"><div class=\"bigTile\" id=\"" +
-					chart + "\"><span>#" + (i+1) + ": " + Localize.get("charts." + chart) + "</span></div></a>";
+			html += "<a href=\"/charts/" + chart + ".html#hist=" + i 
+					+ "\"><div class=\"bigTile\" id=\"" +
+					chart + "\"><span>#" + (i+1) + ": " + Localize.get("charts." + chart) 
+					+ "</span></div></a>";
 		}
 		//if no history tiles at all
 		if(html.equals("")) {
@@ -77,9 +79,10 @@ public class ChartHistory {
 		if (i > -1) {
 			JSONObject json = instances.get(i).history[num];
 			instances.remove(i);
-			//remove objects which are too old (15min), if someone left overview page without requesting history
+			/*remove objects which are too old (15min), 
+			/ if someone left overview page without requesting history */
 			while(instances.size() > 0 && 
-					new Date().getTime() - instances.getFirst().timestamp.getTime() > 900000) {
+				new Date().getTime() - instances.getFirst().timestamp.getTime() > 900000) {
 				instances.removeFirst();
 			}
 			return json;

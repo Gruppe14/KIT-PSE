@@ -30,17 +30,21 @@ public class DimRow {
 	// -- LOCATION DIM -- LOCATION DIM -- LOCATION DIM -- 
 	// static Strings for the standard names
 	//private static final String CONTINENT = "continent";
-	private static final String CITY = "city";
-	private static final String COUNTRY = "country";
-	private static final String LOCATION = "location";
+	/** Constant for the location singleton. */
+ 	private static final String CITY = "city";
+ 	/** Constant for the location singleton. */
+ 	private static final String COUNTRY = "country";
+ 	/** Constant for the location singleton. */
+ 	private static final String LOCATION = "location";
 	
 	// static initialization
+ 	/** Singleton constant location dimension. */
 	private static final DimRow LOCATION_DIM_INSTANCE; 
 	static {
 		LOCATION_DIM_INSTANCE = new DimRow();
 		//LOCATION_DIM_INSTANCE.add(new StringRow(CONTINENT, "", 1, LOCATION, CONTINENT, null));
-		LOCATION_DIM_INSTANCE.add(new StringRow(COUNTRY, "", 1, LOCATION, COUNTRY, null));
-		LOCATION_DIM_INSTANCE.add(new StringRow(CITY, "", 2, LOCATION, CITY, null));
+		LOCATION_DIM_INSTANCE.add(new StringRow(COUNTRY, "", 1, LOCATION, COUNTRY));
+		LOCATION_DIM_INSTANCE.add(new StringRow(CITY, "", 2, LOCATION, CITY));
 	}
 		
 	// -- SETTER -- SETTER -- SETTER -- SETTER -- SETTER --
@@ -161,7 +165,7 @@ public class DimRow {
 	 * @return the RowEntry at the position i
 	 */
 	public RowEntry getRowAt(int i) {
-		if ((i < 0) || (i >= getSize() )) {
+		if ((i < 0) || (i >= getSize())) {
 			throw new IllegalArgumentException();
 		}
 		
@@ -175,7 +179,7 @@ public class DimRow {
 	 * @return the RowId of the row at position i
 	 */
 	public RowId getRowIdAt(int i) {
-		if ((i < 0) || (i >= getSize() )) {
+		if ((i < 0) || (i >= getSize())) {
 			throw new IllegalArgumentException();
 		}
 		
@@ -250,7 +254,7 @@ public class DimRow {
 	 */
 	public String getDimTableName() {
 		if (isDimension()) {
-			return MySQLAdapter.DIM_TABLE + getName();
+			return MySQLAdapter.DIM_TABLE + ConfigWrap.getStringWithoutSpace(getName());
 		}
 		return null;
 	}
@@ -263,7 +267,7 @@ public class DimRow {
 	 */
 	public String getTableKey() {
 		if (isDimension()) {
-			return getName() + MySQLAdapter.KEY_TABLE;
+			return ConfigWrap.getStringWithoutSpace(getName()) + MySQLAdapter.KEY_TABLE;
 		}
 		return null;
 	}
@@ -276,7 +280,7 @@ public class DimRow {
 	 * @return the table type of the row at position i
 	 */
 	public String getTableTypeAt(int i) {
-		if ((i < 0) || (i >= getSize() )) {
+		if ((i < 0) || (i >= getSize())) {
 			throw new IllegalArgumentException();
 		}
 			
@@ -299,11 +303,10 @@ public class DimRow {
 	}
 	
 	/**
-	 * Returns the row name of the row at position i.<br>
-	 * This is the name of the row in the warehouse.
+	 * Returns the level of the row with the given name.<br>
 	 * 
-	 * @param i the position of the row for which the row name is requested
-	 * @return the row name in the warehouse of the row at position i
+	 * @param s name of the searched row
+	 * @return the level of the row with the given name
 	 */
 	public int getLevelOfRow(String s) {
 		if (s == null) {
@@ -323,7 +326,7 @@ public class DimRow {
 	// -- OVERRIDES -- OVERRIDES -- OVERRIDES -- OVERRIDES --	
 	@Override
 	public String toString() {
-		return "DimRow [name= " + getName() +", size= " + getSize() + "]";
+		return "DimRow [name= " + getName() + ", size= " + getSize() + "]";
 	}
 	
 }

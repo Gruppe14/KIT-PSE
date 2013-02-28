@@ -10,12 +10,12 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="297mm"
-   height="210mm"
+   width="921.46875"
+   height="460.875"
    id="svg3073"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="thumbnailBars.svg">
+   sodipodi:docname="thumb.svg">
   <defs
      id="defs3075">
     <linearGradient
@@ -87,7 +87,7 @@
        inkscape:collect="always"
        xlink:href="#linearGradient4532"
        id="linearGradient4538"
-       x1="99.234724"
+       x1="99.234726"
        y1="399.48398"
        x2="1020.7246"
        y2="399.48398"
@@ -168,17 +168,22 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.43415836"
-     inkscape:cx="463.06885"
-     inkscape:cy="594.75849"
+     inkscape:zoom="0.86831672"
+     inkscape:cx="370.47844"
+     inkscape:cy="232.39593"
      inkscape:current-layer="layer1"
      id="namedview3077"
      showgrid="false"
      inkscape:window-width="1280"
-     inkscape:window-height="1002"
-     inkscape:window-x="1272"
+     inkscape:window-height="972"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="1"
+     units="mm"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
   <metadata
      id="metadata3079">
     <rdf:RDF>
@@ -187,16 +192,17 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-99.21875,-169.84375)">
     <rect
-       style="fill:url(#linearGradient4550);fill-opacity:1;stroke:#ffffff;stroke-width:0.23000000000000001;stroke-miterlimit:4;stroke-opacity:0;stroke-dasharray:none"
+       style="fill:url(#linearGradient4550);fill-opacity:1;stroke:#ffffff;stroke-width:0.23;stroke-miterlimit:4;stroke-opacity:0;stroke-dasharray:none"
        id="rect4485"
        width="921.25983"
        height="460.62991"

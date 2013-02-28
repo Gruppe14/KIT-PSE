@@ -72,7 +72,7 @@ public class ParsingTask implements Runnable {
 					pm.getWatchDog().addWork(number);
 					
 					boolean success = pm.getLoader().loadEntry(de);
-					System.out.println("Loading DataEntry was successful: " + success);
+					//System.out.println("Loading DataEntry was successful: " + success);
 
 					if (!success) {
 						pm.increaseLinedel();

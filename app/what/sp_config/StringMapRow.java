@@ -24,6 +24,7 @@ public class StringMapRow extends RowEntry {
 	/** The table type of a StringMapRow in the warehouse. */
 	private static final String TABLE_TYPE = "VARCHAR(40)";
 	
+	/** Map of keys and compare values for them. */
 	private final HashMap<String, TreeSet<String>> comparer;
 	
 	/** 
@@ -42,9 +43,9 @@ public class StringMapRow extends RowEntry {
 	 * @param scale the scale String
 	 * @param comparer the Map of Strings and it's compare-to's
 	 */
-	protected StringMapRow(String name, String logId, int lvl, String categorie, String scale,
+	protected StringMapRow(String name, String logId, int lvl, String category, String scale,
 							HashMap<String, TreeSet<String>> comparer) {
-		super(name, logId, lvl, categorie, scale, RowId.STRINGMAP);
+		super(name, logId, lvl, category, scale, RowId.STRINGMAP);
 	
 		this.comparer = comparer;
 	}

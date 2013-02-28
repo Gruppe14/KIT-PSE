@@ -10,25 +10,35 @@ import what.sp_config.DimRow;
  * The DBTableBuilder class provides a method to
  * build a MySQL statement from a given configuration.
  * 
- * NOT FINISHED - WRONG SCHEMA - SEE DATA folder and TableCreationQuery.txt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- * 
  * @author Jonathan, PSE Gruppe 14
  *
  */
-public class DBTableBuilder {
+public final class DBTableBuilder {
 	
 	// Strings to create and attributes
+	/** MySQL short constant. */
 	private static final String CREATE = "CREATE TABLE ";
+	/** MySQL short constant. */
 	private static final String UNIQUE = " UNIQUE ";
+	/** MySQL short constant. */
 	private static final String INT = "INT(5)";
 	
 	// Strings for ordering
+	/** MySQL short constant. */
 	private static final String LBR = " ( ";
+	/** MySQL short constant. */
 	private static final String KOMMA = ",  ";
+	/** MySQL short constant. */
 	private static final String RBR = " ) ";
+	/** MySQL short constant. */
 	private static final String SPACE = " ";
+	/** MySQL short constant. */
 	private static final String SEMI = ";";
 	
+	/**
+	 * Private Constructor as this is a helper class
+	 * providing just static methods.
+	 */
 	private DBTableBuilder() {
 		throw new AssertionError();
 	}
@@ -56,16 +66,17 @@ public class DBTableBuilder {
 		for (DimRow d : dims) {
 			if (d.isDimension()) { // case it's a dimension
 				dimCounter++;
-				String curDim = CREATE + d.getDimTableName() + LBR ;
+				String curDim = CREATE + d.getDimTableName() + LBR;
 				
 				// add all rows to the trunk
 				for (int i = 0, l = d.getSize(); i < l; i++) {
-					curDim += d.getRowNameOfLevel(i) + SPACE + d.getRowAt(i).getTableType() + KOMMA;
+					curDim += d.getRowNameOfLevel(i) + SPACE 
+							+ d.getRowAt(i).getTableType() + KOMMA;
 				}
 				
 				
 				// end this trunk: key + ) + VALUES
-				curDim += d.getTableKey() + SPACE+ INT + UNIQUE + RBR + SEMI;
+				curDim += d.getTableKey() + SPACE + INT + UNIQUE + RBR + SEMI;
 				// add to trunks
 				creates[dimCounter] = curDim;
 	

@@ -16,7 +16,8 @@ import what.sp_parser.DataEntry;
 public class DummyRow extends RowEntry {
 	
 	/** Singleton instance of this class DummyRow. */
-	private static final DummyRow INSTANCE = new DummyRow("Dummy", ConfigWrap.NOT_AVAILABLE, 1, "dummy", ConfigWrap.NOT_AVAILABLE);
+	private static final DummyRow INSTANCE = new DummyRow("Dummy", ConfigWrap.NOT_AVAILABLE, 1, 
+														"dummy", ConfigWrap.NOT_AVAILABLE);
 	
 	/**
 	 * Private constructor for the class DummyRow.
@@ -27,8 +28,8 @@ public class DummyRow extends RowEntry {
 	 * @param category the category
 	 * @param scale the scale String
 	 */
-	private DummyRow(String name, String logId, int lvl, String categorie, String scale) {
-		super(name, logId, lvl, categorie, scale, RowId.DUMMY);
+	private DummyRow(String name, String logId, int lvl, String category, String scale) {
+		super(name, logId, lvl, category, scale, RowId.DUMMY);
 		// nothing to do here... just to avoid warnings.
 	}
 

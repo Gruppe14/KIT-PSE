@@ -43,13 +43,13 @@ public class Facade {
 	private DataMediator dataMedi;
 	
 	// -- SINGLETON PATTERN -- SINGLETON PATTERN -- SINGLETON PATTERN --
-	/** The singleton facade object */
-	private static Facade FACADE_OBJECT;
+	/** The singleton facade object. */
+	private static  Facade facadeSingleton;
 	 
 	static {
 		// initialize the Facade singleton
-		FACADE_OBJECT = new Facade();
-		FACADE_OBJECT.init(getStandardPath());
+		facadeSingleton = new Facade();
+		facadeSingleton.init(getStandardPath());
 	}
 	
 	/**
@@ -67,11 +67,11 @@ public class Facade {
 	 * @return the singleton Facade object
 	 */
 	public static Facade getFacadeInstance() {
-		if (FACADE_OBJECT.isInitialized()) {
-			return FACADE_OBJECT;
+		if (facadeSingleton.isInitialized()) {
+			return facadeSingleton;
 		} else {
-			FACADE_OBJECT.init(getStandardPath());
-			return FACADE_OBJECT;
+			facadeSingleton.init(getStandardPath());
+			return facadeSingleton;
 		}
 	}
 	
@@ -95,7 +95,7 @@ public class Facade {
 	 * @param path of the configuration file (.json)
 	 * @return whether initialization was successful
 	 */
-	public boolean init(String path) {
+	public boolean init(final String path) {
 		if (path == null) {						 
 			throw new IllegalArgumentException();
 		}
@@ -356,7 +356,8 @@ public class Facade {
 
 	// -- TESTING -- TESTING -- TESTING -- -- TESTING --
 	/**
-	 * Just for testing
+	 * Just for testing.
+	 * 
 	 * @return the parser mediator
 	 */
 	public ParserMediator getParserMediator() {

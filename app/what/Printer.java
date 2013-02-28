@@ -16,6 +16,13 @@ package what;
 public class Printer {
 
 	/**
+	 * Utility class, no construcotr needed.
+	 */
+	private Printer() {
+		throw new AssertionError();
+	}
+	
+	/**
 	 * Prints the given String (and a new line).
 	 * 
 	 * @param s String to be printed

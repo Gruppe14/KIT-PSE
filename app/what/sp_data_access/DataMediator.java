@@ -65,7 +65,7 @@ public class DataMediator {
 				
 				
 				} else if (d.getRowIdAt(posi).equals(RowId.STRING))  {
-					// case 2: it's a StringRow, request all string of the highest level from the warehouse
+					// it's a StringRow, request all string of the highest level from the warehouse
 					strings = requestStringsOf(d.getRowNameOfLevel(posi), d.getDimTableName());	
 					
 				} else {
@@ -80,7 +80,7 @@ public class DataMediator {
 					
 					// if it has deeper levels, add children
 					if (size > 1) {
-						if(!addChildrenTo(dk, d, posi + 1)) {
+						if (!addChildrenTo(dk, d, posi + 1)) {
 							Printer.pproblem("Adding children to DimKnot: " + dk);
 						}
 					}
@@ -130,7 +130,7 @@ public class DataMediator {
 			
 			// if it has deeper levels, add children
 			if (posi < (size - 1)) {
-				if(!addChildrenTo(child, d, posi + 1)) {
+				if (!addChildrenTo(child, d, posi + 1)) {
 					Printer.pfail("Adding children to DimKnot: " + dk);
 					return false;
 				}
@@ -160,7 +160,7 @@ public class DataMediator {
 	/**
 	 * Loads a DataEntry into the warehouse. 
 	 * 
-	 * @param de DataEntry to be uploaded
+	 * @param tbl DataEntry to be uploaded
 	 * @return whether it was successful
 	 */
 	public boolean loadEntry(DataEntry tbl) {
@@ -195,7 +195,8 @@ public class DataMediator {
 	 * @param table table in which child and parent are stored
 	 * @return a TreeSet of strings of type child with parent as filter
 	 */
-	public TreeSet<String> requestStringsWithParent(String child, String parentType, String parentFilter, String table) {
+	public TreeSet<String> requestStringsWithParent(String child, String parentType, 
+													String parentFilter, String table) {
 		return adapter.requestStringsWithParent(child, parentType, parentFilter, table);
 	}
 	
@@ -231,8 +232,6 @@ public class DataMediator {
 	
 	/**
 	 * Sets the boolean for the table is created to the given boolean.
-	 * 
-	 * @param b boolean to set
 	 */
 	private void setTablesCreated() {
 		 adapter.storeDataBase(config.getNameOfDB());

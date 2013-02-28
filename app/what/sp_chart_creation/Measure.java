@@ -19,19 +19,24 @@ import what.sp_config.RowEntry;
 public class Measure {
 	
 	/* Possible aggregations. */
+	/** Constant measure name. */
 	public static final String COUNT = "#";
+	/** Constant measure name. */
 	public static final String SUM = "SUM";
+	/** Constant measure name. */
 	public static final String MAX = "MAX";
+	/** Constant measure name. */
 	public static final String AVG = "AVG";
 	
-	/* The aggregation in MySQL for COUNT. */
+	/** The aggregation in MySQL for COUNT. */
 	public static final String COUNT_SQL = "count(*)";
 	
-	/* Left and right bracket. */
+	/** Left bracket. */
 	private static final String LBR = "(";
+	/** Right bracket. */
 	private static final String RBR = ") ";
 	
-	/* Static collection of the possible aggregations. */
+	/** Static collection of the possible aggregations. */
 	private static ArrayList<String> aggregations = new ArrayList<String>();
 	static {
 		aggregations.add(COUNT);
@@ -114,7 +119,7 @@ public class Measure {
 	 */
 	protected String getMeasureSelect() {
 		if (getAggregation() == COUNT) {
-			return COUNT_SQL ;
+			return COUNT_SQL;
 		} else if (getAggregation() == SUM) {
 			return SUM + LBR + getMeasureRow() + RBR;
 		} else if (getAggregation() == MAX) {

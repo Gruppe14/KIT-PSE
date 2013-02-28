@@ -17,16 +17,22 @@ import what.Printer;
  * 
  * If you take one, please put it back.
  * 
- * @author Jonathan,  (Sridhar M. S. http://www.developer.com/java/data/article.php/3847901/Implement-Java-Connection-Pooling-with-JDBC.htm)
+ * @author Jonathan, PSE Gruppe 14,   (Sridhar M. S. http://www.developer.com/java/data/article.php/3847901/
+ * 										Implement-Java-Connection-Pooling-with-JDBC.htm)
  */
 public class WHConnectionManager {
 	
-    private static final String databaseUrl = "jdbc:mysql://localhost:3306/WHATDataWarehouse";
-    private static final String userName = "masteWHAT";
-    private static final String password = "whatUP";
+	/** MySQL path constant. */
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/WHATDataWarehouse";
+    /** MySQL name constant. */
+    private static final String USER_NAME = "masteWHAT";
+    /** MySQL password constant. */
+    private static final String PW = "whatUP";
+    /** Pool size constant. */
     private static final int MAX_POOL_SIZE = 8;
 
-    Vector<Connection> connectionPool = new Vector<Connection>();
+    /** Connection pool. */
+    private Vector<Connection> connectionPool = new Vector<Connection>();
     
     /**
      * Protected constructor for a WHConnectionMangaer.
@@ -49,13 +55,18 @@ public class WHConnectionManager {
      */
     private void initializeConnectionPool()  {
     	
-        while(!checkIfConnectionPoolIsFull()) {
+        while (!checkIfConnectionPoolIsFull()) {
         	connectionPool.addElement(createNewConnectionForPool());
         }
         
         Printer.print("Connection Pool is full.");
     }
 
+    /**
+     * Returns whether the connection pool is full.
+     * 
+     * @return whether the connection pool is full
+     */
     private synchronized boolean checkIfConnectionPoolIsFull() {
         
         return !(connectionPool.size() <  MAX_POOL_SIZE);
@@ -71,12 +82,12 @@ public class WHConnectionManager {
       
         try {        	
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(databaseUrl, userName, password);
+            connection = DriverManager.getConnection(DB_URL, USER_NAME, PW);
             //Printer.print("Connection: " + connection);
-        } catch(SQLException sqle) {
+        } catch (SQLException sqle) {
         	Printer.perror("SQLException: " + sqle);
             return null;
-        } catch(ClassNotFoundException cnfe) {
+        } catch (ClassNotFoundException cnfe) {
             Printer.perror("ClassNotFoundException: " + cnfe);
             return null;
         }
@@ -95,7 +106,7 @@ public class WHConnectionManager {
 
         //Check if there is a connection available. 
         // There are times when all the connections in the pool may be used up
-        if(connectionPool.size() > 0) {
+        if (connectionPool.size() > 0) {
             connection = (Connection) connectionPool.firstElement();
             connectionPool.removeElementAt(0);
         }

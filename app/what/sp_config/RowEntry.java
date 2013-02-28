@@ -20,7 +20,7 @@ public abstract class RowEntry {
 	
 	// -- STATIC STRINGS -- STATIC STRINGS -- STATIC STRINGS --
 	/** 
-	 * Static Strings for a specific type of a field/row in the .json configuration file 
+	 * Static Strings for a specific type of a field/row in the .JSON configuration file. 
 	 * @see RowEntry
 	 * @see RowId
 	 * @see IntRow
@@ -28,7 +28,7 @@ public abstract class RowEntry {
 	protected static final String TYPE_INT = "INT";
 	
 	/** 
-	 * Static Strings for a specific type of a field/row in the .json configuration file 
+	 * Static Strings for a specific type of a field/row in the .JSON configuration file.
 	 * @see RowEntry
 	 * @see RowId
 	 * @see DoubleRow
@@ -36,7 +36,7 @@ public abstract class RowEntry {
 	protected static final String TYPE_DOUBLE = "DOUBLE";
 	
 	/** 
-	 * Static Strings for a specific type of a field/row in the .json configuration file 
+	 * Static Strings for a specific type of a field/row in the .JSON configuration file.
 	 * @see RowEntry
 	 * @see RowId
 	 * @see StringRow
@@ -44,21 +44,21 @@ public abstract class RowEntry {
 	protected static final String TYPE_STRING = "STRING";
 	
 	/** 
-	 * Static Strings for a specific type of a field/row in the .json configuration file 
+	 * Static Strings for a specific type of a field/row in the .JSON configuration file. 
 	 * @see RowEntry
 	 * @see RowId
 	 * @see IpLocationRow
 	 */
 	protected static final String TYPE_LOCATION = "IP";
 	
-	/** Static Strings for a specific type of a field/row in the .json configuration file 
+	/** Static Strings for a specific type of a field/row in the .JSON configuration file. 
 	 * @see RowEntry
 	 * @see RowId
 	 * @see StringMapRow
 	 */
 	protected static final String TYPE_STRINGMAP = "STRINGMAP";
 	
-	/** Static Strings for a specific type of a field/row in the .json configuration file 
+	/** Static Strings for a specific type of a field/row in the .JSON configuration file. 
 	 * @see RowEntry
 	 * @see RowId
 	 * @see DummyRow
@@ -102,6 +102,7 @@ public abstract class RowEntry {
 	 */
 	private final String scale;
 	
+	/** Column name of this row entry, which is the name in the warehouse. */
 	private final String columnName;
 	
 	// -- CONSTRUCTOR -- CONSTRUCTOR -- CONSTRUCTOR -- CONSTRUCTOR --
@@ -133,10 +134,17 @@ public abstract class RowEntry {
 		columnName = generateColumnName(name);
 	}
 	
+	/**
+	 * Generates the column name of this RowEntry from
+	 * a given name.
+	 * 
+	 * @param name to generate column name from
+	 * @return the ColumnName generated from a given name
+	 */
 	private static String generateColumnName(String name) {
-		// TODO ensure that  / . _ space ist not in the name; 
-		
-		return MySQLAdapter.ROW_TABLE + name;
+		assert (name != null);
+				
+		return MySQLAdapter.ROW_TABLE + ConfigWrap.getStringWithoutSpace(name);
 	}
 
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 

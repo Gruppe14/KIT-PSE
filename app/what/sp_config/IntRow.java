@@ -25,8 +25,8 @@ public class IntRow extends RowEntry {
 	 * @param category the category
 	 * @param scale the scale String
 	 */
-	protected IntRow(String name, String logId, int lvl, String categorie, String scale) {
-		super(name, logId, lvl, categorie, scale, RowId.INT);	
+	protected IntRow(String name, String logId, int lvl, String category, String scale) {
+		super(name, logId, lvl, category, scale, RowId.INT);	
 	}
 	
 	@Override

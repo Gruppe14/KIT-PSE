@@ -1,7 +1,5 @@
 package what.sp_config;
 
-import what.JSONReader;
-
 /**
  * Enumeration class wrapping Strings for
  * specific row types, making it easier
@@ -14,9 +12,36 @@ import what.JSONReader;
  */
 public enum RowId {
 	
-	INT(RowEntry.TYPE_INT), DOUBLE(RowEntry.TYPE_DOUBLE), 
-	LOCATION(RowEntry.TYPE_LOCATION), STRING(RowEntry.TYPE_STRING), 
-	STRINGMAP(RowEntry.TYPE_STRINGMAP), DUMMY(RowEntry.TYPE_DUMMY);
+	/** 
+	 * Enumeration for a type.
+	 * @see IntRow
+	 */
+	INT(RowEntry.TYPE_INT), 
+	/** 
+	 * Enumeration for a type.
+	 * @see DoubleRow
+	 */
+	DOUBLE(RowEntry.TYPE_DOUBLE), 
+	/** 
+	 * Enumeration for a type.
+	 * @see RowEntry
+	 */
+	LOCATION(RowEntry.TYPE_LOCATION), 
+	/** 
+	 * Enumeration for a type.
+	 * @see StringRow
+	 */
+	STRING(RowEntry.TYPE_STRING), 
+	/** 
+	 * Enumeration for a type.
+	 * @see StringMapRow
+	 */
+	STRINGMAP(RowEntry.TYPE_STRINGMAP), 
+	/** 
+	 * Enumeration for a type.
+	 * @see DummyRow
+	 */
+	DUMMY(RowEntry.TYPE_DUMMY);
 
 	/** The String defining this RowId. */
 	private final String id;

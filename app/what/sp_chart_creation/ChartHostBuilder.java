@@ -24,33 +24,51 @@ import what.sp_config.RowEntry;
  * @see ChartMediator
  * @see DimChart
  */
-public class ChartHostBuilder {	
+public class ChartHostBuilder {
+	/** JSON constant. */
 	public static final String JSON_FILTER = "filter";
 	
+	/** JSON constant. */
 	public static final String JSON_CHART_TYPE = "chart";
 	
+	/** JSON constant. */
 	public static final String JSON_X = "x";
+	/** JSON constant. */
 	public static final String JSON_Y = "y";
+	/** JSON constant. */
 	public static final String JSON_X_DIM = "xDim";
+	/** JSON constant. */
 	public static final String JSON_Y_DIM = "yDim";
 	
+	/** JSON constant. */
 	public static final String JSON_MEASURE = "measure";
+	/** JSON constant. */
 	public static final String JSON_AGGREGATION = "aggregation";
 	
+	/** JSON constant. */
 	public static final String JSON_ALL = "all";
 	
+	/** JSON constant. */
 	public static final String JSON_LVL = "level";
+	/** JSON constant. */
 	public static final String JSON_SELEC = "selected";
+	/** JSON constant. */
 	public static final String JSON_PARENT = "parent";
 	
+	/** JSON constant. */
 	public static final String JSON_TIME = "time";
+	/** JSON constant. */
 	public static final String YEAR = "years";
+	/** JSON constant. */
 	public static final String MON = "months";
+	/** JSON constant. */
 	public static final String DAY = "days";
+	/** JSON constant. */
 	public static final String HOUR = "hours";
+	/** JSON constant. */
 	public static final String MIN = "mins";
 	
-	/** The configuration on which the work of this CharHostBuilder is based. */
+	/** The configuration on which the work of this CharHostBuilder is based. */	
 	private final ConfigWrap config;
 	
 	/**
@@ -159,7 +177,7 @@ public class ChartHostBuilder {
 		}
 
 		// create the DimCharts
-		if(hasY) {
+		if (hasY) {
 			return new TwoDimChart(chartType, x, xFilter, y, yFilter, msr, filters);
 		} else {
 			return new DimChart(chartType, x, xFilter, msr, filters);
@@ -235,6 +253,13 @@ public class ChartHostBuilder {
 	}
 	
 	// main filter creation method
+	/**
+	 * Returns a Filter for a name of a dimension and a reader.
+	 * 
+	 * @param name of a dimension
+	 * @param reader JSONReader containing information
+	 * @return  a Filter for a name of a dimension and a reader
+	 */
 	private Filter getFilterFor(String name, JSONReader reader) {
 		assert (name != null);
 		assert (reader != null);
@@ -263,12 +288,21 @@ public class ChartHostBuilder {
 	}
 
 	// first level
-	private TreeSet<DimKnot> getFilterTree(String name, DimRow dim, JSONReader reader) {
-		assert (name != null);
+	/**
+	 * Returns a set of DimKnots for a key in a JSONObject,
+	 * a DimRow and a reader.
+	 * 
+	 * @param key in the JSONObject of the reader
+	 * @param dim DimRow of the DimKnots
+	 * @param reader JSONReader containing information
+	 * @return a set of DimKnots for a key in a JSONObject
+	 */
+	private TreeSet<DimKnot> getFilterTree(String key, DimRow dim, JSONReader reader) {
+		assert (key != null);
 		assert (reader != null);
 		
 		// get JSON object with strings to filter for
-		JSONObject values = reader.getJSONObject(name);
+		JSONObject values = reader.getJSONObject(key);
 		if (values == null) {
 			Printer.pfail("Getting the filter field.");
 			return null;
@@ -278,7 +312,7 @@ public class ChartHostBuilder {
 		TreeSet<DimKnot> filterSet = new TreeSet<DimKnot>();
 
 		// get the filter field
-		JSONObject obj = reader.getJSONObject(name);
+		JSONObject obj = reader.getJSONObject(key);
 		
 		JSONReader subReader = new JSONReader(obj);
 		
@@ -310,7 +344,8 @@ public class ChartHostBuilder {
 				Printer.perror("Illegal statement for select: " + sel);
 				return null;
 			}
-		} else if (o instanceof JSONArray) { // it as a object so now the first level and then recursive things start
+		} else if (o instanceof JSONArray) { 
+			// it as a object so now the first level and then recursive things start
 			JSONArray array = (JSONArray) o;
 			
 			// get all DimKnot of the first level
@@ -340,9 +375,22 @@ public class ChartHostBuilder {
 	}
 
 	// deeper level
+	/**
+	 * Returns a DimKnot for a given dimension,
+	 * an object, which may be an array containing other Knots
+	 * or the name of the searched Knot.
+	 * Row is the actual RowEntry of the searched DimKnot.
+	 * 
+	 * @param obj containing name and possible children Knots
+	 * @param dim dimension of all this Knots
+	 * @param row RowEntry of the requested DimKnot
+	 * @return a DimKnot for a RowEntry and a Object containing name
+	 * and possible children
+	 */
 	private static DimKnot getDimKnot(Object obj, DimRow dim, RowEntry row) {
 		assert (obj != null);
 		assert (dim != null);
+		assert (row != null);
 		
 		// case it is a leaf
 		if (obj instanceof String) {
@@ -404,6 +452,14 @@ public class ChartHostBuilder {
 	}
 
 	// -- TIME FILTER -- TIME FILTER -- TIME FILTER -- TIME FILTER --
+	/**
+	 * Returns a TimeFilter for the given dimension, key string and a reader.
+	 * 
+	 * @param time key in a JSONObject
+	 * @param dim Dimension of the time
+	 * @param reader JSONReader
+	 * @return a TimeFilter for the given dimension, key string and a reader
+	 */
 	private TimeFilter getTimeFilter(String time, DimRow dim, JSONReader reader) {
 		assert (time != null);
 		assert (dim != null);
@@ -417,7 +473,7 @@ public class ChartHostBuilder {
 		if (timeObj instanceof String) { // all selected?
 				String sel = (String) timeObj;
 				if (sel.equalsIgnoreCase(JSON_ALL)) { 
-					// ALL is selected! >> return empty set to show that nothing has to be filtered
+				// ALL is selected! >> return empty set to show that nothing has to be filtered
 					return new TimeFilter(dim, filterTree);
 				} else {
 					Printer.perror("Illegal statement for select: " + sel);
@@ -450,40 +506,61 @@ public class ChartHostBuilder {
 		
 	}
 	
+	/** Constant number in array for a date segment. */
+	private static final int Y = 0;
+	/** Constant number in array for a date segment. */
+	private static final int M = 1;
+	/** Constant number in array for a date segment. */
+	private static final int D = 2;
+	/** Constant number in array for a date segment. */
+	private static final int H = 3;
+	/** Constant number in array for a date segment. */
+	private static final int MI = 4;
+	/** Constant number as length of the time array. */
+	protected static final int L = 5;
+	
+	/**
+	 * Extracts the time array for a given JSONObject
+	 * and 'from' for i = 0 or 'to' for i = 1.
+	 * 
+	 * @param timeObj JSONObject
+	 * @param i 0 for from, 1 for to
+	 * @return time array
+	 */
 	private int[] getDate(JSONObject timeObj, int i) {
 		assert ((i == 0) || (i == 1));
 
 		// get a reader
 		JSONReader reader = new JSONReader(timeObj);
-		
+			
 		// get a array
-		int[] ary = new int[5];
+		int[] ary = new int[L];
 		
 		try {
 			if (timeObj.has(YEAR)) {
-				ary[0] = reader.getJSONArray(YEAR).getInt(i);
+				ary[Y] = reader.getJSONArray(YEAR).getInt(i);
 			} else {
-				ary[0] = 0;
+				ary[Y] = 0;
 			}
 			if (timeObj.has(MON)) {
-				ary[1] = reader.getJSONArray(MON).getInt(i);
+				ary[M] = reader.getJSONArray(MON).getInt(i);
 			} else {
-				ary[1] = 0;
+				ary[M] = 0;
 			}
 			if (timeObj.has(DAY)) {
-				ary[2] = reader.getJSONArray(DAY).getInt(i);
+				ary[D] = reader.getJSONArray(DAY).getInt(i);
 			} else {
-				ary[2] = 0;
+				ary[D] = 0;
 			}
 			if (timeObj.has(HOUR)) {
-				ary[3] = reader.getJSONArray(HOUR).getInt(i);
+				ary[H] = reader.getJSONArray(HOUR).getInt(i);
 			} else {
-				ary[3] = 0;
+				ary[H] = 0;
 			}
 			if (timeObj.has(MIN)) {
-				ary[4] = reader.getJSONArray(MIN).getInt(i);
+				ary[MI] = reader.getJSONArray(MIN).getInt(i);
 			} else {
-				ary[4] = 0;
+				ary[MI] = 0;
 			}
 		} catch (JSONException e) {
 			Printer.perror("Getting a time field.");

@@ -20,10 +20,10 @@ import java.io.Reader;
 public class FileHelper {
 
 	/** Static String to identify a JSON file. */
-	public static String JSON = "json";
+	public static final String JSON = "json";
 	
 	/** Static String to identify a CSV file. */
-	public static String CSV = "csv";
+	public static final String CSV = "csv";
 	
 	/**
 	 * Private constructor, which should no be used, 
@@ -101,8 +101,6 @@ public class FileHelper {
 	 * 
 	 * @param configFile file from which is to be read
 	 * @return the string from the file
-	 * @throws IOException if reading doesn't work
-	 * @throws FileNotFoundException if file did not exist
 	 */
 	public static String getStringContent(File configFile) {
 		assert (configFile != null);
@@ -162,7 +160,7 @@ public class FileHelper {
 		String extension = null;
 		int i = fileName.lastIndexOf('.');
 		if (i > 0) {
-		    extension = fileName.substring(i+1);
+		    extension = fileName.substring(i + 1);
 		} else {
 			Printer.pfail("No extension found for: " + fileName);
 		}

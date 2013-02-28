@@ -1,12 +1,8 @@
 package what.sp_config;
 
-// java imports
-import java.util.Set;
-
 // intern imports
 import what.sp_parser.DataEntry;
 
-// TODO decide whether to split in two subclasses or kill contents!
 /**
  * This class represents a String row as a RowEntry.<br>
  * 
@@ -20,21 +16,22 @@ public class StringRow extends RowEntry {
 	/** The table type of a StringRow in the warehouse. */
 	private static final String TABLE_TYPE = "VARCHAR(40)";
 	
-	/** TODO when decided what happens with this class */
-	private final Set<String> contents;
+
 		
-	/** TODO when decided what happens with this class */
-	protected StringRow(String name, String logId, int lvl,
-						String categorie, String scale, Set<String> strings) {
+	/**
+	 * Protected constructor for the class StringRow.
+	 * 
+	 * @param name the name
+	 * @param logId the logId
+	 * @param lvl the level
+	 * @param category the category
+	 * @param scale the scale
+	 */
+	protected StringRow(String name, String logId, int lvl,	String category, String scale) {
 		
-		super(name, logId, lvl, categorie, scale, RowId.STRING);
-		this.contents = strings;
+		super(name, logId, lvl, category, scale, RowId.STRING);
 	}
 
-	/** TODO when decided what happens with this class */
-	public Set<String> getCompareTo() {
-		return contents;
-	}
 	
 	@Override
 	public boolean split(DataEntry de, String string, int location) {

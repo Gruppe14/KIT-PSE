@@ -4,7 +4,6 @@ package what.sp_config;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.TreeSet;
 
 // org.json imports
@@ -34,7 +33,7 @@ public class ConfigWrap {
 
 	// -- STATIC STRINGS -- STATIC STRINGS -- STATIC STRINGS --
 	/** This constant Strings stand for a attribute which is not available. */
-	public static String NOT_AVAILABLE = "N/A";
+	public static final String NOT_AVAILABLE = "N/A";
 	
 	// highest level in configuration file
 	/** 
@@ -102,14 +101,15 @@ public class ConfigWrap {
 	protected static final String STRING_NAME = "ParentName";
 	
 	/** 
-	 * Static Strings for the type of a field/row in the .json configuration file 
+	 * Static Strings for the type of a field/row in the .JSON configuration file.
+	 *  
 	 * @see RowEntry
 	 * @see RowId
 	 */
 	protected static final String ATRI_TYPE = "Type";
 	
 	// -- ATTRIBUTES -- ATTRIBUTES -- ATTRIBUTES -- ATTRIBUTES --	
-	/** Name of the data base for which this ConfigWrap is */
+	/** Name of the data base for which this ConfigWrap is. */
 	private String dbName;
 	
 	/** Version of this ConfigWrap for a database. */
@@ -322,9 +322,10 @@ public class ConfigWrap {
 	
 	/**
 	 * Helper class for getEntry(...).
-	 * Returns a RowEntry in dependency to a JSONObject and a RowId.
+	 * Returns a RowEntry in dependency to a JSONReader and a RowId.
 	 * 
 	 * @param id RowId of the RowEntry required
+	 * @param reader JSONReader of the JSONObject containing the information needed
 	 * @return a RowEntry in dependency to a JSONObject and a RowId
 	 */
 	private static RowEntry getEntryById(RowId id, JSONReader reader) {
@@ -358,12 +359,7 @@ public class ConfigWrap {
 		case DOUBLE :
 			return new DoubleRow(name, logId, lvl, cat, scale);
 		case STRING : 
-			Set<String> strings = getStrings(reader);
-			if (strings == null) {
-				Printer.perror("Getting Strings of String Row.");
-				return null;
-			}
-			return new StringRow(name, logId, lvl, cat, scale, strings);
+			return new StringRow(name, logId, lvl, cat, scale);
 		case LOCATION :
 			return new IpLocationRow(name, logId, lvl, cat, scale);
 		case STRINGMAP :
@@ -383,8 +379,9 @@ public class ConfigWrap {
 	
 	/**
 	 * Helper class for getEntryById(..).
-	 * Returns a TreeSet extracted from the JSONObject of this reader.
+	 * Returns a TreeSet extracted from the JSONObject of the given reader.
 	 * 
+	 * @param reader JSONReader of the JSONObject containing the information needed
 	 * @return a TreeSet of Strings extracted from the JSONObject of this reader
 	 */
 	private static TreeSet<String> getStrings(JSONReader reader) {
@@ -409,8 +406,9 @@ public class ConfigWrap {
 	
 	/**
 	 * Helper class for getEntryById(..).
-	 * Returns a HashMap extracted from the JSONObject of this reader.
+	 * Returns a HashMap extracted from the given JSONReader.
 	 * 
+	 * @param reader JSONReader of the JSONObject containing the information needed
 	 * @return a HashMap extracted from the JSONObject of this reader
 	 */
 	private static HashMap<String, TreeSet<String>> getMap(JSONReader reader) {
@@ -587,10 +585,27 @@ public class ConfigWrap {
 
 	/**
 	 * Return the name of the fact table in the warehouse of this configuration.
-	 * @return
+	 * 
+	 * @return the name of the fact table in the warehouse of this configuration
 	 */
 	public String getFactTableName() {
-		return MySQLAdapter.FACT_TABLE + dbName;
+		return MySQLAdapter.FACT_TABLE +  getStringWithoutSpace(dbName);
+	}
+	
+	/**
+	 * Returns a String without spaces.
+	 * 
+	 * @param s String to get spaces replaced
+	 * @return a String without spaces
+	 */
+	protected static String getStringWithoutSpace(String s) {
+		assert (s != null);
+		
+		if (s.contains(" ")) {
+			s = s.replace(" ", "");
+		}
+		
+		return s;
 	}
 	
 	// -- SEARCH GETTER -- SEARCH GETTER -- SEARCH GETTER -- SEARCH GETTER -- 
@@ -704,7 +719,8 @@ public class ConfigWrap {
 	
 	/**
 	 * Returns the row name for the highest level for a dimension
-	 * containing x as category or row
+	 * containing x as category or row.
+	 * 
 	 * @param s String for which the dimension is searched
 	 * @return row name for the highest level for a dimension
 	 */
@@ -765,6 +781,5 @@ public class ConfigWrap {
 		return false;
 	}
 
-	
 	
 }

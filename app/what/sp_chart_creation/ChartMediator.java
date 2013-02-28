@@ -24,7 +24,7 @@ import what.sp_data_access.DataMediator;
  */
 public class ChartMediator {
 	
-	/** Configuration on which this ChartMediator works on */
+	/** Configuration on which this ChartMediator works on. */
 	private ConfigWrap config;
 	
 	/** The DataMediator with which this ChartMediator works. */
@@ -34,10 +34,9 @@ public class ChartMediator {
 	private ChartHostBuilder builder;
 	
 	/** The maximal size of the history. */
-	private int maxSizeHistory = 10;
+	private static final int MAX_SIZE_HISTORY = 10;
 	
-	
-	/** The stored history of computed charts of this ChartMediator */
+	/** The stored history of computed charts of this ChartMediator. */
 	private LinkedList<DimChart> history;
 	
 	/**
@@ -100,6 +99,7 @@ public class ChartMediator {
 	 * Computes the JSONObject for the given chart and stores it in it.
 	 * 
 	 * @param chart DimChart for which the JSONObject will be created
+	 * @return whether it was successful
 	 */
 	private boolean computeJSONFor(DimChart chart) {
 		assert (chart != null);
@@ -124,7 +124,7 @@ public class ChartMediator {
 	 * @return the JSONObject of the requested chart from the history, referring to the number
 	 */
 	public JSONObject getHistoryChart(int number) {
-		if ((number < 0) || (number >= getMaxSizeOfHistory() )) {
+		if ((number < 0) || (number >= getMaxSizeOfHistory())) {
 			throw new IllegalArgumentException();
 		}
 		
@@ -162,7 +162,7 @@ public class ChartMediator {
 	 * @return the maximal number of charts possible to store in the history
 	 */
 	public int getMaxSizeOfHistory() {
-		return maxSizeHistory;
+		return MAX_SIZE_HISTORY;
 	}
 
 	/**

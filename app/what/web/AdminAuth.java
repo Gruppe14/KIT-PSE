@@ -6,14 +6,16 @@ import play.mvc.Result;
 import play.mvc.Security;
 
 /**
- * class to help check if someone is logged in or not
- * @author Lukas Ehnle
+ * Class to help check if someone is logged in or not.
+ * 
+ * @author Lukas Ehnle, PSE Gruppe 14
  *
  */
 public class AdminAuth extends Security.Authenticator{
 	
 	/**
-	 * retrieves the username from the session
+	 * Retrieves the username from the session.
+	 * 
 	 * @ctx the request to check for username
 	 * @returns username or null
 	 */
@@ -22,8 +24,10 @@ public class AdminAuth extends Security.Authenticator{
 		if (username==null) return null;
 		return username;
 	}
+	
 	/**
-	 * alternative result if user is not valid
+	 * alternative result if user is not valid.
+	 * @return Result
 	 */
 	public Result onUnauthorized(Context ctx) {
 		return redirect(routes.Website.adminLogin());

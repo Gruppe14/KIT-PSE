@@ -29,36 +29,68 @@ import what.sp_parser.DataEntry;
 public class MySQLAdapter {
 	
 	// specific strings for the database 
+	/** Constant to modify a dimension with to get a table name. */
 	public static final String DIM_TABLE = "dim_";
+	/** Constant to modify a row with to get a column name. */
 	public static final String ROW_TABLE = "row_";
+	/** Constant to modify a dimension with to get a key name. */
 	public static final String KEY_TABLE = "_key";
+	/** Constant to modify a configuration name with to get a fact table name. */
 	public static final String FACT_TABLE = "fact_";
 	
+	/** MySQL short constant. */
 	public static final String SELECT = "SELECT ";
+	/** MySQL short constant. */
 	public static final String FROM = " FROM ";
+	/** MySQL short constant. */
 	public static final String JOIN = " JOIN ";
+	/** MySQL short constant. */
 	public static final String ON = " ON ";
+	/** MySQL short constant. */
 	public static final String WHERE = " WHERE ";	
+	/** MySQL short constant. */
 	protected static final String GROUPBY = " GROUP BY ";
 	
+	/** MySQL short constant. */
 	public static final String AND = " AND ";
+	/** MySQL short constant. */
 	public static final String OR = " OR ";
+	/** MySQL short constant. */
 	public static final String EQL = " = ";
 	
+	
+	/** MySQL short constant. */
 	public static final String AS = " AS ";
+	/** MySQL short constant. */
 	private static final String AS_FACTTABLE = " FT "; 
+	/** MySQL short constant. */
 	public static final String ALL = " * ";
 	
+	/** MySQL short constant. */
 	public static final String LBR = " ( ";
+	/** MySQL short constant. */
 	public static final String KOMMA = ",  ";
+	/** MySQL short constant. */
 	public static final String RBR = " ) ";
 	
+	/** MySQL short constant. */
 	private static final String INSERT = "INSERT INTO ";
+	/** MySQL short constant. */
 	private static final String IIFNOTEX = "INSERT IGNORE INTO ";
+	/** MySQL short constant. */
 	private static final String VALUES = "VALUES ";
 	
+	/** MySQL short constant. */
 	public static final String APOS = "'";
+	/** MySQL short constant. */
 	public static final String DOT = ".";
+	
+	/** Constant number for HashCodeBuilder. */
+	public static final int HASHONE = 7;
+	/** Constant number for HashCodeBuilder. */
+	public static final int HASHTWO = 17;
+	/** Constant number to wait till request new Connection. */
+	public static final int CON = 30;
 		
 	/**
 	 * The trunks of the uploads.<br>
@@ -129,7 +161,7 @@ public class MySQLAdapter {
 			return false;
 		} else {
 			Printer.psuccess("Creating tables.");
-			close(s,c);
+			close(s, c);
 			return true;
 		}
 	}
@@ -183,7 +215,7 @@ public class MySQLAdapter {
 				dimCounter++;
 				
 				// get a HashCode Builder which will produce the key
-				HashCodeBuilder hashi = new HashCodeBuilder(17, 7);
+				HashCodeBuilder hashi = new HashCodeBuilder(HASHTWO, HASHONE);
 				
 				// dim query (
 				queries[dimCounter] += LBR;
@@ -236,11 +268,7 @@ public class MySQLAdapter {
 	 * Returns a JSONObject with two rows containing for a given x from table xTable with key xKey
 	 * the measure (including aggregation) with given filters.
 	 * 
-	 * @param xFilter for the x Filter
-	 * @param xTable from the table
-	 * @param xKey with the key
-	 * @param measure for the measure
-	 * @param filters with the filters
+	 * @param chart DimChart for which a JSON will be produced
 	 * @return a JSONObject as a result of the given parameters
 	 */
 	protected boolean requestChartJSON(DimChart chart) {
@@ -285,7 +313,8 @@ public class MySQLAdapter {
 	 * @param table table in which child and parent are stored
 	 * @return a TreeSet of strings of type child with parent as filter
 	 */
-	protected TreeSet<String> requestStringsWithParent(String child, String parentType, String parentFilter, String table) {
+	protected TreeSet<String> requestStringsWithParent(String child, String parentType, 
+														String parentFilter, String table) {
 		assert (parentFilter != null);
 		assert (table != null);
 		assert (child != null);
@@ -347,7 +376,7 @@ public class MySQLAdapter {
 			return false;
 		} else {
 			//Printer.psuccess("Upload.");
-			close(s,c);
+			close(s, c);
 			return true;
 		}
 	}
@@ -494,19 +523,20 @@ public class MySQLAdapter {
 	 */
  	private Connection getConnection() {
 		Connection c = null;
-		// TODO limit number of requests -> endless loop
+		int a = 0;
 		do {
 			c = whConnections.getConnectionFromPool();
-				
+			
 			if (c == null) {
+				a++;
 				try {
-					wait(30);
+					wait(CON);
 				} catch (InterruptedException e) {
-					// nothing to do here... it's ok if we get woken up
+					// nothing to do here... it's okay if we get woken up
 					Printer.pproblem("No connection available.");
 				}
 			}
-		} while (c == null) ;
+		} while ((c == null) && (a < (CON * CON)));
 		
 		return c;
 	}
@@ -579,7 +609,7 @@ public class MySQLAdapter {
 	}
  	
 	/**
-	 * Closes given Statement and returns given Connection to pool
+	 * Closes given Statement and returns given Connection to pool.
 	 * @param s Statement to be closed
 	 * @param c Connection to be returned to pool
 	 */
@@ -598,7 +628,8 @@ public class MySQLAdapter {
 	}
 	
 	/**
-	 * Returns given Connection to pool
+	 * Returns given Connection to pool.
+	 * 
 	 * @param c Connection to be returned to pool
 	 */
 	private void close(Connection c) {
@@ -630,7 +661,7 @@ public class MySQLAdapter {
 		for (DimRow d : dims) {
 			if (d.isDimension()) { // case it's a dimension
 				dimCounter++;
-				String curDimTrunk = IIFNOTEX + d.getDimTableName() + LBR ;
+				String curDimTrunk = IIFNOTEX + d.getDimTableName() + LBR;
 				
 				// add all rows to the trunk
 				for (int i = 0, l = d.getSize(); i < l; i++) {
@@ -673,15 +704,20 @@ public class MySQLAdapter {
 	}
 
 	// -- WHAT CONFIG --  WHAT CONFIG  --  WHAT CONFIG  --  WHAT CONFIG  --
-	private static String SOURCE_DB = "sourceDB";
-	private static String CONFIG_NAME = "WHAT_CONFIG";
-	private static String CONFIG_TABLE = "CREATE TABLE " + CONFIG_NAME + LBR 
+	/** MySQL constant name. */
+	private static final String SOURCE_DB = "sourceDB";	
+	/** MySQL constant name. */
+	private static final String CONFIG_NAME = "WHAT_CONFIG";
+	/** MySQL query constant. */
+	private static final String CONFIG_TABLE = "CREATE TABLE " + CONFIG_NAME + LBR 
 										+ SOURCE_DB + " CHAR(40)" + RBR;
-	private static String TABLE_EXIST = "SHOW TABLES LIKE ";
+	/** MySQL query constant. */
+	private static final String TABLE_EXIST = "SHOW TABLES LIKE ";
 	
 	/**
 	 * Returns whether the tables are set for the given name of a database
-	 * which is operated on (like SkyServer)
+	 * which is operated on (like SkyServer).
+	 * 
 	 * @param name name of the database which is checked (like SkyServer)
 	 * @return whether the tables are set for the given name of a database
 	 */

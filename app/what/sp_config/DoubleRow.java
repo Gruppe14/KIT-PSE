@@ -25,8 +25,8 @@ public class DoubleRow extends RowEntry {
 	 * @param category the category
 	 * @param scale the scale String
 	 */
-	protected DoubleRow(String name, String logId, int lvl, String categorie, String scale) {
-		super(name, logId, lvl, categorie, scale, RowId.DOUBLE);
+	protected DoubleRow(String name, String logId, int lvl, String category, String scale) {
+		super(name, logId, lvl, category, scale, RowId.DOUBLE);
 	}	
 	
 	@Override

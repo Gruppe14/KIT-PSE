@@ -23,21 +23,30 @@ import what.sp_data_access.MySQLAdapter;
  */
 public class DimChart {
 	
+	/** Constant for a position in the result set. */
+	private static final int RESULTSET_POSITION_MEASURE = 1;
+	/** Constant for a position in the result set. */
+	private static final int RESULTSET_POSITION_X = 2;
+	
+	/** Constant name tu put in JSONObject. */
 	protected static final String ATT1 = "attribute1";
+	/** Constant name tu put in JSONObject. */
 	protected static final String ATT2 = "attribute2";
+	/** Constant name tu put in JSONObject. */
 	protected static final String ATT3 = "attribute3";
+	/** Constant name tu put in JSONObject. */
 	protected static final String DATA = "data";
 	
-	/** JSONObject storing this DimCharts representation for D3 */
+	/** JSONObject storing this DimCharts representation for D3. */
 	private JSONObject json;
 
 	/** The chart type of this DimChart. */
 	private final String chartType;
 	
-	/** x axis of this DimChart */
+	/** x axis of this DimChart. */
 	private final String x;
 	
-	/** name of the table of the x-axis of this DimChart */
+	/** name of the table of the x-axis of this DimChart. */
 	private final Filter xFilter;
 		
 	/** Measure of this DimChart. */
@@ -81,7 +90,7 @@ public class DimChart {
 	
 	// -- SETTER -- SETTER -- SETTER -- SETTER -- SETTER -- 
 	/**
-	 * Sets the JSONObject for this DimChart
+	 * Sets the JSONObject for this DimChart.
 	 * 
 	 * @param j the JSONObject of this chart
 	 */
@@ -224,6 +233,11 @@ public class DimChart {
 		return filters;
 	}
 
+	/**
+	 * Returns the select statement for the filters.
+	 * 
+	 * @return the select statement for the filters
+	 */
 	private String getFilterSelect() {
 		String select = "";
 		for (Filter f : getFilters()) {
@@ -242,9 +256,7 @@ public class DimChart {
 	 */
 	public boolean putAdditionalInformation(JSONObject j) {
 		assert (j != null);
-		
-		// TODO anything more to put?
-		
+			
 		try {
 			j.put("chartType", getChartType());
 		} catch (JSONException e) {
@@ -284,8 +296,8 @@ public class DimChart {
 		try {
 			while (re.next()) {
 				JSONObject a = new JSONObject();
-				a.put(x, re.getString(2));
-				a.put(m, re.getDouble(1));
+				a.put(x, re.getString(RESULTSET_POSITION_X));
+				a.put(m, re.getDouble(RESULTSET_POSITION_MEASURE));
 				sum.add(a);
 			}
 			aray = new JSONArray(sum);
@@ -314,8 +326,8 @@ public class DimChart {
 
 	@Override
 	public String toString() {
-		return "DimChart [chartType=" + chartType +  ", measure=" + measure.getMeasureSelect() +
-				", x="+ x + ",  xFilter=" + xFilter 
+		return "DimChart [chartType=" + chartType +  ", measure=" + measure.getMeasureSelect()
+				+ ", x=" + x + ",  xFilter=" + xFilter 
 				+ ", filters=" + filters + "]";
 	}
 

@@ -23,8 +23,8 @@ public class IpLocationRow extends RowEntry {
 	 * @param category the category
 	 * @param scale the scale String
 	 */
-	protected IpLocationRow(String name, String logId, int lvl,	String categorie, String scale) {
-		super(name, logId, lvl, categorie, scale, RowId.LOCATION);
+	protected IpLocationRow(String name, String logId, int lvl,	String category, String scale) {
+		super(name, logId, lvl, category, scale, RowId.LOCATION);
 		
 	}
 

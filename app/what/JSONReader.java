@@ -5,9 +5,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-// intern imports
-import what.sp_config.ConfigWrap;
-
 /**
  * The ConfigHelper class provides methods helping to
  * read from JSONObjects and building RowEntries.<br>
@@ -107,7 +104,7 @@ public class JSONReader {
 			}
 		} catch (JSONException e) {
 			Printer.perror("Extracting int from JSONObject for key: " + key);
-			return -2;
+			return -1;
 		}
 		
 		return requ;
@@ -197,6 +194,7 @@ public class JSONReader {
 	 * If it not exists null is returned.
 	 * 
 	 * @param ary JSONArray from which a object shall be returned
+	 * @param i position in array
 	 * @return a JSONObject from position i from the array ary
 	 */
 	public static JSONObject getJSONObjectFromArray(JSONArray ary, int i) {
@@ -223,7 +221,8 @@ public class JSONReader {
 	 * If it not exists null is returned.
 	 * 
 	 * @param ary JSONArray from which a object shall be returned
-	 * @return a String from position i from the array ary
+	 * @param i position in array
+	 * @return a String from position i from the array
 	 */
 	public static String getStringFromArray(JSONArray ary, int i) {
 		if (ary == null) {
