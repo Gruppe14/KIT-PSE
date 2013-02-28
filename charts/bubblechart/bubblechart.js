@@ -1,15 +1,13 @@
 function bubblechart(json) {
-	//TODO: Scale the third dimension
-	//TODO: Add a fourth dimension, color
     var data;
-    var xAxisName;
-    var yAxisName;
-    var zAxisName;
+	
     console.log("I read " + json.data.length + " data points.");
-    xAxisName = json.attribute1;
-    yAxisName = json.attribute2;
-    radius = json.attribute3;
+	
+    var xAxisName = json.attribute1;
+    var yAxisName = json.attribute2;
+	
     data = json.data;
+	console.log(data);
     visualize(data); //then start the visualization
 
     function getX(d) {
@@ -20,91 +18,64 @@ function bubblechart(json) {
         return d[yAxisName];
     }
 
-    function getZ(d) {
-        return d[radius];
-    }
-
-
-
     function visualize(data) {
         var w = 720;
         var h = 640;
-        var padding = 30;
-
+		
+		//the space between circles
+        var padding = 10;
         //the format of the data
-        var format = d3.format(".0");
+        var format = d3.format(",d");
+		//the color palette used for the data.
+	    var color = d3.scale.category20();
 
+		//this contains the scales.
+		var bubble = d3.layout.pack()
+			.value(getY) //set the accessor function to be the second attribute
+		    .sort(getY)
+		    .size([w, h])
+		    .padding(padding);
 
-        //the scales
-        var xScale = d3.scale.linear()
-            .domain([d3.min(data, getX), d3.max(data, getX)])
-            .range([padding, w - padding]);
-        var yScale = d3.scale.linear()
-            .domain([d3.min(data, getY), d3.max(data, getY)])
-            .range([h - padding, padding]);
-		//now a scale that maps the radius, too!
-        var rScale = d3.scale.linear()
-		    .domain([d3.min(data, getZ), d3.max(data, getZ)])
-            .range([0.6, 5]) //when the dimensions gets different, we will make these percentages
+		$("#chart").html("");
+		//the big svg container
+		var svg = d3.select("#chart").append("svg")
+		    .attr("width", w)
+		    .attr("height", h)
+		    .attr("class", "bubble");
+		
+		//the pack layout depends on data having a very specific format
+		var fakedata = Object;
+		//each node has children, and so on and so forth
+		fakedata.children = data;
+		
+		//add each point, but save to add text on it
+		var circle = svg.selectAll(".circle")
+			.data(bubble.nodes(fakedata)
+			.filter(function(d) { return !d.children; }))
+			//don't return the root node as it doesn't have any children
+			.enter().append("g")
+			.attr("class", "node")
+			.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
-        //the axes
-        var xAxis = d3.svg.axis()
-            .scale(xScale)
-            .orient("bottom")
-            .ticks(3)
-            .tickFormat(format);
+		//this is the hovertext
+		circle.append("title")
+			.text(function(d) { return "(" + xAxisName + ":" + getX(d) + ", " + yAxisName + ":" + getY(d) + ")";});
 
-        var yAxis = d3.svg.axis()
-            .scale(yScale)
-            .orient("left")
-            .ticks(3)
-            .tickFormat(format);
+		//draw the circle
+		circle.append("circle")
+			.attr("r", function(d) { return d.r; })
+			.style("fill", function(d) { return color(getX(d)); });
 
-
-        $("#chart").html("");
-        //the svg chart!
-        var svg = d3.select("#chart")
-            .append("svg")
-            .attr("width", w)
-            .attr("height", h);
-
-
-
-        //create the points of the scatterplot
-        //well, they are svg circles
-        svg.selectAll("circle")
-            .data(data)
-            .enter()
-            .append("circle")
-            .attr("cx", function (d) {
-            return xScale(getX(d));
-        })
-            .attr("cy", function (d) {
-            return yScale(getY(d));
-        })
-            .attr("r", function (d) {
-				console.log(getZ(d));
-            return rScale(getZ(d));
-        }) //TODO: Please scale
-            .attr("class", "circle")
-            .append("svg:title")
-            .text(function (d) {
-            return "(" + getX(d) + "," + getY(d) + "," +  getZ(d) +")";
-        });
-
-
-        //create the axes, too
-        svg.append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate(0," + (h - padding) + ")")
-            .call(xAxis);
-
-        svg.append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate(" + padding + ",0)")
-            .call(yAxis);
-
-
+		//this is the text written over the circle.
+		circle.append("text")
+		.attr("class", "")
+		.attr("dy", ".3em")
+		.style("text-anchor", "middle")
+		.text(function(d) {
+			//calculate how much of the title to write
+			//it depends on the radius
+		    return getX(d).substring(0, d.r / 3.14);
+		});
 
 
 
