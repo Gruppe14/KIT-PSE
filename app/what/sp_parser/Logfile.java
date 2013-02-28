@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 
 import what.FileHelper;
 
-import forTesting.Localize;
+import controllers.Localize;
 
 /** 
  * 

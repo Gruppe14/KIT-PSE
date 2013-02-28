@@ -5,8 +5,17 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import what.Facade;
 
-// Class for test purposes only
+/**
+ * Class for test purposes only.
+ * @author all members I guess
+ *
+ */
 public class Test extends Controller {
+	/**
+	 * method for fast tests of newly written code.
+	 * not intended for continuous tests.
+	 * @return returns a http response to the webpage
+	 */
 	public static Result test() {
 		/**
 		 * add your methods to test here !!
@@ -21,8 +30,8 @@ public class Test extends Controller {
 		
 
 		//System.out.println("This is a test for checking whether reading the config file is successful:");
-
-		Facade f = Facade.getFacadeInstance();//new Facade();
+		//new Facade();
+		Facade f = Facade.getFacadeInstance();
 		String sourcePath = System.getProperty("user.dir");
 		String seperator = System.getProperty("file.separator");
 		//String pathJSONConfig = sourcePath + seperator + "conf\\ConfigSkyServer.json";

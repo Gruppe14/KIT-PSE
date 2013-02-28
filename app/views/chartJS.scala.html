@@ -305,70 +305,46 @@ $(document).ready(function() {
 	}
 });
 function displaySave() {
+	var svg = $("svg");
 	//if no chart
-	if($("svg").length < 1) {
+	if(svg.length < 1) {
 		displayError("@Localize.get("err.noChart")");
 	} else {
-		$("body").append("<div id='message'><div><span>@Localize.get("charts.save") @Localize.get("charts." + chart)</span><br />" 
-			+ "<select id=\"format\">"
-				+ "<option>svg</option>"
-				+ "<option>png</option>"
-			+ "</select><br /><span>@Localize.get("charts.download")</span></div></div>");
-		$("#message").find("span:last").click(function() {
-			saveChart($("#format option:selected").val());
+		svg.attr({ version: '1.1' , xmlns:"http://www.w3.org/2000/svg"});
+		//the pop up container
+		$("body").append("<div id='message'><div><span>@Localize.get("charts.save") @Localize.get("charts." + chart)</span>"
+			+ "<span id=\"download\">@Localize.get("charts.download")</span><span id=\"abort\">@Localize.get("charts.abort")</span></div></div>");
+		//the form
+		var form = $(document.createElement("form")) //.wrap(document.createElement("p"))
+			.insertAfter("#message span:first")
+			.attr("action", "/downloadChart")
+			.attr("method", "POST")
+			.attr("name", "download")
+		//the file name
+		$(document.createElement("input")).appendTo(form)
+			.attr("type", "text")
+			.attr("name", "name")
+			.attr("placeholder", "@Localize.get("charts.optional")");
+		//the format
+		$(document.createElement("select")).appendTo(form)
+			.append("<option>svg</option><option>png</option>")
+			.attr("type", "text")
+			.attr("name", "format");
+		//the image data
+		$(document.createElement("input")).appendTo(form)
+			.attr("type", "text")
+			.attr("name", "svg")
+			.attr("value", encodeURI(svg.parent().html()))
+			.hide();
+		//download button
+		$("#download").click(function() {
+			form.submit();
 			$(this).parents("#message").remove();
 		});
-		$("#message").find("span:last").focus();
+		//abort button
+		$("#abort").click(function() {
+			$(this).parents("#message").remove();
+		});
+		$("#message").find("#download").focus();
 	}
-}
-// function to safe chart
-function saveChart(format) {
-	var svg = $("svg");
-	//if no chart there
-	if(svg.length < 1) return;
-	if(format == "png") {
-		var h = svg.attr("height");
-		var w = svg.attr("width");
-		var g = svg.children();
-		var pat = new RegExp(/[0-9]+/g);
-		var trans = g.attr("transform");
-		var newTrans = trans;
-		//if translate is already found, scale it too
-		if(trans.match("translate").length > 0) {
-			newTrans = "translate(" + pat.exec(trans)*1.5 + ", " + pat.exec(trans) + ")";
-		}
-		var rec = g.attr("transform", newTrans + " scale(1.5)")[0].getBoundingClientRect();
-		var yAxis = svg.find("#y_axis");
-		var scaleW = 0;
-		//if yAxis found
-		if(yAxis.length > 0){
-			scaleW = yAxis[0].getBoundingClientRect().width;
-		}
-		svg.attr("height", h*1.5);
-		svg.attr("width", rec.width + scaleW);
-	}
-	svg.attr({ version: '1.1' , xmlns:"http://www.w3.org/2000/svg"});
-	var form = $(document.createElement("form")).appendTo("body")
-		.attr("action", "/downloadChart")
-		.attr("method", "POST")
-		.attr("name", "download")
-		.hide();
-	//the image data
-	$(document.createElement("input")).appendTo(form)
-		.attr("type", "text")
-		.attr("name", "svg")
-		.attr("value", encodeURI(svg.parent().html()));
-	//the format
-	$(document.createElement("input")).appendTo(form)
-		.attr("type", "text")
-		.attr("name", "format")
-		.attr("value", format);
-	//if previously scaled, scale back
-	if(format == "png") {
-		svg.height(h);
-		svg.width(w);
-		g.attr("transform", trans);
-	}
-	form.submit();
-	form.remove();
 }

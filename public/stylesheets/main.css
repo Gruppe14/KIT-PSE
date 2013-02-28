@@ -79,17 +79,21 @@ img {
 	padding:10px;
 	background-color: lightgray;
 }
+#message input{
+	margin-bottom: 6px;
+}
 #message span{
 	font-weight: bold;
 }
-#message span:last-of-type{
+#message span:not(:first-of-type){
 	font-weight: bold;
 	color: white;
 	position:relative;
 	border: 2px solid gray;
-	padding: 0px 2px;
+	padding: 0px 4px;
 	background-color: gray;
 	cursor: pointer;
+	margin: 3px;
 }
 #message div:active {
 	background-color: lightgray;

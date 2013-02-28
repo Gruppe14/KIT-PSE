@@ -17,8 +17,11 @@ import org.apache.batik.transcoder.image.PNGTranscoder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import play.mvc.*;
-import play.mvc.Http.RequestBody; 
+import play.mvc.Security;
+import play.mvc.BodyParser;
+import play.mvc.Controller;
+import play.mvc.Http.RequestBody;
+import play.mvc.Result;
 import play.data.Form;
 
 import what.Facade;
@@ -29,31 +32,42 @@ import what.web.ChartHelper;
 import what.web.ChartHistory;
 import what.web.LogfileUpload;
 
-
+/**
+ * Class that handles all http requests. the routes redirect a request to one of the methods
+ * of this class. This class may handle the request itself or call other classes and methods.
+ * all methods return a http response to the client
+ * @author Lukas Ehnle
+ *
+ */
 public class Website extends Controller {
 	
-	// needed for administrator login
+
+	/**
+	 * the form needed for admin login.
+	 */
 	private static Form<AdminLogin> form = form(AdminLogin.class);
-	// needed for logfilePathUpload
+	/**
+	 * the form needed for logfilePathUpload.
+	 */
 	private static Form<LogfileUpload> log = form(LogfileUpload.class);
 
 	/**
-	 * method to render the index site with all available chart types
+	 * method to render the index site with all available chart types.
 	 * @return returns the html index site
 	 */
     public static Result index() {
     	return ok(views.html.index.render());
     }
     /**
-     * method to dynamically return a chart site depending on the chartName
+     * method to dynamically return a chart site depending on the chartName.
      * @param chartName the name of the requested chart
-     * @return returns a valid http response, a website
+     * @return returns a valid HTTP response, a web page
      */
     public static Result chartType(String chartName) {
     	return ok(views.html.abstractChart.render(chartName));
     }
     /**
-     * method to dynamically return a chart JavaScript depending on the chartName
+     * method to dynamically return a chart JavaScript depending on the chartName.
      * @param chartName the name of the requested chart
      * @return returns a valid HTTP response, a JavaScript
      */
@@ -62,7 +76,7 @@ public class Website extends Controller {
     }
     
     /**
-     * requests static resources for a chart
+     * requests static resources for a chart.
      * @param chartName the chart name
      * @param file the path to the file requested
      * @return returns the file
@@ -72,7 +86,7 @@ public class Website extends Controller {
     }
     
     /**
-     * method to process chart requests
+     * method to process chart requests.
      * @return returns the needed chart data
      */
     //TolerantText because ContentType is JSON
@@ -81,7 +95,7 @@ public class Website extends Controller {
     	try {
 			JSONObject json = new JSONObject(request().body().asText());
 			json = Facade.getFacadeInstance().computeChart(json);
-			if(json != null) {
+			if (json != null) {
 				return ok(json.toString());
 			}
     	} catch (JSONException e) {
@@ -91,25 +105,30 @@ public class Website extends Controller {
     }
     
     /**
-     * method to mirror SVG back to download or convert SVG to PNG
+     * method to mirror SVG back to download or convert SVG to PNG.
      * image type via POST value of format
      * SVG data via value of SVG
+     * 
      * @return returns the chart as SVG/PNG or an serverError
      */
     public static Result downloadChart() {
     	Map<String, String[]> body = request().body().asFormUrlEncoded();
-    	if(body != null && body.containsKey("svg")){
+    	if (body != null && body.containsKey("svg")) {
     		String svg;
+    		String name = "chart";
+    		if (body.containsKey("name") && !body.get("name")[0].equals("")) {
+    			name = body.get("name")[0];
+    		}
 			try {
 				svg = URLDecoder.decode(body.get("svg")[0], "UTF-8");
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 				return internalServerError("Something went wrong :(");
 			}
-    		if(body.containsKey("format") && body.get("format")[0].equals("svg")){
-    			response().setHeader("Content-Disposition", "attachment; filename=\"chart.svg\"");
+    		if (body.containsKey("format") && body.get("format")[0].equals("svg")) {
+    			response().setHeader("Content-Disposition", "attachment; filename=\"" + name + ".svg\"");
     			return ok(svg).as("image/svg+xml");
-    		} else if(body.containsKey("format") && body.get("format")[0].equals("png")){
+    		} else if (body.containsKey("format") && body.get("format")[0].equals("png")) {
     			PNGTranscoder t = new PNGTranscoder();
     			//white background instead of transparent
     			t.addTranscodingHint(PNGTranscoder.KEY_BACKGROUND_COLOR, Color.white);
@@ -129,7 +148,7 @@ public class Website extends Controller {
 					e.printStackTrace();
 					return internalServerError("Something went wrong :(");
 				}
-    			response().setHeader("Content-Disposition", "attachment; filename=\"chart.png\"");
+    			response().setHeader("Content-Disposition", "attachment; filename=\"" + name + ".png\"");
     			return ok(png.toByteArray()).as("image/png");
     		}
     	}
@@ -138,15 +157,16 @@ public class Website extends Controller {
    
     /**
      * Returns a chart history for a uuid provided in session information
-     * and a history number
+     * and a history number.
+     * 
      * @param num the number for the history
      * @return returns a JSON response or an internal server error
      */
     public static Result requestHistory(String num) {
     	String uuid = session("uuid");
-    	if(uuid != null) {
+    	if (uuid != null) {
     		JSONObject json = ChartHistory.requestHistory(uuid, Integer.parseInt(num));
-    		if(json != null) {
+    		if (json != null) {
     			return ok(json.toString());
     		}
     	}
@@ -154,13 +174,14 @@ public class Website extends Controller {
     }
     
     /**
-     * method to return a weg page containing an overview of the last chart requests
+     * method to return a web page containing an overview of the last chart requests.
+     * 
      * @return returns a HTML page with the overview
      */
     public static Result historyOfCharts() {
-    	String uuid=session("uuid");
-    	if(uuid==null) {
-    	    uuid=java.util.UUID.randomUUID().toString();
+    	String uuid = session("uuid");
+    	if (uuid == null) {
+    	    uuid = java.util.UUID.randomUUID().toString();
     	    session("uuid", uuid);
     	}
     	return ok(views.html.main.render(Localize.get("hist.title"), 
@@ -168,28 +189,27 @@ public class Website extends Controller {
     }
     
     /**
-     * change the language and redirect to current path with new language
-     * @param path the current path
+     * Changes the language and redirect to current path with new language.
      * @return returns the same page in chosen language
      */
     public static Result changeLanguage() {
     	RequestBody body = request().body();
-    	if(body.asFormUrlEncoded() != null && body.asFormUrlEncoded().containsKey("lang")) {
+    	if (body.asFormUrlEncoded() != null && body.asFormUrlEncoded().containsKey("lang")) {
 	    	session("lang", request().body().asFormUrlEncoded().get("lang")[0]);
     	}
     	return redirect(body.asFormUrlEncoded().get("path")[0]);
     }
     
     /**
-     * display login form
+     * display login form.
      * @return returns a http response with the form page
      */
-    public static Result adminLogin (){
+    public static Result adminLogin() {
     	return ok(views.html.login.render(form));
     }
     
     /**
-     * method to validate the login form
+     * method to validate the login form.
      * @return returns the admin page or a badrequest
      */
     public static Result login() {
@@ -202,7 +222,7 @@ public class Website extends Controller {
 	}
     
     /**
-     * method to display admin page if authorized
+     * method to display admin page if authorized.
      * @return returns admin page or error
      */
     @Security.Authenticated(AdminAuth.class)
@@ -211,7 +231,7 @@ public class Website extends Controller {
 	}
     
     /**
-     * method to pass new log file path to the parser
+     * method to pass new log file path to the parser.
      * see what.LogfileUpload
      * @return returns to the admin page
      */
@@ -226,7 +246,7 @@ public class Website extends Controller {
     
     
     /**
-     * method to log out from admin
+     * method to log out from admin.
      * @return returns to index
      */
     public static Result logout() {
