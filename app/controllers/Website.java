@@ -85,22 +85,27 @@ public class Website extends Controller {
     	} catch (JSONException e) {}
     	return internalServerError("Something went wrong :(");
     }
-    //TolerantText because ContentType is svg
-    @BodyParser.Of(BodyParser.TolerantText.class)
+    
+    /**
+     * method to mirror svg back to download or convert svg to png
+     * image type via POST value of format
+     * svg data via value of svg
+     * @return returns the chart as svg/png or an serverError
+     */
     public static Result downloadChart() {
     	Map<String, String[]> body = request().body().asFormUrlEncoded();
     	if(body != null && body.containsKey("svg")){
     		String svg;
 			try {
-				svg = URLDecoder.decode(body.get("svg").toString(), "UTF-8");
+				svg = URLDecoder.decode(body.get("svg")[0], "UTF-8");
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 				return internalServerError("Something went wrong :(");
 			}
-    		if(body.containsKey("format") && body.get("format").equals("svg")){
+    		if(body.containsKey("format") && body.get("format")[0].equals("svg")){
     			response().setHeader("Content-Disposition", "attachment; filename=\"chart.svg\"");
     			return ok(svg).as("image/svg+xml");
-    		} else if(body.containsKey("format") && body.get("format").equals("png")){
+    		} else if(body.containsKey("format") && body.get("format")[0].equals("png")){
     			PNGTranscoder t = new PNGTranscoder();
     			//white background instead of transparent
     			t.addTranscodingHint(PNGTranscoder.KEY_BACKGROUND_COLOR, Color.white);
