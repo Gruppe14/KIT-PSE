@@ -17,7 +17,6 @@ function bubblescatter(json, radius) {
 	
 	radius = json.attribute3;
 	
-	
     data = json.data;
     visualize(data); //then start the visualization
 
@@ -55,8 +54,8 @@ function bubblescatter(json, radius) {
         yScale = d3.scale.linear()
             .domain([d3.min(data, getY), d3.max(data, getY)])
             .range([h - padding, padding]);
-		//now a scale that maps the radius, too!
-		
+			
+		//now a scale that maps the radius, too!		
 	    var rScale = d3.scale.linear()
 			    .domain([d3.min(data, getZ), d3.max(data, getZ)])
 	            .range([0.6, 5]) //when the dimensions gets different, we will make these percentages

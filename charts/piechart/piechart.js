@@ -32,7 +32,7 @@ function piechart(json) {
 
         var arc = d3.svg.arc() //each datapoint will create one later.
         .outerRadius(radius - 20)
-            .innerRadius(0);
+        .innerRadius(0);
         //well, if you set this to not 0 it becomes a donut chart!
 
 
@@ -42,34 +42,34 @@ function piechart(json) {
 
         $("#chart").html("");
         var svg = d3.select("#chart").append("svg")
-            .attr("width", w)
-            .attr("height", h)
-            .attr("class", "chart")
-            .append("g") //someone to transform. Groups data.
+        .attr("width", w)
+        .attr("height", h)
+        .attr("class", "chart")
+        .append("g") //someone to transform. Groups data.
         .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
         //transform to the center.
 
 
         //create the slices
         var slices = svg.selectAll(".arc")
-            .data(pie(dataset))
-            .enter().append("g")
-            .attr("class", "slice");
+        .data(pie(dataset))
+        .enter().append("g")
+        .attr("class", "slice");
 
         //and fill them
         slices.append("path")
-            .attr("d", arc)
-            .style("fill", function (d, i) {
+        .attr("d", arc)
+        .style("fill", function (d, i) {
             return color(i);
         });
 
         //add text, even
         slices.append("text")
-            .attr("transform", function (d) {
+        .attr("transform", function (d) {
             return "translate(" + arc.centroid(d) + ")";
         })
-            .attr("class", "data-title")
-            .text(function (d) {
+        .attr("class", "data-title")
+        .text(function (d) {
             return getX(d.data);
         });
     }
