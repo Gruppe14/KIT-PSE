@@ -1,16 +1,15 @@
 function bubblescatter(json, radius) {
 	//TODO: Scale the third dimension
 	//TODO: Add a fourth dimension, color
-    
-	var bubble = (radius != undefined); //is it a bubblechart or a scatterplot?
+    //console.log("The radius is " + radius);
+	var bubble = (radius == undefined); //is it a bubblechart or a scatterplot?
+	//console.log("Bubblechart? " + bubble);
 	
 	var data;
     var xAxisName;
-    var yAxisName;
-	
+    var yAxisName;	
 	var zAxisName;
 	
-	console.log(bubble);
 	
     console.log("I read " + json.data.length + " data points.");
     xAxisName = json.attribute1;
@@ -47,10 +46,13 @@ function bubblescatter(json, radius) {
 
 
         //the scales
-        var xScale = d3.scale.linear()
+		var xScale;
+		var yScale;
+		
+        xScale = d3.scale.linear()
             .domain([d3.min(data, getX), d3.max(data, getX)])
             .range([padding, w - padding]);
-        var yScale = d3.scale.linear()
+        yScale = d3.scale.linear()
             .domain([d3.min(data, getY), d3.max(data, getY)])
             .range([h - padding, padding]);
 		//now a scale that maps the radius, too!
@@ -96,7 +98,8 @@ function bubblescatter(json, radius) {
             return yScale(getY(d));
 			})
             .attr("r", function (d) {
-				console.log(getZ(d));
+				//console.log(getZ(d));
+				//console.log(bubble);
 				if (bubble) {
 					return rScale(getZ(d));
 				}
@@ -123,7 +126,7 @@ function bubblescatter(json, radius) {
             .attr("transform", "translate(0," + (h - padding) + ")")
             .call(xAxis)
 			.append("text")
-			.attr("class", "xAxisDescription")
+			.attr("id", "xAxisDescription")
 			.attr("x", (w -  2 * padding))
 			.text(xAxisName);
 			
@@ -134,16 +137,13 @@ function bubblescatter(json, radius) {
             .attr("transform", "translate(" + padding + ",0)")
             .call(yAxis)
 			.append("text")
-			.attr("class", "yAxisDescription")
-			.attr("transform", "rotate(-90)")
+			.attr("id", "yAxisDescription")
             .attr("y", 6)
 			.attr("x", -30)
             .attr("dy", ".85em")
             .style("text-anchor", "end")
 			.text(yAxisName);
 
-
-		//add the attribute names.
 
 
 
