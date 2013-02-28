@@ -90,6 +90,7 @@ public class Website extends Controller {
      * method to mirror svg back to download or convert svg to png
      * image type via POST value of format
      * svg data via value of svg
+     * optional file name via value of name
      * @return returns the chart as svg/png or an serverError
      */
     public static Result downloadChart() {
@@ -99,7 +100,6 @@ public class Website extends Controller {
     		String name = "chart";
     		if(body.containsKey("name") && !body.get("name")[0].equals("")) {
     			name = body.get("name")[0];
-    			System.out.println("name: " + name);
     		}
 			try {
 				svg = URLDecoder.decode(body.get("svg")[0], "UTF-8");
