@@ -12,14 +12,24 @@ import java.util.ResourceBundle.Control;
 
 /**
  * 
- * Class to allow UTF-8 encoding in ResourceBundle
+ * Class to allow UTF-8 encoding in ResourceBundle.
  *
  */
 
 class UTF8Control extends Control {
+	/**
+	 * Instantiates a resource bundle for the given bundle name of the given format
+	 * and locale, using the given class loader if necessary.
+	 * @param baseName the bundle name
+	 * @param locale the locale
+	 * @param format the given format
+	 * @param loader the class loader
+	 * @param reload if the input stream should be reloaded
+	 * @throws IOException if the source can not be read
+	 * @return returns the instantiated resource bundle
+	 */
     public ResourceBundle newBundle(String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
-            throws IllegalAccessException, InstantiationException, IOException
-    {
+    		throws IOException {
         // The below is a copy of the default implementation.
         String bundleName = toBundleName(baseName, locale);
         String resourceName = toResourceName(bundleName, "properties");
