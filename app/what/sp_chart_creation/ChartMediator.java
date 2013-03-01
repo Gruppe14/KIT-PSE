@@ -128,14 +128,18 @@ public class ChartMediator {
 			throw new IllegalArgumentException();
 		}
 		
-		int l = history.size();
+		int l = getCurrentSizeOfHistory();
 		
 		// number to high, not enough charts in history!
 		if (number >= l) {
-			System.out.println("ERROR: Not so many charts stored");
-			return history.get(history.size()).getJson();
+			Printer.pproblem("Not so many charts stored.");
+			return null;
 		}
 				
+		// for testing
+		Printer.ptest("History chart number: " + number 
+						+ "\n" + history.get(number).toString());
+		
 		return history.get(number).getJson();
 	}
 
@@ -174,4 +178,4 @@ public class ChartMediator {
 		return  history.size();
 	}
 }
-
+ 
