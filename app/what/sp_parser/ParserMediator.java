@@ -68,7 +68,7 @@ public class ParserMediator {
 	/**
 	 * An array of all tasks.
 	 */
-	private ParsingTask tasks[];
+	private ParsingTask[] tasks;
 	
 	/**
 	 * The used configuration.

@@ -21,7 +21,7 @@ public class ParsingTask implements Runnable {
 	private int number;
 	
 	/**
-	 * String split at commas
+	 * String split at commas.
 	 */
 	private String[] splitStr;
 	
@@ -36,7 +36,8 @@ public class ParsingTask implements Runnable {
 	private DataEntry de;
 	
 	/**
-	 * This is the constructor for a new <code>ParsingTask</code>
+	 * This is the constructor for a new <code>ParsingTask</code>.
+	 * 
 	 * @param pm the ParserMediator which is connected to this <code>ParsingTask</code>
 	 */
 	protected ParsingTask(ParserMediator pm, int number) {
@@ -61,11 +62,11 @@ public class ParsingTask implements Runnable {
 				splitStr = str.split(",");
 
 				de = new DataEntry(pm.getConfig().getNumberOfRows() + 1);
-				if (splitStr.length >= pm.getConfig().getNumberOfRows() &&
-						(splitStr[pm.getConfig().getNumberOfRows() - 1].toLowerCase().startsWith("select") ||
-						splitStr[pm.getConfig().getNumberOfRows() - 1].toLowerCase().startsWith("\"select") ||
-						splitStr[pm.getConfig().getNumberOfRows() - 1].toLowerCase().startsWith("exec"))
-						&& SplittingTool.split(this)) {
+				if (splitStr.length >= pm.getConfig().getNumberOfRows() 
+						&& (splitStr[pm.getConfig().getNumberOfRows() - 1].toLowerCase().startsWith("select") 
+						|| (splitStr[pm.getConfig().getNumberOfRows() - 1].toLowerCase().startsWith("\"select"))
+						|| (splitStr[pm.getConfig().getNumberOfRows() - 1].toLowerCase().startsWith("exec")))
+						&& (SplittingTool.split(this))) {
 					GeoIPTool.getLocationInfo(this);
 							
 					//System.out.println(de.toString());

@@ -25,7 +25,8 @@ public class GeoIPTool {
 	private static String lastIp = null;
 		
 	/**
-	 * Sets up the IpTool and creates a new lookupService
+	 * Sets up the IpTool and creates a new lookupService.
+	 * 
 	 * @param pm the ParserMediator which will use this tool
 	 */
 	protected static boolean setUpIpTool(ParserMediator pm) {
