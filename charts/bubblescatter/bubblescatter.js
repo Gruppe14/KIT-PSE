@@ -32,9 +32,6 @@ function bubblescatter(json, radius) {
     function getZ(d) {
         return d[radius];
     }
-	
-
-
 
     function visualize(data) {
         var w = 720;
@@ -86,7 +83,6 @@ function bubblescatter(json, radius) {
 				
 		}
 		
-		
 		//now a scale that maps the radius, too!
 	    var rScale = d3.scale.linear()
 			    .domain([d3.min(data, getZ), d3.max(data, getZ)])
@@ -114,8 +110,6 @@ function bubblescatter(json, radius) {
             .attr("width", w)
             .attr("height", h);
 
-
-
         //create the points of the scatterplot
         //well, they are svg circles
         svg.selectAll("circle")
@@ -123,10 +117,10 @@ function bubblescatter(json, radius) {
             .enter()
             .append("circle")
             .attr("cx", function (d) {
-            return xScale(getX(d));
+				return xScale(getX(d));
 			})
             .attr("cy", function (d) {
-            return yScale(getY(d));
+				return yScale(getY(d));
 			})
             .attr("r", function (d) {
 				//console.log(getZ(d));
@@ -140,6 +134,7 @@ function bubblescatter(json, radius) {
 			})
 			.attr("class", "circle")
 			.append("svg:title")
+			
 		    .text(function (d) {
 				var txt = "(" + getX(d) + "," + getY(d) + ",";
 				if (bubble) {
@@ -153,22 +148,22 @@ function bubblescatter(json, radius) {
         //create the axes, too
         svg.append("g")
             .attr("class", "axis")
-			.attr("id", "x_axis")
+			.attr("id", "x-axis")
             .attr("transform", "translate(0," + (h - padding) + ")")
             .call(xAxis)
 			.append("text")
-			.attr("id", "xAxisDescription")
+			.attr("id", "x-axis-description")
 			.attr("x", (w -  2 * padding))
 			.text(xAxisName);
 			
 
         svg.append("g")
             .attr("class", "axis")
-			.attr("id", "y_axis")
+			.attr("id", "y-axis")
             .attr("transform", "translate(" + padding + ",0)")
             .call(yAxis)
 			.append("text")
-			.attr("id", "yAxisDescription")
+			.attr("id", "y-axis-description")
 			.attr("transform", "rotate(-90)")
             .attr("y", 6)
 			.attr("x", -30)

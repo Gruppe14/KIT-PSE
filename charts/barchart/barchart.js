@@ -68,11 +68,6 @@ function barchart(json) {
         var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
         var yAxis = d3.svg.axis().scale(yScale).orient("left");
 		
-		
-		
-
-
-
 
         //add the data and bars
         svg.selectAll("rect")
@@ -97,10 +92,10 @@ function barchart(json) {
         //x axis
         svg.append("g").attr("class", "axis")
             .attr("transform", "translate(0," + h + ")")
-            .attr("id", "x_axis")
+            .attr("id", "x-axis")
             .call(xAxis)
             .append("text") //here comes its description
-            .attr("id", "xAxisDescription")
+            .attr("id", "x-axis-description")
 			//x and y are interchanged because it all is transformed by 90 degree
 			//see barchart.css
 			.attr("x", 5)
@@ -111,10 +106,10 @@ function barchart(json) {
         //y axis
         svg.append("g")
             .attr("class", "axis")
-            .attr("id", "y_axis")
+            .attr("id", "y-axis")
             .call(yAxis)
             .append("text")
-   			.attr("id", "yAxisDescription")
+   			.attr("id", "y-axis-description")
             .attr("y", 6)
             .attr("dy", ".71em")
 			.attr("transform", "rotate(270)")
@@ -122,22 +117,22 @@ function barchart(json) {
             .text(yAxisName);
         
 		//position names
-		$("#x_axis > g > text")
+		$("#x-axis > g > text")
 			.attr("dy", "")
 			.attr("y", "4")
 			.attr("x", "3")
 			.css("text-anchor", "");
 		//rotate text
-		$("#x_axis text").attr("transform", "rotate(270)")
+		$("#x-axis text").attr("transform", "rotate(270)")
         
         //####  all styles####
-			.css({
-				"font-family": "monospace",
-				"font-size": "14px",
-				"pointer-events": "none"
-			});
+		.css({
+			"font-family": "monospace",
+			"font-size": "14px",
+			"pointer-events": "none"
+		});
 		
-		$("#yAxisDescription").css({
+		$("#y-axis-description").css({
 			"font-family": "monospace",
 			"font-size": "14px",
 			"font-weight": "bold"
@@ -153,6 +148,6 @@ function barchart(json) {
             "stroke": "black",
             "shape-rendering": "crispEdges"    
         });
-        $("#xAxisDescription").css("font-weight", "bold");
+        $("#x-axis-description").css("font-weight", "bold");
     }
 }

@@ -54,7 +54,7 @@ function bubblechart(json) {
 			.filter(function(d) { return !d.children; }))
 			//don't return the root node as it doesn't have any children
 			.enter().append("g")
-			.attr("class", "node")
+			.attr("class", "circle")
 			.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
 		//this is the hovertext
@@ -68,16 +68,18 @@ function bubblechart(json) {
 
 		//this is the text written over the circle.
 		circle.append("text")
-		.attr("class", "")
+		.attr("class", "data-text")
 		.attr("dy", ".3em")
 		.style("text-anchor", "middle")
 		.text(function(d) {
 			//calculate how much of the title to write
 			//it depends on the radius
-		    return getX(d).substring(0, d.r / 3.14);
+		    return getX(d).substring(0, d.r / 3.15);
 		});
+		
+		//Yo ocjojom what happens with the boilerplate down here? :-)
 		//add styles
-		$("#yAxisDescription").attr("transform", "rotate(270)")
+		$("#y-axis-description").attr("transform", "rotate(270)")
 			.css({
 				"font-family": "monospace",
 				"font-size": "10px"

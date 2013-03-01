@@ -21,20 +21,14 @@ function piechart(json) {
     function visualize(dataset) {
         var w = 620;
         var h = 480;
-
-
-
+        
         var radius = Math.min(w, h) / 2; //change 2 to 1.4. It's hilarious.
-
-        //TODO: Generate colors randomly, but have them be apart.
-
-        var color = d3.scale.ordinal().range(["#7b4173", "#9ecae1", "#ff7f0e", "#bcbd22", "#8c564b", "#d62728"])
+        var color = d3.scale.category20();
 
         var arc = d3.svg.arc() //each datapoint will create one later.
 			.outerRadius(radius - 20)
 			.innerRadius(0);
         //well, if you set this to not 0 it becomes a donut chart!
-
 
         var pie = d3.layout.pie()
             .sort(getY)
@@ -48,7 +42,6 @@ function piechart(json) {
             .append("g") //someone to transform. Groups data.
         .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
         //transform to the center.
-
 
         //create the slices
         var slices = svg.selectAll(".arc")
@@ -65,16 +58,16 @@ function piechart(json) {
 
         //add text, even
         slices.append("text")
+            .attr("class", "data-text")
             .attr("transform", function (d) {
             return "translate(" + arc.centroid(d) + ")";
         })
-            .attr("class", "data-title")
             .text(function (d) {
             return getX(d.data);
         });
         
         //add non dynamic styles
-        $(".data-title").css({
+        $(".data-text").css({
 			"font-family": "sans-serif",
             "dy": ".35em",
             "text-anchor": "middle"
