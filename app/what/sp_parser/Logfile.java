@@ -182,9 +182,19 @@ public class Logfile {
 		return str;
 	}
 
+	/**
+	 * This method closes the InputStreams and the BufferedReader
+	 * @throws IOException - if an I/O Error occurs
+	 */
 	public void close() throws IOException {
 		if (br != null) {
 			br.close();
+		}
+		if (in != null) {
+			in.close();
+		}
+		if (fstream != null) {
+			fstream.close();
 		}
 	}	
 }
