@@ -16,7 +16,7 @@ import what.sp_data_access.MySQLAdapter;
  * for restriction parts.
  * 
  * @author Jonathan, PSE Gruppe 14
- *
+ * @see Filter
  */
 public class TimeFilter extends Filter {
 	
@@ -27,7 +27,7 @@ public class TimeFilter extends Filter {
 	private final int[] to;
 
 	/** Constant array signaling no filtering. */
-	private static final  int[] NO_FILTER = {-1, -1, -1, -1, -1};
+	private final static int[] NO_FILTER = {-1, -1, -1, -1, -1};
 	
 	/**
 	 * Constructor for a TimeFilter with given

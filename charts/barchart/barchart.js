@@ -41,7 +41,7 @@ function barchart(json) {
             left: d3.max([12*(n+Math.floor(n/3)-1), 50]) 
         };
         var w = data.length * 30 - margin.left - margin.right;
-        var h = 400 - margin.top - margin.bottom;
+        var h = 450 - margin.top - margin.bottom;
 
         $("#chart").html("");
         //the svg
@@ -129,23 +129,22 @@ function barchart(json) {
 			.css("text-anchor", "");
 		//rotate text
 		$("#x-axis text").attr("transform", "rotate(270)")
-        
         //####  all styles####
 		.css({
-			"font-family": "monospace",
+			"font-family": "kalinga",
 			"font-size": "14px",
 			"pointer-events": "none"
 		});
 		
 		$("#y-axis-description").css({
-			"font-family": "monospace",
+			"font-family": "kalinga",
 			"font-size": "14px",
 			"font-weight": "bold"
 		});
 		
 		$(".bar").css({
-			"fill": "lightblue",
-			"stroke": "white"
+			"fill": "#FF5F00",
+			"stroke": "#FF7700"
 		});
         
         $(".axis path,.axis line").css({

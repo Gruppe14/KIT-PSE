@@ -81,7 +81,7 @@ function bubblechart(json) {
 		//add styles
 		$("#y-axis-description").attr("transform", "rotate(270)")
 			.css({
-				"font-family": "monospace",
+				"font-family": "kalinga",
 				"font-size": "10px"
 			})
 		$(".axis path, .axis line").css({
@@ -90,12 +90,17 @@ function bubblechart(json) {
 			"shape-rendering": "crispEdges"
 		});
 		$(".axis text").css({
-			"font-family": "sans-serif",
-			"font-size": "11px"
+			"font-family": "kalinga",
+			"font-size": "12px"
 		});
+		/*$(".data-text").css({
+			"font-family": "kalinga",
+			"font-size": "14px",
+			"font-weight": "lighter"
+		});*/
 		$(".circle").css({
-			"stroke": "grey",
-			"fill": "blue"
+			"stroke": "#405040",
+			//"fill": "grey"
 		});
 	}
 }

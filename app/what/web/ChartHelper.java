@@ -21,19 +21,24 @@ import what.sp_config.*;
  */
 public class ChartHelper {
 	
+	/** HTML constant. Opening SPAN. */
 	private static final String SPAN = "<span>";
+	/** HTML constant. Closing span. */
 	private static final String NAPS = "</span>";
 	
+	/** HTML constant. Opening DIV. */
 	private static final String DIV = "<div>";
+	/** HTML constant. Closing DIV. */
 	private static final String VID = "</div>";
 	
 	private static Html style = null;
 	
 	//instances of ChartHelper --> singleton
-	//string indentifies the language
+	//string identifies the language
 	private static HashMap<String, ChartHelper> instance = new HashMap<>();
 	
 	//current configuration
+	/** */
 	private ArrayList<DimRow> dims;
 	
 	//charts available, currently overhead, but with further config files may be needed
@@ -53,27 +58,30 @@ public class ChartHelper {
 	
 	/**
 	 * returns the options selection for a chart
-	 * @param the chart name
+	 * @param name the chart name
 	 * @return returns the option selection
 	 */
 	public static Html getOptions(String name) {
 		String lan = Localize.language();
-		if(!instance.containsKey(lan)) {
+		if (!instance.containsKey(lan)) {
 			instance.put(lan, new ChartHelper());
 		}
 		return instance.get(lan).charts.get(name);
 	}
+	
 	/**
-	 * method that returns the computet style information for chart tiles, e.g. on the index page
+	 * method that returns the computed style information for chart tiles,
+	 * e.g. on the index page.
+	 *  
 	 * @return a Html object containing the style information
 	 */
 	public static Html getStyle() {
-		if(style == null) {
+		if (style == null) {
 			String html = "<style>";
 			ChartIndex ind = ChartIndex.getInstance();
-			for(String chart : ind.getCharts()) {
-				html += "#" + chart + "{background-image: url(\"/charts/" + chart + "/" + 
-						ind.getThumb(chart) + "\");}\n";
+			for (String chart : ind.getCharts()) {
+				html += "#" + chart + "{background-image: url(\"/charts/" + chart + "/" 
+						+ ind.getThumb(chart) + "\");}\n";
 			}
 			html += "</style>";
 			style = HtmlFormat.raw(html);
