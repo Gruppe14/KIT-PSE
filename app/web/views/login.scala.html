@@ -10,6 +10,7 @@
 		});
 	</script>
 } {
+	<div class="fixWidth">
 	<span id="heading">@Localize.get("admin.adminSection")</span>
 @helper.form(web.controllers.routes.Website.login, 'name -> "admin") {
 	@if(loginForm.hasGlobalErrors) {<p style="color:red;">@loginForm.globalError.message</p>}
@@ -22,5 +23,6 @@
 		<input type="password" id="password" name="password" value="">
 	</div>
 	<div id="send">@Localize.get("admin.login")</div>
+	</div>
 }
 }
