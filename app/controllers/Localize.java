@@ -94,6 +94,14 @@ public class Localize extends Controller {
     	return lang;
 	}
 	
+	/**
+	 * get localization for a key and a language.
+	 * with automatic fallback to standard language.
+	 * 
+	 * @param key the key for a localized string
+	 * @param lang the language to get
+	 * @return returns a localized string
+	 */
 	private static String get(String key, String lang) {
 		try {
 			return ResourceBundle.getBundle("messages_" + lang, control).getString(key);
