@@ -49,6 +49,7 @@ function piechart(json) {
             .enter().append("g")
             .attr("class", "slice");
 
+
         //and fill them
         slices.append("path")
             .attr("d", arc)
@@ -64,6 +65,12 @@ function piechart(json) {
         })
             .text(function (d) {
             return getX(d.data);
+        });
+        
+        //hovertext, too!
+        slices.append("title")
+        .text(function(d) {
+            return "(" + xAxisName + ":" + getX(d.data) + ", " + yAxisName + ":" + getY(d.data) + ")";
         });
         
         //add non dynamic styles

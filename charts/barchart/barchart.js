@@ -85,8 +85,13 @@ function barchart(json) {
             .attr("height", function (d) {
             return h - yScale(getY(d));
         })
-            .attr("class", "bar");
-
+            .attr("class", "bar")
+            //add hovertext
+            .append("title")
+            .text(function(d) {
+                return "(" + xAxisName + ":" + getX(d) + ", " + yAxisName + ":" + getY(d) + ")";
+            });
+            
             
         //create axes
         //x axis
