@@ -21,8 +21,6 @@
 #selection {
 	width: 830px;
 	margin: auto;
-	border: 2px solid lightgray;
-	border-width: 0px 2px;
 	padding: 20px;
 	padding-bottom: 10px;
 }
@@ -31,7 +29,8 @@
 	font-size: 24px;
 }
 #selection > div {
-	margin-bottom: 5px;
+	margin:0px 2px 5px;
+	
 }
 #timescale {
 	vertical-align: top;
@@ -129,14 +128,14 @@
 }
 #send, #save {
 	float:right;
-	margin: 2px;
 	border:2px solid lightgray;
-	background-color: lightgray;
 	text-align: center;
 	font-weight: bold;
 	width: 100px;
 	cursor: pointer;
 }
+#send {background-color: lightgreen;}
+#save {background-color: lightgray;}
 #send:active, #save:active {
 	background-color: white;
 }

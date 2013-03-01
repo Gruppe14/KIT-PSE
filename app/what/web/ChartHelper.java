@@ -30,6 +30,8 @@ public class ChartHelper {
 	private static final String DIV = "<div>";
 	/** HTML constant. Closing DIV. */
 	private static final String VID = "</div>";
+	/** HTML constant. non breaking space. */
+	private static final String SPC = "&nbsp;";
 	
 	private static Html style = null;
 	
@@ -278,19 +280,19 @@ public class ChartHelper {
 		for(String s: ft) {
 			html += DIV + Localize.get("time." + s) + "<br />" + DIV + SPAN +
 					Localize.get("time.year") + "</span><span id=\"year" + s + 
-					"\">&nbsp;" + NAPS + "<div class=\"dropdown\"><span>---</span>";
+					"\">" + SPC + NAPS + "<div class=\"dropdown\"><span>---</span>";
 			//add every year to selection
 			for(int i = year[1]; i >= year[0]; i--) {
 				html += SPAN + i + NAPS;
 			}
-			html += VID + VID + DIV + SPAN + Localize.get("time.month") +
-					NAPS + "<span id=\"month" + s + "\">&nbsp;" + NAPS +
+			html += VID + VID + SPC + DIV + SPAN + Localize.get("time.month") +
+					NAPS + "<span id=\"month" + s + "\">" + SPC + NAPS +
 					"<div class=\"dropdown\">" + SPAN + "---" + NAPS;
 			//add every month
 			for(int i = 1; i < 13; i++) {
 				html += SPAN + i + NAPS;
 			}
-			html += VID + VID + DIV + SPAN + Localize.get("time.day") +
+			html += VID + VID + SPC + DIV + SPAN + Localize.get("time.day") +
 					NAPS + "<input id=\"day" + s + "\" type=\"number\" " +
 					"min=\"1\" max=\"31\" placeholder=\"1 - 31\"/></div> " +
 					DIV + SPAN + Localize.get("time.hour") + NAPS +
