@@ -8,9 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import web.controllers.Localize;
 import what.FileHelper;
 
-import controllers.Localize;
 
 /** 
  * 

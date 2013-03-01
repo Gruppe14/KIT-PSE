@@ -202,7 +202,7 @@ public class DimChart {
 	 * 
 	 * @return the x Filter
 	 */
-	private Filter getXFilter() {
+	protected Filter getXFilter() {
 		return xFilter;
 	}
 	
@@ -322,18 +322,11 @@ public class DimChart {
 		return true;
 	}
 
-	
-
 	@Override
 	public String toString() {
-		return "DimChart [chartType=" + chartType +  ", measure=" + measure.getMeasureSelect()
+		return "DimChart [chartType=" + getChartType()  
+				+ ", measure=" + measure.getMeasureSelect()
 				+ ", x=" + x + ",  xFilter=" + xFilter 
 				+ ", filters=" + filters + "]";
 	}
-
-
-
-
-
-
 }

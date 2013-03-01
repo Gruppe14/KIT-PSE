@@ -3,8 +3,6 @@ $(document).ready(function() {
     if($(".bigTile").length > 0) {
        onResize();
        $(window).resize(onResize);
-    } else {
-        $("#content").width("70%");
     }
     
     

@@ -5,8 +5,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 
-import controllers.Localize;
 
+import web.controllers.Localize;
 import what.Printer;
 import what.sp_config.ConfigWrap;
 import what.sp_data_access.DataMediator;
@@ -282,7 +282,7 @@ public class ParserMediator {
 	protected void increaseFT(ParsingTask pt) {
 		
 		finishedTasks++;	
-		System.out.println("Task " + pt.getNumber() + " finished - now finished: " + finishedTasks);
+		Printer.print("Task " + pt.getNumber() + " finished - now finished: " + finishedTasks);
 	}
 	
 	/**
@@ -292,9 +292,7 @@ public class ParserMediator {
 		
 		linesDeleted++;
 		
-		System.out.println(Localize.getString("Warning.10P1") + " " + linesDeleted + " " + Localize.getString("Warning.10P2"));
-		
-			
+		Printer.pproblem(Localize.getString("Warning.10P1") + " " + linesDeleted + " " + Localize.getString("Warning.10P2"));
 	}
 
 	

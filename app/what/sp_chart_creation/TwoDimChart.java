@@ -93,7 +93,11 @@ public class TwoDimChart extends DimChart {
 	
 	@Override
 	public String getTableQuery() {
-		return super.getTableQuery() + MySQLAdapter.KOMMA + getYFilter().getTableQuery();
+		if (xAndYSameDimension()) {
+			return super.getTableQuery();
+		} else {
+			return super.getTableQuery() + MySQLAdapter.KOMMA + getYFilter().getTableQuery();
+		}
 	}
 	
 	@Override
@@ -102,24 +106,34 @@ public class TwoDimChart extends DimChart {
 			throw new IllegalArgumentException();
 		}
 		
-		String restri = super.getKeyRestrictions(facttableShort);
+		if (xAndYSameDimension()) {
+			return super.getKeyRestrictions(facttableShort);
 		
-		// ft.
-		String ft = facttableShort.trim() + MySQLAdapter.DOT;
+		} else {
+		
+			String restri = super.getKeyRestrictions(facttableShort);
+		
+			// ft.
+			String ft = facttableShort.trim() + MySQLAdapter.DOT;
 			
-		// x
-		restri += MySQLAdapter.AND + ft + getYFilter().getTableKey() + MySQLAdapter.EQL + getYFilter().getKeyQuery();
-		
-
+			// y
+			restri += MySQLAdapter.AND + ft + getYFilter().getTableKey() + MySQLAdapter.EQL + getYFilter().getKeyQuery();
 				
-		return restri;
+			return restri;
+		}
 	}
+		
 	
 	@Override
-	public String getRestrictions() {
-		String restri = super.getRestrictions();
+	public String getRestrictions() {	
+		if (xAndYSameDimension()) {
+			return super.getRestrictions();
+		} else {
+			
+			String restri = super.getRestrictions();
 		
-		return restri + getYFilter().getRestrictions();
+			return restri + getYFilter().getRestrictions();
+		}
 	}
 
 	@Override
@@ -177,5 +191,14 @@ public class TwoDimChart extends DimChart {
 		Printer.psuccess("Creating JSON for chart from ResultSet.");
 		setJSON(json);
 		return true;
+	}
+
+	/**
+	 * Returns whether x and y axis are from the same dimension.
+	 * 
+	 * @return whether x and y axis are from the same dimension
+	 */
+	private boolean xAndYSameDimension() {
+		return getYFilter().getCategory().equals(getXFilter().getCategory());
 	}
 }

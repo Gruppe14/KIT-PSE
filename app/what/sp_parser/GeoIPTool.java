@@ -2,8 +2,8 @@ package what.sp_parser;
 
 import java.io.IOException;
 
-import controllers.Localize;
 
+import web.controllers.Localize;
 import what.sp_parser.sp_GeoIp.*;
 
 /**
