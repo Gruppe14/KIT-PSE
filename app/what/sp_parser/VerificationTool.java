@@ -1,6 +1,7 @@
 package what.sp_parser;
 
-import what.sp_config.*;
+import what.sp_config.ConfigWrap;
+
 
 
 /**
@@ -9,6 +10,13 @@ import what.sp_config.*;
  *
  */
 public class VerificationTool {
+	
+	/**
+	 * Private constructor, utility class.
+	 */
+	private VerificationTool() {
+		//private constructor
+	}
 
 	/**
 	 * Checks, if <code>ConfigWrap</code> and the type of the logfile are identical.

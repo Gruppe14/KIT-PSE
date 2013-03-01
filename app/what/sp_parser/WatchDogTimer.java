@@ -1,5 +1,10 @@
 package what.sp_parser;
 
+/**
+ * The WatchDogTimer resets threads which were idle for too long.
+ * @author Alex
+ *
+ */
 public class WatchDogTimer {
 	
 	/**
@@ -8,23 +13,32 @@ public class WatchDogTimer {
 	private int watchTimeSeconds;
 	
 	/**
-	 * The singleton-watchdogtimer
+	 * The singleton-WatchDogTimer.
 	 */
 	private static WatchDogTimer wdt = new WatchDogTimer();
 	
 	
-	
+	/**
+	 * Private constructor, singleton.
+	 */
 	private WatchDogTimer() {
 		//singleton
 	}
 	
 	// Helper arrays.
+	/**
+	 * Array which saves how many seconds ago every thread finished his last line.
+	 */
 	private int[] lastTimes;
+	
+	/**
+	 * Array which saves if a thread finished a line in the last second.
+	 */
 	private boolean[] workedInLastSecond;
 	
 	/**
-	 * Initializes the watchdogtimer.
-	 * @param pm the PparserMediator
+	 * Initializes the WatchDogTimer.
+	 * @param pm the ParserMediator
 	 */
 	protected void initialize(ParserMediator pm) {
 		lastTimes = new int[pm.getPoolsize()];
@@ -67,7 +81,7 @@ public class WatchDogTimer {
 	}
 
 	/**
-	 * Returns the singleton of the WatchDogTimer
+	 * Returns the singleton of the WatchDogTimer.
 	 * @return the singleton WatchDogTimer
 	 */
 	protected static WatchDogTimer getInstance() {

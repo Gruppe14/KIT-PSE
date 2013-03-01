@@ -36,20 +36,28 @@ public class Logfile {
 	private String type;
 	
 	/**
-	 * The file-object at <code>path</code>
+	 * The file-object at <code>path</code>.
 	 */
 	private File file;
 	
 	/**
-	 * The ParserMediator which is connected to the <code>Logfile</code>
+	 * The ParserMediator which is connected to the <code>Logfile</code>.
 	 */
 	private ParserMediator pm;
 	
 	/**
-	 * InputStreams and Reader for reading the <code>file</code>
+	 * FileInputStream for reading the <code>file</code>.
 	 */
 	private FileInputStream fstream = null;
+	
+	/**
+	 * DataInputStream for reading the <code>file</code>.
+	 */
 	private DataInputStream in = null;
+	
+	/**
+	 * BufferedReader for reading the <code>file</code>.
+	 */
 	private BufferedReader br = null;
 	
 	/**
@@ -79,12 +87,19 @@ public class Logfile {
 	protected String getType() {
 		return type;
 	}
+	
+	/**
+	 * Constant variable for 10000.
+	 */
+	private static final int TEN_K = 10000;
 
 	/**
-	 * The constructor for a new <code>Logfile</code>. It sets the @param path, 
+	 * The constructor for a new <code>Logfile</code>. It sets the path, 
 	 * searches the <code>File</code> at this path and creates a file-object. 
 	 * Then it sets the InputStreams and the BufferedReader and sets the <code>type</code>
 	 * to the first line of the file.
+	 * @param path the path of the file
+	 * @param pm the ParserMediator
 	 */
 	protected Logfile(String path, ParserMediator pm) {
 		
@@ -102,7 +117,8 @@ public class Logfile {
 		try {
 			fstream = new FileInputStream(file);
 		} catch (FileNotFoundException e) {
-			//@throws FileNotFoundException - only if the file doesn't exist after checking that it does exist : Shouldn't happen.
+			//@throws FileNotFoundException - only if the file doesn't exist after
+			//checking that it does exist : Shouldn't happen.
 			e.printStackTrace();
 			return;
 		}
@@ -152,11 +168,12 @@ public class Logfile {
 			}
 			
 			
-			// Those lines of code make sure, that a line is actually a complete line. This is needed because some statements
-			//contain endOfLines which are the same as the endOfLines from the .csv-file. The line gets returned when a line is complete.
+			// Those lines of code make sure, that a line is actually a complete line. This is needed 
+			//because some statements contain endOfLines which are the same as the endOfLines 
+			//from the .csv-file. The line gets returned when a line is complete.
 			boolean goOn = true;
 			while (goOn) {
-				br.mark(10000);
+				br.mark(TEN_K);
 				str2 = br.readLine();
 				if (str2 == null) {
 					return str;
@@ -170,7 +187,8 @@ public class Logfile {
 			}
 			
 		} catch (IOException e) {
-			//I know, try-blocks shouldn't be that big, but there are many readLine()-calls and it doesn't matter in which one the error occurred, the exception-handling is similar.
+			//I know, try-blocks shouldn't be that big, but there are many
+			//readLine()-calls and it doesn't matter in which one the error occurred, the exception-handling is similar.
 			if (!file.canRead()) {
 				pm.error(Localize.getString("Error.72P1") + " " + lines + " " + Localize.getString("Error.72P2"));
 			} else {
@@ -183,7 +201,7 @@ public class Logfile {
 	}
 
 	/**
-	 * This method closes the InputStreams and the BufferedReader
+	 * This method closes the InputStreams and the BufferedReader.
 	 * @throws IOException - if an I/O Error occurs
 	 */
 	public void close() throws IOException {

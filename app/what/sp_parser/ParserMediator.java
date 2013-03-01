@@ -24,10 +24,22 @@ import what.sp_data_access.DataMediator;
  */
 public class ParserMediator {
 	
+	
+	
 	/**
 	 * The pool size of parsingTasks.
 	 */
-	private int poolsize = 5;
+	private int poolsize = STANDARD_PS;
+	
+	/**
+	 * The standard pool size.
+	 */
+	private static final int STANDARD_PS = 5;
+	
+	/**
+	 * The maximum pool size.
+	 */
+	private static final int MAX_POOLSIZE = 50;
 	
 	/**
 	 * This variable saves how many tasks have been finished. it is used to 
@@ -36,7 +48,7 @@ public class ParserMediator {
 	private int finishedTasks = 0;
 	
 	/**
-	 * This variable indicates how many lines have been deleted due to mistakes
+	 * This variable indicates how many lines have been deleted due to mistakes.
 	 */	
 	private int linesDeleted = 0;
 
@@ -48,7 +60,17 @@ public class ParserMediator {
 	/**
 	 * This variable indicates how many percent of the lines have to get uploaded correctly.
 	 */
-	private final static double CORRECT = 70;
+	private static final double CORRECT = 70;
+	
+	/**
+	 * Constant variable for hundred.
+	 */
+	private static final double HUNDRED = 100;
+
+	/**
+	 * Constant variable for thousand.
+	 */
+	private static final int THOUSAND = 1000;
 	
 	/**
 	 * The WatchDogTimer.
@@ -56,7 +78,7 @@ public class ParserMediator {
 	private WatchDogTimer wdt = WatchDogTimer.getInstance();
 	
 	/**
-	 * Represents the used log file
+	 * Represents the used log file.
 	 */
 	private Logfile usedFile = null;
 	
@@ -112,6 +134,7 @@ public class ParserMediator {
 	 * <code>ParsingTask</code>.
 	 * Those objects are created and inserted in <code>tasks</code>, which is an array for objects of type 
 	 * <code>ParsingTask</code>.
+	 * @return false if an error occurred
 	 */
 	private boolean createThreadPool() {
 				
@@ -120,7 +143,7 @@ public class ParserMediator {
 			return false;
 		}		
 		
-		if (poolsize > 50) {
+		if (poolsize > MAX_POOLSIZE) {
 			error(Localize.getString("Error.20"));
 			return false;
 		}
@@ -138,7 +161,7 @@ public class ParserMediator {
 	
 	/**
 	 * This method starts the actual parsing. It creates a new <code>Logfile</code> with @param path and
-	 * sets the <code>usedFile</code> to @param path. Then it creates a <code>ThreadPool</code> like stated 
+	 * sets the <code>usedFile</code> to the path. Then it creates a <code>ThreadPool</code> like stated 
 	 * in <code>createThreadPool</code> and submits all those threads via 
 	 * <code>java.util.Concurrent.ThreadPool</code>
 	 * @return true, after parsing is finished
@@ -179,9 +202,9 @@ public class ParserMediator {
 		for (int i = 0; i < poolsize; i++) {
 			try {
 				threadPool.submit(tasks[i]);
-			} catch(RejectedExecutionException e) {
+			} catch (RejectedExecutionException e) {
 				error(Localize.getString("Error.30P1") + " " + i + " " + Localize.getString("Error.30P2")); 
-			} catch(NullPointerException e) {
+			} catch (NullPointerException e) {
 				error(Localize.getString("Error.40P1") + " " + i + " " + Localize.getString("Error.40P2")); 
 			}
 			
@@ -205,7 +228,7 @@ public class ParserMediator {
 				return toReturn;
 			} else {
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(THOUSAND);
 				} catch (InterruptedException e) {
 					error(Localize.getString("Error.80"));
 				}
@@ -232,7 +255,7 @@ public class ParserMediator {
 	 */
 	private boolean enoughLinesSubmitted() {
 		
-		return ((double) usedFile.getLines() * (double) (CORRECT / 100) <= (usedFile.getLines() - linesDeleted));
+		return ((double) usedFile.getLines() * (double) (CORRECT / HUNDRED) <= (usedFile.getLines() - linesDeleted));
 						
 	}
 
@@ -245,7 +268,6 @@ public class ParserMediator {
 		try {
 			usedFile.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		usedFile = null;
@@ -258,7 +280,7 @@ public class ParserMediator {
 
 
 	/**
-	 * This method reads a line from <code>usedFile</code>
+	 * This method reads a line from <code>usedFile</code>.
 	 * @return the next line from <code>usedFile</code>
 	 */
 	protected String readLine() {
@@ -278,6 +300,7 @@ public class ParserMediator {
 
 	/**
 	 * This method is called when a task is finished. If it hits the poolsize the parser is shut down.
+	 * @param pt the ParsingTask which is finished.
 	 */
 	protected void increaseFT(ParsingTask pt) {
 		
@@ -292,7 +315,8 @@ public class ParserMediator {
 		
 		linesDeleted++;
 		
-		Printer.pproblem(Localize.getString("Warning.10P1") + " " + linesDeleted + " " + Localize.getString("Warning.10P2"));
+		Printer.pproblem(Localize.getString("Warning.10P1") + " " + linesDeleted + " "
+				+ Localize.getString("Warning.10P2"));
 	}
 
 	

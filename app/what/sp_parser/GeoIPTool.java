@@ -4,7 +4,8 @@ import java.io.IOException;
 
 
 import web.controllers.Localize;
-import what.sp_parser.sp_GeoIp.*;
+import what.sp_parser.sp_GeoIp.Location;
+import what.sp_parser.sp_GeoIp.LookupService;
 
 /**
  * This tool adds the City and Country of a request to a dataEntry.
@@ -20,14 +21,44 @@ public class GeoIPTool {
 	 */
 	private static LookupService cl;
 	
-	//Cache for the last IP and location.
+	/**
+	 * Private constructor, utility class.
+	 */
+	private GeoIPTool() {
+		//private constructor
+	}
+
+	/**
+	 * Cache for the last location.
+	 */
 	private static Location lastLoc = null;
+	
+	/**
+	 * Cache for the last ip.
+	 */
 	private static String lastIp = null;
+	
+	/**
+	 * Position of IP in the line.
+	 */
+	private static final int POSITION_IP = 6;
+	
+	/**
+	 * Position of country in the dataEntry.
+	 */
+	private static final int POSITION_CITY = 7;
+	
+	/**
+	 * Position of city in the dataEntry.
+	 */
+	private static final int POSITION_COUNTRY = 6;
+		
 		
 	/**
 	 * Sets up the IpTool and creates a new lookupService.
 	 * 
 	 * @param pm the ParserMediator which will use this tool
+	 * @return false if an error occurred
 	 */
 	protected static boolean setUpIpTool(ParserMediator pm) {
 		
@@ -47,7 +78,7 @@ public class GeoIPTool {
 	}
 	
 	/**
-	 * Adds the location info to the IP of a certain dataEntry
+	 * Adds the location info to the IP of a certain dataEntry.
 	 * @param pt the parsing-task which parsed the dataEntry
 	 */
 	protected static void getLocationInfo(ParsingTask pt) {
@@ -59,10 +90,10 @@ public class GeoIPTool {
 			
 			//Looks if the IP is the same as the one which started the last request, uses the same location info
 			//if this is true. If not, it uses the LookupService to create a new Location-object loc.
-			if (pt.getSplitStr()[6].equals(lastIp)) {
+			if (pt.getSplitStr()[POSITION_IP].equals(lastIp)) {
 				loc = lastLoc;
 			} else {
-				loc = cl.getLocation((String) pt.getSplitStr()[6]);
+				loc = cl.getLocation((String) pt.getSplitStr()[POSITION_IP]);
 			}
 			
 			
@@ -74,25 +105,25 @@ public class GeoIPTool {
 			}
 			
 			//Sets country and city to their spots of the DataEntry.
-			pt.getDe().setInfo(loc.countryName.trim(), 6);	
-			pt.getDe().setInfo(loc.city.trim(), 7);
+			pt.getDe().setInfo(loc.countryName.trim(), POSITION_COUNTRY);	
+			pt.getDe().setInfo(loc.city.trim(), POSITION_CITY);
 
-			if (pt.getDe().getInfo(6) == null) {
-			    pt.getDe().setInfo("other", 6);
+			if (pt.getDe().getInfo(POSITION_COUNTRY) == null) {
+			    pt.getDe().setInfo("other", POSITION_COUNTRY);
 			}
-			 if (pt.getDe().getInfo(7) == null) {
-			    pt.getDe().setInfo("other", 7);
+			 if (pt.getDe().getInfo(POSITION_CITY) == null) {
+			    pt.getDe().setInfo("other", POSITION_CITY);
 			 }
 			
 			lastLoc = loc;
-			lastIp = (String) pt.getDe().getInfo(6);
+			lastIp = (String) pt.getSplitStr()[POSITION_IP];
 					
 			
 		} catch (NullPointerException e) {
-			 //cl.getLocation(String str) throws a NullPointerException when it doens't find any location to a certain ip. 
-			 //catching it is the easiest way to deal with this problem.
-			pt.getDe().setInfo("other", 6);
-			pt.getDe().setInfo("other", 7);
+			 //cl.getLocation(String str) throws a NullPointerException when it doens't find any location
+			 //to a certain ip. catching it is the easiest way to deal with this problem.
+			pt.getDe().setInfo("other", POSITION_CITY);
+			pt.getDe().setInfo("other", POSITION_COUNTRY);
 		}
 	}
 }

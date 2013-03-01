@@ -39,6 +39,7 @@ public class ParsingTask implements Runnable {
 	 * This is the constructor for a new <code>ParsingTask</code>.
 	 * 
 	 * @param pm the ParserMediator which is connected to this <code>ParsingTask</code>
+	 * @param number the number used to identify the task
 	 */
 	protected ParsingTask(ParserMediator pm, int number) {
 		this.pm = pm;

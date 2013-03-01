@@ -24,6 +24,7 @@ public class DataEntry implements Comparable<DataEntry> {
 	}
 		
 	/**
+	 * @param i the position in the array which is to be returned
 	 * @return the info
 	 */
 	public Object getInfo(int i) {
@@ -32,7 +33,8 @@ public class DataEntry implements Comparable<DataEntry> {
 
 	
 	/**
-	 * @param i info the info to set
+	 * @param i the position in the array which is to be returned
+	 * @param info the info to set
 	 */
 	public void setInfo(Object info, int i) {
 		this.info[i] = info;
