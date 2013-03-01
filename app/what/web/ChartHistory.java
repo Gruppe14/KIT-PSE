@@ -72,7 +72,6 @@ public class ChartHistory {
 	 * @return returns a json object to compute the chart or null
 	 */
 	public static JSONObject requestHistory(String uuid, int num) {
-		//remove the object for this request, a new one is created upon overview request
 		ChartHistory tmp = new ChartHistory();
 		tmp.uuid = uuid;
 		int i = instances.indexOf(tmp);

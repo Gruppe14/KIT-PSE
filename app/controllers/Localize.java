@@ -46,19 +46,7 @@ public class Localize extends Controller {
 	 * the string in the standard language and if that is also not found returns the key
 	 */
 	public static String get(String message) {
-		String loc = message;
-		try {
-			loc = ResourceBundle.getBundle("messages_" + language(), control).getString(message);
-			//default language if message not found
-		} catch (MissingResourceException e) {
-			try {
-				loc = ResourceBundle.getBundle("messages_" + standard, control).getString(message);
-			} catch (MissingResourceException f) {
-				f.printStackTrace();
-			}
-		}
-		return loc;
-		
+		return get(message, language()); 
 	}
 	
 	/**
@@ -104,5 +92,18 @@ public class Localize extends Controller {
 	    	}
 		}
     	return lang;
+	}
+	
+	private static String get(String key, String lang) {
+		try {
+			return ResourceBundle.getBundle("messages_" + lang, control).getString(key);
+			//default language if message not found
+		} catch (MissingResourceException e) {
+			if(!lang.equals(standard)) {
+				return get(key, standard);
+			} else {
+				return key;
+			}
+		}
 	}
 }
