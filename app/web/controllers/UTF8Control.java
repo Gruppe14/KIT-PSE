@@ -1,4 +1,4 @@
-package controllers;
+package web.controllers;
 
 import java.io.IOException;
 import java.io.InputStream;

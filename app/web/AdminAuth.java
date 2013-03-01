@@ -1,4 +1,4 @@
-package what.web;
+package web;
 
 import controllers.routes;
 import play.mvc.Http.Context;
@@ -30,6 +30,6 @@ public class AdminAuth extends Security.Authenticator{
 	 * @return Result
 	 */
 	public Result onUnauthorized(Context ctx) {
-		return redirect(routes.Website.adminLogin());
+		return redirect(web.controllers.routes.Website.adminLogin());
 	}
 }

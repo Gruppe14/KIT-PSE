@@ -5,8 +5,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 
-import controllers.Localize;
 
+import web.controllers.Localize;
 import what.Printer;
 import what.sp_config.ConfigWrap;
 import what.sp_data_access.DataMediator;

@@ -1,5 +1,5 @@
 @(chartName: String)
-@import controllers.Localize
+@import web.controllers.Localize
 @main(title = "charts." + chartName) {
         <link href="/assets/stylesheets/chart.css" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="/assets/javascripts/d3.js"></script>
@@ -7,6 +7,6 @@
 }{
 	<div id="selection">
 		@Localize.get("charts." + chartName)
-		@what.web.ChartHelper.getOptions(chartName)
+		@web.ChartHelper.getOptions(chartName)
 	</div>
 }

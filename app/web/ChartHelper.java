@@ -1,4 +1,4 @@
-package what.web;
+package web;
 
 // java imports
 import java.util.ArrayList;
@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.TreeSet;
 
 // intern imports
-import controllers.Localize;
 import play.api.templates.HtmlFormat;
 import play.api.templates.Html;
+import web.controllers.Localize;
 import what.Facade;
 import what.Printer;
 import what.sp_chart_creation.Measure;

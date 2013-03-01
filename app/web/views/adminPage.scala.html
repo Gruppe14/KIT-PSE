@@ -1,5 +1,5 @@
-@(logfileForm: Form[what.web.LogfileUpload])
-@import controllers.Localize
+@(logfileForm: Form[web.LogfileUpload])
+@import web.controllers.Localize
 @main(title = Localize.get("admin.adminSection")) {
 	<link href="/assets/stylesheets/admin.css" rel="stylesheet" type="text/css">
 	<script>
@@ -16,7 +16,7 @@
 	<div>
 		<p>@Localize.get("admin.uploadMessage")<br />
 		@Localize.get("admin.uploadWarning")</p>
-	@helper.form(routes.Website.logfile, 'name -> "admin") {
+	@helper.form(web.controllers.routes.Website.logfile, 'name -> "admin") {
 		@if(logfileForm.hasGlobalErrors) {<p style="color:red;">@logfileForm.globalError.message</p>}
 		<label for="pathToLogfile">@Localize.get("admin.logfilePath")</label>
 		<input type="text" id="pathToLogfile" name="pathToLogfile" value="">

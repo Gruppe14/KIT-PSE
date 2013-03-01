@@ -1,4 +1,4 @@
-package controllers;
+package web.controllers;
 
 import play.i18n.Lang;
 import play.mvc.Controller;

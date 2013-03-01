@@ -1,8 +1,8 @@
-@import controllers.Localize
+@import web.controllers.Localize
 @main(title = "index.title") {
-	@what.web.ChartHelper.getStyle()
+	@web.ChartHelper.getStyle()
 } {
-	@for(chart <- what.web.ChartIndex.getInstance().getCharts()) {
+	@for(chart <- web.ChartIndex.getInstance().getCharts()) {
 		<a href="/charts/@{chart}.html">
 		<div class="bigTile" id="@chart">
 			<span>@{Localize.get("charts." + chart)}</span>

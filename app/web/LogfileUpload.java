@@ -1,7 +1,7 @@
-package what.web;
+package web;
 
-import controllers.Localize;
 import play.data.validation.Constraints.Required;
+import web.controllers.Localize;
 import what.Facade;
 
 import java.io.File;

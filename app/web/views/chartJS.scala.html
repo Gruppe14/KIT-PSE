@@ -1,5 +1,5 @@
 @(chart: String)
-@import controllers.Localize
+@import web.controllers.Localize
 function toggleSub(e) {
 	var sub = e.next();
 	sub.slideToggle(200);
@@ -273,7 +273,7 @@ $(document).ready(function() {
 	
 	//add chart js
 	$("head").append('<script type="text/javascript" src="/charts/@{chart}/@{chart}.js"></script>');
-	@if(what.web.ChartIndex.getInstance().hasCss(chart)) {
+	@if(web.ChartIndex.getInstance().hasCss(chart)) {
 	//add chart css
 	$("head").append('<link href="/charts/@{chart}/@{chart}.css" rel="stylesheet" type="text/css">');
 	}

@@ -1,4 +1,4 @@
-package controllers;
+package web.controllers;
 
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
@@ -24,13 +24,13 @@ import play.mvc.Http.RequestBody;
 import play.mvc.Result;
 import play.data.Form;
 
+import web.AdminAuth;
+import web.AdminLogin;
+import web.ChartHelper;
+import web.ChartHistory;
+import web.LogfileUpload;
 import what.Facade;
 import what.Printer;
-import what.web.AdminAuth;
-import what.web.AdminLogin;
-import what.web.ChartHelper;
-import what.web.ChartHistory;
-import what.web.LogfileUpload;
 
 /**
  * Class that handles all http requests. the routes redirect a request to one of the methods
@@ -56,7 +56,7 @@ public class Website extends Controller {
 	 * @return returns the html index site
 	 */
     public static Result index() {
-    	return ok(views.html.index.render());
+    	return ok(web.views.html.index.render());
     }
     /**
      * method to dynamically return a chart site depending on the chartName.
@@ -64,7 +64,7 @@ public class Website extends Controller {
      * @return returns a valid HTTP response, a web page
      */
     public static Result chartType(String chartName) {
-    	return ok(views.html.abstractChart.render(chartName));
+    	return ok(web.views.html.abstractChart.render(chartName));
     }
     /**
      * method to dynamically return a chart JavaScript depending on the chartName.
@@ -72,7 +72,7 @@ public class Website extends Controller {
      * @return returns a valid HTTP response, a JavaScript
      */
     public static Result chartJS(String chartName) {
-    	return ok(views.html.chartJS.render(chartName)).as("application/javascript");
+    	return ok(web.views.html.chartJS.render(chartName)).as("application/javascript");
     }
     
     /**
@@ -184,7 +184,7 @@ public class Website extends Controller {
     	    uuid = java.util.UUID.randomUUID().toString();
     	    session("uuid", uuid);
     	}
-    	return ok(views.html.main.render(Localize.get("hist.title"), 
+    	return ok(web.views.html.main.render(Localize.get("hist.title"), 
     			ChartHelper.getStyle(), ChartHistory.historySummary(uuid)));
     }
     
@@ -205,7 +205,7 @@ public class Website extends Controller {
      * @return returns a http response with the form page
      */
     public static Result adminLogin() {
-    	return ok(views.html.login.render(form));
+    	return ok(web.views.html.login.render(form));
     }
     
     /**
@@ -215,10 +215,10 @@ public class Website extends Controller {
     public static Result login() {
 		Form<AdminLogin> filledForm = form.bindFromRequest();
 		if (filledForm.hasErrors()) {
-			return badRequest(views.html.login.render(filledForm));
+			return badRequest(web.views.html.login.render(filledForm));
 		}
 		session().put("username", filledForm.get().username);
-		return redirect(routes.Website.admin());
+		return redirect(web.controllers.routes.Website.admin());
 	}
     
     /**
@@ -227,7 +227,7 @@ public class Website extends Controller {
      */
     @Security.Authenticated(AdminAuth.class)
 	public static Result admin() {
-		return ok(views.html.adminPage.render(log));
+		return ok(web.views.html.adminPage.render(log));
 	}
     
     /**
@@ -239,9 +239,9 @@ public class Website extends Controller {
     public static Result logfile() {
     	Form<LogfileUpload> filledForm = log.bindFromRequest();
 		if (filledForm.hasErrors()) {
-			return badRequest(views.html.adminPage.render(filledForm));
+			return badRequest(web.views.html.adminPage.render(filledForm));
 		} 
-    	return ok(views.html.adminPage.render(log));
+    	return ok(web.views.html.adminPage.render(log));
     }
     
     
@@ -251,6 +251,14 @@ public class Website extends Controller {
      */
     public static Result logout() {
 		session().clear();
-		return redirect(routes.Website.index());
+		return redirect(web.controllers.routes.Website.index());
 	}
+    /**
+     * redirects to the index page.
+     * @param notNeeded required by routes, but not needed 
+     * @return returns to index
+     */
+    public static Result redirect(String notNeeded) {
+    	return redirect(web.controllers.routes.Website.index());
+    }
 }

@@ -1,5 +1,5 @@
-@(loginForm: Form[what.web.AdminLogin])
-@import controllers.Localize
+@(loginForm: Form[web.AdminLogin])
+@import web.controllers.Localize
 @main(title = "Login"){
 	<link href="/assets/stylesheets/admin.css" rel="stylesheet" type="text/css">
 	<script>
@@ -11,7 +11,7 @@
 	</script>
 } {
 	<span id="heading">@Localize.get("admin.adminSection")</span>
-@helper.form(routes.Website.login, 'name -> "admin") {
+@helper.form(web.controllers.routes.Website.login, 'name -> "admin") {
 	@if(loginForm.hasGlobalErrors) {<p style="color:red;">@loginForm.globalError.message</p>}
 	<div>
 		<label for="username">@Localize.get("admin.username")</label>

@@ -1,4 +1,4 @@
-package what.web;
+package web;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -6,11 +6,11 @@ import java.util.LinkedList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import controllers.Localize;
 
 import play.api.templates.HtmlFormat;
 import play.api.templates.Html;
 
+import web.controllers.Localize;
 //intern imports
 import what.Facade;
 
@@ -59,7 +59,7 @@ public class ChartHistory {
 		}
 		//if no history tiles at all
 		if(html.equals("")) {
-			html += Localize.get("err.noHist");
+			html += "<div class=\"fixWidth\">" + Localize.get("err.noHist") + "</div>";
 		} else {
 			instances.add(tmp);
 		}
