@@ -385,6 +385,8 @@ public class ConfigWrap {
 	 * @return a TreeSet of Strings extracted from the JSONObject of this reader
 	 */
 	private static TreeSet<String> getStrings(JSONReader reader) {
+		assert (reader != null);
+		
 		JSONArray contents = reader.getJSONArray(ATRI_STRINGS);
 		if (contents == null) {
 			Printer.pfail("Getting JSONArray for TreeSet");
@@ -421,6 +423,7 @@ public class ConfigWrap {
 			return null;
 		}
 		
+		
 		// get a reader
 		JSONReader curReader = new JSONReader(reader.getJson());
 		for (int i = 0, l = contents.length(); i < l; i++) {
@@ -442,7 +445,7 @@ public class ConfigWrap {
 			}
 			
 			// get the values
-			TreeSet<String> values = getStrings(reader);
+			TreeSet<String> values = getStrings(curReader);
 			if (values == null) {
 				Printer.pfail("Getting values for HashMap.");
 				return null;
@@ -450,6 +453,7 @@ public class ConfigWrap {
 			
 			maps.put(key, values);
 		}
+		
 		
 		return maps;
 	}

@@ -59,7 +59,7 @@ public class WHConnectionManager {
         	connectionPool.addElement(createNewConnectionForPool());
         }
         
-        Printer.print("Connection Pool is full.");
+        //Printer.print("Connection Pool is full.");
     }
 
     /**

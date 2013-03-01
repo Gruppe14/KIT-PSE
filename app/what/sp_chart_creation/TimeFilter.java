@@ -27,7 +27,7 @@ public class TimeFilter extends Filter {
 	private final int[] to;
 
 	/** Constant array signaling no filtering. */
-	private final static int[] NO_FILTER = {-1, -1, -1, -1, -1};
+	private static final int[] NO_FILTER = {-1, -1, -1, -1, -1};
 	
 	/**
 	 * Constructor for a TimeFilter with given
@@ -114,8 +114,22 @@ public class TimeFilter extends Filter {
 		
 		boolean and = false;
 		for (int i = 0; i < ChartHostBuilder.L; i++) {
-			query += getTimeRestriction(from, i, and);
-			query += getTimeRestriction(to, i, and);
+			if (from[i] > 0) {
+				if (and) {
+					query += MySQLAdapter.AND;
+				} else {
+					and = true;
+				}
+			}
+			query += getTimeRestriction(from, 0, i);
+			if (to[i] > 0) {
+				if (and) {
+					query += MySQLAdapter.AND;
+				} else {
+					and = true;
+				}
+			}
+			query += getTimeRestriction(to, 1, i);
 		}
 		
 		
@@ -135,18 +149,22 @@ public class TimeFilter extends Filter {
 	 * @return the query restriction part for the given
 	 * position i in the given array
 	 */
-	private String getTimeRestriction(int[] ary, int i, boolean and) {
-		
-		
+	private String getTimeRestriction(int[] ary, int fromTo, int i) {
+		assert ((fromTo == 0) || (fromTo == 1));
+		assert (ary != null);
+		assert ((i >= 0) && (i < ary.length));
+				
 		String query = "";
 		
 		if (ary[i] > 0) {
-			if (and) {
-				query += MySQLAdapter.AND;
-			}
 			
-			and = true;
-			query += getDimension().getRowAt(i).getColumnName() + MySQLAdapter.EQL + ary[i]; 
+			query += getDimension().getRowAt(i).getColumnName();
+			if (fromTo == 0) {
+				query += MySQLAdapter.MORE; 
+			} else if (fromTo == 1) {
+				query += MySQLAdapter.LESS;
+			}
+			query += ary[i]; 
 		}
 		
 		

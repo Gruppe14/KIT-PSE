@@ -47,7 +47,7 @@ public class ParserTest {
 		pm = f.getParserMediator();
 	}
 	
-
+	
 	// -- MISTAKES -- MISTAKES -- MISTAKES -- MISTAKES -- MISTAKES --
 	@Test
 	public void testIntegerMistake() {

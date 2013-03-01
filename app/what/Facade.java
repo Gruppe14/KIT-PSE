@@ -105,6 +105,8 @@ public class Facade {
 		if (config == null) {
 			Printer.pfail("Building ConfigWrap with the given path failed");
 			return false;
+		} else {
+			Printer.psuccess("Building ConfigWrap.");
 		}
 		
 		// set all the attributes
@@ -114,7 +116,7 @@ public class Facade {
 		parsMedi = new ParserMediator(config, dataMedi);
 
 		// testing
-		Printer.ptest(config.toString());
+		//Printer.ptest(config.toString());
 		
 		// create tables for the configuration if necessary
 		if (!(tablesAreCreated())) {
@@ -124,12 +126,13 @@ public class Facade {
 			} else {
 				Printer.psuccess("Creating tables for this configuration");
 			}
-			
 		}
 		
 		// pre-compute strings for the web page selection boxes
 		computeDimensionData();
 		
+		
+		Printer.psuccess("Initialize facade.");
 		return true;
 	}
 	
@@ -142,7 +145,6 @@ public class Facade {
 		return dataMedi.areTablesCreated();
 	}
 
-	
 	/**
 	 * Checks whether everything is initialized.
 	 * 

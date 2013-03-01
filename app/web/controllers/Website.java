@@ -58,6 +58,7 @@ public class Website extends Controller {
     public static Result index() {
     	return ok(web.views.html.index.render());
     }
+   
     /**
      * method to dynamically return a chart site depending on the chartName.
      * @param chartName the name of the requested chart
@@ -66,6 +67,7 @@ public class Website extends Controller {
     public static Result chartType(String chartName) {
     	return ok(web.views.html.abstractChart.render(chartName));
     }
+  
     /**
      * method to dynamically return a chart JavaScript depending on the chartName.
      * @param chartName the name of the requested chart

@@ -189,8 +189,7 @@ public class ChartHelper {
 					+ Localize.get("dim." + dim.getName()) + VID;
 					
 			assert (dim.isStringDim());
-			Printer.ptest(dim.toString());
-			
+						
 			//first level is build here because of dim list classes
 			TreeSet<DimKnot> trees = dim.getStrings();
 			

@@ -197,7 +197,6 @@ public class Filter {
 		return query;				
 	}
 	
-	
 	@Override
 	public String toString() {
 		return "\n>> Filter [dimension=" + dimension.getName() + ", all=" + all + ", trees=" + trees  + "]";

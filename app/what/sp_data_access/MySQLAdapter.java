@@ -57,6 +57,10 @@ public class MySQLAdapter {
 	public static final String OR = " OR ";
 	/** MySQL short constant. */
 	public static final String EQL = " = ";
+	/** MySQL short constant. */
+	public static final String MORE = " > ";
+	/** MySQL short constant. */
+	public static final String LESS = " < ";
 	
 	
 	/** MySQL short constant. */
