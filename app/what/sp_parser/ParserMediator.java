@@ -279,7 +279,7 @@ public class ParserMediator {
 	protected void increaseFT(ParsingTask pt) {
 		
 		finishedTasks++;	
-		System.out.println("Task " + pt.getNumber() + " finished - now finished: " + finishedTasks);
+		Printer.print("Task " + pt.getNumber() + " finished - now finished: " + finishedTasks);
 	}
 	
 	/**
@@ -289,9 +289,7 @@ public class ParserMediator {
 		
 		linesDeleted++;
 		
-		System.out.println(Localize.getString("Warning.10P1") + " " + linesDeleted + " " + Localize.getString("Warning.10P2"));
-		
-			
+		Printer.pproblem(Localize.getString("Warning.10P1") + " " + linesDeleted + " " + Localize.getString("Warning.10P2"));
 	}
 
 	

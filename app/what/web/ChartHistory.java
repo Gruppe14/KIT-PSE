@@ -65,8 +65,10 @@ public class ChartHistory {
 		}
 		return HtmlFormat.raw(html);
 	}
+	
 	/**
-	 * method to get the json object of one of the last chart requests
+	 * method to get the json object of one of the last chart requests.
+	 * 
 	 * @param uuid the uuid of the user that requested a history overview
 	 * @param num the number of the history, which to return
 	 * @return returns a json object to compute the chart or null
