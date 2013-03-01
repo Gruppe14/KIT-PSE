@@ -12,18 +12,23 @@ import what.FileHelper;
 import what.Printer;
 
 /**
- * Singleton scanning all chart types available
+ * Singleton scanning all chart types available.
  * @author Lukas
  */
 public class ChartIndex {
+	/** the instance of chart index for this singleton class. */
 	private static ChartIndex instance = null;
+	/** an array containing the names of all available charts. */
 	private String[] charts;
-	//thumbs
+	/** a hashmap containing the thumbnail picture name of a chart. */
 	private HashMap<String, String> thumbs;
+	/** a hashset containing the names of charts that have a css file. */
 	private HashSet<String> css;
-	//dimensions for charts
+	/** a hashmap containing the dimensions of a chart as read from the charts config file. */
 	private HashMap<String, Integer> dims;
-	//on initialisation scans the charts directory for subdirectories a.k.a. chartTypes
+	/**
+	 * on initialisation scans the charts directory for subdirectories a.k.a. chartTypes.
+	 */
 	private ChartIndex() {
 		thumbs = new HashMap<>();
 		css = new HashSet<>();
@@ -32,29 +37,29 @@ public class ChartIndex {
 		File[] dirList = chartDir.listFiles(new FileFilter() {
 			//accept only charts that have all components
 			public boolean accept(File file) {
-				if(file.isDirectory()) {
+				if (file.isDirectory()) {
 					boolean thumb = false;
 					boolean js = false;
 					boolean config = false;
-					for(String s : file.list()) {
-						if(s.matches("^(thumb)\\..*")) {
+					for (String s : file.list()) {
+						if (s.matches("^(thumb)\\..*")) {
 							thumb = true;
 							thumbs.put(file.getName(), s);
 						}
-						if(s.equalsIgnoreCase(file.getName() + ".js")) {
+						if (s.equalsIgnoreCase(file.getName() + ".js")) {
 							js = true;
 						}
-						if(s.equalsIgnoreCase(file.getName() + ".css")) {
+						if (s.equalsIgnoreCase(file.getName() + ".css")) {
 							css.add(file.getName());
 						}
-						if(s.equalsIgnoreCase("config.json")) {
+						if (s.equalsIgnoreCase("config.json")) {
 							String jsonString = FileHelper.getStringContent(new File(file, s));
-							if(jsonString != null){
+							if (jsonString != null) {
 								JSONObject json = null;
 								try {
 									json = new JSONObject(jsonString);
 									int dim = json.getInt("dimensions");
-									if(dim > 0 && dim < 3) {
+									if (dim > 0 && dim < 3) {
 										dims.put(file.getName(), dim);
 										config = true;
 									}
@@ -70,23 +75,23 @@ public class ChartIndex {
 			}
 		});
 		charts = new String[dirList.length];
-		for(int i = 0; i < dirList.length; i++) {
+		for (int i = 0; i < dirList.length; i++) {
 			charts[i] = dirList[i].getName();
 		}
 	}
 	
 	/**
-	 * method to get the instance of ChartIndex, initializes one, if not already done
+	 * get the instance of ChartIndex, initializes one, if not already done.
 	 * @return returns the instance of ChartIndex
 	 */
 	public static ChartIndex getInstance() {
-		if(instance == null) {
+		if (instance == null) {
 			instance = new ChartIndex();
 		}
 		return instance;
 	}
 	/**
-	 * method that returns all names of valid charts
+	 * returns all names of valid charts.
 	 * @return a string array with all the names
 	 */
 	public String[] getCharts() {
@@ -94,7 +99,7 @@ public class ChartIndex {
 	}
 	
 	/**
-	 * Method that returns the file name of a thumbnail for the chart type
+	 * returns the file name of a thumbnail for the chart type.
 	 * @param chart the chart name
 	 * @return returns the file name
 	 */
@@ -103,7 +108,7 @@ public class ChartIndex {
 	}
 	
 	/**
-	 * method that returns wether a chart has a chart specific css file
+	 * returns wether a chart has a chart specific css file.
 	 * @param chart the chart name
 	 * @return returns true if a chart specific css file exists, false otherwise
 	 */
@@ -112,7 +117,7 @@ public class ChartIndex {
 	}
 	
 	/**
-	 * method to get the number of dimensions for a chart
+	 * get the number of dimensions for a chart.
 	 * @param chart the name of the chart
 	 * @return returns the number of dimensions
 	 */

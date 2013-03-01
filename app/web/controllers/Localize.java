@@ -107,7 +107,7 @@ public class Localize extends Controller {
 			return ResourceBundle.getBundle("messages_" + lang, control).getString(key);
 			//default language if message not found
 		} catch (MissingResourceException e) {
-			if(!lang.equals(standard)) {
+			if (!lang.equals(standard)) {
 				return get(key, standard);
 			} else {
 				return key;

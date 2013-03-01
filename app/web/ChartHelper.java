@@ -12,10 +12,11 @@ import web.controllers.Localize;
 import what.Facade;
 import what.Printer;
 import what.sp_chart_creation.Measure;
-import what.sp_config.*;
+import what.sp_config.DimKnot;
+import what.sp_config.DimRow;
 
 /**
- * class to create the HTML stuff from configuration for charts
+ * class to create the HTML stuff from configuration for charts.
  * @author Lukas Ehnle, Jonathan, PSE Gruppe 14
  *
  */
@@ -32,34 +33,35 @@ public class ChartHelper {
 	private static final String VID = "</div>";
 	/** HTML constant. non breaking space. */
 	private static final String SPC = "&nbsp;";
-	
+	/** contains the background image information, see getStyle(). */
 	private static Html style = null;
 	
-	//instances of ChartHelper --> singleton
-	//string identifies the language
+	/**
+	 *  instances of ChartHelper --> singleton.
+	 *  string identifies the language.
+	 */
 	private static HashMap<String, ChartHelper> instance = new HashMap<>();
 	
-	//current configuration
-	/** */
+	/** contains the dimensions in the warehouses. */
 	private ArrayList<DimRow> dims;
 	
-	//charts available, currently overhead, but with further config files may be needed
+	/** charts available, currently overhead, but with further config files may be needed. */
 	private HashMap<String, Html> charts;
 	
 	/**
-	 * private constructor because of singleton
-	 * refer to getInstance
+	 * private constructor because of singleton pattern.
+	 * refer to getInstance.
 	 */
-	private ChartHelper () {
+	private ChartHelper() {
 		dims = Facade.getFacadeInstance().getCurrentConfig().getDims();
 		charts = new HashMap<>();
-		for(String chart : ChartIndex.getInstance().getCharts()) {
+		for (String chart : ChartIndex.getInstance().getCharts()) {
 			charts.put(chart, createChart(chart));
 		}
 	}
 	
 	/**
-	 * returns the options selection for a chart
+	 * returns the options selection for a chart.
 	 * @param name the chart name
 	 * @return returns the option selection
 	 */
@@ -92,7 +94,7 @@ public class ChartHelper {
 	}
 	
 	/**
-	 * creates the option selection for a specific chart and language
+	 * creates the option selection for a specific chart and language.
 	 * @param name the chart name
 	 * @return returns a HTML object with the option selection
 	 * or if the warehouse doesn't contain data it displays an error
@@ -101,19 +103,16 @@ public class ChartHelper {
 		ArrayList<DimRow> stringDim = new ArrayList<>();
 		ArrayList<String> measures = new ArrayList<>();
 		for (DimRow dim: dims) {
-			//if time dimension, add time options + time scale
-			if(dim.getName().equalsIgnoreCase("time")) {
-				//if time do nothing is handled separately
 			//if string dim add to list for later
-			} else if (dim.isStringDim()) {
+			if (dim.isStringDim()) {
 				stringDim.add(dim);
 			//else add to measure list for later
-			} else {
+			} else if (!dim.isDimension()) {
 				measures.add(dim.getName());
 			}
 		}
 		String html = "";
-		if(stringDimsContainData(stringDim)) {
+		if (stringDimsContainData(stringDim)) {
 			//create the html content
 			html += "<div id=\"save\">" + Localize.get("filter.save") + VID;
 			html += "<div id=\"send\">" + Localize.get("filter.send") + VID;
@@ -130,13 +129,14 @@ public class ChartHelper {
 	}
 	
 	/**
-	 * method to test wether the warehouse contains data
+	 * tests wether the warehouse contains data.
 	 * else no charts can be requested
+	 * @param dims an arrayList containing string dimensions
 	 * @return true if WH contains data, false otherwise
 	 */
 	private boolean stringDimsContainData(ArrayList<DimRow> dims) {
 		for (DimRow dim: dims) {
-			if(dim.getStrings() == null) {
+			if (dim.getStrings() == null) {
 				return false;
 			}
 		}
@@ -144,28 +144,30 @@ public class ChartHelper {
 	}
 	
 	/**
-	 * method that creates the selection for the axes
+	 * creates the selection for the axes.
+	 * @param dims an arraylist containing the string dimensions
+	 * @param chart the name of a chart
 	 * @return returns the html string
 	 */
 	private String axis(ArrayList<DimRow> dims, String chart) {
 		String html = "";
 		String tmp = "";
-		for(DimRow dim : dims) {
+		for (DimRow dim : dims) {
 			tmp += "<span data=\"" + dim.getName() + "\">" + Localize.get("dim." 
 					+ dim.getName()) + NAPS + "<div class=\"sub\">";
-				for(int i = 0; i < dim.getSize(); i++){
-					tmp += "<span data=\"" + dim.getNameOfLevel(i) + "\">" +
-							Localize.get("dim." + dim.getName() + "." 
+				for (int i = 0; i < dim.getSize(); i++) {
+					tmp += "<span data=\"" + dim.getNameOfLevel(i) + "\">"
+							+ Localize.get("dim." + dim.getName() + "." 
 					+ dim.getNameOfLevel(i)) + NAPS;
 				}
 			tmp += VID;
 		}
-		for(int i = 0; i < ChartIndex.getInstance().getDim(chart); i++) {
-			html += "<div id=\"" + (char)('x' + i) + "\" class=\"single options\">" 
-					+ DIV + (char)('x' + i) + "-" + Localize.get("filter.axis") + VID +
-					"<div class=\"list\">";
+		for (int i = 0; i < ChartIndex.getInstance().getDim(chart); i++) {
+			html += "<div id=\"" + (char) ('x' + i) + "\" class=\"single options\">" 
+					+ DIV + (char) ('x' + i) + "-" + Localize.get("filter.axis") + VID
+					+ "<div class=\"list\">";
 			//for x axis add time
-			if(i == 0) {
+			if (i == 0) {
 				html += timeScale();
 			}
 			html += tmp + VID + VID;
@@ -174,8 +176,7 @@ public class ChartHelper {
 	}
 	
 	/**
-	 * Creates the option selections for the String dimensions
-	 * 
+	 * Creates the option selections for the String dimensions.
 	 * @param dims the dimensions, only String dimensions allowed
 	 * @return HTML String for this String dimension
 	 */
@@ -183,9 +184,9 @@ public class ChartHelper {
 		assert (dims != null);
 		
 		String html = "";
-		for(DimRow dim: dims) {
-			String tmp = "<div id=\"" + dim.getName() + "\" class=\"options\">" + DIV +
-					Localize.get("dim." + dim.getName()) + VID;
+		for (DimRow dim: dims) {
+			String tmp = "<div id=\"" + dim.getName() + "\" class=\"options\">" + DIV
+					+ Localize.get("dim." + dim.getName()) + VID;
 					
 			assert (dim.isStringDim());
 			Printer.ptest(dim.toString());
@@ -231,18 +232,18 @@ public class ChartHelper {
 	
 
 	/**
-	 * creates the option selection for the measures
+	 * creates the option selection for the measures.
 	 * @param measures the measures to add
 	 * @return returns a html string with the measure selection
 	 */
 	private String measuresHtml(ArrayList<String> measures) {
-		String html = "<div id=\"measures\" class=\"single options\">" +
-				DIV + Localize.get("filter.measures") +
-				VID + "<div class=\"list\">";
-		for(String m: measures) {
+		String html = "<div id=\"measures\" class=\"single options\">"
+				 + DIV + Localize.get("filter.measures")
+				 + VID + "<div class=\"list\">";
+		for (String m: measures) {
 			html += "<span data=\"" + m + "\">" + Localize.get("measure." + m) 
 					+ NAPS + "<div class=\"sub\">";
-			for(String s: Measure.getAggregations()) {
+			for (String s: Measure.getAggregations()) {
 				html += "<span data=\"" + s + "\">" + Localize.get("aggregation." + s) + NAPS;
 			}
 			html += VID;
@@ -253,8 +254,7 @@ public class ChartHelper {
 	}
 	
 	/**
-	 * method to add the time scale options
-	 * @param dim wether only x or more dimensions are available
+	 * adds the time scale options.
 	 * @return returns the html string
 	 */
 	private String timeScale() {
@@ -270,35 +270,35 @@ public class ChartHelper {
 	}
 	
 	/**
-	 * creates the option selection for time
+	 * creates the option selection for time.
 	 * @return returns the html String for it
 	 */
 	private String time() {
 		int[] year = {2011, 2012};
 		String html = "<div id=\"timescale\">";
 		String[] ft = {"From", "To"};
-		for(String s: ft) {
-			html += DIV + Localize.get("time." + s) + "<br />" + DIV + SPAN +
-					Localize.get("time.year") + "</span><span id=\"year" + s + 
-					"\">" + SPC + NAPS + "<div class=\"dropdown\"><span>---</span>";
+		for (String s: ft) {
+			html += DIV + Localize.get("time." + s) + "<br />" + DIV + SPAN
+					+ Localize.get("time.year") + "</span><span id=\"year" + s
+					+ "\">" + SPC + NAPS + "<div class=\"dropdown\"><span>---</span>";
 			//add every year to selection
-			for(int i = year[1]; i >= year[0]; i--) {
+			for (int i = year[1]; i >= year[0]; i--) {
 				html += SPAN + i + NAPS;
 			}
-			html += VID + VID + SPC + DIV + SPAN + Localize.get("time.month") +
-					NAPS + "<span id=\"month" + s + "\">" + SPC + NAPS +
-					"<div class=\"dropdown\">" + SPAN + "---" + NAPS;
+			html += VID + VID + SPC + DIV + SPAN + Localize.get("time.month")
+					+ NAPS + "<span id=\"month" + s + "\">" + SPC + NAPS
+					+ "<div class=\"dropdown\">" + SPAN + "---" + NAPS;
 			//add every month
-			for(int i = 1; i < 13; i++) {
+			for (int i = 1; i < 13; i++) {
 				html += SPAN + i + NAPS;
 			}
-			html += VID + VID + SPC + DIV + SPAN + Localize.get("time.day") +
-					NAPS + "<input id=\"day" + s + "\" type=\"number\" " +
-					"min=\"1\" max=\"31\" placeholder=\"1 - 31\"/></div> " +
-					DIV + SPAN + Localize.get("time.hour") + NAPS +
-					"<input id=\"hour" + s + "\" type=\"text\" " +
-					"pattern=\"(^[0-9]|^[1][0-9]|^[2][1-3]):[0-5][0-9]$\" " +
-					"placeholder=\"0:00\"/>" + VID + VID;
+			html += VID + VID + SPC + DIV + SPAN + Localize.get("time.day")
+					+ NAPS + "<input id=\"day" + s + "\" type=\"number\" "
+					+ "min=\"1\" max=\"31\" placeholder=\"1 - 31\"/></div> "
+					+ DIV + SPAN + Localize.get("time.hour") + NAPS
+					+ "<input id=\"hour" + s + "\" type=\"text\" "
+					+ "pattern=\"(^[0-9]|^[1][0-9]|^[2][1-3]):[0-5][0-9]$\" "
+					+ "placeholder=\"0:00\"/>" + VID + VID;
 		}
 		html += VID;
 		return	html;
