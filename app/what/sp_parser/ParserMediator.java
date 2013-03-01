@@ -106,9 +106,6 @@ public class ParserMediator {
 		this.loader = dataMedi;
 	}
 		
-	public ParserMediator(ConfigWrap config) {
-		this.cw = config;
-	}
 
 	/**
 	 * Creates a new <code>threadPool</code> with <code>poolsize</code> objects of the type 
@@ -227,15 +224,21 @@ public class ParserMediator {
 
 	}
 	
-
-
+	
+	/**
+	 * This method checks if enough lines are submitted correctly. Parsing only returns true if more than 
+	 * CORRECT % of the lines were in fact correct
+	 * @return true if parsing was successful
+	 */
 	private boolean enoughLinesSubmitted() {
 		
 		return ((double) usedFile.getLines() * (double) (CORRECT / 100) <= (usedFile.getLines() - linesDeleted));
 						
 	}
 
-
+	/**
+	 * This method resets the ParserMediator.
+	 */
 	private void reset() {
 		finishedTasks = 0;
 		linesDeleted = 0;
@@ -341,10 +344,18 @@ public class ParserMediator {
 		return wdt;		
 	}
 	
+	/**
+	 * Returns the used logfile.
+	 * @return the used logfile
+	 */
 	public Logfile getLogfile() {
 		return usedFile;
 	}
 
+	/**
+	 * This method resets the thread with the number i.
+	 * @param i the thread to be resetted
+	 */
 	protected void resetThread(int i) {
 		ParsingTask newTask = new ParsingTask(this, i);
 		threadPool.submit(newTask);
@@ -352,10 +363,18 @@ public class ParserMediator {
 		Printer.pproblem(Localize.getString("Warning.20"));
 	}
 
+	/**
+	 * This method returns the number of finished tasks.
+	 * @return the number of finished tasks
+	 */
 	public int getFinishedTasks() {
 		return finishedTasks;
 	}
 	
+	/**
+	 * Returns the error which occurred.
+	 * @return the error
+	 */
 	public String getError() {
 		return error;
 	}

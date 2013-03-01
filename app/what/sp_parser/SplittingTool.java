@@ -17,7 +17,7 @@ import what.sp_config.ConfigWrap;
  */
 public class SplittingTool {
 		
-		private SplittingTool() {
+	private SplittingTool() {
 		//private constructor, because utility-class
 	}
 	
@@ -42,7 +42,7 @@ public class SplittingTool {
 	private static boolean splitStatement(ParsingTask pt) {
 				
 		ConfigWrap conf = pt.getPm().getConfig();
-
+		
 		return conf.getEntryAt(conf.getNumberOfRows() - 1).split(pt.getDe(), pt.getStr(), conf.getNumberOfRows());				
 	}
 
