@@ -74,7 +74,7 @@ public class SplittingTool {
 		
 		for (int i = 0; i <= END_OF_TIME; i++) {
 
-			if (!pt.getPm().getConfig().getEntryAt(i).getCategory().equalsIgnoreCase("TIME")) {
+			if (!pt.getPm().getConfig().getEntryAt(i).getCategory().contains("time")) {
 				return false;
 			}
 			if (!pt.getPm().getConfig().getEntryAt(i).split(de, str[i], i)) {
