@@ -79,66 +79,109 @@ function checkOptions() {
 
 //check if period of time chosen is correct and build json object of it
 function checkBuildTime() {
-	// 0:year, 1: month, 2: day, 3: hour
-	var tF = [];
-	var tT = [];
+	//year [0]-> from, [1]-> to
+	var y = [];
+	//month
+	var m = [];
+	//day
+	var d = [];
+	//hour
+	var h = [];
+	//minMaxTime
+	var minMax = @web.ChartHelper.getMinMaxTimeString()
+	
 	var tmp = $("#yearFrom").html();
-	if(tmp != "&nbsp;" && tmp != "---") { tF.push(parseInt(tmp)); }
+	if(tmp != "&nbsp;" && tmp != "---") { y.push(parseInt(tmp)); }
 	tmp = $("#yearTo").html();
-	if(tmp != "&nbsp;" && tmp != "---") { tT.push(parseInt(tmp)); }
+	if(tmp != "&nbsp;" && tmp != "---") { y.push(parseInt(tmp)); }
 	tmp = $("#monthFrom").html();
-	if(tmp != "&nbsp;" && tmp != "---") { tF.push(parseInt(tmp)); }
+	if(tmp != "&nbsp;" && tmp != "---") { m.push(parseInt(tmp)); }
 	tmp = $("#monthTo").html();
-	if(tmp != "&nbsp;" && tmp != "---") { tT.push(parseInt(tmp)); }
+	if(tmp != "&nbsp;" && tmp != "---") { m.push(parseInt(tmp)); }
 	tmp = $("#dayFrom").val();
-	if(tmp != "") { tF.push(parseInt(tmp)); }
+	if(tmp != "") { d.push(parseInt(tmp)); }
 	tmp = $("#dayTo").val();
-	if(tmp != "") { tT.push(parseInt(tmp)); }
+	if(tmp != "") { d.push(parseInt(tmp)); }
 	tmp = $("#hourFrom").val();
-	if(tmp != "") { tF.push(tmp); }
+	if(tmp != "") { h.push(tmp); }
 	tmp = $("#hourTo").val();
-	if(tmp != "") { tT.push(tmp); }
+	if(tmp != "") { h.push(tmp); }
 	//checks begin
-	if(tF.length != tT.length) { displayError("@Localize.get("time.err.argLength")"); return "err"; }
+	//if y,m,d or h contains only 1 value
+	if(y.length == 1 || m.length == 1 || d.length == 1 || h.length == 1) { displayError("@Localize.get("time.err.argLength")"); return "err"; }
 	//if no args return all
-	if(tF.length == 0) { return "all"; }
-	//if yearFrom > yearTo --> error
-	if(tF[0] > tT[0]) { displayError("@Localize.get("time.err.negativeTime")"); return "err"; }
-	//if years equal, months exist and monthFrom > monthTo --> error
-	else if(tF.length > 1 && tF[0] == tT[0] && tF[1] > tT[1]) { displayError("@Localize.get("time.err.negativeTime")"); return "err"; }
+	if(y.length < 1 && m.length < 1 && d.length < 1 && h.length < 1) { return "all"; }
+	
 	//if days exist
-	else if(tF.length > 2) {
-		//check if # of days exist in the respective month, else --> error
-		if(daysOfMonth(tF[0], tF[1]) < tF[2] || daysOfMonth(tT[0], tT[1]) < tT[2] 
-			|| tF[2] < 1 || tT[2] < 1) { displayError("@Localize.get("time.err.monthsDays")"); return "err"; }
-		//if months are the same, check if dayFrom < dayTo, else --> error
-		if(tF[1] == tT[1] && tF[2] > tT[2]) { displayError("@Localize.get("time.err.negativeTime")"); return "err"; }
-		//if hours exist
-		if (tF.length > 3) {
-			//check if times of the day exist, else --> error
-			tF[3] = makeTime(tF[3]);
-			tT[3] = makeTime(tT[3]);
-			//test if parsing hours was correct, else --> error
-			if(tF[3] == "err" || tT[3] == "err") { displayError("@Localize.get("time.err.wrongHour")"); return "err"; }
-			//if days are the same, check if hoursFrom < hoursTo
-			if(tF[2] == tT[2] && tF[3][0] > tT[3][0]) { displayError("@Localize.get("time.err.negativeTime")"); return "err"; }
-			//if hours are the same, check if minFrom < minTo
-			if(tF[3][0] == tT[3][0] && tF[3][1] > tT[3][1]) { displayError("@Localize.get("time.err.negativeTime")"); return "err"; }
+	if(y.length > 1 && m.length > 1 &&d.length > 1 
+		//check days of month
+		&& (daysOfMonth(y[0], m[0]) < d[0] || daysOfMonth(y[1], m[1]) < d[1])) {
+		 { displayError("@Localize.get("time.err.monthsDays")"); return "err"; }
+	}
+	
+	//if hours exist check them
+	if(h.length > 1) {
+		h[0] = makeTime(h[0]);
+		h[1] = makeTime(h[1]);
+		if(h[0] != "err" && h[1] != "err") {
+			displayError("@Localize.get("time.err.wrongHour")"); return "err";
 		}
 	}
+	//##### check for negative times
+	//if year from > year to --> error
+	if (y[0] > y[1]) { displayError("@Localize.get("time.err.negativeTime")"); return "err"; }
+	//if years equal and month exist
+	else if (y[0] == y[1] && m.length > 1) {
+	//if month from > month to --> error
+	if (m[0] > m[1]) { displayError("@Localize.get("time.err.negativeTime")"); return "err"; }
+	//if month equal and days exist
+	else if (m[0] == m[1] && d.length > 1) {
+	//if day from > day to --> error
+	if(d[0] > d[1]) { displayError("@Localize.get("time.err.negativeTime")"); return "err"; }
+	//if days equal and hours exist
+	else if (d[0] == d[1] && h.length > 1) { 
+	//if hours from > hours to --> error
+	if(h[0][0] > h[1][0]) { displayError("@Localize.get("time.err.negativeTime")"); return "err"; }
+	//if hours equal and min from > min to --> error
+	else if(h[0][0] == h[1][0] && h[0][1] > h[1][1]) { displayError("@Localize.get("time.err.negativeTime")"); return "err"; }
+	}}}
 	 
-	//completed checks ! build time object
+	//completed checks! build time object
 	var time = {}
-	//exist because all has already returned
-	time.years = [tF[0], tT[0]];
+	//if years exist
+	if(y.length > 1) { 
+		//if years out of warehouse range
+		if(y[0] < minMax.min[0] || y[1] > minMax.max[0]) {
+			displayError("@Localize.get("time.err.minMax")", minMaxString(minMax)); return "err";
+		}
+		time.years = [y[0], y[1]]; 
+	}
 	//if months exist
-	if(tF.length > 1) { time.months = [tF[1], tT[1]]; }
+	if(m.length > 1) {
+		//if month but no years
+		if(y.length < 2) { displayError("@Localize.get("time.err.argLength")"); return "err"; }
+		//if month out of warehouse range
+		if(m[0] < minMax.min[1] || m[1] > minMax.max[1]) {
+			displayError("@Localize.get("time.err.minMax")", minMaxString(minMax)); return "err";
+		}
+		time.months = [m[0], m[1]];
+	}
 	//if days exist
-	if(tF.length > 2) { time.days = [tF[2], tT[2]]; }
+	if(d.length > 1) {
+		//if days but no months or no years
+		if(y.length < 2 || m.length < 2) { displayError("@Localize.get("time.err.argLength")"); return "err"; }
+		//if days out of warehouse range
+		if(d[0] < minMax.min[2] || d[1] > minMax.max[2]) {
+			displayError("@Localize.get("time.err.minMax")", minMaxString(minMax)); return "err";
+		}
+		time.days = [d[0], d[1]];
+	}
 	//if hours & minutes exist
-	if(tF.length > 3) { 
-		time.hours = [tF[3][0], tT[3][0]];
-		time.mins = [tF[3][1], tT[3][1]];
+	if(h.length > 1) {
+		//if hours + minutes but no years or no months or no days
+		if(y.length < 2 || m.length < 2 || d.length < 2) { displayError("@Localize.get("time.err.argLength")"); return "err"; }
+		time.hours = [h[0][0], h[1][0]];
+		time.mins = [h[0][1], h[1][1]];
 	}
 	return time;
 }
@@ -152,6 +195,13 @@ function makeTime(time) {
 	if(!timePat.test(time)) { return "err"; }
 	//else return array with hours and minutes
 	return [parseInt(time.substring(0,time.length-3)), parseInt(time.substr(time.length-2,2))];
+}
+//makes a string representation of the minMaxTime
+function minMaxString(minMax) {
+	var min = minMax.min;
+	var max = minMax.max;
+	return min[2] + "." + min[1] + "." + min[0]
+		+ " - " + max[2] + "." + max[1] + "." + max[0] + "<br />";
 }
 
 //assumes that all values needed are selected

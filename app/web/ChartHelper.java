@@ -14,6 +14,7 @@ import what.Printer;
 import what.sp_chart_creation.Measure;
 import what.sp_config.DimKnot;
 import what.sp_config.DimRow;
+import what.sp_config.TimeDimension;
 
 /**
  * class to create the HTML stuff from configuration for charts.
@@ -35,16 +36,19 @@ public class ChartHelper {
 	private static final String SPC = "&nbsp;";
 	/** contains the background image information, see getStyle(). */
 	private static Html style = null;
+	/** contains the dimensions in the warehouses. */
+	private static ArrayList<DimRow> dims = Facade.getFacadeInstance().getCurrentConfig().getDims();
+	/**
+	 * contains the minimum and maximum time in the warehouse.
+	 */
+	private static int[][] time = null;
 	
 	/**
 	 *  instances of ChartHelper --> singleton.
 	 *  string identifies the language.
 	 */
 	private static HashMap<String, ChartHelper> instance = new HashMap<>();
-	
-	/** contains the dimensions in the warehouses. */
-	private ArrayList<DimRow> dims;
-	
+
 	/** charts available, currently overhead, but with further config files may be needed. */
 	private HashMap<String, Html> charts;
 	
@@ -53,7 +57,6 @@ public class ChartHelper {
 	 * refer to getInstance.
 	 */
 	private ChartHelper() {
-		dims = Facade.getFacadeInstance().getCurrentConfig().getDims();
 		charts = new HashMap<>();
 		for (String chart : ChartIndex.getInstance().getCharts()) {
 			charts.put(chart, createChart(chart));
@@ -93,6 +96,55 @@ public class ChartHelper {
 		return style;
 	}
 	
+	public static String getMinMaxTimeString() {
+		int[][] time = ChartHelper.getMinMaxTime();
+		String obj = "{'min':[";
+		for(int i = 0; i < time[0].length; i++) {
+			obj += time[0][i];
+			if(i < time[0].length - 1) {
+				obj += ", ";
+			}
+		}
+		obj += "], 'max': [";
+		for(int i = 0; i < time[1].length; i++) {
+			obj += time[1][i];
+			if(i < time[1].length - 1) {
+				obj += ", ";
+			}
+		}
+		obj += "]}";
+		return obj;
+	}
+	
+	/**
+	 * returns the minimum and maximum time.
+	 * [i]->[0:year, 1:month, 2:day]
+	 * @return returns a int[][] array with the minimum time (i:0) 
+	 * and maximum time(i:1) or null if no such time.
+	 */
+	private static int[][] getMinMaxTime() {
+		if(time == null) {
+			for(DimRow dim: dims) {
+				if(dim.isTimeDim()) {
+					time = ((TimeDimension) dim).getMinMaxTime();
+				}
+			}
+		}
+		return time;
+	}
+	
+	/**
+	 * returns the minimum and maximum time to a timeDimension.
+	 * @param dim the time dimension.
+	 * @return returns a int[][] array, see getMinMaxTime().
+	 */
+	private static int[][] getMinMaxTime(DimRow dim) {
+		if(time == null) {
+			time = ((TimeDimension) dim).getMinMaxTime();
+		}
+		return time;
+	}
+	
 	/**
 	 * creates the option selection for a specific chart and language.
 	 * @param name the chart name
@@ -102,13 +154,17 @@ public class ChartHelper {
 	private Html createChart(String name) {
 		ArrayList<DimRow> stringDim = new ArrayList<>();
 		ArrayList<String> measures = new ArrayList<>();
+		int[][] time = null;
 		for (DimRow dim: dims) {
 			//if string dim add to list for later
 			if (dim.isStringDim()) {
 				stringDim.add(dim);
-			//else add to measure list for later
+			//else if measure add to measure list for later
 			} else if (!dim.isDimension()) {
 				measures.add(dim.getName());
+			//if time dim
+			} else if(dim.isTimeDim()) {
+				ChartHelper.getMinMaxTime(dim);
 			}
 		}
 		String html = "";
@@ -273,7 +329,8 @@ public class ChartHelper {
 	 * @return returns the html String for it
 	 */
 	private String time() {
-		int[] year = {2011, 2012};
+		int[][] time = ChartHelper.getMinMaxTime();
+		int[] year = {time[0][0], time[1][0]};
 		String html = "<div id=\"timescale\">";
 		String[] ft = {"From", "To"};
 		for (String s: ft) {
