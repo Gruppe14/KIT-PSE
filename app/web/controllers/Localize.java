@@ -82,7 +82,7 @@ public class Localize extends Controller {
 	 */
 	public static String language() {
 		//could be the 
-		if(instance == null) {
+		if (instance == null) {
 			return standard;
 		}
 		String lang = session("lang");
@@ -127,7 +127,7 @@ public class Localize extends Controller {
 	 * @return returns a Localize object.
 	 */
 	private static Localize instance() {
-		if(Localize.instance == null) {
+		if (Localize.instance == null) {
 			Localize.instance = new Localize();
 		}
 		return Localize.instance;

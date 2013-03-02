@@ -260,7 +260,7 @@ public class Website extends Controller {
      * @param notNeeded required by routes, but not needed 
      * @return returns to index
      */
-    public static Result redirect(String notNeeded) {
+    public static Result standardRedirect(String notNeeded) {
     	return redirect(web.controllers.routes.Website.index());
     }
 }

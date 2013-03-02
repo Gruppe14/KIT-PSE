@@ -40,5 +40,5 @@ GET     /assets/*file               	controllers.Assets.at(path="/public", file)
 GET /TEST								web.controllers.Test.test()
 
 # standard route for all other urls; index page
-GET /*a										web.controllers.Website.redirect(a)
-POST /*a									web.controllers.Website.redirect(a)
+GET /*a										web.controllers.Website.standardRedirect(a)
+POST /*a									web.controllers.Website.standardRedirect(a)
