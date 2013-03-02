@@ -1,4 +1,4 @@
-function piechart(json) {
+function piechart(json, sorted) {
     var data;
     var xAxisName;
     var yAxisName;
@@ -31,9 +31,22 @@ function piechart(json) {
 			.innerRadius(0);
         //well, if you set this to not 0 it becomes a donut chart!
 
+        function comparator(a, b) {
+			a = +getY(a); //the second dimension is always the measure
+			b = +getY(b);
+			
+			if (isNaN(a) || isNaN(b)) {
+				//abort?
+				console.log("Error, the data doesn't have an numeric attribute");
+			}
+			return (b - a);
+		}
         var pie = d3.layout.pie()
-            .sort(getY)
             .value(getY);
+            
+        if (sorted != false) {
+            pie.sort(comparator);
+        }
 
         $("#chart").html("");
         var svg = d3.select("#chart").append("svg")
@@ -72,7 +85,7 @@ function piechart(json) {
             var text = "";
             
             //TODO: FIND A GREAT MATHEMATICALLY PRECISE FORMULA INSTEAD OF STUPID HEURISTIC
-            if((Math.abs(startAngle - endAngle)) > 0.7) {
+            if((Math.abs(startAngle - endAngle)) > 0.6) {
                 //console.log(getX(d.data));
                 text = getX(d.data);
             }
