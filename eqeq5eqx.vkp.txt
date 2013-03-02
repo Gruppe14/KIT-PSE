@@ -1,0 +1,19 @@
+﻿test cases
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   app/what/FileHelper.java
+#	modified:   app/what/Printer.java
+#	modified:   app/what/sp_data_access/MySQLAdapter.java
+#	modified:   conf/ConfigurationFile.json
+#	new file:   example/TestConfig1.json
+#	new file:   example/TestConfig2.txt
+#	new file:   test/what/test/ConfigTest.java
+#	modified:   test/what/test/GeneralClasses.java
+#	modified:   test/what/test/ParserTest.java
+#	modified:   test/what/test/TestRunner.java
+#
+

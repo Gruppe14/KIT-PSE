@@ -60,8 +60,6 @@
 		"Level": 1,
 		"Name": "server",
 		"LogId": "server",
-		"List": ["SDSS3J" , "SDSS3D", "SDSS2A", "SDSS2B", "SDSSSQL007",
-				 "SDSSSQL005", "JHU-SDSS002",],
 	},
 	
 	{
@@ -70,8 +68,6 @@
 		"Level": 2,
 		"Name": "database",
 		"LogId": "dbname",
-		"List": ["BESTDR1", "BESTDR2", "BESTDR3", "BESTDR4", "BESTDR5",
-				 "BESTDR6", "BESTDR7" , "BESTDR8" , "BESTDR9",],
 	},
 	
 	{

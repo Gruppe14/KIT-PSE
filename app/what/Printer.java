@@ -93,5 +93,19 @@ public class Printer {
 		}
 		print("TEST: " + s);
 	}
+
+	
+	/**
+	 * Prints an test case message for the given String (and a new line).
+	 * 
+	 * @param s String to be printed with a test case message
+	 */
+	public static void ptestcase(String s) {
+		if (s == null) {
+			perror("Something which succeeded and a wrong given String to the ptest method!");
+		}
+		print("TEST CASE >>> " + s);
+		
+	}
 	
 }
