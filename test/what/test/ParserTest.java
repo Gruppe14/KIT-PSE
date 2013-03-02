@@ -10,6 +10,7 @@ import what.Facade;
 import what.Printer;
 import what.sp_parser.ParserMediator;
 
+//@Ignore
 public class ParserTest {
 	
 	// file names
@@ -147,4 +148,5 @@ public class ParserTest {
 	private String getPathFor(String s) {
 		return sourcePath + seperator + "example" + seperator + s;
 	}
+	
 }

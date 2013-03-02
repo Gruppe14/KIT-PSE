@@ -17,7 +17,7 @@ public final class DBTableBuilder {
 	
 	// Strings to create and attributes
 	/** MySQL short constant. */
-	private static final String CREATE = "CREATE TABLE ";
+	private static final String CREATE = "CREATE TABLE IF NOT EXISTS ";
 	/** MySQL short constant. */
 	private static final String UNIQUE = " UNIQUE ";
 	/** MySQL short constant. */
@@ -101,9 +101,9 @@ public final class DBTableBuilder {
 
 		
 		// TEST
-		for (int i = 0, j = creates.length; i < j; i++) {
+		/*for (int i = 0, j = creates.length; i < j; i++) {
 			Printer.ptest("Create query " + i + ": " + creates[i]);
-		}
+		}*/
 		
 		return creates;
     }

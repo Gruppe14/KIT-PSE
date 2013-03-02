@@ -97,6 +97,8 @@ public class DataMediator {
 				int[][] time = adapter.getTime(td);
 				if (time != null) {
 					td.setMinMaxTime(time);
+				} else {
+					return false;
 				}
 				
 				
@@ -233,14 +235,15 @@ public class DataMediator {
 	 */
 	public boolean createDBTables() {
 		if (adapter.createDBTables()) {
+			Printer.psuccess("Creating tables.");
 			setTablesCreated();
 			return true;
 		} else {
+			Printer.pfail("Creating tables.");
 			return false;
 		}
 	}
 
-	
 	/**
 	 * Sets the boolean for the table is created to the given boolean.
 	 */
@@ -248,7 +251,6 @@ public class DataMediator {
 		 adapter.storeDataBase(config.getNameOfDB());
 	}
 	
-
 	/**
 	 * Returns whether the tables in the warehouse are created yet.
 	 * 

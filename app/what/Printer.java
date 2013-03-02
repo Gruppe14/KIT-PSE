@@ -104,7 +104,7 @@ public class Printer {
 		if (s == null) {
 			perror("Something which succeeded and a wrong given String to the ptest method!");
 		}
-		print("TEST CASE >>> " + s);
+		print("\nTEST CASE >>> " + s);
 		
 	}
 	

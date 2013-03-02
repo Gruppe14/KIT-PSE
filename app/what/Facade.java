@@ -106,7 +106,7 @@ public class Facade {
 			Printer.pfail("Building ConfigWrap with the given path failed");
 			return false;
 		} else {
-			Printer.psuccess("Building ConfigWrap.");
+			Printer.psuccess("Building ConfigWrap for: " + config.getNameOfDB());
 		}
 		
 		// set all the attributes
@@ -120,6 +120,7 @@ public class Facade {
 		
 		// create tables for the configuration if necessary
 		if (!(tablesAreCreated())) {
+			Printer.print("Tables not created for this configuration. Will happen now.");
 			if (!(createDBTables())) {
 				Printer.pfail("Creating tables for this configuration");
 				return false;
@@ -352,8 +353,10 @@ public class Facade {
 		
 		if (!(dataMedi.organizeData())) {
 			Printer.pfail("Precomputing data for dimensions.");
+		} else {
+			Printer.psuccess("Precomputing data for dimensions.");
 		}
-		Printer.psuccess("Precompunting data for dimensions.");
+		
 	}
 
 	// -- TESTING -- TESTING -- TESTING -- -- TESTING --

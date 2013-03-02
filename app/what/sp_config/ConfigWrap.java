@@ -37,50 +37,50 @@ public class ConfigWrap {
 	
 	// highest level in configuration file
 	/** 
-	 * Static String for the name in the .json configuration file. 
+	 * Static String for the name in the .JSON configuration file. 
 	 * @see ConfigWrap
 	 */
 	protected static final String DB_NAME = "Name";
 	
 	/** 
-	 * Static String for the version in the .json configuration file. 
+	 * Static String for the version in the .JSON configuration file. 
 	 * @see ConfigWrap
 	 */
 	protected static final String VERSION = "Version";
 	
 	/** 
-	 * Static String for the fields in the .json configuration file.
+	 * Static String for the fields in the .JSON configuration file.
 	 * @see ConfigWrap
 	 */
 	protected static final String FIELDS = "Fields";
 
 	// second level specifying fields/rows in configuration file
 	/** 
-	 * Static String for the name of a field/row in the .json configuration file. 
+	 * Static String for the name of a field/row in the .JSON configuration file. 
 	 * @see RowEntry
 	 */
 	protected static final String ATRI_NAME = "Name";
 	
 	/** 
-	 * Static String for the category of a field/row in the .json configuration file. 
+	 * Static String for the category of a field/row in the .JSON configuration file. 
 	 * @see RowEntry
 	 */
 	protected static final String ATRI_CAT = "Categorie";
 	
 	/** 
-	 * Static String for the level (in dimension) of a field/row in the .json configuration file.  
+	 * Static String for the level (in dimension) of a field/row in the .JSON configuration file. 
 	 * @see RowEntry
 	 */
 	protected static final String ATRI_LVL = "Level";
 	
 	/** 
-	 * Static String for the logId of a field/row in the .json configuration file.
+	 * Static String for the logId of a field/row in the .JSON configuration file.
 	 * @see RowEntry
 	 */
 	protected static final String ATRI_LOG = "LogId";
 	
 	/** 
-	 * Static String for the  of a field/row in the .json configuration file. 
+	 * Static String for the  of a field/row in the .JSON configuration file. 
 	 * @see RowEntry
 	 */
 	protected static final String ATRI_SCL = "Scale";
@@ -95,7 +95,7 @@ public class ConfigWrap {
 	protected static final String ATRI_STRINGS = "List";
 	
 	/** 
-	 * Static String for the parent/topic of a string array set in the .json configuration file.
+	 * Static String for the parent/topic of a string array set in the .JSON configuration file.
 	 * @see StringMapRow
 	 */
 	protected static final String STRING_NAME = "ParentName";

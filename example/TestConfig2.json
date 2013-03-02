@@ -1,46 +1,46 @@
 {
-	"Name": "Test configuration",
+	"Name": "Test configuration 2",
 	"Version": "42",
 	
 	"Fields": [
 	{
 		"Type": "INT",
-		"Categorie": "time",
+		"Categorie": "time3",
 		"Level": 1,
 		"Name": "jahr",
 		"LogId": "jj",
 	},
 	{
 		"Type": "INT",
-		"Categorie": "time",
+		"Categorie": "time3",
 		"Level": 2,
 		"Name": "monat",
 		"LogId": "mm",
 	},
 	{
 		"Type": "INT",
-		"Categorie": "time",
+		"Categorie": "time3",
 		"Level": 3,
 		"Name": "tag",
 		"LogId": "tt",
 	},
 	{
 		"Type": "INT",
-		"Categorie": "time",
+		"Categorie": "time3",
 		"Level": 4,
 		"Name": "stunde",
 		"LogId": "ss",
 	},
 	{
 		"Type": "INT",
-		"Categorie": "time",
+		"Categorie": "time3",
 		"Level": 5,
 		"Name": "minute",
 		"LogId": "mi",
 	},
 	{
 		"Type": "INT",
-		"Categorie": "time",
+		"Categorie": "time3",
 		"Level": 6,
 		"Name": "sekunde",
 		"LogId": "ss",
@@ -201,7 +201,7 @@
 		"Type": "STRINGMAP",
 		"Categorie": "type",
 		"Level": 0,
-		"Name": "type",
+		"Name": "statement",
 		"LogId": "statement",
 		"List": [
 				 { "ParentName" = "NAME",

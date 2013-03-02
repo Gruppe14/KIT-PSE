@@ -2,18 +2,14 @@ package what.test;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
-
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import what.Facade;
-import what.FileHelper;
-import what.JSONReader;
 
-//JSON imports
-import org.json.JSONArray;
-import org.json.JSONObject;
+import what.Printer;
+
 
 public class ConfigTest {
 	
@@ -36,15 +32,29 @@ public class ConfigTest {
 		f = Facade.getFacadeInstance();
 	}
 	
-	// -- Config build -- Config build -- Config build -- Config build --
+	// -- Configuration build -- Configuration build -- Configuration build --
 	//>> file names
 	private static final String CONFIG1 = "TestConfig1.json";
+	private static final String CONFIG1_PARSING = "Config1-TestParsing.csv";
 	private static final String CONFIG2 = "TestConfig2.json";
 	
+
 	
+	@Test
+	public void configTest1() {
+		Printer.ptestcase("Other config 1");
+		assertTrue(f.init(getPathForExample(CONFIG1)));
+		assertTrue(f.init(getPathForExample(CONFIG1)));
+		assertTrue(f.parseLogFile(getPathForExample(CONFIG1_PARSING)));
+		resetFacade();
+	}
 	
-	// -- Facade -- Facade -- Facade -- Facade --
-	// is tested via hand, nothing would work, if it wouldn't work
+	@Test
+	public void configTest2() {
+		Printer.ptestcase("Other config 2");
+		assertTrue(f.init(getPathForExample(CONFIG2)));
+		resetFacade();
+	}
 	
 	// -- HELPER -- HELPER -- HELPER -- HELPER -- HELPER --
 	private String getPathForExample(String s) {
