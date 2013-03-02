@@ -515,7 +515,6 @@ public class MySQLAdapter {
 			return s;
 		} catch (SQLException e) {
 			Printer.perror("Creating statement.");
-			e.printStackTrace();
 			return null;
 		}
 	}
