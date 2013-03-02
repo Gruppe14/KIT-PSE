@@ -28,14 +28,18 @@ public class DimChart {
 	/** Constant for a position in the result set. */
 	private static final int RESULTSET_POSITION_X = 2;
 	
-	/** Constant name tu put in JSONObject. */
+	/** Constant name to put in JSONObject. */
 	protected static final String ATT1 = "attribute1";
-	/** Constant name tu put in JSONObject. */
+	/** Constant name to put in JSONObject. */
 	protected static final String ATT2 = "attribute2";
-	/** Constant name tu put in JSONObject. */
+	/** Constant name to put in JSONObject. */
 	protected static final String ATT3 = "attribute3";
-	/** Constant name tu put in JSONObject. */
+	/** Constant name to put in JSONObject. */
 	protected static final String DATA = "data";
+	/** Constant name to put in JSONObject. */
+	protected static final String CHART = "chartType";
+	/** Constant name to put in JSONObject. */
+	protected static final String MEASURE_ATT = "measureAttribute";
 	
 	/** JSONObject storing this DimCharts representation for D3. */
 	private JSONObject json;
@@ -258,7 +262,8 @@ public class DimChart {
 		assert (j != null);
 			
 		try {
-			j.put("chartType", getChartType());
+			j.put(CHART, getChartType());
+			j.put(MEASURE_ATT, getMeasure().getAggregation());
 		} catch (JSONException e) {
 			Printer.pproblem("Putting chart type into JSONObject.");
 			return false;

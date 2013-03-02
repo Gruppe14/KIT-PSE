@@ -138,7 +138,7 @@ public class Measure {
 	 * 
 	 * @return the aggregation of this Measure
 	 */
-	private String getAggregation() {
+	protected String getAggregation() {
 		return aggregation;
 	}
 
