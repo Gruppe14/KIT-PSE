@@ -1,4 +1,4 @@
-function barchart(json) {
+function barchart(json, sorted) {
     
     function getX(d) {
         return d[xAxisName];
@@ -11,13 +11,13 @@ function barchart(json) {
     var data;
     var xAxisName;
     var yAxisName;
-    console.log(json);
-    console.log(json.data);
+   // console.log(json);
+   // console.log(json.data);
    
         //console.log("I read " + json.data.length + " data points.");
         xAxisName = json.attribute1;
         yAxisName = json.attribute2;
-        console.log("yAxisName=" + yAxisName);
+        //console.log("yAxisName=" + yAxisName);
         data = json.data;
         data.map(function(d) { console.log(getX(d));});
       //  data.map(function(i) {console.log(i);});
@@ -53,8 +53,27 @@ function barchart(json) {
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+            
+        //some way to arrange the data
+        function comparator(a, b) {
+			a = +getY(a); //the second dimension is always the measure
+			b = +getY(b);
+			
+			if (isNaN(a) || isNaN(b)) {
+				//abort?
+				console.log("Error, the data doesn't have an numeric attribute");
+			}
+			return (b - a);
+		}
+        
+        //let's sort the data...
+        if (sorted != false) {
+			data.sort(comparator);
+		}
+
         //the scales
         var xScale = d3.scale.ordinal()
+            //.sort(comparator)
             .domain(data.map(getX))
             .rangeRoundBands([0, w], 0.04);
 

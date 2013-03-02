@@ -1,4 +1,4 @@
-function bubblechart(json) {
+function bubblechart(json, sorted) {
     var data;
 	
     console.log("I read " + json.data.length + " data points.");
@@ -29,12 +29,28 @@ function bubblechart(json) {
 		//the color palette used for the data.
 	    var color = d3.scale.category20();
 
+		//the data has to be sorted somehow
+		function comparator(a, b) {
+			a = +getY(a);
+			b = +getY(b);
+			
+			if (isNaN(a) || isNaN(b)) {
+				//abort?
+				console.log("Error, the data doesn't have an numeric attribute");
+			}
+			return (b - a);
+		}
+		
 		//this contains the scales.
 		var bubble = d3.layout.pack()
 			.value(getY) //set the accessor function to be the second attribute
-		    .sort(getY)
+		    .sort(comparator)
 		    .size([w, h])
 		    .padding(padding);
+		
+		if (sorted != false) {
+			bubble.sort(comparator);
+		}
 
 		$("#chart").html("");
 		//the big svg container
@@ -77,7 +93,7 @@ function bubblechart(json) {
 		    return getX(d).substring(0, d.r / 3.15);
 		});
 		
-		//Yo ocjojom what happens with the boilerplate down here? :-)
+		//Yo ocjojo what happens with the boilerplate down here? :-)
 		//add styles
 		$("#y-axis-description").attr("transform", "rotate(270)")
 			.css({
