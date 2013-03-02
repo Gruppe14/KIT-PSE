@@ -61,11 +61,13 @@ function bubblescatter(json, radius) {
 			xScale = d3.scale.linear()
 	            .domain([d3.min(data, getX), d3.max(data, getX)])
 				.range([padding, w - padding]);
+			console.log("X axis was set to be linear.");
 		}
 		else {
 			xScale = d3.scale.ordinal()
 				.domain(data.map(getX))
 				.rangePoints([padding, w - padding]);
+			console.log("X axis was set to be ordinal.");
 			
 		}
 		
@@ -74,11 +76,13 @@ function bubblescatter(json, radius) {
 	        yScale = d3.scale.linear()
 	            .domain([d3.min(data, getY), d3.max(data, getY)])
 				.range([h - padding, padding]);
+				console.log("Y axis was set to be linear.");
 		}
 		else {
 			yScale = d3.scale.ordinal()
 				.domain(data.map(getY))
 				.rangePoints([h - padding, padding]);
+				console.log("Y axis was set to be ordinal.");
 
 				
 		}
