@@ -71,13 +71,16 @@ function piechart(json, sorted) {
             return color(i);
         });
 
+        //This function returns the angle that the text should be
+        //written so that it fits greatly in its arc
+        function angle(d) {
+            var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
+            a = (a >= 90) ? a - 180 : a;
+            return a;   
+        }
         //add text, even
         slices.append("text")
-            .attr("class", "data-text")
-            .attr("transform", function (d) {
-            return "translate(" + arc.centroid(d) + ")";
-
-        })
+        .attr("class", "data-text")
         //now, not so fast. this will only happen on big enough slices    
         .text(function (d) {
             //angles are in radians...
@@ -86,13 +89,18 @@ function piechart(json, sorted) {
             var text = "";
 
             //TODO: FIND A GREAT MATHEMATICALLY PRECISE FORMULA INSTEAD OF STUPID HEURISTIC
-            if((Math.abs(startAngle - endAngle)) > 15) {
+            //You know, calculate the pixel size by using the radius and the arc
+            if((Math.abs(startAngle - endAngle)) > 12) {
                 //console.log(getX(d.data));
                 text = getX(d.data);
             }
 //            console.log(startAngle - endAngle);
             return text;
+        })
+        .attr("transform", function (d) {
+            return "translate(" + arc.centroid(d) + ")" + "rotate(" + angle(d) + ")";
         });
+        
         
         //hovertext, too!
         slices.append("title")
