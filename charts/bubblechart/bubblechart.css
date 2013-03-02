@@ -1,0 +1,16 @@
+#y-axis-description {	
+	font-family: "kalinga";
+	font-size: 10px;
+}
+.axis path, .axis line {
+	fill: none;
+	stroke: black;
+	shape-rendering: crispEdges;
+}
+.axis text {
+	font-family: "kalinga";
+	font-size: 12px;
+}
+.circle {
+	stroke: #405040;
+}

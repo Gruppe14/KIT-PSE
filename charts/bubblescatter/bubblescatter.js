@@ -173,22 +173,5 @@ function bubblescatter(json, radius) {
 
 
 		//add the attribute names.
-
-        //add styles
-        $(".axis path, .axis line").css({
-            "fill": "none",
-            "stroke": "black",
-            "shape-rendering": "crispEdges"
-        });
-        
-        $(".axis text").css({
-            "font-family": "sans-serif",
-            "font-size": "11px"
-        });
-                
-        $(".circle").css({
-            "stroke": "grey",
-            "fill": "blue"
-        });
     }
 }

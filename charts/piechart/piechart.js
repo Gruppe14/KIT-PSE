@@ -107,13 +107,5 @@ function piechart(json, sorted) {
         .text(function(d) {
             return "(" + xAxisName + ":" + getX(d.data) + ", " + yAxisName + ":" + format(getY(d.data)) + ")";
         });
-        
-               
-        //add non dynamic styles
-        $(".data-text").css({
-			"font-family": "sans-serif",
-            "dy": ".35em",
-            "text-anchor": "middle"
-        });
     }
 }
