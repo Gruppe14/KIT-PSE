@@ -34,7 +34,7 @@ function makeRequest() {
 			},
 			error:function(q, err, ex) {
 				$("#chart").html("");
-		 		displayError("@Localize.get("charts.requestErr")");
+		 		requestError();
 			}
 		});
 	//if error
@@ -419,4 +419,7 @@ function displaySave() {
 		$("#message").find("#download").focus();
 		}
 	}
+}
+function requestError() {
+	displayError("@Localize.get("charts.requestErr")");
 }
