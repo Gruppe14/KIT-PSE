@@ -2,6 +2,7 @@ package what.sp_chart_creation;
 
 import java.util.TreeSet;
 
+import what.Printer;
 import what.sp_config.DimKnot;
 // intern imports
 import what.sp_config.DimRow;
@@ -62,6 +63,73 @@ public class Filter {
 		}
 		
 		this.tableNickName = setTableId(dimension.getDimTableName());
+		
+	}
+
+	/**
+	 * Checks the integrity of this filter.
+	 * 
+	 * @param f Filter to check
+	 * @return whether it is of integrity
+	 */
+	public static boolean checkIntegrityOfFilter(Filter f) {
+		assert (f != null);
+		
+		if (f instanceof TimeFilter) {
+			return true;
+		}
+		
+		return compareTrees(f.getTrees(), f.getDimension().getStrings());
+	}
+	
+	/**
+	 * Compares whether treesPart is subset of treesAll.
+	 * 
+	 * @param treesPart trees to be checked of being subset 
+	 * @param treesAll of this trees
+	 * @return  whether treesPart is subset of treesAll
+	 */
+	private static boolean compareTrees(TreeSet<DimKnot> treesPart, TreeSet<DimKnot> treesAll) {
+		assert (treesPart != null);
+		assert (treesAll != null);
+		
+		for (DimKnot dk : treesPart) {
+			 if (!(compare(dk, treesAll))) {
+				 return false;
+			 }
+		}
+		
+		return true;
+	}
+
+	/**
+	 * Compares whether DimKnot is in treesAll.
+	 * 
+	 * @param dk DimKnot to be checked of being in 
+	 * @param treesAll of this trees
+	 * @return  whether DimKnot is in treesAll
+	 */
+	private static boolean compare(DimKnot dk, TreeSet<DimKnot> treesAll) {
+		assert (dk != null);
+		assert (treesAll != null);
+		
+		for (DimKnot parent : treesAll) {
+			if (parent.getValue().equalsIgnoreCase(dk.getValue())) {
+				
+				if (dk.hasChildren()) {
+					if (parent.hasChildren()) {
+						return compareTrees(dk.getChildren(), parent.getChildren());
+					} else {
+						Printer.perror("Filter is deeper than possible");
+						return false;
+					}
+				}
+				
+				return true;
+			}
+		}
+		
+		return false;
 		
 	}
 
@@ -144,6 +212,16 @@ public class Filter {
 		return dimension;
 	}
 	
+	/**
+	 * Returns the trees of this filter.
+	 * 
+	 * @return the tress of this filter
+	 */
+	private TreeSet<DimKnot> getTrees() {
+		return trees;
+	}
+	
+	
 	// -- SQL GETTER -- SQL GETTER -- SQL GETTER -- SQL GETTER --
 	/**
 	 * Returns the query part for the table key.<br>
@@ -201,4 +279,7 @@ public class Filter {
 	public String toString() {
 		return "\n>> Filter [dimension=" + dimension.getName() + ", all=" + all + ", trees=" + trees  + "]";
 	}
+
+	
+	
 }
