@@ -66,13 +66,13 @@ function bubblescatter(json, radius) {
 		else {
 			xScale = d3.scale.ordinal()
 				.domain(data.map(getX))
-				.rangePoints([padding, w - padding]);
+				.rangeRoundBands([padding, w - padding], 0.04);
 			console.log("X axis was set to be ordinal.");
 			
 		}
 		
 		
-		if (xAxisNum) {
+		if (yAxisNum) {
 	        yScale = d3.scale.linear()
 	            .domain([d3.min(data, getY), d3.max(data, getY)])
 				.range([h - padding, padding]);
@@ -81,7 +81,7 @@ function bubblescatter(json, radius) {
 		else {
 			yScale = d3.scale.ordinal()
 				.domain(data.map(getY))
-				.rangePoints([h - padding, padding]);
+				.rangeRoundBands([h - padding, padding], 0.04);
 				console.log("Y axis was set to be ordinal.");
 
 				
@@ -96,15 +96,15 @@ function bubblescatter(json, radius) {
         //the axes
         var xAxis = d3.svg.axis()
             .scale(xScale)
-            .orient("bottom")
-            .ticks(3)
-            .tickFormat(format);
+            .orient("bottom");
+//            .ticks(3)
+//            .tickFormat(format);
 
         var yAxis = d3.svg.axis()
             .scale(yScale)
-            .orient("left")
-            .ticks(3)
-            .tickFormat(format);
+            .orient("left");
+//            .ticks(3)
+//            .tickFormat(format);
 
 
         $("#chart").html("");
@@ -176,6 +176,13 @@ function bubblescatter(json, radius) {
 			.text(yAxisName);
 
 
-		//add the attribute names.
+		//position names
+		$("#x-axis > g > text")
+			.attr("dy", "")
+			.attr("y", "4")
+			.attr("x", "3")
+			.css("text-anchor", "");
+		//rotate text
+		$("#x-axis text").attr("transform", "rotate(270)")
     }
 }
