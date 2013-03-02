@@ -1,3 +1,26 @@
 .bar:hover {
 	stroke:black;
 }
+#x-axis text {
+	font-family: "kalinga";
+	font-size: 14px;
+	pointer-events: none;
+}		
+#y-axis-description {
+	font-family: "kalinga";
+	font-size: 14px;
+	font-weight: bold;
+}
+		
+.bar {
+	fill: #FF5F00;
+	stroke: #FF7700;
+}        
+.axis path,.axis line {
+	fill: none;
+	stroke: black;
+	shape-rendering: crispEdges;    
+}
+#x-axis-description {
+	font-weight: bold;
+}

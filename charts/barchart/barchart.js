@@ -129,29 +129,5 @@ function barchart(json) {
 			.css("text-anchor", "");
 		//rotate text
 		$("#x-axis text").attr("transform", "rotate(270)")
-        //####  all styles####
-		.css({
-			"font-family": "kalinga",
-			"font-size": "14px",
-			"pointer-events": "none"
-		});
-		
-		$("#y-axis-description").css({
-			"font-family": "kalinga",
-			"font-size": "14px",
-			"font-weight": "bold"
-		});
-		
-		$(".bar").css({
-			"fill": "#FF5F00",
-			"stroke": "#FF7700"
-		});
-        
-        $(".axis path,.axis line").css({
-            "fill": "none",
-            "stroke": "black",
-            "shape-rendering": "crispEdges"    
-        });
-        $("#x-axis-description").css("font-weight", "bold");
     }
 }
