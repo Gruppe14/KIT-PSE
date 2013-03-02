@@ -24,6 +24,7 @@ function piechart(json) {
         
         var radius = Math.min(w, h) / 2; //change 2 to 1.4. It's hilarious.
         var color = d3.scale.category20();
+        var format = d3.format(".3r");
 
         var arc = d3.svg.arc() //each datapoint will create one later.
 			.outerRadius(radius - 20)
@@ -62,17 +63,30 @@ function piechart(json) {
             .attr("class", "data-text")
             .attr("transform", function (d) {
             return "translate(" + arc.centroid(d) + ")";
+
         })
-            .text(function (d) {
-            return getX(d.data);
+        //now, not so fast. this will only happen on big enough slices    
+        .text(function (d) {
+            var startAngle = d.startAngle;
+            var endAngle = d.endAngle;
+            var text = "";
+            
+            //TODO: FIND A GREAT MATHEMATICALLY PRECISE FORMULA INSTEAD OF STUPID HEURISTIC
+            if((Math.abs(startAngle - endAngle)) > 0.7) {
+                //console.log(getX(d.data));
+                text = getX(d.data);
+            }
+//            console.log(startAngle - endAngle);
+            return text;
         });
         
         //hovertext, too!
         slices.append("title")
         .text(function(d) {
-            return "(" + xAxisName + ":" + getX(d.data) + ", " + yAxisName + ":" + getY(d.data) + ")";
+            return "(" + xAxisName + ":" + getX(d.data) + ", " + yAxisName + ":" + format(getY(d.data)) + ")";
         });
         
+               
         //add non dynamic styles
         $(".data-text").css({
 			"font-family": "sans-serif",
