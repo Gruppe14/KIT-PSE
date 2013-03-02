@@ -58,12 +58,12 @@ public class MySQLAdapter {
 	/** MySQL short constant. */
 	public static final String EQL = " = ";
 	/** MySQL short constant. */
-	public static final String MORE = " > ";
+	public static final String MORE = " >= ";
 	/** MySQL short constant. */
-	public static final String LESS = " < ";
+	public static final String LESS = " <= ";
 	
 	
-	/** MySQL short constant. */
+	/** MySQL short constant. */ 
 	public static final String AS = " AS ";
 	/** MySQL short constant. */
 	private static final String AS_FACTTABLE = " FT "; 
