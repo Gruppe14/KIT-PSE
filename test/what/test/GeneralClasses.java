@@ -17,7 +17,7 @@ import what.Printer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-@Ignore
+//@Ignore
 public class GeneralClasses {
 	
 	// is needed every time... the heart of the system

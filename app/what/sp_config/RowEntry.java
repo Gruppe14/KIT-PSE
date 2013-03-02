@@ -65,6 +65,9 @@ public abstract class RowEntry {
 	 */
 	protected static final String TYPE_DUMMY = "NULL";	
 	
+	/** Static Strings for time.  */
+	protected static final String TIME = "time";	
+	
 	// -- ATTRIBUTES -- ATTRIBUTES -- ATTRIBUTES -- ATTRIBUTES --
 	/**
 	 * The RowId of this RowEntry to determine the type without using instanceOf().
