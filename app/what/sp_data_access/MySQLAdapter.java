@@ -17,6 +17,7 @@ import what.sp_chart_creation.DimChart;
 import what.sp_config.ConfigWrap;
 import what.sp_config.DimRow;
 import what.sp_config.RowId;
+import what.sp_config.TimeDimension;
 import what.sp_parser.DataEntry;
 
 /**
@@ -63,6 +64,12 @@ public class MySQLAdapter {
 	public static final String LESS = " <= ";
 	
 	
+	/** MySQL short constant. */
+	public static final String MIN = " MIN( ";
+	/** MySQL short constant. */
+	public static final String MAX = " MAX( ";
+	
+	
 	/** MySQL short constant. */ 
 	public static final String AS = " AS ";
 	/** MySQL short constant. */
@@ -88,6 +95,8 @@ public class MySQLAdapter {
 	public static final String APOS = "'";
 	/** MySQL short constant. */
 	public static final String DOT = ".";
+	
+	
 	
 	/** Constant number for HashCodeBuilder. */
 	public static final int HASHONE = 7;
@@ -267,7 +276,7 @@ public class MySQLAdapter {
 	}
 
 	// -- EXTRACTING -- EXTRACTING -- EXTRACTING -- EXTRACTING -- EXTRACTING --
-	// EXTRACTNING >> 1 dim Table (x + measure)
+	// EXTRACTING >> 1 dim Table (x + measure)
 	/**
 	 * Returns a JSONObject with two rows containing for a given x from table xTable with key xKey
 	 * the measure (including aggregation) with given filters.
@@ -307,7 +316,7 @@ public class MySQLAdapter {
 		return executeChartRequest(select + from + join + on + groupBy, chart);
 	} 
 	
-	// EXTRACTNING >> all values of a Row
+	// EXTRACTING >> all values of a Row
 	/**
 	 * Returns a TreeSet of strings of type child with parent as filter from the given table.
 	 * 
@@ -345,6 +354,147 @@ public class MySQLAdapter {
 		return requestStringSet(query);
 	}
 	
+	// EXTRACTING >> time
+	/**
+	 * Returns the time from-to array for the given time dimension.
+	 * 
+	 * @param td TimeDimension for which the time is requested
+	 * @return the time from-to array for the given time dimension
+	 */
+	public int[][] getTime(TimeDimension td) {
+		assert (td != null);
+				
+		int[][] time = new int[TimeDimension.TIME_MIN_MAX][TimeDimension.TIME_WEBPAGE_LENGTH];
+		
+		// first level
+		String minQuery = SELECT + MIN + td.getColumnNameOfLevel(0) + RBR
+						+ FROM + td.getDimTableName();
+		String maxQuery = SELECT + MAX + td.getColumnNameOfLevel(0) + RBR
+						+ FROM + td.getDimTableName();
+		
+		int[] result = executeTimeRequest(minQuery, maxQuery);
+		if (result == null) {
+			Printer.pfail("Getting time interval first level");
+			return null;
+		}
+		
+		time[0][0] = result[0];
+		time[1][0] = result[1];
+		
+		// deeper levels
+		for (int i = 1; i < TimeDimension.TIME_WEBPAGE_LENGTH; i++) {
+			minQuery = SELECT + MIN + td.getColumnNameOfLevel(i) + RBR
+						+ FROM + td.getDimTableName()
+						+ WHERE;
+			maxQuery = SELECT + MAX + td.getColumnNameOfLevel(i) + RBR
+					+ FROM + td.getDimTableName()
+					+ WHERE;
+			for (int j = 0; j < i; j++) {
+				// build the conditions
+				if (j > 0) {
+					minQuery += AND;
+					maxQuery += AND;
+				}
+				minQuery += td.getColumnNameOfLevel(j) + EQL 
+							+ time[0][j];
+				maxQuery += td.getColumnNameOfLevel(j) + EQL 
+							+ time[1][j];
+	
+			}	
+			
+			// make the request
+			result = executeTimeRequest(minQuery, maxQuery);
+			if (result == null) {
+				Printer.pfail("Getting time interval for level " + i);
+				return null;
+			}
+			
+			// store results
+			time[0][i] = result[0];
+			time[1][i] = result[1];
+		}
+
+		// testing
+		/*String from = "from array: ";
+		String to = "to array: ";
+		for (int k = 0; k < 3; k++) {
+			from += time[0][k] + ", ";
+			to += time[1][k] + ", ";
+		}
+		Printer.ptest(from);
+		Printer.ptest(to);
+		*/
+		
+		return time;
+	}
+	
+	/**
+	 * Returns an array of integer for two
+	 * given queries. First query
+	 * will at position 0,
+	 * second at position 1 in array.<br>
+	 * 
+	 * If something went wrong null is returned.
+	 * 
+	 * @param minQuery query for first integer
+	 * @param maxQuery query for second integer
+	 * @return array of integer for queries
+	 */
+	private int[] executeTimeRequest(String minQuery, String maxQuery) {
+		assert (minQuery != null);
+		assert (maxQuery != null);
+		
+		// get statement
+		Connection c = getNoAutoCommitConnection();
+		Statement s = getStatement(c);
+		if (s == null) {
+			Printer.pfail("Getting Statment.");
+			close(c);
+		}
+		
+		int[] result = new int[TimeDimension.TIME_MIN_MAX];
+		
+		int from = getIntegerFromQuery(minQuery, s);
+		int to = getIntegerFromQuery(maxQuery, s);
+		if ((from <= 0) || (to <= 0)) {
+			Printer.pfail("Getting a time integer.");
+			close(s, c);
+			return null;
+		} else {
+			result[0] = from;
+			result[1] = to;
+		}
+		
+		return result;
+	}
+
+	/**
+	 * Returns an integer for a given query.
+	 * 
+	 * @param query MySQL query to execute
+	 * @param s Statement to execute the query
+	 * @return an integer for a given query
+	 */
+	private int getIntegerFromQuery(String query, Statement s) {
+		assert (query != null);
+		assert (s != null);
+		
+		//Printer.ptest("Integer request query: "+ query);
+		
+		ResultSet res = null;
+		int intRes = -1;
+		try {
+			res = s.executeQuery(query);
+			res.next();
+			intRes = res.getInt(1);
+		} catch (SQLException e) {
+			Printer.perror("Int request failed: " + query);
+			return intRes;
+		}
+		
+		return intRes;
+	}
+
 	// -- EXECUTING -- EXECUTING -- EXECUTING -- EXECUTING -- EXECUTING --
 	// EXECUTING >> UPLOAD concerning
 	/**
@@ -668,7 +818,7 @@ public class MySQLAdapter {
 				
 				// add all rows to the trunk
 				for (int i = 0, l = d.getSize(); i < l; i++) {
-					curDimTrunk += d.getRowNameOfLevel(i) + KOMMA;
+					curDimTrunk += d.getColumnNameOfLevel(i) + KOMMA;
 				}
 				
 				
@@ -680,7 +830,7 @@ public class MySQLAdapter {
 				// store key row of this dimension to the fact trunk
 				factTrunk += d.getTableKey();				
 			} else { // case it is fact
-				factTrunk += d.getRowNameOfLevel(0);	
+				factTrunk += d.getColumnNameOfLevel(0);	
 			}
 			
 			// not last one -> ,
@@ -826,5 +976,6 @@ public class MySQLAdapter {
 		}
 		
 	}
-	
+
+		
 }

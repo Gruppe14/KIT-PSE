@@ -468,15 +468,44 @@ public class ConfigWrap {
 		for (int i = 0, l = getNumberOfRows(); i < l; i++) {
 			DimRow cur = new DimRow();
 			RowEntry re = entries[i];
+			RowId id = re.getId();
 			
-			if (re.getId().equals(RowId.LOCATION)) {
+			if (id.equals(RowId.LOCATION)) {
 				cur = DimRow.getLocationDim();
-			} else if (re.getId().equals(RowId.DUMMY)) {
+			} else if (id.equals(RowId.DUMMY)) {
 				continue;
-			} else {
+			} else if ((id.equals(RowId.STRING)) || (id.equals(RowId.STRINGMAP))) {
+				// this must be a string dimension
+				cur = new StringDim();
+				
 				cur.add(re); 
 				
 				if (re.getLevel() > 0) {
+					String cat = re.getCategory();
+					i++;
+					
+					while ((i < l) && (entries[i].getCategory().equalsIgnoreCase(cat))) {
+						if ((entries[i].getId().equals(RowId.STRING)) 
+								|| (entries[i].getId().equals(RowId.STRINGMAP))) {
+							cur.add(entries[i]);
+							i++;
+						} else {
+							Printer.perror("Wrong format of String dimension, not just string rows.");
+							return false;
+						}	
+					}
+					
+					i--;
+				}
+				
+			} else {			
+				cur.add(re); 
+				
+				if (re.getLevel() > 0) {
+					// so it must be the time dimension
+					cur = new TimeDimension();
+					cur.add(re);
+					
 					String cat = re.getCategory();
 					i++;
 					
@@ -736,7 +765,7 @@ public class ConfigWrap {
 		DimRow d = getDimRowFor(s);
 		if (d != null) {
 			if (d.isDimension()) {
-				return d.getRowNameOfLevel(0);
+				return d.getColumnNameOfLevel(0);
 			} else {
 				return null;
 			}

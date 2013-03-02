@@ -23,10 +23,7 @@ public class DimRow {
 
 	/** This are the actual content of this DimRow, the rows. */
 	private ArrayList<RowEntry> rows = new ArrayList<RowEntry>();
-		
-	/** The trees with the content in the warehouse for this dimension. */
- 	private TreeSet<DimKnot> trees = new TreeSet<DimKnot>(); 
-	
+			
 	// -- LOCATION DIM -- LOCATION DIM -- LOCATION DIM -- 
 	// static Strings for the standard names
 	//private static final String CONTINENT = "continent";
@@ -39,9 +36,9 @@ public class DimRow {
 	
 	// static initialization
  	/** Singleton constant location dimension. */
-	private static final DimRow LOCATION_DIM_INSTANCE; 
+	private static final StringDim LOCATION_DIM_INSTANCE; 
 	static {
-		LOCATION_DIM_INSTANCE = new DimRow();
+		LOCATION_DIM_INSTANCE = new StringDim();
 		//LOCATION_DIM_INSTANCE.add(new StringRow(CONTINENT, "", 1, LOCATION, CONTINENT, null));
 		LOCATION_DIM_INSTANCE.add(new StringRow(COUNTRY, "", 1, LOCATION, COUNTRY));
 		LOCATION_DIM_INSTANCE.add(new StringRow(CITY, "", 2, LOCATION, CITY));
@@ -61,21 +58,7 @@ public class DimRow {
 		
 		return rows.add(rowEntry);		
 	}
-	
-	/**
-	 * Adds a DimKnot to the collection of trees.
-	 * 
-	 * @param dk DimKnot to be added
-	 * @return whether adding was successful
-	 */
-	public boolean addTree(DimKnot dk) {
-		if (dk == null) {
-			throw new IllegalArgumentException();
-		}
 		
-		return trees.add(dk);		
-	}
-	
 	// -- CHECKER -- CHECKER -- CHECKER -- CHECKER -- CHECKER --
 	/**
 	 * Returns whether this is a dimension (and not just a row (measure)).
@@ -97,17 +80,18 @@ public class DimRow {
 	 * This means, the dimension contains Strings.
 	 *
 	 * @return  whether this is a String dimension
-	 * @see StringRow
-	 * @see StringMapRow
 	 */
 	public boolean isStringDim() {
-		if (!isNotEmpty()) {
-			return false;
-		}
-		
-		// we assume it's just strings in a dimension or all not strings
-		RowId cur = rows.get(0).getId();
-		return ((cur == RowId.STRING) || (cur == RowId.STRINGMAP));
+		return (this instanceof StringDim);
+	}
+	
+	/**
+	 * Returns whether this is a time dimension.
+	 *
+	 * @return  whether this is a time dimension
+	 */
+	public boolean isTimeDim() {
+		return (this instanceof TimeDimension);
 	}
 	
 	/**
@@ -238,11 +222,7 @@ public class DimRow {
 	 * @return the tree of Strings of this DimRow
 	 */
 	public TreeSet<DimKnot> getStrings() {
-		if (!isStringDim()) {
-			return null;
-		}
-		
-		return trees;
+		return null;
 	}
 		
 	// >> GETTER for the SQL + WAREHOUSE
@@ -256,6 +236,7 @@ public class DimRow {
 		if (isDimension()) {
 			return MySQLAdapter.DIM_TABLE + ConfigWrap.getStringWithoutSpace(getName());
 		}
+		
 		return null;
 	}
 	
@@ -294,7 +275,7 @@ public class DimRow {
 	 * @param i the position of the row for which the row name is requested
 	 * @return the row name in the warehouse of the row at position i
 	 */
-	public String getRowNameOfLevel(int i) {
+	public String getColumnNameOfLevel(int i) {
 		if ((i < 0) || (i >= getSize())) {
 			throw new IllegalArgumentException();
 		}

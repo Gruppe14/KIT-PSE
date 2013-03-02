@@ -11,7 +11,9 @@ import what.sp_config.ConfigWrap;
 import what.sp_config.DimKnot;
 import what.sp_config.DimRow;
 import what.sp_config.RowId;
+import what.sp_config.StringDim;
 import what.sp_config.StringMapRow;
+import what.sp_config.TimeDimension;
 import what.sp_parser.DataEntry;
 
 /**
@@ -53,44 +55,53 @@ public class DataMediator {
 			
 			// if is no String dimension no computing is necessary 
 			if (d.isStringDim()) {
+				StringDim sd = (StringDim) d;
 				int posi = 0;
-				int size = d.getSize();
+				int size = sd.getSize();
 				TreeSet<String> strings = null;
 				
 				
-				if (d.getRowIdAt(posi).equals(RowId.STRINGMAP)) {
+				if (sd.getRowIdAt(posi).equals(RowId.STRINGMAP)) {
 					// case 1: it's a StringMap and the strings are known
-					StringMapRow r = (StringMapRow) d.getRowAt(posi);
+					StringMapRow r = (StringMapRow) sd.getRowAt(posi);
 					strings = r.getKeyStrings();
 				
 				
-				} else if (d.getRowIdAt(posi).equals(RowId.STRING))  {
+				} else if (sd.getRowIdAt(posi).equals(RowId.STRING))  {
 					// it's a StringRow, request all string of the highest level from the warehouse
-					strings = requestStringsOf(d.getRowNameOfLevel(posi), d.getDimTableName());	
+					strings = requestStringsOf(d.getColumnNameOfLevel(posi), sd.getDimTableName());	
 					
 				} else {
 					// error
-					Printer.perror("Unkown row type at pos. " + posi + " for dim: " + d.getName());
+					Printer.perror("Unkown row type at pos. " + posi + " for dim: " + sd.getName());
 					return false;
 				}
 				
 				// for every String add a DimKnot
 				for (String s : strings) {			
-					DimKnot dk =  new DimKnot(s, d.getRowAt(posi));
+					DimKnot dk =  new DimKnot(s, sd.getRowAt(posi));
 					
 					// if it has deeper levels, add children
 					if (size > 1) {
-						if (!addChildrenTo(dk, d, posi + 1)) {
+						if (!addChildrenTo(dk, sd, posi + 1)) {
 							Printer.pproblem("Adding children to DimKnot: " + dk);
 						}
 					}
 					
-					d.addTree(dk);
+					sd.addTree(dk);
 				}
 
+			} else if (d.isTimeDim()) {
+				TimeDimension td = (TimeDimension) d;
+				
+				int[][] time = adapter.getTime(td);
+				if (time != null) {
+					td.setMinMaxTime(time);
+				}
+				
+				
 			} else {
 				// nothing to do here, cause only String dimensions give selection boxes
-				// time is handled specially
 				continue;
 			}
 		}
@@ -116,7 +127,7 @@ public class DataMediator {
 		int size = d.getSize();
 		
 		// request children
-		TreeSet<String> children = requestStringsWithParent(d.getRowNameOfLevel(posi), d.getRowNameOfLevel(posi - 1), 
+		TreeSet<String> children = requestStringsWithParent(d.getColumnNameOfLevel(posi), d.getColumnNameOfLevel(posi - 1), 
 															dk.getValue(), d.getDimTableName());
 		// request failed
 		if (children == null) {

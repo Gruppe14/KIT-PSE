@@ -351,9 +351,9 @@ public class Facade {
 		assert (isInitialized());
 		
 		if (!(dataMedi.organizeData())) {
-			Printer.pfail("Precomputing strings for dimensions.");
+			Printer.pfail("Precomputing data for dimensions.");
 		}
-		Printer.psuccess("Precompunting strings for dimensions.");
+		Printer.psuccess("Precompunting data for dimensions.");
 	}
 
 	// -- TESTING -- TESTING -- TESTING -- -- TESTING --

@@ -70,7 +70,7 @@ public final class DBTableBuilder {
 				
 				// add all rows to the trunk
 				for (int i = 0, l = d.getSize(); i < l; i++) {
-					curDim += d.getRowNameOfLevel(i) + SPACE 
+					curDim += d.getColumnNameOfLevel(i) + SPACE 
 							+ d.getRowAt(i).getTableType() + KOMMA;
 				}
 				
@@ -83,7 +83,7 @@ public final class DBTableBuilder {
 				// store key row of this dimension to the fact trunk
 				fact += d.getTableKey() + SPACE + INT;				
 			} else { // case it is fact
-				fact += d.getRowNameOfLevel(0) + SPACE + d.getRowAt(0).getTableType();	
+				fact += d.getColumnNameOfLevel(0) + SPACE + d.getRowAt(0).getTableType();	
 			}
 			
 			// not last one -> ,
