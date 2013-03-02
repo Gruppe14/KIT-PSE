@@ -1,4 +1,4 @@
-function bubblechart(json) {
+function bubblechart(json, sorted) {
     var data;
 	
     console.log("I read " + json.data.length + " data points.");
@@ -47,6 +47,10 @@ function bubblechart(json) {
 		    .sort(comparator)
 		    .size([w, h])
 		    .padding(padding);
+		
+		if (sorted != false) {
+			bubble.sort(comparator);
+		}
 
 		$("#chart").html("");
 		//the big svg container

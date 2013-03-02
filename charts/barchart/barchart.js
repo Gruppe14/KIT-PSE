@@ -1,4 +1,4 @@
-function barchart(json) {
+function barchart(json, sorted) {
     
     function getX(d) {
         return d[xAxisName];
@@ -67,8 +67,10 @@ function barchart(json) {
 		}
         
         //let's sort the data...
-        data.sort(comparator);
-//        console.log(olddata === data);
+        if (sorted != false) {
+			data.sort(comparator);
+		}
+
         //the scales
         var xScale = d3.scale.ordinal()
             //.sort(comparator)
