@@ -111,27 +111,46 @@ public class TimeFilter extends Filter {
 		
 		// (
 		String query = MySQLAdapter.AND + MySQLAdapter.LBR; // (
+		String fromQuery = MySQLAdapter.LBR;
+		String toQuery = MySQLAdapter.LBR;
+			
+		boolean andFrom = false;
+		boolean andTo = false;
 		
-		boolean and = false;
 		for (int i = 0; i < ChartHostBuilder.L; i++) {
 			if (from[i] > 0) {
-				if (and) {
-					query += MySQLAdapter.AND;
+				if (andFrom) {
+					fromQuery += MySQLAdapter.AND;
 				} else {
-					and = true;
+					andFrom = true;
 				}
 			}
-			query += getTimeRestriction(from, 0, i);
+			fromQuery += getTimeRestriction(from, 0, i);
+			
+			
 			if (to[i] > 0) {
-				if (and) {
-					query += MySQLAdapter.AND;
+				if (andTo) {
+					toQuery += MySQLAdapter.AND;
 				} else {
-					and = true;
+					andTo = true;
 				}
 			}
-			query += getTimeRestriction(to, 1, i);
+			toQuery += getTimeRestriction(to, 1, i);
 		}
+		// ) 
+		fromQuery += MySQLAdapter.RBR;
+		toQuery += MySQLAdapter.RBR;
 		
+		
+		if (andFrom) {
+			query += fromQuery;
+		}
+		if (andFrom && andTo) {
+			query += MySQLAdapter.OR;
+		}
+		if (andTo) {
+			query += toQuery;
+		}
 		
 		// ) 
 		query += MySQLAdapter.RBR;

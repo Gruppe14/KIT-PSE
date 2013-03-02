@@ -64,17 +64,16 @@ public class ParsingTask implements Runnable {
 
 				de = new DataEntry(pm.getConfig().getNumberOfRows() + 1);
 				if (splitStr.length >= pm.getConfig().getNumberOfRows() 
-						&& (splitStr[pm.getConfig().getNumberOfRows() - 1].toLowerCase().startsWith("select") 
-						|| (splitStr[pm.getConfig().getNumberOfRows() - 1].toLowerCase().startsWith("\"select"))
-						|| (splitStr[pm.getConfig().getNumberOfRows() - 1].toLowerCase().startsWith("exec")))
+						//&& (splitStr[pm.getConfig().getNumberOfRows() - 1].toLowerCase().startsWith("select") 
+						//|| (splitStr[pm.getConfig().getNumberOfRows() - 1].toLowerCase().startsWith("\"select"))
+						//|| (splitStr[pm.getConfig().getNumberOfRows() - 1].toLowerCase().startsWith("exec")))
 						&& (SplittingTool.split(this))) {
 					GeoIPTool.getLocationInfo(this);
 							
-					//System.out.println(de.toString());
 					pm.getWatchDog().addWork(number);
 										
 					boolean success = pm.getLoader().loadEntry(de);
-					//System.out.println("Loading DataEntry was successful: " + success);
+					//Printer.ptest("Loading DataEntry was successful: " + success);
 					if (!success) {
 						pm.increaseLinedel();
 					}

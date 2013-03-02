@@ -212,6 +212,12 @@ public class ConfigWrap {
 			return null;
 		}
 		
+		// check requirements
+		if (!checkRequirements(confi)) {
+			Printer.pfail("Config doesn't fulfill requirements.");
+			return null;
+		}
+		
 		return confi;
 	}
 
@@ -480,7 +486,7 @@ public class ConfigWrap {
 				
 				cur.add(re); 
 				
-				if (re.getLevel() > 0) {
+				if (re.getLevel() == 1) {
 					String cat = re.getCategory();
 					i++;
 					
@@ -525,6 +531,59 @@ public class ConfigWrap {
 		
 		return true;
 	}
+	
+	/**
+	 * Checks whether the given ConfigWrap follows 
+	 * all requirements.
+	 * 
+	 * @param confi ConfigWrap to check
+	 * @return whether the given ConfigWrap follows 
+	 * all requirements
+	 */
+	private static boolean checkRequirements(ConfigWrap confi) {
+		assert (confi != null);
+		
+		int i = 0;
+		
+		// check if it starts with time
+		if (!(confi.getEntryAt(i).getCategory().contains(RowEntry.TIME))
+				&& confi.getEntryAt(i).getId().equals(RowId.INT)) {
+			return false;
+		}
+		while (confi.getEntryAt(i).getCategory().contains(RowEntry.TIME)) {
+			i++;
+		}
+		
+		if ((i - 1) < TimeDimension.TIME_WEBPAGE_LENGTH) {
+			return false;
+		}
+		
+		// check if it ip follows time
+		if (!(confi.getEntryAt(i).getId().equals(RowId.LOCATION))) {
+			return false;
+		}
+						
+		// at least 1 measure
+		if (confi.getNumberOfDims() <= confi.getNumberOfDimsWitoutRows()) {
+			return false;
+		}
+		
+		// check if dimensions where split
+		for (DimRow d1 : confi.getDims()) {
+			for (DimRow d2 : confi.getDims()) {
+				if (d1 != d2) {
+					if (d1.getName().equalsIgnoreCase(d2.getName())) {
+						return false;
+					}
+				}
+			}
+		}
+		
+		
+		
+		return true;
+	}
+	
 	
 	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER -- 
 	/**

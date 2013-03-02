@@ -37,7 +37,10 @@ public class ConfigTest {
 	private static final String CONFIG1 = "TestConfig1.json";
 	private static final String CONFIG1_PARSING = "Config1-TestParsing.csv";
 	private static final String CONFIG2 = "TestConfig2.json";
-	
+	private static final String WRONG1 = "WrongTestConfig1-NoIP.json";
+	private static final String WRONG2 = "WrongTestConfig2-Time.json";
+	private static final String WRONG3 = "WrongTestConfig3-NoMeasure.json";
+	private static final String WRONG4 = "WrongTestConfig4-DimOrder.json";
 
 	
 	@Test
@@ -53,6 +56,34 @@ public class ConfigTest {
 	public void configTest2() {
 		Printer.ptestcase("Other config 2");
 		assertTrue(f.init(getPathForExample(CONFIG2)));
+		resetFacade();
+	}
+	
+	@Test
+	public void configWrong1() {
+		Printer.ptestcase("Config wrong 1");
+		assertFalse(f.init(getPathForExample(WRONG1)));
+		resetFacade();
+	}
+	
+	@Test
+	public void configWrong2() {
+		Printer.ptestcase("Config wrong 2");
+		assertFalse(f.init(getPathForExample(WRONG2)));
+		resetFacade();
+	}
+	
+	@Test
+	public void configWrong3() {
+		Printer.ptestcase("Config wrong 3");
+		assertFalse(f.init(getPathForExample(WRONG3)));
+		resetFacade();
+	}
+	
+	@Test
+	public void configWrong4() {
+		Printer.ptestcase("Config wrong 4");
+		assertFalse(f.init(getPathForExample(WRONG4)));
 		resetFacade();
 	}
 	

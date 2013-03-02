@@ -82,7 +82,13 @@ public class ChartMediator {
 			return null;
 		} else {
 			Printer.psuccess("Creating chart host.");
-			Printer.ptest(chart.toString());
+			//Printer.ptest(chart.toString());
+		}
+		
+		// test integrity
+		if (!isCorrectChart(chart)) {
+			Printer.psuccess("Chart host contains unknown attributes.");
+			return null;
 		}
 		
 		// compute the JSON chart for it
@@ -93,6 +99,37 @@ public class ChartMediator {
 		}
 
 		return null;
+	}
+
+	private boolean isCorrectChart(DimChart chart) {
+		assert (chart != null);
+		
+		if (!(Filter.checkIntegrityOfFilter(chart.getXFilter()))) {
+			Printer.perror("Incorrect x-filter " + chart.getXFilter().getCategory() 
+					+ ", contains bad material.");
+			return false;
+		}
+		
+		for (Filter f : chart.getFilters()) {
+			if (!(Filter.checkIntegrityOfFilter(chart.getXFilter()))) {
+				Printer.perror("Incorrect filter " + f.getCategory() 
+						+ ", contains bad material.");
+				return false;
+			}
+		}
+		
+		
+		if (chart instanceof TwoDimChart) {
+			TwoDimChart twoChart = (TwoDimChart) chart;
+			if (!(Filter.checkIntegrityOfFilter(twoChart.getYFilter()))) {
+				Printer.perror("Incorrect y-filter " + twoChart.getYFilter().getCategory() 
+						+ ", contains bad material.");
+				return false;
+			}
+		}
+		
+		
+		return true;
 	}
 
 	/**

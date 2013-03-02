@@ -1,0 +1,71 @@
+{
+	"Name": "Wrong configuration no measure",
+	"Version": "42",
+	
+	"Fields": [
+	{	"Type": "INT",
+		"Categorie": "time2",
+		"Level": 1,
+		"Name": "jahr",
+		"LogId": "jj",	},
+	{	"Type": "INT",
+		"Categorie": "time2",
+		"Level": 2,
+		"Name": "monat",
+		"LogId": "mm",	},
+	{	"Type": "INT",
+		"Categorie": "time2",
+		"Level": 3,
+		"Name": "tag",
+		"LogId": "tt",	},
+	{	"Type": "INT",
+		"Categorie": "time2",
+		"Level": 4,
+		"Name": "stunde",
+		"LogId": "st",	},
+	{	"Type": "INT",
+		"Categorie": "time2",
+		"Level": 5,
+		"Name": "minute",
+		"LogId": "mi",	},
+	{	"Type": "INT",
+		"Categorie": "time2",
+		"Level": 6,
+		"Name": "sekunde",
+		"LogId": "ss",	},
+	
+	{	"Type": "IP",
+		"Categorie": "what ever",
+		"Level": 1,
+		"Name": "ever what",
+		"LogId": "ip",	},
+		
+	
+
+	{	"Type": "STRINGMAP",
+		"Categorie": "namen",
+		"Level": 0,
+		"Name": "type",
+		"LogId": "statement",
+		"List": [
+				 { "ParentName" = "NAME",
+					"List" = 
+					["Jo", "Lukas", "Alex", "Anas", "Niko", "Marco", "Hoang"
+					],
+				 },
+				
+				  
+				 { "ParentName" = "EMAN reverse",
+					"List" = 
+					["oJ", "sukaL", "xelA", "sanA", "okiN", "orcaM", "gnaoH"
+					],
+				 },
+
+				 { "ParentName" = "OTHER",
+					"List" = 
+					["other"
+					],
+				 }			 
+				],
+	}],
+}
