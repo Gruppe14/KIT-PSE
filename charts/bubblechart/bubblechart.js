@@ -93,30 +93,6 @@ function bubblechart(json, sorted) {
 		    return getX(d).substring(0, d.r / 3.15);
 		});
 		
-		//Yo ocjojo what happens with the boilerplate down here? :-)
-		//add styles
 		$("#y-axis-description").attr("transform", "rotate(270)")
-			.css({
-				"font-family": "kalinga",
-				"font-size": "10px"
-			})
-		$(".axis path, .axis line").css({
-			"fill": "none",
-			"stroke": "black",
-			"shape-rendering": "crispEdges"
-		});
-		$(".axis text").css({
-			"font-family": "kalinga",
-			"font-size": "12px"
-		});
-		/*$(".data-text").css({
-			"font-family": "kalinga",
-			"font-size": "14px",
-			"font-weight": "lighter"
-		});*/
-		$(".circle").css({
-			"stroke": "#405040",
-			//"fill": "grey"
-		});
 	}
 }
