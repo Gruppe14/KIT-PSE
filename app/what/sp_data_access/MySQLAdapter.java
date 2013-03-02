@@ -819,7 +819,7 @@ public class MySQLAdapter {
 		// try to update
 		
 		try {
-			String str = INSERT + CONFIG_TABLE + LBR + SOURCE_DB + RBR + VALUES + LBR + APOS + name + APOS + RBR;
+			String str = INSERT + CONFIG_NAME + LBR + SOURCE_DB + RBR + VALUES + LBR + APOS + name + APOS + RBR;
 			Printer.ptest("Table storing query:" + str);
 			s.executeUpdate(str);
 		} catch (SQLException e) {
