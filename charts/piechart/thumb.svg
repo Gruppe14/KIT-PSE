@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="400.09375"
+   height="200.09375"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="Neues Dokument 1">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient4163">
+      <stop
+         style="stop-color:#09aa00;stop-opacity:0.73184359;"
+         offset="0"
+         id="stop4165" />
+      <stop
+         style="stop-color:#59aa00;stop-opacity:0;"
+         offset="1"
+         id="stop4167" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4163"
+       id="radialGradient4173"
+       cx="322.85715"
+       cy="220.93361"
+       fx="322.85715"
+       fy="220.93361"
+       r="200"
+       gradientTransform="matrix(1.16787,-0.09123984,0.07142857,0.91428571,-69.978981,48.394597)"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="-78.199176"
+     inkscape:cy="-241.96461"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1280"
+     inkscape:window-height="972"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-122.8125,-120.875)">
+    <rect
+       style="fill:#aa0000;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:0.3938224;stroke-dasharray:none"
+       id="rect3299"
+       height="82.857002"
+       x="54.285713"
+       y="135.21933"
+       width="0" />
+    <rect
+       style="fill:url(#radialGradient4173);fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:0.3938224;stroke-dasharray:none"
+       id="rect3393"
+       width="400"
+       height="200"
+       x="122.85714"
+       y="120.93361" />
+    <g
+       id="g4373"
+       transform="matrix(0.62987013,0,0,0.62987013,323.06726,230.9336)">
+      <g
+         id="g4375"
+         class="slice">
+        <path
+           id="path4377"
+           d="m 0,-220 a 0,0 0 0 0 0,0 L 0,0 z"
+           style="fill:#1f77b4"
+           inkscape:connector-curvature="0" />
+        <text
+           id="text4379"
+           class="data-text"
+           transform="matrix(0,1,-1,0,0,-110)"
+           style="text-anchor:middle;font-family:sans-serif" />
+        <title
+           id="title4381">(database:MYDB, busy:0.00)</title>
+      </g>
+      <g
+         id="g4383"
+         class="slice">
+        <path
+           id="path4385"
+           d="m 0,-220 a 0,0 0 0 0 0,0 L 0,0 z"
+           style="fill:#aec7e8"
+           inkscape:connector-curvature="0" />
+        <text
+           id="text4387"
+           class="data-text"
+           transform="matrix(0,1,-1,0,0,-110)"
+           style="text-anchor:middle;font-family:sans-serif" />
+        <title
+           id="title4389">(database:WEBLOG, busy:0.00)</title>
+      </g>
+      <g
+         id="g4391"
+         class="slice">
+        <path
+           id="path4393"
+           d="m -13.727717,-219.57129 a 220,220 0 0 1 5.359833,-0.26951 L 0,0 z"
+           style="fill:#ff7f0e"
+           inkscape:connector-curvature="0" />
+        <text
+           id="text4395"
+           class="data-text"
+           transform="matrix(0.05022101,0.99873813,-0.99873813,0.05022101,-5.5243111,-109.86119)"
+           style="text-anchor:middle;font-family:sans-serif" />
+        <title
+           id="title4397">(database:BESTDR6, busy:0.000268)</title>
+      </g>
+      <g
+         id="g4399"
+         class="slice">
+        <path
+           id="path4401"
+           d="m 0,-220 a 0,0 0 0 0 0,0 L 0,0 z"
+           style="fill:#ffbb78"
+           inkscape:connector-curvature="0" />
+        <text
+           id="text4403"
+           class="data-text"
+           transform="matrix(0,1,-1,0,0,-110)"
+           style="text-anchor:middle;font-family:sans-serif" />
+        <title
+           id="title4405">(database:SKYSERVERV3, busy:0.00)</title>
+      </g>
+      <g
+         id="g4407"
+         class="slice">
+        <path
+           id="path4409"
+           d="m 0,-220 a 0,0 0 0 0 0,0 L 0,0 z"
+           style="fill:#2ca02c"
+           inkscape:connector-curvature="0" />
+        <text
+           id="text4411"
+           class="data-text"
+           transform="matrix(0,1,-1,0,0,-110)"
+           style="text-anchor:middle;font-family:sans-serif" />
+        <title
+           id="title4413">(database:SEGUETARGDR7, busy:0.00)</title>
+      </g>
+      <g
+         id="g4415"
+         class="slice">
+        <path
+           id="path4417"
+           d="m -24.061907,-218.68019 a 220,220 0 0 1 10.33419,-0.8911 L 0,0 z"
+           style="fill:#98df8a"
+           inkscape:connector-curvature="0" />
+        <text
+           id="text4419"
+           class="data-text"
+           transform="matrix(0.08590938,0.99630295,-0.99630295,0.08590938,-9.4500321,-109.59333)"
+           style="text-anchor:middle;font-family:sans-serif" />
+        <title
+           id="title4421">(database:BESTDR8, busy:0.000519)</title>
+      </g>
+      <g
+         id="g4423"
+         class="slice">
+        <path
+           id="path4425"
+           d="m -192.82382,-105.91966 a 220,220 0 0 1 88.77555,-87.92037 L 0,0 z"
+           style="fill:#d62728"
+           inkscape:connector-curvature="0" />
+        <text
+           id="text4427"
+           class="data-text"
+           transform="matrix(0.70367624,0.71052076,-0.71052076,0.70367624,-77.404387,-78.157283)"
+           style="text-anchor:middle;font-family:sans-serif">SEGUEDR6</text>
+        <title
+           id="title4429">(database:SEGUEDR6, busy:0.00633)</title>
+      </g>
+      <g
+         id="g4431"
+         class="slice">
+        <path
+           id="path4433"
+           d="m -8.367884,-219.8408 a 220,220 0 0 1 3.347806,-0.10192 L 0,0 z"
+           style="fill:#ff9896"
+           inkscape:connector-curvature="0" />
+        <text
+           id="text4435"
+           class="data-text"
+           transform="matrix(0.03042807,0.99953696,-0.99953696,0.03042807,-3.3470875,-109.94907)"
+           style="text-anchor:middle;font-family:sans-serif" />
+        <title
+           id="title4437">(database:BESTDR2, busy:0.000167)</title>
+      </g>
+      <g
+         id="g4439"
+         class="slice">
+        <path
+           id="path4441"
+           d="m -50.09864,-214.21981 a 220,220 0 0 1 26.036733,-4.46038 L 0,0 z"
+           style="fill:#9467bd"
+           inkscape:connector-curvature="0" />
+        <text
+           id="text4443"
+           class="data-text"
+           transform="matrix(0.16885127,0.98564154,-0.98564154,0.16885127,-18.57364,-108.42057)"
+           style="text-anchor:middle;font-family:sans-serif" />
+        <title
+           id="title4445">(database:BESTDR5, busy:0.00132)</title>
+      </g>
+      <g
+         id="g4447"
+         class="slice">
+        <path
+           id="path4449"
+           d="M -2.0506459,-219.99044 A 220,220 0 0 1 0,-220 L 0,0 z"
+           style="fill:#c5b0d5"
+           inkscape:connector-curvature="0" />
+        <text
+           id="text4451"
+           class="data-text"
+           transform="matrix(0.00466061,0.99998914,-0.99998914,0.00466061,-0.51266705,-109.99881)"
+           style="text-anchor:middle;font-family:sans-serif" />
+        <title
+           id="title4453">(database:BESTDR3, busy:0.000103)</title>
+      </g>
+      <g
+         id="g4455"
+         class="slice">
+        <path
+           id="path4457"
+           d="M 0,-220 A 220,220 0 0 1 96.030449,197.93472 L 0,0 z"
+           style="fill:#8c564b"
+           inkscape:connector-curvature="0" />
+        <text
+           id="text4459"
+           class="data-text"
+           transform="matrix(0.97460332,-0.22393831,0.22393831,0.97460332,107.20637,-24.633214)"
+           style="text-anchor:middle;font-family:sans-serif">BESTDR7</text>
+        <title
+           id="title4461">(database:BESTDR7, busy:0.0296)</title>
+      </g>
+      <g
+         id="g4463"
+         class="slice">
+        <path
+           id="path4465"
+           d="m -160.6051,150.35292 a 220,220 0 0 1 -32.21872,-256.27258 L 0,0 z"
+           style="fill:#c49c94"
+           inkscape:connector-curvature="0" />
+        <text
+           id="text4467"
+           class="data-text"
+           transform="matrix(0.99218964,-0.12473857,0.12473857,0.99218964,-109.14086,13.721242)"
+           style="text-anchor:middle;font-family:sans-serif">RUNSDB</text>
+        <title
+           id="title4469">(database:RUNSDB, busy:0.0138)</title>
+      </g>
+      <g
+         id="g4471"
+         class="slice">
+        <path
+           id="path4473"
+           d="m -5.020078,-219.94272 a 220,220 0 0 1 2.9694321,-0.0477 L 0,0 z"
+           style="fill:#e377c2"
+           inkscape:connector-curvature="0" />
+        <text
+           id="text4475"
+           class="data-text"
+           transform="matrix(0.01607019,0.99987087,-0.99987087,0.01607019,-1.7677212,-109.9858)"
+           style="text-anchor:middle;font-family:sans-serif" />
+        <title
+           id="title4477">(database:BESTDR1, busy:0.000148)</title>
+      </g>
+      <g
+         id="g4479"
+         class="slice">
+        <path
+           id="path4481"
+           d="m -104.04827,-193.84003 a 220,220 0 0 1 53.94963,-20.37978 L 0,0 z"
+           style="fill:#f7b6d2"
+           inkscape:connector-curvature="0" />
+        <text
+           id="text4483"
+           class="data-text"
+           transform="matrix(0.35338245,0.93547894,-0.93547894,0.35338245,-38.872069,-102.90268)"
+           style="text-anchor:middle;font-family:sans-serif">BESTDR4</text>
+        <title
+           id="title4485">(database:BESTDR4, busy:0.00289)</title>
+      </g>
+      <g
+         id="g4487"
+         class="slice">
+        <path
+           id="path4489"
+           d="M 96.030449,197.93472 A 220,220 0 0 1 -160.6051,150.35292 L 0,0 z"
+           style="fill:#7f7f7f"
+           inkscape:connector-curvature="0" />
+        <text
+           id="text4491"
+           class="data-text"
+           transform="matrix(0.18229927,-0.98324309,0.98324309,0.18229927,-20.05292,108.15674)"
+           style="text-anchor:middle;font-family:sans-serif">BESTDR9</text>
+        <title
+           id="title4493">(database:BESTDR9, busy:0.0140)</title>
+      </g>
+    </g>
+  </g>
+  <style
+     id="style2987">.slice:hover {
+    stroke: grey;
+}
+               
+.data-text {
+	font-family: &quot;sans-serif&quot;;
+    dy: .35em;
+    text-anchor: middle;	
+}</style>
+  <style
+     id="style4177">.slice:hover {
+    stroke: grey;
+}
+               
+.data-text {
+	font-family: &quot;sans-serif&quot;;
+    dy: .35em;
+    text-anchor: middle;	
+}</style>
+  <style
+     id="style4371">.slice:hover {
+    stroke: grey;
+}
+               
+.data-text {
+	font-family: &quot;sans-serif&quot;;
+    dy: .35em;
+    text-anchor: middle;	
+}</style>
+</svg>

@@ -29,10 +29,13 @@ public class WHConnectionManager {
     /** MySQL password constant. */
     private static final String PW = "whatUP";
     /** Pool size constant. */
-    private static final int MAX_POOL_SIZE = 8;
+    private static final int MAX_POOL_SIZE = 10;
 
     /** Connection pool. */
     private Vector<Connection> connectionPool = new Vector<Connection>();
+    
+    /** Connection pool non auto-committing connections. */
+    private Vector<Connection> poolNoAutoCommitting = new Vector<Connection>();
     
     /**
      * Protected constructor for a WHConnectionMangaer.
@@ -57,6 +60,12 @@ public class WHConnectionManager {
     	
         while (!checkIfConnectionPoolIsFull()) {
         	connectionPool.addElement(createNewConnectionForPool());
+        }
+        
+        //Printer.print("Connection Pool is full.");
+        
+        while (!checkIfNotAutoComPoolIsFull()) {
+        	poolNoAutoCommitting.addElement(createNewNoAutoComCon());
         }
         
         //Printer.print("Connection Pool is full.");
@@ -94,7 +103,42 @@ public class WHConnectionManager {
 
         return connection;
     }
+  
+    /**
+     * Returns whether the no auto-committing connection pool is full.
+     * 
+     * @return whether the no auto-committing connection pool is full
+     */
+    private synchronized boolean checkIfNotAutoComPoolIsFull() {
+        
+        return !(poolNoAutoCommitting.size() <  MAX_POOL_SIZE);
+    }
 
+    /**
+     * Creates a new no auto-committing connection for the pool.
+     * 
+     * @return new connection for the pool
+     */
+    private Connection createNewNoAutoComCon() {
+        Connection connection = null;
+      
+        try {        	
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection(DB_URL, USER_NAME, PW);
+            connection.setAutoCommit(false);
+            //Printer.print("Connection: " + connection);
+        } catch (SQLException sqle) {
+        	Printer.perror("SQLException: " + sqle);
+            return null;
+        } catch (ClassNotFoundException cnfe) {
+            Printer.perror("ClassNotFoundException: " + cnfe);
+            return null;
+        }
+
+        return connection;
+    }
+    
+    
     // -- GET AND BRING BACK -- GET AND BRING BACK -- GET AND BRING BACK -- GET AND BRING BACK --
     /**
      * Returns a connection from the pool if one is available.
@@ -123,6 +167,36 @@ public class WHConnectionManager {
     protected synchronized void returnConnectionToPool(Connection connection) {
         //Adding the connection from the client back to the connection pool
         connectionPool.addElement(connection);
+       // Printer.print("Connection returned to pool. Size of pool: " + connectionPool.size());
+    }
+    
+    /**
+     * Returns a no auto-committing connection from the pool if one is available.
+     * 
+     * @return no auto-committing connection from the pool
+     */
+    protected synchronized Connection getNoAutoComConnection() {
+        Connection connection = null;
+
+        //Check if there is a connection available. 
+        // There are times when all the connections in the pool may be used up
+        if (poolNoAutoCommitting.size() > 0) {
+            connection = (Connection) poolNoAutoCommitting.firstElement();
+            poolNoAutoCommitting.removeElementAt(0);
+        }
+        //Giving away the connection from the connection pool
+        // Printer.print("Connection taken from pool. Size of pool: " + connectionPool.size());
+        return connection;
+    }   
+    
+    /**
+     * Returns a no auto-committing connection to the pool.
+     * 
+     * @param connection no auto-committing connection to be returned
+     */
+    protected synchronized void returnNoAutoComConnection(Connection connection) {
+        //Adding the connection from the client back to the connection pool
+    	poolNoAutoCommitting.addElement(connection);
        // Printer.print("Connection returned to pool. Size of pool: " + connectionPool.size());
     }
 

@@ -153,7 +153,7 @@ public class MySQLAdapter {
 		Statement s = getStatement(c);
 		if (s == null) {
 			Printer.pfail("Getting Statment.");
-			close(c);
+			closeNoAu(c);
 		}
 		
 		// add query to statement
@@ -162,7 +162,7 @@ public class MySQLAdapter {
 				s.addBatch(str);
 			} catch (SQLException e) {
 				Printer.perror("Adding String to batch: " + str);
-				close(s, c);
+				closeNoAu(s, c);
 				return false;
 			}
 		}
@@ -170,11 +170,11 @@ public class MySQLAdapter {
 		// execute
 		if (!(executeStatementBatch(s))) {
 			Printer.pfail("Executing table creating query.");
-			close(s, c);
+			closeNoAu(s, c);
 			return false;
 		} else {
 			Printer.psuccess("Creating tables.");
-			close(s, c);
+			closeNoAu(s, c);
 			return true;
 		}
 	}
@@ -449,7 +449,8 @@ public class MySQLAdapter {
 		Statement s = getStatement(c);
 		if (s == null) {
 			Printer.pfail("Getting Statment.");
-			close(c);
+			closeNoAu(c);
+			return null;
 		}
 		
 		int[] result = new int[TimeDimension.TIME_MIN_MAX];
@@ -458,13 +459,14 @@ public class MySQLAdapter {
 		int to = getIntegerFromQuery(maxQuery, s);
 		if ((from <= 0) || (to <= 0)) {
 			Printer.pfail("Getting a time integer.");
-			close(s, c);
+			closeNoAu(s, c);
 			return null;
 		} else {
 			result[0] = from;
 			result[1] = to;
 		}
 		
+		closeNoAu(s, c);
 		return result;
 	}
 
@@ -508,7 +510,7 @@ public class MySQLAdapter {
 		Statement s = getStatement(c);
 		if (s == null) {
 			Printer.pfail("Getting Statment.");
-			close(c);
+			closeNoAu(c);
 		}
 		
 		// add query to statement
@@ -518,7 +520,7 @@ public class MySQLAdapter {
 				s.addBatch(str);
 			} catch (SQLException e) {
 				Printer.perror("Adding String to batch: " + str);
-				close(s, c);
+				closeNoAu(s, c);
 				return false;
 			}
 		}
@@ -526,11 +528,11 @@ public class MySQLAdapter {
 		
 		if (!(executeStatementBatch(s))) {
 			Printer.pfail("Executing queries.");
-			close(s, c);
+			closeNoAu(s, c);
 			return false;
 		} else {
 			//Printer.psuccess("Upload.");
-			close(s, c);
+			closeNoAu(s, c);
 			return true;
 		}
 	}
@@ -627,7 +629,7 @@ public class MySQLAdapter {
 			return false;
 		}
 		
-		Printer.ptest("Try to execute: " + query);
+		//Printer.ptest("Try to execute: " + query);
 		
 		// execute query
 		ResultSet re = null;
@@ -695,21 +697,26 @@ public class MySQLAdapter {
 	}
 	
  	/**
-	 * Returns a Connection with auto committing disabled.
+	 * Returns a no auto-committing Connection.
 	 * 
 	 * @return a Connection with auto committing disabled
 	 */
  	private Connection getNoAutoCommitConnection() {
-		Connection c = getConnection();
-
-		try {
-			c.setAutoCommit(false);
-		} catch (SQLException e) {
-			Printer.perror("Changing auto commit to false.");
+ 		Connection c = null;
+		int a = 0;
+		do {
+			c = whConnections.getNoAutoComConnection();
 			
-			// yeah f**k it... will work anyway :D
-			return c;
-		}
+			if (c == null) {
+				a++;
+				try {
+					wait(CON);
+				} catch (InterruptedException e) {
+					// nothing to do here... it's okay if we get woken up
+					Printer.pproblem("No connection available.");
+				}
+			}
+		} while ((c == null) && (a < (CON * CON)));
 		
 		return c;
 	}
@@ -793,6 +800,34 @@ public class MySQLAdapter {
 		}
 		
 		whConnections.returnConnectionToPool(c);		
+	}
+	
+	/**
+	 * Closes given Statement and returns given no auto-committing Connection to pool.
+	 * @param s Statement to be closed
+	 * @param c no auto-committing Connection to be returned to pool
+	 */
+	private void closeNoAu(Statement s, Connection c) {
+		assert (s != null);
+		assert (c != null);
+		
+		closeNoAu(c);
+		
+		try {
+			s.close();
+		} catch (SQLException e) {
+			Printer.perror("Closing statement.");
+		}
+		
+	}
+	
+	/**
+	 * Returns given no auto-committing Connection to pool.
+	 * 
+	 * @param c no auto-committing Connection to be returned to pool
+	 */
+	private void closeNoAu(Connection c) {	
+		whConnections.returnNoAutoComConnection(c);		
 	}
 	
 	/**

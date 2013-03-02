@@ -88,6 +88,8 @@ public class DataMediator {
 						}
 					}
 					
+					//Printer.ptest(dk.toString());
+					
 					sd.addTree(dk);
 				}
 

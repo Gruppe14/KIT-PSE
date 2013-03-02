@@ -1,0 +1,19 @@
+﻿config test
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   app/what/sp_config/ConfigWrap.java
+#	modified:   app/what/sp_config/RowEntry.java
+#	modified:   app/what/sp_parser/ParsingTask.java
+#	modified:   example/TestConfig2.json
+#	new file:   example/WrongTestConfig1-NoIP.json
+#	new file:   example/WrongTestConfig2-Time.json
+#	new file:   example/WrongTestConfig3-NoMeasure.json
+#	new file:   example/WrongTestConfig4-DimOrder.json
+#	modified:   test/what/test/ConfigTest.java
+#	modified:   test/what/test/GeneralClasses.java
+#
+
