@@ -75,13 +75,13 @@ public class FileHelper {
 		}
 		
 		// get file
-		File configFile = getFile(path);
-		if (configFile == null) {
+		File curFile = getFile(path);
+		if (curFile == null) {
 			return null; // error output made in the getFile method 
 		}
 		
 		// get file extension
-		String fileExtension = getFileExtension(configFile);
+		String fileExtension = getFileExtension(curFile);
 		if (fileExtension == null) {
 			Printer.pfail("Determine file type.");
 			return null;
@@ -89,7 +89,7 @@ public class FileHelper {
 		
 		// check file extension
 		if (fileExtension.equalsIgnoreCase(extension)) {
-			return configFile;
+			return curFile;
 		} else {
 			Printer.perror("Wrong file extension");
 			return null;

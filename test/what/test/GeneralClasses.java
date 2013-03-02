@@ -10,6 +10,7 @@ import org.junit.Test;
 import what.Facade;
 import what.FileHelper;
 import what.JSONReader;
+import what.Printer;
 
 //JSON imports
 import org.json.JSONArray;
@@ -43,6 +44,7 @@ public class GeneralClasses {
 	
 	@Test
 	public void wrongFile() {
+		Printer.ptestcase("FileHelper wrong path");
 		assertFalse(f.parseLogFile(getPathForExample(WRONG)));
 		assertFalse(f.init(getPathForExample(WRONG)));
 		resetFacade();
@@ -50,6 +52,7 @@ public class GeneralClasses {
 
 	@Test
 	public void nonexistentFile() {
+		Printer.ptestcase("FileHelper wrong file");
 		assertNull(FileHelper.getFile(getPathForExample("nonexistentpath.csv")));
 		assertNull(FileHelper.getFile(getPathForExample(NONSENSE)));
 	}
@@ -59,7 +62,8 @@ public class GeneralClasses {
 	 * Because making sure that needed files exist every time is... arduous.
 	 */
 	public void fileExistence() {
-        final String[] neededDataFiles = {"GeoIP.dat", "ParsLogFileDownloadQuery.txt", "GeoLiteCity.dat", "TableCreationQuery.txt"};
+		Printer.ptestcase("File exists");
+        final String[] neededDataFiles = {"GeoIP.dat", "GeoLiteCity.dat"};
         for (String needed : neededDataFiles) {
             File f = new File(getPathForData(needed));
             assertTrue(f.exists() && f.isFile());
@@ -79,6 +83,8 @@ public class GeneralClasses {
 	
 	@Test
 	public void jsonReaderAllInOne() {
+		Printer.ptestcase("JSONReader test");
+		
 		File f = FileHelper.getFile(getPathForExample(JSON));
 		String s = FileHelper.getStringContent(f);
 		assertNotNull(s);
@@ -102,8 +108,27 @@ public class GeneralClasses {
 		
 	}
 	
+	@Test
+	public void jsonReaderFalse() {
+		Printer.ptestcase("JSONReader test false");
+		File f = FileHelper.getFile(getPathForExample(JSON));
+		String s = FileHelper.getStringContent(f);
+		assertNotNull(s);
+		
+		// get the object and reader
+		JSONObject o = JSONReader.getJSONObjectForString(s);
+		assertNotNull(o);
+		JSONReader r = new JSONReader(o);
+		
+		// basics reads		
+		assertTrue(-1 == r.getInt(STRING));
+		assertNull(r.getString(INT));
+		assertNull(r.getJSONObject(ARRAY));
+		assertNull(r.getObject(NONSENSE));
+	}
+	
 	// -- Facade -- Facade -- Facade -- Facade --
-
+	// is tested via hand, nothing would work, if it wouldn't work
 	
 	// -- HELPER -- HELPER -- HELPER -- HELPER -- HELPER --
 	private String getPathForExample(String s) {
@@ -113,4 +138,5 @@ public class GeneralClasses {
     private String getPathForData(String s) {
         return sourcePath + separator + "data" + separator + s;
     }
+
 }
