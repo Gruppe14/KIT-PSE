@@ -32,6 +32,11 @@ public class ParserMediator {
 	private int poolsize = STANDARD_PS;
 	
 	/**
+	 * Every undefined value will be replaced by this variable.
+	 */
+	public static final String UNDEFINED_VALUE = "other";
+	
+	/**
 	 * The standard pool size.
 	 */
 	private static final int STANDARD_PS = 5;
@@ -221,7 +226,8 @@ public class ParserMediator {
 		// all tasks are finished and false, if there was a fatal error.
 		while (true) {
 			if (finishedTasks >= poolsize) {
-				System.out.println("lines: " + usedFile.getLines());
+				Printer.print("lines successfully submitted: " + (usedFile.getLines() - 
+						linesDeleted) + " out of " + usedFile.getLines());
 				threadPool.shutdown();
 				boolean toReturn = enoughLinesSubmitted();
 				this.reset();

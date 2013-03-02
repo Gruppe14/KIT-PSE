@@ -98,10 +98,10 @@ public class GeoIPTool {
 			
 			
 			if (loc.countryName.toLowerCase().contains("proxy")) {
-				loc.countryName = "other";
+				loc.countryName = ParserMediator.UNDEFINED_VALUE;
 			}
 			if (loc.city.toLowerCase().contains("proxy")) {
-				loc.city = "other";
+				loc.city = ParserMediator.UNDEFINED_VALUE;
 			}
 			
 			//Sets country and city to their spots of the DataEntry.
@@ -109,10 +109,10 @@ public class GeoIPTool {
 			pt.getDe().setInfo(loc.city.trim(), POSITION_CITY);
 
 			if (pt.getDe().getInfo(POSITION_COUNTRY) == null) {
-			    pt.getDe().setInfo("other", POSITION_COUNTRY);
+			    pt.getDe().setInfo(ParserMediator.UNDEFINED_VALUE, POSITION_COUNTRY);
 			}
 			 if (pt.getDe().getInfo(POSITION_CITY) == null) {
-			    pt.getDe().setInfo("other", POSITION_CITY);
+			    pt.getDe().setInfo(ParserMediator.UNDEFINED_VALUE, POSITION_CITY);
 			 }
 			
 			lastLoc = loc;
@@ -122,8 +122,8 @@ public class GeoIPTool {
 		} catch (NullPointerException e) {
 			 //cl.getLocation(String str) throws a NullPointerException when it doens't find any location
 			 //to a certain ip. catching it is the easiest way to deal with this problem.
-			pt.getDe().setInfo("other", POSITION_CITY);
-			pt.getDe().setInfo("other", POSITION_COUNTRY);
+			pt.getDe().setInfo(ParserMediator.UNDEFINED_VALUE, POSITION_CITY);
+			pt.getDe().setInfo(ParserMediator.UNDEFINED_VALUE, POSITION_COUNTRY);
 		}
 	}
 }

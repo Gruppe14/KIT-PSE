@@ -8,6 +8,7 @@ import java.util.HashMap;
 import what.Printer;
 // intern imports
 import what.sp_parser.DataEntry;
+import what.sp_parser.ParserMediator;
 
 /**
  * This class represents a StringMap row as a RowEntry.<br>
@@ -128,7 +129,7 @@ public class StringMapRow extends RowEntry {
 		}				
 	
 
-		de.setInfo("other", location);
+		de.setInfo(ParserMediator.UNDEFINED_VALUE, location);
 		return true;
 		
 	}
