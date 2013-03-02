@@ -80,12 +80,13 @@ function piechart(json, sorted) {
         })
         //now, not so fast. this will only happen on big enough slices    
         .text(function (d) {
-            var startAngle = d.startAngle;
-            var endAngle = d.endAngle;
+            //angles are in radians...
+            var startAngle = d.startAngle * 180 / Math.PI;
+            var endAngle = d.endAngle * 180 / Math.PI;
             var text = "";
-            
+
             //TODO: FIND A GREAT MATHEMATICALLY PRECISE FORMULA INSTEAD OF STUPID HEURISTIC
-            if((Math.abs(startAngle - endAngle)) > 0.6) {
+            if((Math.abs(startAngle - endAngle)) > 15) {
                 //console.log(getX(d.data));
                 text = getX(d.data);
             }
