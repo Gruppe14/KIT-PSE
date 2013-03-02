@@ -1,3 +1,9 @@
 .slice:hover {
     stroke: grey;
 }
+               
+.data-text {
+	font-family: "sans-serif";
+    dy: .35em;
+    text-anchor: middle;	
+}

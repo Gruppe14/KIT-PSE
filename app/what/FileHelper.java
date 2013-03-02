@@ -111,7 +111,6 @@ public class FileHelper {
 			in = new FileReader(configFile);
 		} catch (FileNotFoundException e) {
 			Printer.perror("File not found for given path!");
-			e.printStackTrace();
 			return null;
 		}
 		BufferedReader bIn = new BufferedReader(in);

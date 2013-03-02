@@ -268,7 +268,7 @@ public class ParserMediator {
 		try {
 			usedFile.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Printer.perror("on closing Logfile");
 		}
 		usedFile = null;
 		tasks = null;

@@ -1,4 +1,4 @@
-function piechart(json) {
+function piechart(json, sorted) {
     var data;
     var xAxisName;
     var yAxisName;
@@ -24,15 +24,29 @@ function piechart(json) {
         
         var radius = Math.min(w, h) / 2; //change 2 to 1.4. It's hilarious.
         var color = d3.scale.category20();
+        var format = d3.format(".3r");
 
         var arc = d3.svg.arc() //each datapoint will create one later.
 			.outerRadius(radius - 20)
 			.innerRadius(0);
         //well, if you set this to not 0 it becomes a donut chart!
 
+        function comparator(a, b) {
+			a = +getY(a); //the second dimension is always the measure
+			b = +getY(b);
+			
+			if (isNaN(a) || isNaN(b)) {
+				//abort?
+				console.log("Error, the data doesn't have an numeric attribute");
+			}
+			return (b - a);
+		}
         var pie = d3.layout.pie()
-            .sort(getY)
             .value(getY);
+            
+        if (sorted != false) {
+            pie.sort(comparator);
+        }
 
         $("#chart").html("");
         var svg = d3.select("#chart").append("svg")
@@ -57,27 +71,41 @@ function piechart(json) {
             return color(i);
         });
 
+        //This function returns the angle that the text should be
+        //written so that it fits greatly in its arc
+        function angle(d) {
+            var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
+            a = (a >= 90) ? a - 180 : a;
+            return a;   
+        }
         //add text, even
         slices.append("text")
-            .attr("class", "data-text")
-            .attr("transform", function (d) {
-            return "translate(" + arc.centroid(d) + ")";
+        .attr("class", "data-text")
+        //now, not so fast. this will only happen on big enough slices    
+        .text(function (d) {
+            //angles are in radians...
+            var startAngle = d.startAngle * 180 / Math.PI;
+            var endAngle = d.endAngle * 180 / Math.PI;
+            var text = "";
+
+            //TODO: FIND A GREAT MATHEMATICALLY PRECISE FORMULA INSTEAD OF STUPID HEURISTIC
+            //You know, calculate the pixel size by using the radius and the arc
+            if((Math.abs(startAngle - endAngle)) > 12) {
+                //console.log(getX(d.data));
+                text = getX(d.data);
+            }
+//            console.log(startAngle - endAngle);
+            return text;
         })
-            .text(function (d) {
-            return getX(d.data);
+        .attr("transform", function (d) {
+            return "translate(" + arc.centroid(d) + ")" + "rotate(" + angle(d) + ")";
         });
+        
         
         //hovertext, too!
         slices.append("title")
         .text(function(d) {
-            return "(" + xAxisName + ":" + getX(d.data) + ", " + yAxisName + ":" + getY(d.data) + ")";
-        });
-        
-        //add non dynamic styles
-        $(".data-text").css({
-			"font-family": "sans-serif",
-            "dy": ".35em",
-            "text-anchor": "middle"
+            return "(" + xAxisName + ":" + getX(d.data) + ", " + yAxisName + ":" + format(getY(d.data)) + ")";
         });
     }
 }

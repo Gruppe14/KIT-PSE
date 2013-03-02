@@ -12,6 +12,9 @@ function makeRequest() {
 	if(time != "err" && checkOptions()){
 		var json = buildJson();
 		json.time = time;
+		if (time != "all" && json.xDim != "time") {
+			json.filter.push("time");
+		}
 		$.ajax({
 			type: "POST",
 			url: "/requestChart",
@@ -314,7 +317,19 @@ function displaySave() {
 		//the pop up container
 		$("body").append("<div id='message'><div><span>@Localize.get("charts.save") @Localize.get("charts." + chart)</span>"
 			+ "<span id=\"download\">@Localize.get("charts.download")</span><span id=\"abort\">@Localize.get("charts.abort")</span></div></div>");
+		
+		@if(web.ChartIndex.getInstance().hasCss(chart)) {
+		//add chart css to svg
+		$.get("/charts/@{chart}/@{chart}.css", function(data) {
+			$(document.createElement("style")).html(data).prependTo(svg);
+			form();
+		});
+		} else {
+			form();
+		}
+		
 		//the form
+		function form() {
 		var form = $(document.createElement("form")) //.wrap(document.createElement("p"))
 			.insertAfter("#message span:first")
 			.attr("action", "/downloadChart")
@@ -336,6 +351,12 @@ function displaySave() {
 			.attr("name", "svg")
 			.attr("value", encodeURI(svg.parent().html()))
 			.hide();
+		//the chart name
+		$(document.createElement("input")).appendTo(form)
+			.attr("type", "text")
+			.attr("name", "chart")
+			.attr("value", "@chart")
+			.hide();
 		//download button
 		$("#download").click(function() {
 			form.submit();
@@ -346,5 +367,6 @@ function displaySave() {
 			$(this).parents("#message").remove();
 		});
 		$("#message").find("#download").focus();
+		}
 	}
 }

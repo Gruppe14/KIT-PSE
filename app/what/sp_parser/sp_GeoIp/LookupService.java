@@ -35,6 +35,8 @@ import javax.naming.directory.Attributes;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 
+import what.Printer;
+
 /**
  * Provides a lookup service for information based on an IP address. The location of
  * a database file is supplied when creating a lookup service instance. The edition of
@@ -562,7 +564,7 @@ public class LookupService {
                 }
             }
         catch (Exception e) {
-            e.printStackTrace();
+        	Printer.perror("while getting database info.");
         }
         return new DatabaseInfo("");
     }

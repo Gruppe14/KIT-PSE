@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 
 import web.controllers.Localize;
 import what.FileHelper;
+import what.Printer;
 
 
 /** 
@@ -119,7 +120,7 @@ public class Logfile {
 		} catch (FileNotFoundException e) {
 			//@throws FileNotFoundException - only if the file doesn't exist after
 			//checking that it does exist : Shouldn't happen.
-			e.printStackTrace();
+			Printer.perror("LogFile not found");
 			return;
 		}
 		

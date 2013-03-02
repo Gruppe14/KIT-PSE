@@ -28,6 +28,7 @@ import web.AdminAuth;
 import web.AdminLogin;
 import web.ChartHelper;
 import web.ChartHistory;
+import web.ChartIndex;
 import web.LogfileUpload;
 import what.Facade;
 import what.Printer;
@@ -40,8 +41,8 @@ import what.Printer;
  *
  */
 public class Website extends Controller {
-	
-
+	/** Message returned on internal server error */
+	private static final String ISE = "Something went wrong :(";
 	/**
 	 * the form needed for admin login.
 	 */
@@ -103,7 +104,7 @@ public class Website extends Controller {
     	} catch (JSONException e) {
     		Printer.pproblem("JSON request from web page");
     	}
-    	return internalServerError("Something went wrong :(");
+    	return internalServerError(ISE);
     }
     
     /**
@@ -124,14 +125,27 @@ public class Website extends Controller {
 			try {
 				svg = URLDecoder.decode(body.get("svg")[0], "UTF-8");
 			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-				return internalServerError("Something went wrong :(");
+				Printer.perror("Could not decode svg.");
+				return internalServerError(ISE);
 			}
     		if (body.containsKey("format") && body.get("format")[0].equals("svg")) {
     			response().setHeader("Content-Disposition", "attachment; filename=\"" + name + ".svg\"");
     			return ok(svg).as("image/svg+xml");
     		} else if (body.containsKey("format") && body.get("format")[0].equals("png")) {
     			PNGTranscoder t = new PNGTranscoder();
+    			if(body.containsKey("chart")) {
+    				String chart = body.get("chart")[0];
+    				//if a css file for the chart exists
+    				if(ChartIndex.getInstance().hasCss(chart)) {
+    					try {
+							t.addTranscodingHint(PNGTranscoder.KEY_USER_STYLESHEET_URI,
+								new File("./charts/" + chart + "/" + chart + ".css").getCanonicalFile().toURI().toString());
+						} catch (IOException e) {
+							Printer.perror("Could not get css file when creating png from svg.");
+							return internalServerError(ISE);
+						}
+    				}
+    			}
     			//white background instead of transparent
     			t.addTranscodingHint(PNGTranscoder.KEY_BACKGROUND_COLOR, Color.white);
     			TranscoderInput in = new TranscoderInput(new StringReader(svg));
@@ -140,21 +154,21 @@ public class Website extends Controller {
     			try {
 					t.transcode(in, out);
 				} catch (TranscoderException e) {
-					e.printStackTrace();
-					return internalServerError("Something went wrong :(");
+					Printer.perror("Could not transcode from svg to png.");
+					return internalServerError(ISE);
 				}
     			try {
 					png.flush();
 					png.close();
 				} catch (IOException e) {
-					e.printStackTrace();
-					return internalServerError("Something went wrong :(");
+					Printer.perror("Could not write to output stream.");
+					return internalServerError(ISE);
 				}
     			response().setHeader("Content-Disposition", "attachment; filename=\"" + name + ".png\"");
     			return ok(png.toByteArray()).as("image/png");
     		}
     	}
-    	return internalServerError("Something went wrong :(");
+    	return internalServerError(ISE);
     }
    
     /**
