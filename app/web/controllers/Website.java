@@ -53,7 +53,7 @@ public class Website extends Controller {
 	private static Form<LogfileUpload> log = form(LogfileUpload.class);
 
 	/**
-	 * method to render the index site with all available chart types.
+	 * render the index site with all available chart types.
 	 * @return returns the html index site
 	 */
     public static Result index() {
@@ -225,7 +225,15 @@ public class Website extends Controller {
     }
     
     /**
-     * method to validate the login form.
+     * display help page for charts
+     * @return returns a http response with the help page
+     */
+    public static Result chartHelpPage() {
+    	return ok(web.views.html.chartHelpPage.render());
+    }
+    
+    /**
+     * validates the login form.
      * @return returns the admin page or a badrequest
      */
     public static Result login() {

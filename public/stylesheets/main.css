@@ -48,6 +48,7 @@ img {
 	margin: auto;
 }
 #footer {
+	clear:both;
 	position: relative;
 	top: 60px;
 	font-size: 14px;

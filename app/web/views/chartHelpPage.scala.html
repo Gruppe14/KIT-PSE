@@ -1,0 +1,37 @@
+@import web.controllers.Localize
+@main(title = Localize.get("chartHelpPage.title")) {
+	<style>
+		#content img {
+			float: left;
+			margin: 2px 10px 2px 0px;
+			clear:left;
+		}
+	</style>
+}{
+<div class="fixWidth">
+	<p>
+		<img src="/assets/images/help/send_save.png"/>@Localize.get("chartHelpPage.send_save")
+	</p>
+	<p>
+		<img src="/assets/images/help/save.png"/>@Localize.get("chartHelpPage.save")
+	</p>
+	<h2>Localize.get("chartHelpPage.selection")</h2>
+	<p>
+		<img src="/assets/images/help/time.png"/>@Localize.get("chartHelpPage.time")
+	</p>
+	<p>
+		<img src="/assets/images/help/axis.png"/>@Localize.get("chartHelpPage.axis")
+	</p>
+	<p>
+		<img src="/assets/images/help/measure.png"/>@Localize.get("chartHelpPage.measure")
+		<br />@Localize.get("chartHelpPage.measureElapsed")
+		<br />@Localize.get("chartHelpPage.measureBusy")
+		<br />@Localize.get("chartHelpPage.measureRows")
+		<br />@Localize.get("chartHelpPage.measureAggregations")
+	</p>
+	<p>
+		<img src="/assets/images/help/dimensions.png"/>@Localize.get("chartHelpPage.dimensions")
+		<br />@Localize.get("chartHelpPage.dimensionsExample")
+	</p>
+</div>
+}
