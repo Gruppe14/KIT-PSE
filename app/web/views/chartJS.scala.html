@@ -12,6 +12,9 @@ function makeRequest() {
 	if(time != "err" && checkOptions()){
 		var json = buildJson();
 		json.time = time;
+		if (time != "all" && json.xDim != "time") {
+			json.filter.push("time");
+		}
 		$.ajax({
 			type: "POST",
 			url: "/requestChart",
