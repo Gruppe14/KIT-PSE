@@ -105,7 +105,7 @@ public class ParserTest {
 	
 	@Test
 	public void negativePoolsize() {
-		rinter.ptestcase("Parser pool negative");
+		Printer.ptestcase("Parser pool negative");
 		pm.setPoolsizeParsing(-2);
 		assertFalse(f.parseLogFile(getPathFor(TEN)));
 	}
