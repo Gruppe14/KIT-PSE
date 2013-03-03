@@ -41,7 +41,7 @@ public class ParserMediator {
 	/**
 	 * The maximum pool size.
 	 */
-	private static final int MAX_POOLSIZE = 50;
+	private static final int MAX_POOLSIZE = 10;
 	
 	/**
 	 * This variable saves how many tasks have been finished. it is used to 
@@ -58,7 +58,7 @@ public class ParserMediator {
 	/**
 	 * This variable indicates how many percent of the lines have to get uploaded correctly.
 	 */
-	private static final double CORRECT = 70;
+	private static final double CORRECT = 91.11;
 	
 	/**
 	 * Constant variable for hundred.
@@ -73,7 +73,7 @@ public class ParserMediator {
 	/**
 	 * This variable indicates after how much idle time a thread gets killed. (seconds)
 	 */
-	private static final int watchTime = 2;
+	private static final int watchTime = 3;
 	
 	/**
 	 * The WatchDogTimer.

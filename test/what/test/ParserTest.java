@@ -98,9 +98,9 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void mediumParseTest50Tasks() {
-		Printer.ptestcase("Parser pool 50");
-		pm.setPoolsizeParsing(50);
+	public void mediumParseTest10Tasks() {
+		Printer.ptestcase("Parser pool 10");
+		pm.setPoolsizeParsing(10);
 		assertTrue(f.parseLogFile(getPathFor(SMALL_PARSING2)));
 	}
 	

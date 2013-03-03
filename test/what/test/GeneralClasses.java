@@ -110,7 +110,7 @@ public class GeneralClasses {
 		
 	}
 	
-	@Test
+	@Ignore
 	public void jsonReaderFalse() {
 		Printer.ptestcase("JSONReader test false");
 		File f = FileHelper.getFile(getPathForExample(JSON));
