@@ -80,6 +80,10 @@ public class JSONReader {
 		} catch (JSONException e) {
 			Printer.perror("Extracting String from JSONObject for key: " + key);
 			return null;
+		} catch (Exception e) {
+			Printer.perror("Extracting String from JSONObject for key: " + key);
+			Printer.perror("JSON throws incorrect exception.");
+			return null;
 		}
 		
 		return requ;
@@ -105,6 +109,10 @@ public class JSONReader {
 		} catch (JSONException e) {
 			Printer.perror("Extracting int from JSONObject for key: " + key);
 			return -1;
+		} catch (Exception e) {
+			Printer.perror("Extracting int from JSONObject for key: " + key);
+			Printer.perror("JSON throws incorrect exception.");
+			return -1;
 		}
 		
 		return requ;
@@ -129,6 +137,10 @@ public class JSONReader {
 			}
 		} catch (JSONException e) {
 			Printer.perror("Extracting JSONObject from JSONObject for key: " + key);
+			return null;
+		} catch (Exception e) {
+			Printer.perror("Extracting JSONObject from JSONObject for key: " + key);
+			Printer.perror("JSON throws incorrect exception.");
 			return null;
 		}
 		
@@ -156,6 +168,10 @@ public class JSONReader {
 		} catch (JSONException e) {
 			Printer.perror("Extracting JSONArray from JSONObject for key: " + key);
 			return null;
+		} catch (Exception e) {
+			Printer.perror("Extracting JSONArray from JSONObject for key: " + key);
+			Printer.perror("JSON throws incorrect exception.");
+			return null;
 		}
 		
 		return ary;
@@ -179,7 +195,11 @@ public class JSONReader {
 				requ = json.get(key);
 			}
 		} catch (JSONException e) {
-			Printer.perror("Extracting String from JSONObject for key: " + key);
+			Printer.perror("Extracting Object from JSONObject for key: " + key);
+			return null;
+		} catch (Exception e) {
+			Printer.perror("Extracting Object from JSONObject for key: " + key);
+			Printer.perror("JSON throws incorrect exception.");
 			return null;
 		}
 		
@@ -208,6 +228,11 @@ public class JSONReader {
 		try {
 			obj = ary.getJSONObject(i);
 		} catch (JSONException e) {
+			Printer.perror("No such element in the array for given position.");
+			return null;
+		} catch (Exception e) {
+			Printer.perror("No such element in the array for given position.");
+			Printer.perror("JSON throws incorrect exception.");
 			return null;
 		}
 		
@@ -235,6 +260,11 @@ public class JSONReader {
 		try {
 			s = ary.getString(i);
 		} catch (JSONException e) {
+			Printer.perror("No such element in the array for given position.");
+			return null;
+		} catch (Exception e) {
+			Printer.perror("No such element in the array for given position.");
+			Printer.perror("JSON throws incorrect exception.");
 			return null;
 		}
 		
@@ -254,6 +284,10 @@ public class JSONReader {
 			json = new JSONObject(s);
 		} catch (JSONException e) {
 			Printer.perror("File content not a JSON Object!");
+			return null;
+		} catch (Exception e) {
+			Printer.perror("File content not a JSON Object!");
+			Printer.perror("JSON throws incorrect exception.");
 			return null;
 		}
 		

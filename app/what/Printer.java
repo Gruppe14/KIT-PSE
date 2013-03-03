@@ -102,10 +102,24 @@ public class Printer {
 	 */
 	public static void ptestcase(String s) {
 		if (s == null) {
-			perror("Something which succeeded and a wrong given String to the ptest method!");
+			perror("Something which succeeded and a wrong given String to the ptestcase method!");
 		}
 		print("\nTEST CASE >>> " + s);
 		
+	}
+
+	
+	/**
+	 * Prints an test class message for the given String (and a new line).
+	 * 
+	 * @param s String to be printed with a test class message
+	 */
+	public static void ptestclass(String s) {
+		if (s == null) {
+			perror("Something which succeeded and a wrong given String to the ptestclass method!");
+		}
+		
+		print("\nTEST CLASS -->>>>>> " + s + " <<<<<<--");
 	}
 	
 }

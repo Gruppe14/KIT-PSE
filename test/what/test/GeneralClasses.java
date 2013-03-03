@@ -29,6 +29,7 @@ public class GeneralClasses {
 		
 	@BeforeClass
 	public static void initialize() {
+		Printer.ptestclass("general classes");
 		f = Facade.getFacadeInstance();
 		sourcePath = System.getProperty("user.dir");
 		separator = System.getProperty("file.separator");
@@ -110,9 +111,10 @@ public class GeneralClasses {
 		
 	}
 	
-	@Ignore
+	@Ignore @Test
 	public void jsonReaderFalse() {
 		Printer.ptestcase("JSONReader test false");
+		
 		File f = FileHelper.getFile(getPathForExample(JSON));
 		String s = FileHelper.getStringContent(f);
 		assertNotNull(s);

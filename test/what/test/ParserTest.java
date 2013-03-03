@@ -10,7 +10,7 @@ import what.Facade;
 import what.Printer;
 import what.sp_parser.ParserMediator;
 
-//@Ignore
+@Ignore
 public class ParserTest {
 	
 	// file names
@@ -35,6 +35,8 @@ public class ParserTest {
 	
 	@BeforeClass
 	public static void initialize() {
+		Printer.ptestclass("parser tests");
+		
 		f = Facade.getFacadeInstance();
 		pm = f.getParserMediator();
 		

@@ -709,7 +709,7 @@ public class MySQLAdapter {
 	 * 
 	 * @return a Connection with auto committing disabled
 	 */
- 	private synchronized Connection getNoAutoCommitConnection() {
+ 	private  Connection getNoAutoCommitConnection() {
  		Connection c = null;
 		int a = 0;
 		do {

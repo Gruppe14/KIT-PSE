@@ -22,6 +22,7 @@ public class ConfigTest {
 		
 	@BeforeClass
 	public static void initialize() {
+		Printer.ptestclass("config tests");
 		f = Facade.getFacadeInstance();
 		sourcePath = System.getProperty("user.dir");
 		separator = System.getProperty("file.separator");
@@ -92,8 +93,5 @@ public class ConfigTest {
 		return sourcePath + separator + "example" + separator + s;
 	}
 
-    private String getPathForData(String s) {
-        return sourcePath + separator + "data" + separator + s;
-    }
 
 }

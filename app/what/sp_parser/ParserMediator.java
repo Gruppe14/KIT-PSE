@@ -73,7 +73,7 @@ public class ParserMediator {
 	/**
 	 * This variable indicates after how much idle time a thread gets killed. (seconds)
 	 */
-	private static final int watchTime = 3;
+	private static final int watchTime = 10;
 	
 	/**
 	 * The WatchDogTimer.

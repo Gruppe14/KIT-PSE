@@ -58,16 +58,29 @@ public class WHConnectionManager {
      */
     private void initializeConnectionPool()  {
     	
-        while (!checkIfConnectionPoolIsFull()) {
-        	connectionPool.addElement(createNewConnectionForPool());
+    	int i = 0;
+    	
+        while ((!checkIfConnectionPoolIsFull()) && (i < MAX_POOL_SIZE * MAX_POOL_SIZE)) {
+        	Connection c = createNewConnectionForPool();
+        	if (c != null) {
+        		connectionPool.addElement(c);
+        	}
+        	
         	//Printer.ptest("Normal pool size: " + connectionPool.size());
+        	i++;
         }
         
         Printer.ptest("Connection Pool is full.");
         
-        while (!checkIfNotAutoComPoolIsFull()) {
-        	poolNoAutoCommitting.addElement(createNewNoAutoComCon());
+        i = 0;
+        while ((!checkIfNotAutoComPoolIsFull()) && (i < MAX_POOL_SIZE * MAX_POOL_SIZE)) {
+        	Connection cs = createNewNoAutoComCon();
+        	if (cs != null) {
+        		poolNoAutoCommitting.addElement(cs);
+        	}
+        	
         	//Printer.ptest("No auto committing pool size: " + poolNoAutoCommitting.size());
+        	i++;
         }
         
         Printer.ptest("Connection Pool is full.");
