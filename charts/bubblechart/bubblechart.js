@@ -5,6 +5,7 @@ function bubblechart(json, sorted) {
 	
     var xAxisName = json.attribute1;
     var yAxisName = json.attribute2;
+	var measure = json.measureAttribute;
 	
     data = json.data;
 	console.log(data);
@@ -75,7 +76,7 @@ function bubblechart(json, sorted) {
 
 		//this is the hovertext
 		circle.append("title")
-			.text(function(d) { return "(" + xAxisName + ":" + getX(d) + ", " + yAxisName + ":" + getY(d) + ")";});
+			.text(function(d) { return xAxisName + ":" + getX(d) + "\n " + measure + " of " + yAxisName + ": " + getY(d);});
 
 		//draw the circle
 		circle.append("circle")

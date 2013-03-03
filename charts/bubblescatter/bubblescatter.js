@@ -8,14 +8,14 @@ function bubblescatter(json, radius) {
 	var data;
     var xAxisName;
     var yAxisName;
-	
 	var zAxisName;
+	var measure;
 	
     console.log("I read " + json.data.length + " data points.");
     xAxisName = json.attribute1;
     yAxisName = json.attribute2;
-	
 	radius = json.attribute3;
+	measure = json.measureAttribute;
 	
 	
     data = json.data;
@@ -90,7 +90,7 @@ function bubblescatter(json, radius) {
 		//now a scale that maps the radius, too!
 	    var rScale = d3.scale.linear()
 			    .domain([d3.min(data, getZ), d3.max(data, getZ)])
-	            .range([0.6, 5]) //when the dimensions gets different, we will make these percentages
+	            .range([2, 5]) //when the dimensions gets different, we will make these percentages
 		
 
         //the axes
@@ -140,11 +140,14 @@ function bubblescatter(json, radius) {
 			.append("svg:title")
 			
 		    .text(function (d) {
-				var txt = "(" + getX(d) + "," + getY(d) + ",";
+				var txt = xAxisName + ":" + getX(d) + "\n";
+				
 				if (bubble) {
-					txt += getZ(d);
+					txt += yAxisName + ":" + getY(d) +"\n" + measure + "of " + radius + ":" + getZ(d);
 				}
-				txt += ")";
+				else {
+					txt += measure + " of " + yAxisName + ":" + getY(d);
+				}
 				return txt;
 			});
 
@@ -178,6 +181,7 @@ function bubblescatter(json, radius) {
 
 		//position names
 		$("#x-axis > g > text")
+			.attr("class", "x-axis-text")
 			.attr("dy", "")
 			.attr("y", "4")
 			.attr("x", "3")

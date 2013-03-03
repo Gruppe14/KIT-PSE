@@ -11,17 +11,18 @@ function barchart(json, sorted) {
     var data;
     var xAxisName;
     var yAxisName;
-   // console.log(json);
-   // console.log(json.data);
+    var measure;
+
    
-        //console.log("I read " + json.data.length + " data points.");
-        xAxisName = json.attribute1;
-        yAxisName = json.attribute2;
-        //console.log("yAxisName=" + yAxisName);
-        data = json.data;
-        data.map(function(d) { console.log(getX(d));});
-      //  data.map(function(i) {console.log(i);});
-        visualize(data); //then start the visualization
+    //console.log("I read " + json.data.length + " data points.");
+    xAxisName = json.attribute1;
+    yAxisName = json.attribute2;
+    measure = json.measureAttribute;
+    //console.log("yAxisName=" + yAxisName);
+    data = json.data;
+    data.map(function(d) { console.log(getX(d));});
+    //  data.map(function(i) {console.log(i);});
+    visualize(data); //then start the visualization
 
  
 
@@ -108,7 +109,7 @@ function barchart(json, sorted) {
             //add hovertext
             .append("title")
             .text(function(d) {
-                return "(" + xAxisName + ":" + getX(d) + ", " + yAxisName + ":" + getY(d) + ")";
+                return xAxisName + ":" + getX(d) + "\n " + measure + " of " + yAxisName + ":" + getY(d);
             });
             
             
@@ -142,6 +143,7 @@ function barchart(json, sorted) {
         
 		//position names
 		$("#x-axis > g > text")
+            .attr("class", "x-axis-text")
 			.attr("dy", "")
 			.attr("y", "4")
 			.attr("x", "3")

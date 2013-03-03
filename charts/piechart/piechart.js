@@ -2,11 +2,16 @@ function piechart(json, sorted) {
     var data;
     var xAxisName;
     var yAxisName;
+    var measure;
+    
     console.log("I read " + json.data.length + " data points.");
     xAxisName = json.attribute1;
     yAxisName = json.attribute2;
+   	measure = json.measureAttribute;
+    
     data = json.data;
     visualize(data); //then start the visualization
+    
 
     function getX(d) {
         return d[xAxisName];
@@ -94,18 +99,16 @@ function piechart(json, sorted) {
                 //console.log(getX(d.data));
                 text = getX(d.data);
             }
-//            console.log(startAngle - endAngle);
             return text;
         })
         .attr("transform", function (d) {
             return "translate(" + arc.centroid(d) + ")" + "rotate(" + angle(d) + ")";
         });
         
-        
         //hovertext, too!
         slices.append("title")
         .text(function(d) {
-            return "(" + xAxisName + ":" + getX(d.data) + ", " + yAxisName + ":" + format(getY(d.data)) + ")";
+            return xAxisName + ":" + getX(d.data) + "\n" + measure + " of " + yAxisName + ":" + format(getY(d.data));
         });
     }
 }
