@@ -61,7 +61,6 @@ function bubblescatter(json, radius) {
 		
 		console.log("xAxisNum- the axis x is numeric: " + xAxisNum);
 		console.log("yAxisNum- the axis y is numeric: " + yAxisNum);
-		//at what point do you use arrays to simplify code?
 
         //the scales
         var xScale;
@@ -76,7 +75,7 @@ function bubblescatter(json, radius) {
 		else {
 			xScale = d3.scale.ordinal()
 				.domain(data.map(getX))
-				.rangeRoundBands([0, w ], 0.05);
+				.rangePoints([0, w]);
 			console.log("X axis was set to be ordinal.");
 			
 		}
@@ -91,7 +90,7 @@ function bubblescatter(json, radius) {
 		else {
 			yScale = d3.scale.ordinal()
 				.domain(data.map(getY))
-				.rangeRoundBands([h, 0], 0.05);
+				.rangePoints([h, 0]);
 				console.log("Y axis was set to be ordinal.");
 
 				
@@ -107,6 +106,10 @@ function bubblescatter(json, radius) {
         var xAxis = d3.svg.axis()
             .scale(xScale)
             .orient("bottom");
+		if(!xAxisNum) {
+			xAxis.tickValues(data.map(getX));
+			//xAxis.tickPadding(margin.left);
+		}
 
         var yAxis = d3.svg.axis()
             .scale(yScale)
@@ -125,7 +128,7 @@ function bubblescatter(json, radius) {
         //create the points of the scatterplot
         //well, they are svg circles
         svg.selectAll("circle")
-            .data(data)
+            .data(data, function(d) { return getX(d) + getY(d);})
             .enter()
             .append("circle")
             .attr("cx", function (d) {
