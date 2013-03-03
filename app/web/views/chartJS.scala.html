@@ -165,6 +165,9 @@ function checkBuildTime() {
 			displayError("@Localize.get("time.err.minMax")", minMaxString(minMax)); return "err";
 		}
 		time.months = [m[0], m[1]];
+	//if months don't exist --> standard values
+	} else {
+		time.months = [1, 12];
 	}
 	//if days exist
 	if(d.length > 1) {
@@ -175,6 +178,9 @@ function checkBuildTime() {
 			displayError("@Localize.get("time.err.minMax")", minMaxString(minMax)); return "err";
 		}
 		time.days = [d[0], d[1]];
+	//if days don't exist --> standard values
+	} else {
+		time.days = [1, 31];
 	}
 	//if hours & minutes exist
 	if(h.length > 1) {
@@ -182,6 +188,10 @@ function checkBuildTime() {
 		if(y.length < 2 || m.length < 2 || d.length < 2) { displayError("@Localize.get("time.err.argLength")"); return "err"; }
 		time.hours = [h[0][0], h[1][0]];
 		time.mins = [h[0][1], h[1][1]];
+	//if hours & minutes don't exist --> standard values
+	} else {
+		time.hours = [0, 23]
+		time.mins = [0, 59]
 	}
 	return time;
 }
