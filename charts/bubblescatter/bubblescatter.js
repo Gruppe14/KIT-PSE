@@ -19,6 +19,7 @@ function bubblescatter(json, radius) {
 	
 	
     data = json.data;
+	console.log(data);
     visualize(data); //then start the visualization
 
     function getX(d) {
@@ -34,9 +35,18 @@ function bubblescatter(json, radius) {
     }
 
     function visualize(data) {
-        var w = 720;
-        var h = 640;
-        var padding = 30;
+			
+        //dimensions
+        var margin = {
+            top: 100,
+            right: 100,
+            bottom: 100,
+            left: 100
+        };
+        var w = 1000 - margin.left - margin.right;
+        var h = 800 - margin.top - margin.bottom;
+		
+       // var padding = 30;
         //the format of the data
         var format = d3.format(".0");
 
@@ -60,13 +70,13 @@ function bubblescatter(json, radius) {
 		if (xAxisNum) {
 			xScale = d3.scale.linear()
 	            .domain([d3.min(data, getX), d3.max(data, getX)])
-				.range([padding, w - padding]);
+				.range([0, w ]);
 			console.log("X axis was set to be linear.");
 		}
 		else {
 			xScale = d3.scale.ordinal()
 				.domain(data.map(getX))
-				.rangeRoundBands([padding, w - padding], 0.04);
+				.rangeRoundBands([0, w ], 0.05);
 			console.log("X axis was set to be ordinal.");
 			
 		}
@@ -75,13 +85,13 @@ function bubblescatter(json, radius) {
 		if (yAxisNum) {
 	        yScale = d3.scale.linear()
 	            .domain([d3.min(data, getY), d3.max(data, getY)])
-				.range([h - padding, padding]);
+				.range([h, 0]);
 				console.log("Y axis was set to be linear.");
 		}
 		else {
 			yScale = d3.scale.ordinal()
 				.domain(data.map(getY))
-				.rangeRoundBands([h - padding, padding], 0.04);
+				.rangeRoundBands([h, 0], 0.05);
 				console.log("Y axis was set to be ordinal.");
 
 				
@@ -90,30 +100,28 @@ function bubblescatter(json, radius) {
 		//now a scale that maps the radius, too!
 	    var rScale = d3.scale.linear()
 			    .domain([d3.min(data, getZ), d3.max(data, getZ)])
-	            .range([2, 5]) //when the dimensions gets different, we will make these percentages
+	            .range([2, 5]); //when the dimensions gets different, we will make these percentages
 		
 
         //the axes
         var xAxis = d3.svg.axis()
             .scale(xScale)
             .orient("bottom");
-//            .ticks(3)
-//            .tickFormat(format);
 
         var yAxis = d3.svg.axis()
             .scale(yScale)
             .orient("left");
-//            .ticks(3)
-//            .tickFormat(format);
+
 
 
         $("#chart").html("");
         //the svg chart!
-        var svg = d3.select("#chart")
-            .append("svg")
-            .attr("width", w)
-            .attr("height", h);
-
+		var svg = d3.select("#chart").append("svg")
+		.attr("width", w + margin.left + margin.right)
+		.attr("height", h + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		
         //create the points of the scatterplot
         //well, they are svg circles
         svg.selectAll("circle")
@@ -127,8 +135,6 @@ function bubblescatter(json, radius) {
 				return yScale(getY(d));
 			})
             .attr("r", function (d) {
-				//console.log(getZ(d));
-				//console.log(bubble);
 				if (bubble) {
 					return rScale(getZ(d));
 				}
@@ -156,24 +162,26 @@ function bubblescatter(json, radius) {
         svg.append("g")
             .attr("class", "axis")
 			.attr("id", "x-axis")
-            .attr("transform", "translate(0," + (h - padding) + ")")
+            .attr("transform", "translate(0," + h + ")")
             .call(xAxis)
 			.append("text")
 			.attr("id", "x-axis-description")
-			.attr("x", (w -  2 * padding))
+			.attr("x", w)
+			.attr("y", -6)
+			.style("text-anchor", "end")
 			.text(xAxisName);
 			
 
         svg.append("g")
             .attr("class", "axis")
 			.attr("id", "y-axis")
-            .attr("transform", "translate(" + padding + ",0)")
+            //.attr("transform", "translate(" + 0 + ",0)")
             .call(yAxis)
 			.append("text")
 			.attr("id", "y-axis-description")
 			.attr("transform", "rotate(-90)")
             .attr("y", 6)
-			.attr("x", -30)
+			//.attr("x", -50)
             .attr("dy", ".85em")
             .style("text-anchor", "end")
 			.text(yAxisName);
@@ -187,6 +195,6 @@ function bubblescatter(json, radius) {
 			.attr("x", "3")
 			.css("text-anchor", "");
 		//rotate text
-		$("#x-axis text").attr("transform", "rotate(270)")
+		$("#x-axis text").attr("transform", "rotate(270)");
     }
 }
