@@ -2,6 +2,8 @@
 @main(title = web.controllers.Localize.get("hist.title")) {
 	<style>
 		@web.ChartHelper.getStyle()
+		#content {top: 60px;}
+		#footer {top: 60px;}
 	</style>
 } {
 	@web.ChartHistory.historySummary(uuid)

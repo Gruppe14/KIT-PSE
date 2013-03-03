@@ -45,3 +45,5 @@ input:focus {
 	float:right;
 	display:inline-block;
 }
+#content {top: 60px;}
+#footer {top: 60px;}

@@ -11,10 +11,9 @@ GET /charts/$chartName<[a-z]+>.html		web.controllers.Website.chartType(chartName
 GET /charts/$chartName<[a-z]+>.js		web.controllers.Website.chartJS(chartName)
 GET /charts/$chartName<[a-z]+>/*file	web.controllers.Website.chartStatics(chartName, file)
 
-# history overview
 GET /history							web.controllers.Website.historyOfCharts()
-# chart help page
 GET /chartHelpPage						web.controllers.Website.chartHelpPage()
+GET /about								web.controllers.Website.about()
 
 #admin
 GET /adminLogin							web.controllers.Website.adminLogin()

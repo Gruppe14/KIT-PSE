@@ -355,7 +355,8 @@ $(document).ready(function() {
 	//add chart div
 	$("<div id=\"chart\"></div>").insertBefore("#content");
 	//add chartHelpPage link
-	$("#footer").html("<a href='/chartHelpPage'>@Localize.get("chartHelpPage.title")</a> | " + $("#footer").html());
+	$("#footer").prepend("<a href=\"/chartHelpPage\"><div class=\"smallTile\"><span>@Localize.get("chartHelpPage.title")</span></div></a>");
+	//"<a href='/chartHelpPage'>@Localize.get("chartHelpPage.title")</a> | " + $("#footer").html()
 	
 	//check url for history hash and make history request if needed
 	if(new RegExp("#hist=[0-9]{1,2}").test($(location).attr("hash"))) {

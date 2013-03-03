@@ -55,16 +55,23 @@ public class Website extends Controller {
 	private static Form<LogfileUpload> log = form(LogfileUpload.class);
 
 	/**
-	 * render the index site with all available chart types.
-	 * 
-	 * @return returns the html index site
+	 * render the index page with all available chart types.
+	 * @return returns the html index page
 	 */
     public static Result index() {
     	return ok(web.views.html.index.render());
     }
+    
+    /**
+     * render the about page.
+     * @return returns the about oage
+     */
+    public static Result about() {
+    	return ok(web.views.html.about.render());
+    }
    
     /**
-     * method to dynamically return a chart site depending on the chartName.
+     * method to dynamically return a chart page depending on the chartName.
      * @param chartName the name of the requested chart
      * @return returns a valid HTTP response, a web page
      */
