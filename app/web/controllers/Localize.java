@@ -16,7 +16,8 @@ import java.util.ResourceBundle;
  *
  */
 public class Localize extends Controller {
-	/** instance of this singleton class */
+	
+	/** instance of this singleton class. */
 	private static Localize instance = null;
 	
 	/**

@@ -101,6 +101,12 @@ public class ChartMediator {
 		return null;
 	}
 
+	/**
+	 * Checks whether the given chart is of integrity.
+	 * 
+	 * @param chart chart to check
+	 * @return whether it is of integritry
+	 */
 	private boolean isCorrectChart(DimChart chart) {
 		assert (chart != null);
 		

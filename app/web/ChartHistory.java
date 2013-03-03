@@ -20,7 +20,7 @@ import what.Facade;
  */
 public class ChartHistory {
 	
-	/** the maximum time a ChartHistory Object exists in the instances list */
+	/** the maximum time a ChartHistory Object exists in the instances list. */
 	private static final int MAX_SAVE_TIME = 900000;
 	
 	/** contains the instance of Facade. */
@@ -109,6 +109,7 @@ public class ChartHistory {
 			return false;
 		}
 	}
+	
 	@Override
 	public int hashCode() {
 		return this.uuid.hashCode();

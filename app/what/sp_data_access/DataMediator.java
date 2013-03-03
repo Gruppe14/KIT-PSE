@@ -140,8 +140,8 @@ public class DataMediator {
 		int size = d.getSize();
 		
 		// request children
-		TreeSet<String> children = requestStringsWithParent(d.getColumnNameOfLevel(posi), d.getColumnNameOfLevel(posi - 1), 
-															dk.getValue(), d.getDimTableName());
+		TreeSet<String> children = requestStringsWithParent(d.getColumnNameOfLevel(posi), 
+				d.getColumnNameOfLevel(posi - 1), dk.getValue(), d.getDimTableName());
 		// request failed
 		if (children == null) {
 			Printer.pfail("Requesting children for: " + dk.getValue());

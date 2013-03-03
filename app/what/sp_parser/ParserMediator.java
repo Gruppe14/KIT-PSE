@@ -73,7 +73,7 @@ public class ParserMediator {
 	/**
 	 * This variable indicates after how much idle time a thread gets killed. (seconds)
 	 */
-	private static final int watchTime = 10;
+	private static final int WATCH_TIME = 10;
 	
 	/**
 	 * The WatchDogTimer.
@@ -369,7 +369,7 @@ public class ParserMediator {
 	 * @return the watchtime
 	 */
 	public int getWatchTime() {
-		return watchTime;
+		return WATCH_TIME;
 	}
 	
 	/**
@@ -385,7 +385,7 @@ public class ParserMediator {
 	/**
 	 * If the parser got an error somewhere this method will be used and @param err will be printed out
 	 * and added to the <code>LinkedList<String> errors</code>.
-	 * @param err error to be printed
+	 * @param err an error to be printed
 	 */
 	protected void error(String err) {
 		Printer.print(err);	
@@ -397,8 +397,8 @@ public class ParserMediator {
 	 * Prints the result of the last parsing request.
 	 */
 	private void printResult() {
-		Printer.print("lines successfully submitted: " + 
-				(usedFile.getLines() - linesDeleted) 
+		Printer.print("lines successfully submitted: " 
+				+ (usedFile.getLines() - linesDeleted) 
 				+ " out of " + usedFile.getLines());
 	}
 

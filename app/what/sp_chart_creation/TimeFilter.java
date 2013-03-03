@@ -98,20 +98,31 @@ public class TimeFilter extends Filter {
 	
 	// -- SQL GETTER -- SQL GETTER -- SQL GETTER -- SQL GETTER --
 	/** MySQL constant string. */
-	private static final String STRTO = "STR_TO_DAT("; 
+	private static final String STRTO = "STR_TO_DATE("; 
 	/** MySQL constant string. */
 	private static final String CAST = "CAST(";
 	/** MySQL constant string. */
+	private static final String ASCHAR = " AS CHAR),";
+	/** MySQL constant string. */
 	private static final String CONCAT = "CONCAT(";
 	/** MySQL constant string. */
-	private static final String DATE = "'%d,%m,%Y'";
+	private static final String DATE = "'%Y,%m,%d,%H,%i,%s') ";
 	/** MySQL constant string. */
-	private static final String CHARKOMMA = "','";
+	private static final String CHARKOMMA = "',') ";
 	/** MySQL constant string. */
-	private static final String BETWEEN = "BETWEEN";
+	private static final String CHARKOMMAZERO = "',00') ";
 	/** MySQL constant string. */
-	private static final String AND = "AND";
-	
+	private static final String KOMMA = ",";
+	/** MySQL constant string. */
+	private static final String KOMMAZERO = ",00',";
+	/** MySQL constant string. */
+	private static final String BETWEEN = " BETWEEN ";
+	/** MySQL constant string. */
+	private static final String AND = " AND ";
+	/** MySQL constant string. */
+	private static final String RBR = ") ";
+	/** MySQL constant string. */
+	private static final String APOS = "'";
 	
 	@Override
 	public String getTableQuery() {
@@ -125,88 +136,50 @@ public class TimeFilter extends Filter {
 			return "";
 		}
 		
-		//String restri =
+		DimRow d = getDimension();
 		
+		// STR_TO_DATE(CONCAT(CONCAT(CONCAT(CONCAT
+		String restri = AND + STRTO + CONCAT + CONCAT + CONCAT + CONCAT;
 		
-		// (
-		String query = MySQLAdapter.AND + MySQLAdapter.LBR; // (
-		String fromQuery = MySQLAdapter.LBR;
-		String toQuery = MySQLAdapter.LBR;
-			
-		boolean andFrom = false;
-		boolean andTo = false;
+		// year
+		restri += CONCAT + CAST + d.getColumnNameOfLevel(0)
+					+ ASCHAR + CHARKOMMA + KOMMA;
 		
-		for (int i = 0; i < ChartHostBuilder.L; i++) {
-			if (from[i] > 0) {
-				if (andFrom) {
-					fromQuery += MySQLAdapter.AND;
-				} else {
-					andFrom = true;
-				}
-			}
-			fromQuery += getTimeRestriction(from, 0, i);
-			
-			
-			if (to[i] > 0) {
-				if (andTo) {
-					toQuery += MySQLAdapter.AND;
-				} else {
-					andTo = true;
-				}
-			}
-			toQuery += getTimeRestriction(to, 1, i);
-		}
-		// ) 
-		fromQuery += MySQLAdapter.RBR;
-		toQuery += MySQLAdapter.RBR;
-		
-		
-		if (andFrom) {
-			query += fromQuery;
-		}
-		if (andFrom && andTo) {
-			query += MySQLAdapter.OR;
-		}
-		if (andTo) {
-			query += toQuery;
-		}
-		
-		// ) 
-		query += MySQLAdapter.RBR;
-		
-		return query;
-	}
+		// month
+		restri += CONCAT + CAST + d.getColumnNameOfLevel(1)
+					+ ASCHAR + CHARKOMMA + RBR + KOMMA;
 
-	/**
-	 * Returns the query restriction part for the given
-	 * position i in the given array.
-	 * 
-	 * @param ary array 
-	 * @param i position in array
-	 * @param and whether and should be part of the query
-	 * @return the query restriction part for the given
-	 * position i in the given array
-	 */
-	private String getTimeRestriction(int[] ary, int fromTo, int i) {
-		assert ((fromTo == 0) || (fromTo == 1));
-		assert (ary != null);
-		assert ((i >= 0) && (i < ary.length));
-				
-		String query = "";
+		// day
+		restri += CONCAT + CAST + d.getColumnNameOfLevel(2)
+					+ ASCHAR + CHARKOMMA + RBR + KOMMA;
 		
-		if (ary[i] > 0) {
+		// hour
+		restri += CONCAT + CAST + d.getColumnNameOfLevel(3)
+					+ ASCHAR + CHARKOMMA + RBR + KOMMA;
+		
+		// minute
+		restri += CONCAT + CAST + d.getColumnNameOfLevel(4)
+					+ ASCHAR + CHARKOMMAZERO + RBR + KOMMA;
+		
+		// '%Y,%m,%d,%H:%i') BETWEEN
+		restri += DATE;
+		
+		
+		// BETWEEN STR_TO_DATE( ...  AND STR_TO_DATE(... 
+		String fromQuery = BETWEEN + STRTO + APOS;
+		String toQuery = AND + STRTO + APOS;
 			
-			query += getDimension().getRowAt(i).getColumnName();
-			if (fromTo == 0) {
-				query += MySQLAdapter.MORE; 
-			} else if (fromTo == 1) {
-				query += MySQLAdapter.LESS;
-			}
-			query += ary[i]; 
+		int i = 0;
+		for (; i < (ChartHostBuilder.L - 1); i++) {
+			// number,%Y,%m,%d,%H:%i')
+			fromQuery += from[i] + KOMMA;
+			toQuery += to[i] + KOMMA;
 		}
 		
-		
-		return query;
-	}
-	
+		// minutes,00','
+		fromQuery += from[i] + KOMMAZERO + DATE;
+		toQuery += to[i] + KOMMAZERO + DATE;
+			
+		return restri + fromQuery + toQuery;
+	}	
 }

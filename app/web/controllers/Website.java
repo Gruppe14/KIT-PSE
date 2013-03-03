@@ -42,7 +42,8 @@ import what.Printer;
  *
  */
 public class Website extends Controller {
-	/** Message returned on internal server error */
+	
+	/** Message returned on internal server error. */
 	private static final String ISE = "Something went wrong :(";
 	/**
 	 * the form needed for admin login.
@@ -135,10 +136,10 @@ public class Website extends Controller {
     			return ok(svg).as("image/svg+xml");
     		} else if (body.containsKey("format") && body.get("format")[0].equals("png")) {
     			PNGTranscoder t = new PNGTranscoder();
-    			if(body.containsKey("chart")) {
+    			if (body.containsKey("chart")) {
     				String chart = body.get("chart")[0];
-    				//if a css file for the chart exists
-    				if(ChartIndex.getInstance().hasCss(chart)) {
+    				//if a CSS file for the chart exists
+    				if (ChartIndex.getInstance().hasCss(chart)) {
     					try {
 							t.addTranscodingHint(PNGTranscoder.KEY_USER_STYLESHEET_URI,
 								new File("./charts/" + chart + "/" + chart + ".css").getCanonicalFile().toURI().toString());
@@ -227,8 +228,9 @@ public class Website extends Controller {
     }
     
     /**
-     * display help page for charts
-     * @return returns a http response with the help page
+     * display help page for charts.
+     * 
+     * @return returns a HTTP response with the help page
      */
     public static Result chartHelpPage() {
     	return ok(web.views.html.chartHelpPage.render());
@@ -249,6 +251,7 @@ public class Website extends Controller {
     
     /**
      * method to display admin page if authorized.
+     * 
      * @return returns admin page or error
      */
     @Security.Authenticated(AdminAuth.class)

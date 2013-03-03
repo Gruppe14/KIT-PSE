@@ -117,7 +117,8 @@ public class TwoDimChart extends DimChart {
 			String ft = facttableShort.trim() + MySQLAdapter.DOT;
 			
 			// y
-			restri += MySQLAdapter.AND + ft + getYFilter().getTableKey() + MySQLAdapter.EQL + getYFilter().getKeyQuery();
+			restri += MySQLAdapter.AND + ft + getYFilter().getTableKey() 
+					+ MySQLAdapter.EQL + getYFilter().getKeyQuery();
 				
 			return restri;
 		}

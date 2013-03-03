@@ -40,7 +40,7 @@ public class TimeDimension extends DimRow {
 	/**
 	 * Sets the minimal time of this time dimension.
 	 * 
-	 * @param from the minimal time 
+	 * @param minMaxTime the minimal and maximal time 
 	 */
 	public void setMinMaxTime(int[][] minMaxTime) {
 		assert (minMaxTime.length == 2);

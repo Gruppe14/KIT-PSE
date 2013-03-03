@@ -13,6 +13,7 @@ import java.io.File;
  *
  */
 public class LogfileUpload {
+	
 	/**
 	 * path to the log file as given in the logFileUpload form.
 	 */
@@ -20,7 +21,8 @@ public class LogfileUpload {
 	public String pathToLogfile;
 	
 	/**
-	 * method to check if the uploaded path exists on the serverside.
+	 * method to check if the uploaded path exists on the server side.
+	 * 
 	 * @return returns null or an error message.
 	 */
 	public String validate() {

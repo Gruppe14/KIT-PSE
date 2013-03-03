@@ -324,16 +324,16 @@ public class ChartHelper {
 	public static String getMinMaxTimeString() {
 		int[][] time = ChartHelper.getMinMaxTime();
 		String obj = "{'min':[";
-		for(int i = 0; i < time[0].length; i++) {
+		for (int i = 0; i < time[0].length; i++) {
 			obj += time[0][i];
-			if(i < time[0].length - 1) {
+			if (i < time[0].length - 1) {
 				obj += ", ";
 			}
 		}
 		obj += "], 'max': [";
-		for(int i = 0; i < time[1].length; i++) {
+		for (int i = 0; i < time[1].length; i++) {
 			obj += time[1][i];
-			if(i < time[1].length - 1) {
+			if (i < time[1].length - 1) {
 				obj += ", ";
 			}
 		}
@@ -348,9 +348,9 @@ public class ChartHelper {
 	 * and maximum time(i:1) or null if no such time.
 	 */
 	private static int[][] getMinMaxTime() {
-		if(time == null) {
-			for(DimRow dim: dims) {
-				if(dim.isTimeDim()) {
+		if (time == null) {
+			for (DimRow dim: dims) {
+				if (dim.isTimeDim()) {
 					time = ((TimeDimension) dim).getMinMaxTime();
 				}
 			}
@@ -364,7 +364,7 @@ public class ChartHelper {
 	 * @return returns a int[][] array, see getMinMaxTime().
 	 */
 	private static int[][] getMinMaxTime(DimRow dim) {
-		if(time == null) {
+		if (time == null) {
 			time = ((TimeDimension) dim).getMinMaxTime();
 		}
 		return time;
