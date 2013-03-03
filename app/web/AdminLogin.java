@@ -5,12 +5,13 @@ import web.controllers.Localize;
 
 /**
  * Class to help with login form and validation.
- * @author Lukas Ehnle
+ * 
+ * @author Lukas Ehnle, PSE Gruppe 14
  *
  */
 public class AdminLogin {
 	/**
-	 * the username, as given to login form.
+	 * the user name, as given to login form.
 	 */
 	@Required
 	public String username;
@@ -22,7 +23,7 @@ public class AdminLogin {
 	public String password;
 	
 	/**
-	 * method to check if a login was correct.
+	 * Checks if a login was correct.
 	 * @return returns null or an error message
 	 */
 	public String validate() {

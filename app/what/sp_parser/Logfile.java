@@ -19,10 +19,9 @@ import what.Printer;
  * and an integer  which saves how many lines have been read from this file. 
  * It can read single lines from the logfile and return them to the ParserMediator.
  * 
- * @author Alex
+ * @author Alex, PSE Gruppe 14
  *
  */
-
 public class Logfile {
 
 	

@@ -4,10 +4,11 @@ package what.sp_parser;
  * 
  * ParsingTasks are tasks created by the ParserMediator. They receive a line from the log file and use  
  * SplittingTool, VerifyTool and LocationTool to create a DataEntry. 
- * @author Alex
- *
+ * 
+ * @author Alex, PSE Gruppe 14
+ * @see ParserMediator
+ * @see DataEntry
  */
-
 public class ParsingTask implements Runnable {
 	
 	/**

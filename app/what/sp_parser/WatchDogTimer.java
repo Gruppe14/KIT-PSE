@@ -2,7 +2,7 @@ package what.sp_parser;
 
 /**
  * The WatchDogTimer resets threads which were idle for too long.
- * @author Alex
+ * @author Alex, PSE Gruppe 14
  *
  */
 public class WatchDogTimer {

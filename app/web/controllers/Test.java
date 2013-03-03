@@ -11,6 +11,7 @@ import what.Facade;
  *
  */
 public class Test extends Controller {
+	
 	/**
 	 * method for fast tests of newly written code.
 	 * not intended for continuous tests.
@@ -31,9 +32,9 @@ public class Test extends Controller {
 
 		//System.out.println("This is a test for checking whether reading the config file is successful:");
 		//new Facade();
-		Facade f = Facade.getFacadeInstance();
-		String sourcePath = System.getProperty("user.dir");
-		String seperator = System.getProperty("file.separator");
+		//Facade f = Facade.getFacadeInstance();
+		//String sourcePath = System.getProperty("user.dir");
+		//String seperator = System.getProperty("file.separator");
 		//String pathJSONConfig = sourcePath + seperator + "conf\\ConfigSkyServer.json";
 		//System.out.println("Was it?" + f.init(pathJSONConfig));
 		
@@ -50,7 +51,7 @@ public class Test extends Controller {
 		//System.out.println(f.parseLogFile(sourcePath + seperator + "example\\resultDay.csv"));
 		//f.parseLogFile(sourcePath + seperator + "example\\result10.csv");
 
-		f.parseLogFile(sourcePath + seperator + "example\\result1000.csv");
+		//f.parseLogFile(sourcePath + seperator + "example\\result1000.csv");
 		//System.out.println("Parsing finished");
 
 		return ok("Please look on your console for output of your code");

@@ -18,11 +18,13 @@ import java.util.ResourceBundle;
 public class Localize extends Controller {
 	/** instance of this singleton class */
 	private static Localize instance = null;
+	
 	/**
 	 * a list containing all available languages,
 	 * meaning a language file (e.g. messages_en.properties) was found
 	 */
 	private static List<Lang> available;
+	
 	/**
 	 * the default language, which is returned by the fallback mechanism,
 	 * if the requested language doesn't exist.
@@ -73,8 +75,10 @@ public class Localize extends Controller {
 		}
 		return tmp;
 	}
+	
 	/**
 	 * method to automatically localize the page in the best language.
+	 * 
 	 * @return returns a language in string form e.g. "en" or "de"
 	 * if language was chosen manually that language is returned, else the preferred languages
 	 * as sent by the browser are checked if any fit the available languages and that language is returned
@@ -122,6 +126,7 @@ public class Localize extends Controller {
 			}
 		}
 	}
+	
 	/**
 	 * instantiates this class if not already done and returns this instance.
 	 * @return returns a Localize object.

@@ -3,11 +3,10 @@ package what.sp_parser;
 import java.util.Arrays;
 
 /**
- * 
  * The DataEntry stores the data which will be written into the warehouse. The given attributes are representative
  * for possible data.
  * 
- * @author Alex
+ * @author Alex, PSE Gruppe 14
  *
  */
 public class DataEntry implements Comparable<DataEntry> {

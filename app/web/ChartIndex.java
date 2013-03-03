@@ -13,21 +13,27 @@ import what.Printer;
 
 /**
  * Singleton scanning all chart types available.
- * @author Lukas
+ * 
+ * @author Lukas, PSE Gruppe 14
  */
 public class ChartIndex {
 	/** the instance of chart index for this singleton class. */
 	private static ChartIndex instance = null;
+	
 	/** an array containing the names of all available charts. */
 	private String[] charts;
-	/** a hashmap containing the thumbnail picture name of a chart. */
+	
+	/** a hashmap containing the thumb-nail picture name of a chart. */
 	private HashMap<String, String> thumbs;
+	
 	/** a hashset containing the names of charts that have a css file. */
 	private HashSet<String> css;
+	
 	/** a hashmap containing the dimensions of a chart as read from the charts config file. */
 	private HashMap<String, Integer> dims;
+	
 	/**
-	 * on initialisation scans the charts directory for subdirectories a.k.a. chartTypes.
+	 * on initialization scans the charts directory for sub-directories a.k.a. chartTypes.
 	 */
 	private ChartIndex() {
 		thumbs = new HashMap<>();
@@ -88,10 +94,13 @@ public class ChartIndex {
 		if (instance == null) {
 			instance = new ChartIndex();
 		}
+		
 		return instance;
 	}
+	
 	/**
 	 * returns all names of valid charts.
+	 * 
 	 * @return a string array with all the names
 	 */
 	public String[] getCharts() {
@@ -99,7 +108,8 @@ public class ChartIndex {
 	}
 	
 	/**
-	 * returns the file name of a thumbnail for the chart type.
+	 * returns the file name of a thumb-nail for the chart type.
+	 * 
 	 * @param chart the chart name
 	 * @return returns the file name
 	 */
@@ -108,9 +118,10 @@ public class ChartIndex {
 	}
 	
 	/**
-	 * returns wether a chart has a chart specific css file.
+	 * returns whether a chart has a chart specific CSS file.
+	 * 
 	 * @param chart the chart name
-	 * @return returns true if a chart specific css file exists, false otherwise
+	 * @return returns true if a chart specific CSS file exists, false otherwise
 	 */
 	public boolean hasCss(String chart) {
 		return css.contains(chart);
@@ -118,6 +129,7 @@ public class ChartIndex {
 	
 	/**
 	 * get the number of dimensions for a chart.
+	 * 
 	 * @param chart the name of the chart
 	 * @return returns the number of dimensions
 	 */

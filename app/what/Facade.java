@@ -21,7 +21,6 @@ import what.sp_data_access.DataMediator;
  * web server tier.
  * 
  * @author Jonathan, PSE Gruppe 14
- * @version 1.0
  *
  * @see ChartMediator
  * @see ParserMediator

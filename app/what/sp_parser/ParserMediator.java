@@ -11,7 +11,6 @@ import what.Printer;
 import what.sp_config.ConfigWrap;
 import what.sp_data_access.DataMediator;
 
-
 /**
  * 
  * ParserMediator is the 'main'-Class of the Parser. It creates and administers a thread-pool,
@@ -19,8 +18,8 @@ import what.sp_data_access.DataMediator;
  * The ParserMediator also contains the entryBuffer for finished DataEntries and it saves which log file 
  * is used.
  * 
- * @author Alex
- *
+ * @author Alex, Jo, PSE Gruppe 14
+ * @see ParsingTask
  */
 public class ParserMediator {
 	

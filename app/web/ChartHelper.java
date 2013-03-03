@@ -10,7 +10,6 @@ import play.api.templates.HtmlFormat;
 import play.api.templates.Html;
 import web.controllers.Localize;
 import what.Facade;
-import what.Printer;
 import what.sp_chart_creation.Measure;
 import what.sp_config.DimKnot;
 import what.sp_config.DimRow;
@@ -18,6 +17,7 @@ import what.sp_config.TimeDimension;
 
 /**
  * class to create the HTML stuff from configuration for charts.
+ * 
  * @author Lukas Ehnle, Jonathan, PSE Gruppe 14
  *
  */
@@ -34,6 +34,7 @@ public class ChartHelper {
 	private static final String VID = "</div>";
 	/** HTML constant. non breaking space. */
 	private static final String SPC = "&nbsp;";
+	
 	/** contains the background image information, see getStyle(). */
 	private static Html style = null;
 	/** contains the dimensions in the warehouses. */
@@ -52,6 +53,7 @@ public class ChartHelper {
 	/** charts available, currently overhead, but with further config files may be needed. */
 	private HashMap<String, Html> charts;
 	
+	// -- INIT -- INIT -- INIT -- INIT -- INIT --
 	/**
 	 * private constructor because of singleton pattern.
 	 * refer to getInstance.
@@ -96,55 +98,6 @@ public class ChartHelper {
 		return style;
 	}
 	
-	public static String getMinMaxTimeString() {
-		int[][] time = ChartHelper.getMinMaxTime();
-		String obj = "{'min':[";
-		for(int i = 0; i < time[0].length; i++) {
-			obj += time[0][i];
-			if(i < time[0].length - 1) {
-				obj += ", ";
-			}
-		}
-		obj += "], 'max': [";
-		for(int i = 0; i < time[1].length; i++) {
-			obj += time[1][i];
-			if(i < time[1].length - 1) {
-				obj += ", ";
-			}
-		}
-		obj += "]}";
-		return obj;
-	}
-	
-	/**
-	 * returns the minimum and maximum time.
-	 * [i]->[0:year, 1:month, 2:day]
-	 * @return returns a int[][] array with the minimum time (i:0) 
-	 * and maximum time(i:1) or null if no such time.
-	 */
-	private static int[][] getMinMaxTime() {
-		if(time == null) {
-			for(DimRow dim: dims) {
-				if(dim.isTimeDim()) {
-					time = ((TimeDimension) dim).getMinMaxTime();
-				}
-			}
-		}
-		return time;
-	}
-	
-	/**
-	 * returns the minimum and maximum time to a timeDimension.
-	 * @param dim the time dimension.
-	 * @return returns a int[][] array, see getMinMaxTime().
-	 */
-	private static int[][] getMinMaxTime(DimRow dim) {
-		if(time == null) {
-			time = ((TimeDimension) dim).getMinMaxTime();
-		}
-		return time;
-	}
-	
 	/**
 	 * creates the option selection for a specific chart and language.
 	 * @param name the chart name
@@ -154,7 +107,7 @@ public class ChartHelper {
 	private Html createChart(String name) {
 		ArrayList<DimRow> stringDim = new ArrayList<>();
 		ArrayList<String> measures = new ArrayList<>();
-		int[][] time = null;
+		
 		for (DimRow dim: dims) {
 			//if string dim add to list for later
 			if (dim.isStringDim()) {
@@ -184,21 +137,8 @@ public class ChartHelper {
 		return HtmlFormat.raw(html);
 	}
 	
-	/**
-	 * tests wether the warehouse contains data.
-	 * else no charts can be requested
-	 * @param dims an arrayList containing string dimensions
-	 * @return true if WH contains data, false otherwise
-	 */
-	private boolean stringDimsContainData(ArrayList<DimRow> dims) {
-		for (DimRow dim: dims) {
-			if (dim.getStrings() == null) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
+
+	// -- AXIS -- AXIS -- AXIS -- AXIS -- AXIS -- AXIS --
 	/**
 	 * creates the selection for the axes.
 	 * @param dims an arraylist containing the string dimensions
@@ -229,6 +169,22 @@ public class ChartHelper {
 			html += tmp + VID + VID;
 		}
 		return html;
+	}
+	
+	// -- STRING FILTER -- STRING FILTER -- STRING FILTER --
+	/**
+	 * tests whether the warehouse contains data.
+	 * else no charts can be requested
+	 * @param dims an arrayList containing string dimensions
+	 * @return true if WH contains data, false otherwise
+	 */
+	private boolean stringDimsContainData(ArrayList<DimRow> dims) {
+		for (DimRow dim: dims) {
+			if (dim.getStrings() == null) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	/**
@@ -285,7 +241,7 @@ public class ChartHelper {
 		return tmp;
 	}
 	
-
+	// -- MEASURE -- MEASURE -- MEASURE -- MEASURE -- MEASURE --
 	/**
 	 * creates the option selection for the measures.
 	 * @param measures the measures to add
@@ -308,6 +264,7 @@ public class ChartHelper {
 		return html;
 	}
 	
+	// -- TIME -- TIME -- TIME -- TIME -- TIME -- TIME -- 
 	/**
 	 * adds the time scale options.
 	 * @return returns the html string
@@ -359,4 +316,59 @@ public class ChartHelper {
 		html += VID;
 		return	html;
 	}
+
+	/**
+	 * Creates the min-max time String.
+	 * 
+	 * @return the min-max time String
+	 */
+	public static String getMinMaxTimeString() {
+		int[][] time = ChartHelper.getMinMaxTime();
+		String obj = "{'min':[";
+		for(int i = 0; i < time[0].length; i++) {
+			obj += time[0][i];
+			if(i < time[0].length - 1) {
+				obj += ", ";
+			}
+		}
+		obj += "], 'max': [";
+		for(int i = 0; i < time[1].length; i++) {
+			obj += time[1][i];
+			if(i < time[1].length - 1) {
+				obj += ", ";
+			}
+		}
+		obj += "]}";
+		return obj;
+	}
+	
+	/**
+	 * returns the minimum and maximum time.
+	 * [i]->[0:year, 1:month, 2:day]
+	 * @return returns a int[][] array with the minimum time (i:0) 
+	 * and maximum time(i:1) or null if no such time.
+	 */
+	private static int[][] getMinMaxTime() {
+		if(time == null) {
+			for(DimRow dim: dims) {
+				if(dim.isTimeDim()) {
+					time = ((TimeDimension) dim).getMinMaxTime();
+				}
+			}
+		}
+		return time;
+	}
+	
+	/**
+	 * returns the minimum and maximum time to a timeDimension.
+	 * @param dim the time dimension.
+	 * @return returns a int[][] array, see getMinMaxTime().
+	 */
+	private static int[][] getMinMaxTime(DimRow dim) {
+		if(time == null) {
+			time = ((TimeDimension) dim).getMinMaxTime();
+		}
+		return time;
+	}
+
 }

@@ -8,7 +8,8 @@ import java.io.File;
 
 /**
  * class to support form validation in logfilePath uploads.
- * @author Lukas Ehnle
+ * 
+ * @author Lukas Ehnle, PSE Gruppe 14
  *
  */
 public class LogfileUpload {

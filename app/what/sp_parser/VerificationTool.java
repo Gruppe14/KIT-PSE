@@ -2,11 +2,10 @@ package what.sp_parser;
 
 import what.sp_config.ConfigWrap;
 
-
-
 /**
  * This tool checks, if the <code>ConfigWrap</code> and the type of the csv - file are identical.
- * @author Alex
+ * 
+ * @author Alex, PSE Gruppe 14
  *
  */
 public class VerificationTool {

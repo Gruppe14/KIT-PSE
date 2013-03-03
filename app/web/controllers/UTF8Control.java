@@ -17,9 +17,11 @@ import java.util.ResourceBundle.Control;
  */
 
 class UTF8Control extends Control {
+	
 	/**
 	 * Instantiates a resource bundle for the given bundle name of the given format
 	 * and locale, using the given class loader if necessary.
+	 * 
 	 * @param baseName the bundle name
 	 * @param locale the locale
 	 * @param format the given format
@@ -30,11 +32,13 @@ class UTF8Control extends Control {
 	 */
     public ResourceBundle newBundle(String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
     		throws IOException {
-        // The below is a copy of the default implementation.
+    	
+        // The code below is a copy of the default implementation.
         String bundleName = toBundleName(baseName, locale);
         String resourceName = toResourceName(bundleName, "properties");
         ResourceBundle bundle = null;
         InputStream stream = null;
+      
         if (reload) {
             URL url = loader.getResource(resourceName);
             if (url != null) {
@@ -47,6 +51,7 @@ class UTF8Control extends Control {
         } else {
             stream = loader.getResourceAsStream(resourceName);
         }
+       
         if (stream != null) {
             try {
                 // Only this line is changed to make it to read properties files as UTF-8.
@@ -55,6 +60,7 @@ class UTF8Control extends Control {
                 stream.close();
             }
         }
+        
         return bundle;
     }
 }

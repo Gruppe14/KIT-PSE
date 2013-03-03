@@ -34,10 +34,11 @@ import what.Facade;
 import what.Printer;
 
 /**
- * Class that handles all http requests. the routes redirect a request to one of the methods
+ * Class that handles all HTTP requests. the routes redirect a request to one of the methods
  * of this class. This class may handle the request itself or call other classes and methods.
- * all methods return a http response to the client
- * @author Lukas Ehnle
+ * all methods return a HTTP response to the client
+ * 
+ * @author Lukas Ehnle, PSE Gruppe 14
  *
  */
 public class Website extends Controller {
@@ -54,6 +55,7 @@ public class Website extends Controller {
 
 	/**
 	 * render the index site with all available chart types.
+	 * 
 	 * @return returns the html index site
 	 */
     public static Result index() {

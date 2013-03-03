@@ -6,12 +6,11 @@ import java.util.LinkedList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 import play.api.templates.HtmlFormat;
 import play.api.templates.Html;
 
 import web.controllers.Localize;
-//intern imports
+
 import what.Facade;
 
 /**
@@ -20,17 +19,23 @@ import what.Facade;
  * @author Lukas Ehnle, PSE Gruppe 14
  */
 public class ChartHistory {
+	
 	/** the maximum time a ChartHistory Object exists in the instances list */
 	private static final int MAX_SAVE_TIME = 900000;
+	
 	/** contains the instance of Facade. */
 	private static Facade f = Facade.getFacadeInstance();
+	
 	/** contains all ChartHistory objects, one for every user. */
 	private static LinkedList<ChartHistory> instances = new LinkedList<>();
+	
 	/** the time when a ChartHistory object was created. */
 	private Date timestamp;
+	
 	/** the unique user id for whom this ChartHistory object was created. */
 	private String uuid;
-	/** contains all json files with the last 10 chart requests as of the time
+	
+	/** contains all JSON files with the last 10 chart requests as of the time
 	 * when this ChartHistory object was created. */
 	private JSONObject[] history;
 	

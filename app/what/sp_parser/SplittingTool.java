@@ -1,7 +1,5 @@
 package what.sp_parser;
 
-
-
 import what.sp_config.ConfigWrap;
 
 /**
@@ -12,7 +10,7 @@ import what.sp_config.ConfigWrap;
  * and the statement as the last argument, because the statement can contain commas and endOfLines.
  * It's used statically, because it's just a utility-class which doesn't need objects.
  * 
- * @author Alex
+ * @author Alex, PSE Gruppe 14
  *
  */
 public class SplittingTool {

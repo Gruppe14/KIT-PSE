@@ -2,7 +2,6 @@ package what.sp_parser;
 
 import java.io.IOException;
 
-
 import web.controllers.Localize;
 import what.sp_parser.sp_GeoIp.Location;
 import what.sp_parser.sp_GeoIp.LookupService;
@@ -11,7 +10,8 @@ import what.sp_parser.sp_GeoIp.LookupService;
  * This tool adds the City and Country of a request to a dataEntry.
  * It includes GeoLite data created by MaxMind, available from http://www.maxmind.com. It uses the
  * MaxMind Java-API, which is a little bit changed for speed-up.
- * @author Alex
+ * 
+ * @author Alex, PSE Gruppe 14
  *
  */
 public class GeoIPTool {

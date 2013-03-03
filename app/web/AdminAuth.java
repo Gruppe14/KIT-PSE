@@ -14,11 +14,14 @@ import play.mvc.Security;
 public class AdminAuth extends Security.Authenticator {
 	
 	/**
-	 * Retrieves the username from the session.
-	 * @param ctx the request to check for username
-	 * @return returns username or null
+	 * Retrieves the user name from the session.
+	 * 
+	 * @param ctx the request to check for user name
+	 * @return returns user name or null
 	 */
 	public String getUsername(Context ctx) {
+		assert (ctx != null);
+		
 		String username = ctx.session().get("username");
 		if (username == null) {
 			return null;
@@ -28,10 +31,13 @@ public class AdminAuth extends Security.Authenticator {
 	
 	/**
 	 * alternative result if user is not valid.
+	 * 
 	 * @param ctx the request to check for authorization
-	 * @return Result
+	 * @return Result of this
 	 */
 	public Result onUnauthorized(Context ctx) {
+		assert (ctx != null);
+		
 		return redirect(routes.Website.adminLogin());
 	}
 }
