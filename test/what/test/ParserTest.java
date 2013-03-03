@@ -118,7 +118,7 @@ public class ParserTest {
 		assertTrue(f.parseLogFile(getPathFor(TEN)));
 	}
 			
-	@Test
+	@Ignore
 	public void mediumParseTestStandardSize() {
 		Printer.ptestcase("Parser small");
 		assertTrue(f.parseLogFile(getPathFor(SMALL_PARSING1)));
