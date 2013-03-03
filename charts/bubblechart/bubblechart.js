@@ -28,7 +28,7 @@ function bubblechart(json, sorted) {
         //the format of the data
         var format = d3.format(",d");
 		//the color palette used for the data.
-	    var color = d3.scale.category20();
+        var color = d3.scale.category20();
 
 		//the data has to be sorted somehow
 		function comparator(a, b) {
@@ -45,20 +45,20 @@ function bubblechart(json, sorted) {
 		//this contains the scales.
 		var bubble = d3.layout.pack()
 			.value(getY) //set the accessor function to be the second attribute
-		    .sort(comparator)
-		    .size([w, h])
-		    .padding(padding);
+            .sort(comparator)
+            .size([w, h])
+            .padding(padding);
 		
-		if (sorted != false) {
+        if (sorted !== false) {
 			bubble.sort(comparator);
 		}
 
 		$("#chart").html("");
 		//the big svg container
 		var svg = d3.select("#chart").append("svg")
-		    .attr("width", w)
-		    .attr("height", h)
-		    .attr("class", "bubble");
+            .attr("width", w)
+            .attr("height", h)
+            .attr("class", "bubble");
 		
 		//the pack layout depends on data having a very specific format
 		var fakedata = Object;
@@ -91,7 +91,7 @@ function bubblechart(json, sorted) {
 		.text(function(d) {
 			//calculate how much of the title to write
 			//it depends on the radius
-		    return getX(d).substring(0, d.r / 3.15);
+            return getX(d).substring(0, d.r / 3.15);
 		});
 		
 		$("#y-axis-description").attr("transform", "rotate(270)")

@@ -5,14 +5,14 @@ $(document).ready(function() {
        $(window).resize(onResize);
     }
     
-	$('#lang a').click(function(event) {
-		event.preventDefault();
-	    $('body').append('<form action="/language" name="language" method="POST" style="display:none;">' +
-			'<input type="text" name="lang" value="' + $(this).attr('href') + '" />' +
-			'<input type="text" name="path" value="' + window.location.pathname + '" /></form>');
-	    document.forms['language'].submit();
-	})
-})
+    $('#lang a').click(function(event) {
+        event.preventDefault();
+        $('body').append('<form action="/language" name="language" method="POST" style="display:none;">' +
+            '<input type="text" name="lang" value="' + $(this).attr('href') + '" />' +
+            '<input type="text" name="path" value="' + window.location.pathname + '" /></form>');
+        document.forms.language.submit();
+    });
+});
 
 //function to adjust width of content on resize;
 function onResize() {
@@ -25,8 +25,8 @@ function displayMessage(header, info) {
     //if no additional info
     info = typeof info !== 'undefined' ? info : "";
     //display message
-    $("body").append("<div id='message'><div><span>" + header + "</span><br />" 
-        + info + "<span>ok</span></div></div>");
+    $("body").append("<div id='message'><div><span>" + header + 
+        "</span><br />" + info + "<span>ok</span></div></div>");
     var w = $("#message").children().width() - $("#message span:last").width();
     $("#message span:last").css("left", w/2).click(function() {
         $(this).parents("#message").remove();
@@ -35,6 +35,11 @@ function displayMessage(header, info) {
 }
 
 function displayError(err, info){
-	typeof info !== 'undefined' ? displayMessage(err, info) : displayMessage(err);
-	
+    if (typeof (info !== 'undefined')) {
+        displayMessage(err, info);
+    }
+    else {
+        displayMessage(err);
+    }
+    
 }
