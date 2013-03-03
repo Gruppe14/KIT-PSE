@@ -29,7 +29,7 @@ public class WHConnectionManager {
     /** MySQL password constant. */
     private static final String PW = "whatUP";
     /** Pool size constant. */
-    private static final int MAX_POOL_SIZE = 10;
+    private static final int MAX_POOL_SIZE = 8;
 
     /** Connection pool. */
     private Vector<Connection> connectionPool = new Vector<Connection>();
@@ -60,15 +60,17 @@ public class WHConnectionManager {
     	
         while (!checkIfConnectionPoolIsFull()) {
         	connectionPool.addElement(createNewConnectionForPool());
+        	//Printer.ptest("Normal pool size: " + connectionPool.size());
         }
         
-        //Printer.print("Connection Pool is full.");
+        Printer.ptest("Connection Pool is full.");
         
         while (!checkIfNotAutoComPoolIsFull()) {
         	poolNoAutoCommitting.addElement(createNewNoAutoComCon());
+        	//Printer.ptest("No auto committing pool size: " + poolNoAutoCommitting.size());
         }
         
-        //Printer.print("Connection Pool is full.");
+        Printer.ptest("Connection Pool is full.");
     }
 
     /**
@@ -92,7 +94,6 @@ public class WHConnectionManager {
         try {        	
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(DB_URL, USER_NAME, PW);
-            //Printer.print("Connection: " + connection);
         } catch (SQLException sqle) {
         	Printer.perror("SQLException: " + sqle);
             return null;
@@ -137,8 +138,7 @@ public class WHConnectionManager {
 
         return connection;
     }
-    
-    
+      
     // -- GET AND BRING BACK -- GET AND BRING BACK -- GET AND BRING BACK -- GET AND BRING BACK --
     /**
      * Returns a connection from the pool if one is available.
@@ -200,4 +200,30 @@ public class WHConnectionManager {
        // Printer.print("Connection returned to pool. Size of pool: " + connectionPool.size());
     }
 
+    // -- RELEASE -- RELEASE -- RELEASE -- RELEASE -- RELEASE --
+    /**
+     * Closes all connections in the pools.
+     */
+    protected synchronized void releaseConnections() {
+    	for (Connection c : connectionPool) {
+    		try {
+				c.close();
+			} catch (SQLException e) {
+				Printer.pproblem("Closing connection of normal pool.");
+			}
+    	}
+    	
+    	for (Connection c : poolNoAutoCommitting) {
+    		try {
+				c.close();
+			} catch (SQLException e) {
+				Printer.pproblem("Closing connection of no auto committing pool.");
+			}
+    	}
+    	
+    	Printer.ptest("Connections released.");
+    }
+    
+    
+    
 }

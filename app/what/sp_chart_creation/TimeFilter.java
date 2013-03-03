@@ -97,6 +97,22 @@ public class TimeFilter extends Filter {
 	}
 	
 	// -- SQL GETTER -- SQL GETTER -- SQL GETTER -- SQL GETTER --
+	/** MySQL constant string. */
+	private static final String STRTO = "STR_TO_DAT("; 
+	/** MySQL constant string. */
+	private static final String CAST = "CAST(";
+	/** MySQL constant string. */
+	private static final String CONCAT = "CONCAT(";
+	/** MySQL constant string. */
+	private static final String DATE = "'%d,%m,%Y'";
+	/** MySQL constant string. */
+	private static final String CHARKOMMA = "','";
+	/** MySQL constant string. */
+	private static final String BETWEEN = "BETWEEN";
+	/** MySQL constant string. */
+	private static final String AND = "AND";
+	
+	
 	@Override
 	public String getTableQuery() {
 			return getTable() + MySQLAdapter.AS + getTableNickName();
@@ -108,6 +124,9 @@ public class TimeFilter extends Filter {
 		if (hasTimeRestrictions()) {
 			return "";
 		}
+		
+		//String restri =
+		
 		
 		// (
 		String query = MySQLAdapter.AND + MySQLAdapter.LBR; // (

@@ -117,21 +117,20 @@ public class ParserTest {
 		Printer.ptestcase("Parser tiny");
 		assertTrue(f.parseLogFile(getPathFor(TEN)));
 	}
-		
-		
+			
 	@Test
 	public void mediumParseTestStandardSize() {
 		Printer.ptestcase("Parser small");
 		assertTrue(f.parseLogFile(getPathFor(SMALL_PARSING1)));
 	}
 
-	@Test
+	@Ignore
 	public void bigParseTestStandardSize() {
 		Printer.ptestcase("Parser normal");
 		assertTrue(f.parseLogFile(getPathFor(BIG_PARSING1)));
 	}
 	
-	@Test
+	@Ignore
 	public void doubleParsing() {
 		Printer.ptestcase("Parser two");
 		assertTrue(f.parseLogFile(getPathFor(SMALL_PARSING1)));

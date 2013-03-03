@@ -1,0 +1,17 @@
+﻿thumbs, connection pool 2
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   app/what/sp_data_access/DataMediator.java
+#	modified:   app/what/sp_data_access/MySQLAdapter.java
+#	modified:   app/what/sp_data_access/WHConnectionManager.java
+#	new file:   charts/bubblechart/thumb.svg
+#	renamed:    charts/bubblechart/thumb.PNG -> charts/bubblechart/thumb2.PNG
+#	new file:   charts/piechart/thumb.svg
+#	renamed:    charts/piechart/thumb.png -> charts/piechart/thumb2.png
+#	new file:   nw1jlwj4.fgl.txt
+#
+

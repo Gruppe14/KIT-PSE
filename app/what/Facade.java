@@ -165,8 +165,11 @@ public class Facade {
 		currentConfig = null;
 		parsMedi = null;
 		chartMedi = null;
+		
+		dataMedi.releaseResources();
 		dataMedi = null;
 	}
+	
 	
 	/**
 	 * Creates the warehouse tables for the configuration.

@@ -41,6 +41,15 @@ public class DataMediator {
 		this.adapter = new MySQLAdapter(config);
 	}
 	
+	/**
+	 * Releases all resources.
+	 */
+	public void releaseResources() {
+		adapter.releaseResources();
+		adapter = null;
+	}
+	
+	
 	// -- ORGANIZE DATA -- ORGANIZE DATA -- ORGANIZE DATA -- ORGANIZE DATA --
 	/**
 	 * Organizes things after data got uploaded or at the start of the program.<br>

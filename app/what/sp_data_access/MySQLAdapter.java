@@ -137,6 +137,14 @@ public class MySQLAdapter {
 
 	}
 
+	/**
+	 * Releases all resources
+	 */
+	protected void releaseResources() {
+		whConnections.releaseConnections();
+		whConnections = null;		
+	}
+	
 	// -- CREATING -- CREATING -- CREATING -- CREATING -- CREATING --
 	/**
 	 * Creates the tables for the warehouse 
@@ -1011,6 +1019,9 @@ public class MySQLAdapter {
 		}
 		
 	}
+
+	
+	
 
 		
 }
