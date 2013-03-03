@@ -10,7 +10,7 @@ import what.Facade;
 import what.Printer;
 import what.sp_parser.ParserMediator;
 
-@Ignore
+//@Ignore
 public class ParserTest {
 	
 	// file names
@@ -74,7 +74,7 @@ public class ParserTest {
 	@Test
 	public void smallParseTestEmptyLine() {
 		Printer.ptestcase("Parser empty");
-		assertFalse(f.parseLogFile(getPathFor(EMPTY)));
+		assertTrue(f.parseLogFile(getPathFor(EMPTY)));
 	}
 	
 	@Test
@@ -96,7 +96,7 @@ public class ParserTest {
 	public void smallParseTestTooBig() {
 		Printer.ptestcase("Parser pool 100");
 		pm.setPoolsizeParsing(100);
-		assertTrue(f.parseLogFile(getPathFor(TEN)));
+		assertFalse(f.parseLogFile(getPathFor(TEN)));
 	}
 	
 	@Test
@@ -121,18 +121,21 @@ public class ParserTest {
 	}
 			
 	@Ignore
+	@Test
 	public void mediumParseTestStandardSize() {
 		Printer.ptestcase("Parser small");
 		assertTrue(f.parseLogFile(getPathFor(SMALL_PARSING1)));
 	}
 
 	@Ignore
+	@Test
 	public void bigParseTestStandardSize() {
 		Printer.ptestcase("Parser normal");
 		assertTrue(f.parseLogFile(getPathFor(BIG_PARSING1)));
 	}
 	
-	@Ignore
+	//@Ignore
+	@Test
 	public void doubleParsing() {
 		Printer.ptestcase("Parser two");
 		assertTrue(f.parseLogFile(getPathFor(SMALL_PARSING1)));

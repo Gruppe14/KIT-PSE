@@ -115,7 +115,7 @@ public class ChartHelper {
 			} else if (!dim.isDimension()) {
 				measures.add(dim.getName());
 			//if time dim
-			} else if(dim.isTimeDim()) {
+			} else if (dim.isTimeDim()) {
 				ChartHelper.getMinMaxTime(dim);
 			}
 		}

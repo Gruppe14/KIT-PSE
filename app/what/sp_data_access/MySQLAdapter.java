@@ -710,22 +710,16 @@ public class MySQLAdapter {
 	 * @return a Connection with auto committing disabled
 	 */
  	private  Connection getNoAutoCommitConnection() {
- 		Connection c = null;
-		int a = 0;
-		do {
-			c = whConnections.getNoAutoComConnection();
-			
-			if (c == null) {
-				a++;
-				try {
-					wait(CON);
-				} catch (InterruptedException e) {
-					// nothing to do here... it's okay if we get woken up
-					Printer.pproblem("No connection available.");
-				}
-			}
-		} while ((c == null) && (a < (CON * CON)));
-		
+ 		Connection c = getConnection();
+ 		
+ 		try {
+			c.setAutoCommit(false);
+		} catch (SQLException e) {
+			Printer.pproblem("Changing auto commit to false.");
+			// maybe we die... 
+			return c;
+		}
+
 		return c;
 	}
 
@@ -835,7 +829,16 @@ public class MySQLAdapter {
 	 * @param c no auto-committing Connection to be returned to pool
 	 */
 	private void closeNoAu(Connection c) {	
-		whConnections.returnNoAutoComConnection(c);		
+		assert (c != null);
+		
+		try {
+			c.setAutoCommit(true);
+		} catch (SQLException e) {
+			Printer.perror("Changing auto commit to true.");
+		}
+		
+		close(c);
+			
 	}
 	
 	/**

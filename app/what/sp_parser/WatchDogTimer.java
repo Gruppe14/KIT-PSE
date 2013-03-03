@@ -45,7 +45,7 @@ public class WatchDogTimer {
 		watchTimeSeconds = pm.getWatchTime();
 		
 		for (int i = 0; i < lastTimes.length; i++) {
-			lastTimes[i] = 0;
+			lastTimes[i] = -5; // give them some time to start
 			workedInLastSecond[i] = false;
 		}
 		
