@@ -86,7 +86,7 @@ public class Localize extends Controller {
 	 * else the standard language is returned.
 	 */
 	public static String language() {
-		//could be the 
+		//could be, if tested without running the website
 		if (instance == null) {
 			return standard;
 		}

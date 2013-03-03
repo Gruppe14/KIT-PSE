@@ -3,7 +3,6 @@
 # ~~~~
 
 
-
 # Home page
 GET /									web.controllers.Website.index()
 
@@ -33,13 +32,8 @@ POST /downloadChart						web.controllers.Website.downloadChart()
 #change language
 POST /language							web.controllers.Website.changeLanguage()
 
-
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               	controllers.Assets.at(path="/public", file)
-
-
-# for test purposes, lock class for more infos
-GET /TEST								web.controllers.Test.test()
 
 # standard route for all other urls; index page
 GET /*a										web.controllers.Website.standardRedirect(a)
