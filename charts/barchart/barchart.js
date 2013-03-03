@@ -41,7 +41,8 @@ function barchart(json, sorted) {
             bottom: 20,
             left: d3.max([12*(n + Math.floor(n/3)-1), 50]) 
         };
-        var w = data.length * 30 - margin.left - margin.right;
+        var l = (data.length > 5) ? data.length : 5;
+        var w = l * 30 - margin.left - margin.right;
         var h = 450 - margin.top - margin.bottom;
 
         $("#chart").html("");
