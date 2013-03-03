@@ -2,7 +2,7 @@ function bubblescatter(json, radius) {
 	//TODO: Scale the third dimension
 	//TODO: Add a fourth dimension, color
     //console.log("The radius is " + radius);
-	var bubble = (radius == undefined); //is it a bubblescatter or a scatterplot?
+	var bubble = (radius === undefined); //is it a bubblescatter or a scatterplot?
 	//console.log("Bubblechart? " + bubble);
 	
 	var data;
@@ -54,10 +54,10 @@ function bubblescatter(json, radius) {
 		//first, check whether the data is numeric
 		var xAxisNum = !data.some ( function (d) {
 			return isNaN(+getX(d));
-		})
+		});
 		var yAxisNum = !data.some ( function(d) {
 			return isNaN(+getY(d));
-		})
+		});
 		
 		console.log("xAxisNum- the axis x is numeric: " + xAxisNum);
 		console.log("yAxisNum- the axis y is numeric: " + yAxisNum);
@@ -68,8 +68,8 @@ function bubblescatter(json, radius) {
 		
 		if (xAxisNum) {
 			xScale = d3.scale.linear()
-	            .domain([d3.min(data, getX), d3.max(data, getX)])
-				.range([0, w ]);
+			.domain([d3.min(data, getX), d3.max(data, getX)])
+			.range([0, w ]);
 			console.log("X axis was set to be linear.");
 		}
 		else {
@@ -82,8 +82,8 @@ function bubblescatter(json, radius) {
 		
 		
 		if (yAxisNum) {
-	        yScale = d3.scale.linear()
-	            .domain([d3.min(data, getY), d3.max(data, getY)])
+            yScale = d3.scale.linear()
+                .domain([d3.min(data, getY), d3.max(data, getY)])
 				.range([h, 0]);
 				console.log("Y axis was set to be linear.");
 		}
@@ -97,9 +97,9 @@ function bubblescatter(json, radius) {
 		}
 		
 		//now a scale that maps the radius, too!
-	    var rScale = d3.scale.linear()
-			    .domain([d3.min(data, getZ), d3.max(data, getZ)])
-	            .range([2, 5]); //when the dimensions gets different, we will make these percentages
+        var rScale = d3.scale.linear()
+            .domain([d3.min(data, getZ), d3.max(data, getZ)])
+            .range([2, 5]); //when the dimensions gets different, we will make these percentages
 		
 
         //the axes
@@ -148,7 +148,7 @@ function bubblescatter(json, radius) {
 			.attr("class", "circle")
 			.append("svg:title")
 			
-		    .text(function (d) {
+            .text(function (d) {
 				var txt = xAxisName + ":" + getX(d) + "\n";
 				
 				if (bubble) {

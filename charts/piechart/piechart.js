@@ -1,13 +1,10 @@
 function piechart(json, sorted) {
-    var data;
-    var xAxisName;
-    var yAxisName;
-    var measure;
+    var data, xAxisName, yAxisName, measure;
     
     console.log("I read " + json.data.length + " data points.");
     xAxisName = json.attribute1;
     yAxisName = json.attribute2;
-   	measure = json.measureAttribute;
+    measure = json.measureAttribute;
     
     data = json.data;
     visualize(data); //then start the visualization
@@ -49,7 +46,7 @@ function piechart(json, sorted) {
         var pie = d3.layout.pie()
             .value(getY);
             
-        if (sorted != false) {
+        if (sorted !== false) {
             pie.sort(comparator);
         }
 
