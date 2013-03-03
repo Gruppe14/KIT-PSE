@@ -30,7 +30,7 @@ function barchart(json, sorted) {
 		
 		var yMax = d3.max(data, getY);
 		var n = 0;
-		for(var tmp = yMax; tmp > 1; tmp = tmp/10) {
+		for(var tmp = yMax; tmp > 1; tmp = tmp / 10) {
 			n++;
 		}
 		
@@ -39,7 +39,7 @@ function barchart(json, sorted) {
             top: 30,
             right: 20,
             bottom: 20,
-            left: d3.max([12*(n+Math.floor(n/3)-1), 50]) 
+            left: d3.max([12*(n + Math.floor(n/3)-1), 50]) 
         };
         var w = data.length * 30 - margin.left - margin.right;
         var h = 450 - margin.top - margin.bottom;
