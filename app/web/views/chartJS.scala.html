@@ -80,52 +80,88 @@ function checkOptions() {
 //check if period of time chosen is correct and build json object of it
 function checkBuildTime() {
 	//year [0]-> from, [1]-> to
-	var y = [];
+	var y = new Array(2);
 	//month
-	var m = [];
+	var m = new Array(2);
 	//day
-	var d = [];
+	var d = new Array(2);
 	//hour
-	var h = [];
+	var h = new Array(2);
 	//minMaxTime
 	var minMax = @web.ChartHelper.getMinMaxTimeString()
 	
 	var tmp = $("#yearFrom").html();
-	if(tmp != "&nbsp;" && tmp != "---") { y.push(parseInt(tmp)); }
+	var all = true;
+	if(tmp != "&nbsp;" && tmp != "---") {all = false; y[0] = parseInt(tmp); }
 	tmp = $("#yearTo").html();
-	if(tmp != "&nbsp;" && tmp != "---") { y.push(parseInt(tmp)); }
+	if(tmp != "&nbsp;" && tmp != "---") {all = false; y[1] = parseInt(tmp); }
 	tmp = $("#monthFrom").html();
-	if(tmp != "&nbsp;" && tmp != "---") { m.push(parseInt(tmp)); }
+	if(tmp != "&nbsp;" && tmp != "---") {all = false; m[0] = parseInt(tmp); }
 	tmp = $("#monthTo").html();
-	if(tmp != "&nbsp;" && tmp != "---") { m.push(parseInt(tmp)); }
+	if(tmp != "&nbsp;" && tmp != "---") {all = false; m[1] = parseInt(tmp); }
 	tmp = $("#dayFrom").val();
-	if(tmp != "") { d.push(parseInt(tmp)); }
+	if(tmp != "") {all = false; d[0] = parseInt(tmp); }
 	tmp = $("#dayTo").val();
-	if(tmp != "") { d.push(parseInt(tmp)); }
+	if(tmp != "") {all = false; d[1] = parseInt(tmp); }
 	tmp = $("#hourFrom").val();
-	if(tmp != "") { h.push(tmp); }
+	if(tmp != "") {all = false; h[0] = tmp; }
 	tmp = $("#hourTo").val();
-	if(tmp != "") { h.push(tmp); }
+	if(tmp != "") {all = false; h[1] = tmp; }
 	//checks begin
-	//if y,m,d or h contains only 1 value
-	if(y.length == 1 || m.length == 1 || d.length == 1 || h.length == 1) { displayError("@Localize.get("time.err.argLength")"); return "err"; }
 	//if no args return all
-	if(y.length < 1 && m.length < 1 && d.length < 1 && h.length < 1) { return "all"; }
+	if(all) { return "all"; }
 	
-	//if days exist
-	if(y.length > 1 && m.length > 1 &&d.length > 1 
-		//check days of month
-		&& (daysOfMonth(y[0], m[0]) < d[0] || daysOfMonth(y[1], m[1]) < d[1])) {
-		 { displayError("@Localize.get("time.err.monthsDays")"); return "err"; }
-	}
-	
-	//if hours exist check them
-	if(h.length > 1) {
+	var e = false;
+	//if something was not selected it is set to max
+	//if e.g. hours was selected but not the preceeding, an error message is displayed
+	//from
+	var f = false;
+	if (typeof h[0] === 'undefined') { h[0] = [0,0]; }
+	else {
+		f = true;
 		h[0] = makeTime(h[0]);
+		//if error in hours and minutes
+		if(h[0] == "err") { displayError("@Localize.get("time.err.wrongHour")"); return "err"; }
+	}
+	if (typeof d[0] === 'undefined') {
+		if (f){ e = true; }
+		d[0] = minMax.min[2];
+	} else { f = true; }
+	if (typeof m[0] === 'undefined') {
+		if (f){ e = true; }
+		m[0] = minMax.min[1];
+	} else { f = true; }
+	if (typeof y[0] === 'undefined') {
+		if (f){ e = true; }
+		y[0] = minMax.min[0];
+	}
+	//to
+	f = false;
+	if (typeof h[1] === 'undefined') { h[1] = [23,59]; }
+	else {
+		f = true;
 		h[1] = makeTime(h[1]);
-		if(h[0] != "err" && h[1] != "err") {
-			displayError("@Localize.get("time.err.wrongHour")"); return "err";
-		}
+		//if error in hours and minutes
+		if(h[0] == "err") { displayError("@Localize.get("time.err.wrongHour")"); return "err"; }
+	}
+	if (typeof d[1] === 'undefined') {
+		if (f){ e = true; }
+		d[1] = minMax.max[2];
+	} else { f = true; }
+	if (typeof m[1] === 'undefined') {
+		if (f){ e = true; }
+		m[1] = minMax.max[1];
+	} else { f = true; }
+	if (typeof y[1] === 'undefined') {
+		if (f){ e = true; }
+		y[1] = minMax.max[0];
+	}
+	//display the error if occured
+	if (e) {displayError("@Localize.get("time.err.argLength")"); return "err";}
+	
+	//check days of month
+	if(daysOfMonth(y[0], m[0]) < d[0] || daysOfMonth(y[1], m[1]) < d[1]) {
+		displayError("@Localize.get("time.err.monthsDays")"); return "err";
 	}
 	//##### check for negative times
 	//if year from > year to --> error
@@ -145,54 +181,30 @@ function checkBuildTime() {
 	//if hours equal and min from > min to --> error
 	else if(h[0][0] == h[1][0] && h[0][1] > h[1][1]) { displayError("@Localize.get("time.err.negativeTime")"); return "err"; }
 	}}}
-	 
+	
+	//check if time is in minMax of warehouse
+	//if years out of warehouse range
+	if(y[0] < minMax.min[0] || y[1] > minMax.max[0]) {
+		displayError("@Localize.get("time.err.minMax")", minMaxString(minMax)); return "err";
+	}
+	//if months out of warehouse range
+	if ((y[0] == minMax.min[0] && m[0] < minMax.min[1])
+			|| (y[1] == minMax.max[0] && m[1] > minMax.max[1])) {
+		displayError("@Localize.get("time.err.minMax")", minMaxString(minMax)); return "err";
+	}
+	//if days out of warehouse range
+	if ((y[0] == minMax.min[0] && m[0] == minMax.min[1] && d[0] < minMax.min[2])
+			|| (y[1] == minMax.max[0] && m[1] == minMax.max[1] && d[1] > minMax.max[2])) {
+		displayError("@Localize.get("time.err.minMax")", minMaxString(minMax)); return "err";
+	}
+	
 	//completed checks! build time object
 	var time = {}
-	//if years exist
-	if(y.length > 1) { 
-		//if years out of warehouse range
-		if(y[0] < minMax.min[0] || y[1] > minMax.max[0]) {
-			displayError("@Localize.get("time.err.minMax")", minMaxString(minMax)); return "err";
-		}
 		time.years = [y[0], y[1]]; 
-	}
-	//if months exist
-	if(m.length > 1) {
-		//if month but no years
-		if(y.length < 2) { displayError("@Localize.get("time.err.argLength")"); return "err"; }
-		//if month out of warehouse range
-		if(m[0] < minMax.min[1] || m[1] > minMax.max[1]) {
-			displayError("@Localize.get("time.err.minMax")", minMaxString(minMax)); return "err";
-		}
 		time.months = [m[0], m[1]];
-	//if months don't exist --> standard values
-	} else {
-		time.months = [1, 12];
-	}
-	//if days exist
-	if(d.length > 1) {
-		//if days but no months or no years
-		if(y.length < 2 || m.length < 2) { displayError("@Localize.get("time.err.argLength")"); return "err"; }
-		//if days out of warehouse range
-		if(d[0] < minMax.min[2] || d[1] > minMax.max[2]) {
-			displayError("@Localize.get("time.err.minMax")", minMaxString(minMax)); return "err";
-		}
 		time.days = [d[0], d[1]];
-	//if days don't exist --> standard values
-	} else {
-		time.days = [1, 31];
-	}
-	//if hours & minutes exist
-	if(h.length > 1) {
-		//if hours + minutes but no years or no months or no days
-		if(y.length < 2 || m.length < 2 || d.length < 2) { displayError("@Localize.get("time.err.argLength")"); return "err"; }
 		time.hours = [h[0][0], h[1][0]];
 		time.mins = [h[0][1], h[1][1]];
-	//if hours & minutes don't exist --> standard values
-	} else {
-		time.hours = [0, 23]
-		time.mins = [0, 59]
-	}
 	return time;
 }
 
