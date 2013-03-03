@@ -17,7 +17,7 @@ import what.sp_parser.sp_GeoIp.LookupService;
 public class GeoIPTool {
 	
 	/**
-	 * The lookupservice which looks for country and city of every request.
+	 * The lookup service which looks for country and city of every request.
 	 */
 	private static LookupService cl;
 	
@@ -52,8 +52,7 @@ public class GeoIPTool {
 	 * Position of city in the dataEntry.
 	 */
 	private static final int POSITION_COUNTRY = 6;
-		
-		
+			
 	/**
 	 * Sets up the IpTool and creates a new lookupService.
 	 * 

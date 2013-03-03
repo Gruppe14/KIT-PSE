@@ -12,7 +12,10 @@ public class TimeDimension extends DimRow {
 	public static final int TIME_WEBPAGE_LENGTH = 3;
 	
 	/** Number of rows. Minimal and maximal. */
-	public static final int TIME_MIN_MAX = 2; 
+	public static final int TIME_MIN_MAX = 2;
+
+	/** Length of the stored time. */
+	public static final int TIME_LENGTH = 6;
 	
 	/** 
 	 * The time of the time dimension in the warehouse.<br>

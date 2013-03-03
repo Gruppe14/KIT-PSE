@@ -24,8 +24,6 @@ import what.sp_data_access.DataMediator;
  */
 public class ParserMediator {
 	
-	
-	
 	/**
 	 * The pool size of parsingTasks.
 	 */
@@ -57,10 +55,6 @@ public class ParserMediator {
 	 */	
 	private int linesDeleted = 0;
 
-	/**
-	 * This variable indicates after how much idle time a thread gets killed. (seconds)
-	 */
-	private int watchTime = 2;
 	
 	/**
 	 * This variable indicates how many percent of the lines have to get uploaded correctly.
@@ -76,6 +70,11 @@ public class ParserMediator {
 	 * Constant variable for thousand.
 	 */
 	private static final int THOUSAND = 1000;
+	
+	/**
+	 * This variable indicates after how much idle time a thread gets killed. (seconds)
+	 */
+	private static final int watchTime = 2;
 	
 	/**
 	 * The WatchDogTimer.
@@ -117,6 +116,8 @@ public class ParserMediator {
 	 */
 	private boolean fatalError = false;
 	
+	
+	// -- CREATION -- CREATION -- CREATION -- CREATION -- CREATION --
 	/**
 	 * Constructor for a new ParserMediator.
 	 * @param confi - the used config
@@ -132,8 +133,191 @@ public class ParserMediator {
 		this.cw = confi;
 		this.loader = dataMedi;
 	}
+
+	/**
+	 * Initializes everything needed for a parsing task.
+	 * 
+	 * @param path of the log file
+	 * @return whether initializing was successful
+	 */
+	private boolean init(String path) {
+		
+		usedFile = new Logfile(path, this);
 		
 
+		if (fatalError) {
+			this.reset();
+			return false;
+		}
+		
+		usedFile.setPm(this);
+
+		if (!createThreadPool()) {
+			this.reset();
+			return false;
+		}
+		
+		if (!GeoIPTool.setUpIpTool(this)) {
+			this.reset();
+			return false;
+		}
+		
+		wdt.initialize(this);
+		
+		return true;
+	}
+	
+	
+	
+	// -- RESETTING -- RESETTING -- RESETTING -- RESETTING --
+	/**
+	 * This method resets the thread with the number i.
+	 * @param i the thread to be resetted
+	 */
+	protected void resetThread(int i) {
+		ParsingTask newTask = new ParsingTask(this, i);
+		threadPool.submit(newTask);
+		tasks[i] = newTask;
+		Printer.pproblem(Localize.getString("Warning.20"));
+	}
+
+	/**
+	 * This method resets the ParserMediator.
+	 */
+	private void reset() {
+		finishedTasks = 0;
+		linesDeleted = 0;
+		
+		try {
+			usedFile.close();
+		} catch (IOException e) {
+			Printer.perror("on closing Logfile");
+		}
+		usedFile = null;
+		tasks = null;
+		error = null;
+		fatalError = false;
+		threadPool = null;	
+		
+	}
+	
+	
+	
+	// -- PARSING REQUEST -- PARSING REQUEST -- PARSING REQUEST --	
+	/**
+	 * This method starts the actual parsing. It creates a new <code>Logfile</code> with @param path and
+	 * sets the <code>usedFile</code> to the path. Then it creates a <code>ThreadPool</code> like stated 
+	 * in <code>createThreadPool</code> and submits all those threads via 
+	 * <code>java.util.Concurrent.ThreadPool</code>
+	 * @return true, after parsing is finished
+	 */
+	public boolean parseLogFile(String path) {
+		assert (path != null);
+		
+		Printer.ptest("Start parsing log file: " + path);
+		
+		//Initialization for Logfile, ThreadPool and GeoIPTool.
+		if (!(init(path))) {
+			return false;
+		}
+		
+		
+		//Submits all threads to the pool and starts them.
+		for (int i = 0; i < poolsize; i++) {
+			try {
+				threadPool.submit(tasks[i]);
+			} catch (RejectedExecutionException e) {
+				error(Localize.getString("Error.30P1") + " " + i + " " + Localize.getString("Error.30P2")); 
+			} catch (NullPointerException e) {
+				error(Localize.getString("Error.40P1") + " " + i + " " + Localize.getString("Error.40P2")); 
+			}
+			
+			if (fatalError) {
+				threadPool.shutdown();
+				this.reset();
+				return false;
+			}			
+		}
+		
+		
+		
+		// Checks all 1000ms if all tasks are finished or if there was a fatal error. Returns true if 
+		// all tasks are finished and false, if there was a fatal error.
+		while (true) {
+			if (finishedTasks < poolsize) {
+				wdt.check(this);
+			}
+			
+			if (finishedTasks >= poolsize) {
+				printResult();
+				threadPool.shutdown();
+				boolean toReturn = enoughLinesSubmitted();
+				this.reset();
+				return toReturn;
+			} else {
+				try {
+					Thread.sleep(THOUSAND);
+				} catch (InterruptedException e) {
+					error(Localize.getString("Error.80"));
+				}
+				
+				if (fatalError) {
+					this.reset();
+					return false;
+				}
+			}
+			
+		}
+		
+
+	}
+	
+	/**
+	 * This method reads a line from <code>usedFile</code>.
+	 * @return the next line from <code>usedFile</code>
+	 */
+	protected String readLine() {
+		return usedFile.readLine();
+	}
+	
+	
+	
+	// -- COUNTING -- COUNTING -- COUNTING -- COUNTING --
+	/**
+	 * This method is called when a line gets deleted. It sends out a warning to the standard output.
+	 */
+	protected void increaseLinedel() {
+		
+		linesDeleted++;
+		
+		Printer.pproblem(Localize.getString("Warning.10P1") + " " + linesDeleted + " "
+				+ Localize.getString("Warning.10P2"));
+	}
+
+	/**
+	 * This method is called when a task is finished. If it hits the poolsize the parser is shut down.
+	 * @param pt the ParsingTask which is finished.
+	 */
+	protected void increaseFT(ParsingTask pt) {
+		
+		finishedTasks++;	
+		Printer.print("Task " + pt.getNumber() + " finished - now finished: " + finishedTasks);
+	}
+	
+	/**
+	 * This method checks if enough lines are submitted correctly. Parsing only returns true if more than 
+	 * CORRECT % of the lines were in fact correct
+	 * @return true if parsing was successful
+	 */
+	private boolean enoughLinesSubmitted() {
+		
+		return ((double) usedFile.getLines() * (double) (CORRECT / HUNDRED) <= (usedFile.getLines() - linesDeleted));
+						
+	}
+	
+	
+	
+	// -- POOL -- POOL -- POOL -- POOL -- POOL -- POOL -- POOL -- POOL --
 	/**
 	 * Creates a new <code>threadPool</code> with <code>poolsize</code> objects of the type 
 	 * <code>ParsingTask</code>.
@@ -165,138 +349,44 @@ public class ParserMediator {
 	}
 	
 	/**
-	 * This method starts the actual parsing. It creates a new <code>Logfile</code> with @param path and
-	 * sets the <code>usedFile</code> to the path. Then it creates a <code>ThreadPool</code> like stated 
-	 * in <code>createThreadPool</code> and submits all those threads via 
-	 * <code>java.util.Concurrent.ThreadPool</code>
-	 * @return true, after parsing is finished
+	 * @param poolsize the poolsize to set
 	 */
-	public boolean parseLogFile(String path) {
-		assert (path != null);
+	public void setPoolsizeParsing(int poolsize) {
 		
-		finishedTasks = 0;
-		
-		Printer.ptest("Start parsing log file: " + path);
-		
-		//Initialization for Logfile, ThreadPool and GeoIPTool.
-		
-		usedFile = new Logfile(path, this);
-		
-					
-		if (fatalError) {
-			this.reset();
-			return false;
-		}
-		
-		usedFile.setPm(this);
-
-		if (!createThreadPool()) {
-			this.reset();
-			return false;
-		}
-		
-		if (!GeoIPTool.setUpIpTool(this)) {
-			this.reset();
-			return false;
-		}
-		
-
-		wdt.initialize(this);
-		
-		//Submits all threads to the pool and starts them.
-		for (int i = 0; i < poolsize; i++) {
-			try {
-				threadPool.submit(tasks[i]);
-			} catch (RejectedExecutionException e) {
-				error(Localize.getString("Error.30P1") + " " + i + " " + Localize.getString("Error.30P2")); 
-			} catch (NullPointerException e) {
-				error(Localize.getString("Error.40P1") + " " + i + " " + Localize.getString("Error.40P2")); 
-			}
-			
-			if (fatalError) {
-				threadPool.shutdown();
-				this.reset();
-				return false;
-			}			
-		}
-		
-		
-		
-		// Checks all 1000ms if all tasks are finished or if there was a fatal error. Returns true if 
-		// all tasks are finished and false, if there was a fatal error.
-		while (true) {
-			if (finishedTasks >= poolsize) {
-				Printer.print("lines successfully submitted: " + 
-								(usedFile.getLines() - linesDeleted) 
-								+ " out of " + usedFile.getLines());
-				threadPool.shutdown();
-				boolean toReturn = enoughLinesSubmitted();
-				this.reset();
-				return toReturn;
-			} else {
-				try {
-					Thread.sleep(THOUSAND);
-				} catch (InterruptedException e) {
-					error(Localize.getString("Error.80"));
-				}
-				
-				if (fatalError) {
-					this.reset();
-					return false;
-				}
-			}
-			
-			if (finishedTasks < poolsize) {
-				wdt.check(this);
-			}
-		}
-		
-
+		this.poolsize = poolsize;
 	}
 	
 	/**
-	 * This method checks if enough lines are submitted correctly. Parsing only returns true if more than 
-	 * CORRECT % of the lines were in fact correct
-	 * @return true if parsing was successful
+	 * @return the poolsize
 	 */
-	private boolean enoughLinesSubmitted() {
-		
-		return ((double) usedFile.getLines() * (double) (CORRECT / HUNDRED) <= (usedFile.getLines() - linesDeleted));
-						
+	public int getPoolsize() {
+		return poolsize;
 	}
 
+	
+	
+	// -- WATCH DOG -- WATCH DOG -- WATCH DOG -- WATCH DOG -- WATCH DOG --
 	/**
-	 * This method resets the ParserMediator.
+	 * @return the watchtime
 	 */
-	private void reset() {
-		finishedTasks = 0;
-		linesDeleted = 0;
-		try {
-			usedFile.close();
-		} catch (IOException e) {
-			Printer.perror("on closing Logfile");
-		}
-		usedFile = null;
-		tasks = null;
-		error = null;
-		fatalError = false;
-		threadPool = null;	
-		
-	}
-
-
-	/**
-	 * This method reads a line from <code>usedFile</code>.
-	 * @return the next line from <code>usedFile</code>
-	 */
-	protected String readLine() {
-		return usedFile.readLine();
+	public int getWatchTime() {
+		return watchTime;
 	}
 	
+	/**
+	 * @return the watchdogtimer
+	 */
+	public WatchDogTimer getWatchDog() {
+		return wdt;		
+	}
+	
+	
+	
+	// -- PRINTING -- PRINTING -- PRINTING -- PRINTING -- 
 	/**
 	 * If the parser got an error somewhere this method will be used and @param err will be printed out
 	 * and added to the <code>LinkedList<String> errors</code>.
-	 * @param err
+	 * @param err error to be printed
 	 */
 	protected void error(String err) {
 		Printer.print(err);	
@@ -305,27 +395,17 @@ public class ParserMediator {
 	}
 
 	/**
-	 * This method is called when a task is finished. If it hits the poolsize the parser is shut down.
-	 * @param pt the ParsingTask which is finished.
+	 * Prints the result of the last parsing request.
 	 */
-	protected void increaseFT(ParsingTask pt) {
-		
-		finishedTasks++;	
-		Printer.print("Task " + pt.getNumber() + " finished - now finished: " + finishedTasks);
-	}
-	
-	/**
-	 * This method is called when a line gets deleted. It sends out a warning to the standard output.
-	 */
-	protected void increaseLinedel() {
-		
-		linesDeleted++;
-		
-		Printer.pproblem(Localize.getString("Warning.10P1") + " " + linesDeleted + " "
-				+ Localize.getString("Warning.10P2"));
+	private void printResult() {
+		Printer.print("lines successfully submitted: " + 
+				(usedFile.getLines() - linesDeleted) 
+				+ " out of " + usedFile.getLines());
 	}
 
+
 	
+	// -- GETTER -- GETTER -- GETTER -- GETTER -- GETTER --
 	/**
 	 * @return the config
 	 */
@@ -333,62 +413,20 @@ public class ParserMediator {
 		return cw;
 	}
 
-
-	/**
-	 * @param poolsize the poolsize to set
-	 */
-	public void setPoolsizeParsing(int poolsize) {
-		
-		this.poolsize = poolsize;
-		
-	}
-
-
 	/**
 	 * @return the loader
 	 */
 	public DataMediator getLoader() {
 		return loader;
 	}
-
-	/**
-	 * @return the poolsize
-	 */
-	public int getPoolsize() {
-		return poolsize;
-	}
-
-	/**
-	 * @return the watchtime
-	 */
-	public int getWatchTime() {
-		return watchTime;
-	}
-
-	/**
-	 * @return the watchdogtimer
-	 */
-	public WatchDogTimer getWatchDog() {
-		return wdt;		
-	}
 	
 	/**
-	 * Returns the used logfile.
-	 * @return the used logfile
+	 * Returns the used log file.
+	 * 
+	 * @return the used log file
 	 */
 	public Logfile getLogfile() {
 		return usedFile;
-	}
-
-	/**
-	 * This method resets the thread with the number i.
-	 * @param i the thread to be resetted
-	 */
-	protected void resetThread(int i) {
-		ParsingTask newTask = new ParsingTask(this, i);
-		threadPool.submit(newTask);
-		tasks[i] = newTask;
-		Printer.pproblem(Localize.getString("Warning.20"));
 	}
 
 	/**
@@ -407,4 +445,5 @@ public class ParserMediator {
 		return error;
 	}
 	
+		
 }

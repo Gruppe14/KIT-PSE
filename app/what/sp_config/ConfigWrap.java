@@ -554,7 +554,7 @@ public class ConfigWrap {
 			i++;
 		}
 		
-		if ((i - 1) < TimeDimension.TIME_WEBPAGE_LENGTH) {
+		if (i != TimeDimension.TIME_LENGTH) {
 			return false;
 		}
 		

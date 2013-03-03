@@ -17,7 +17,6 @@ public class WatchDogTimer {
 	 */
 	private static WatchDogTimer wdt = new WatchDogTimer();
 	
-	
 	/**
 	 * Private constructor, singleton.
 	 */
