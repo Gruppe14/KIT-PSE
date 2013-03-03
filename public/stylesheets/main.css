@@ -53,9 +53,13 @@ img {
 	text-align: right;
 	margin-top: 15px;
 }
-.fixWidth {
+.minWidth {
 	width: 70%;
 	min-width: 690px;
+	margin: auto;
+}
+.fixWidth {
+	width: 690px;
 	margin: auto;
 }
 

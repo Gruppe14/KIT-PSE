@@ -71,7 +71,7 @@ public class ChartHistory {
 		}
 		//if no history tiles at all
 		if (html.equals("")) {
-			html += "<div class=\"fixWidth\">" + Localize.get("err.noHist") + "</div>";
+			html += "<div class=\"minWidth\">" + Localize.get("err.noHist") + "</div>";
 		} else {
 			instances.add(tmp);
 		}

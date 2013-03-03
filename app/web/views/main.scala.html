@@ -10,7 +10,7 @@
         @includes
     </head>
     <body>
-	<div class="fixWidth">
+	<div class="minWidth">
     	<a href ="/"><img id="logo" src="/assets/images/logoText.png"></a>
     	<div id="lang">
     		@for(l <- Localize.getAvailables()) {
@@ -25,7 +25,7 @@
 	<div id="content">
 		@content
 	</div>
-	<div id="footer" class="fixWidth">
+	<div id="footer" class="minWidth">
 		<a href="/admin">@Localize.get("admin.adminSection")</a>
 	</div>
     </body>
