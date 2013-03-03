@@ -1,6 +1,10 @@
 @import web.controllers.Localize
 @main(title = "index.title") {
+	<style>
+	#content {top: 60px;}
+	#footer {top: 60px;}
 	@web.ChartHelper.getStyle()
+	</style>
 } {
 	@for(chart <- web.ChartIndex.getInstance().getCharts()) {
 		<a href="/charts/@{chart}.html">

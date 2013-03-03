@@ -86,13 +86,12 @@ public class ChartHelper {
 	 */
 	public static Html getStyle() {
 		if (style == null) {
-			String html = "<style>";
+			String html = "";
 			ChartIndex ind = ChartIndex.getInstance();
 			for (String chart : ind.getCharts()) {
 				html += "#" + chart + "{background-image: url(\"/charts/" + chart + "/" 
 						+ ind.getThumb(chart) + "\");}\n";
 			}
-			html += "</style>";
 			style = HtmlFormat.raw(html);
 		}
 		return style;

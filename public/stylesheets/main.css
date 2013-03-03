@@ -44,13 +44,11 @@ img {
 
 #content {
 	position: relative;
-	top: 60px;
 	margin: auto;
 }
 #footer {
 	clear:both;
 	position: relative;
-	top: 60px;
 	font-size: 14px;
 	text-align: right;
 	margin-top: 15px;
