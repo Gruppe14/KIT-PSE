@@ -203,8 +203,7 @@ public class Website extends Controller {
     	    uuid = java.util.UUID.randomUUID().toString();
     	    session("uuid", uuid);
     	}
-    	return ok(web.views.html.main.render(Localize.get("hist.title"), 
-    			ChartHelper.getStyle(), ChartHistory.historySummary(uuid)));
+    	return ok(web.views.html.chartHistory.render(uuid));
     }
     
     /**

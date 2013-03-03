@@ -1,0 +1,9 @@
+@(uuid: String)
+@main(title = web.controllers.Localize.get("hist.title")) {
+	<style>
+		@web.ChartHelper.getStyle()
+	</style>
+} {
+	@web.ChartHistory.historySummary(uuid)
+}
+    			
