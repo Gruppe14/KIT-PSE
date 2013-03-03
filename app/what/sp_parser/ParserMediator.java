@@ -54,6 +54,10 @@ public class ParserMediator {
 	 */	
 	private int linesDeleted = 0;
 
+	/**
+	 * This variable indicates how many threads have been reseted.
+	 */	
+	private int resetedThreads = 0;
 	
 	/**
 	 * This variable indicates how many percent of the lines have to get uploaded correctly.
@@ -174,9 +178,15 @@ public class ParserMediator {
 	 * @param i the thread to be resetted
 	 */
 	protected void resetThread(int i) {
-		ParsingTask newTask = new ParsingTask(this, i);
-		threadPool.submit(newTask);
-		tasks[i] = newTask;
+		if (getResetedThreads() <= (getPoolsize() * getPoolsize())) {
+			ParsingTask newTask = new ParsingTask(this, i);
+			threadPool.submit(newTask);
+			tasks[i] = newTask;
+		} else if (getResetedThreads() <= (MAX_POOLSIZE * MAX_POOLSIZE)) {
+			error("We are so damn slowly. Restart this with a lower pool size.");
+		}		
+		
+		increaseThreadsReset();
 		Printer.pproblem(Localize.getString("Warning.20"));
 	}
 
@@ -314,6 +324,12 @@ public class ParserMediator {
 						
 	}
 	
+	/**
+	 * Increases the number of reseted threads.
+	 */
+	protected void increaseThreadsReset() {
+		resetedThreads++;
+	}
 	
 	
 	// -- POOL -- POOL -- POOL -- POOL -- POOL -- POOL -- POOL -- POOL --
@@ -443,6 +459,18 @@ public class ParserMediator {
 	public String getError() {
 		return error;
 	}
+
+	
+	/**
+	 * Returns the number of reseted threads.
+	 * 
+	 * @return the number of reseted threads
+	 */
+	public int getResetedThreads() {
+		return resetedThreads;
+	}
+
+
 	
 		
 }
