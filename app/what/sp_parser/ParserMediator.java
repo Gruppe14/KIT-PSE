@@ -226,8 +226,9 @@ public class ParserMediator {
 		// all tasks are finished and false, if there was a fatal error.
 		while (true) {
 			if (finishedTasks >= poolsize) {
-				Printer.print("lines successfully submitted: " + (usedFile.getLines() - 
-						linesDeleted) + " out of " + usedFile.getLines());
+				Printer.print("lines successfully submitted: " + 
+								(usedFile.getLines() - linesDeleted) 
+								+ " out of " + usedFile.getLines());
 				threadPool.shutdown();
 				boolean toReturn = enoughLinesSubmitted();
 				this.reset();
@@ -252,7 +253,6 @@ public class ParserMediator {
 		
 
 	}
-	
 	
 	/**
 	 * This method checks if enough lines are submitted correctly. Parsing only returns true if more than 
