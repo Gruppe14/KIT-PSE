@@ -37,7 +37,7 @@ function barchart(json, sorted) {
         
         //let's calculate how many types we have
         var t = d3.values(data.map(getY)).length;
-        console.log("Different y values is " + t);
+        //console.log("Different y values is " + t);
         var yMin = d3.min(data, getY);
 		
 		var yMax = d3.max(data, getY);
@@ -47,8 +47,7 @@ function barchart(json, sorted) {
 		for(var tmp = yMax; tmp > 1; tmp = tmp / 10) {
 			n++;
 		}
-		
-		console.log("yMax / yMin = " + (yMax / yMin));
+
         //dimensions
         var margin = {
             top: 30,
@@ -57,13 +56,13 @@ function barchart(json, sorted) {
             left: d3.max([12 * (n + Math.floor(n/3)-1), 50]) 
         };
         
-        console.log("xMax :" + margin.top);
+        //console.log("xMax :" + margin.top);
         var l = (data.length > 5) ? data.length : 5;
         var w = l * 30 - margin.left - margin.right;
         if (w < 40) {
             w = t * 30;
         }
-        console.log("The width is: " + w);
+        //console.log("The width is: " + w);
         var h = 480 - margin.top - margin.bottom;
 
         $("#chart").html("");
@@ -101,23 +100,7 @@ function barchart(json, sorted) {
             .domain(data.map(getX))
             .rangeRoundBands([0, w], 0.04);
 
-        var yScale;
-        if (data.length >= 100000 || ratio > 1000) {
-            //let's try normalizing the data
-           // var avg = (yMax + yMin) / 2;
-           // data = data.map(function(d) 
-    //        console.log(1/ ratio);
-            //yScale = d3.scale.pow().exponent(1 / yMin);
- //           yScale = d3.scale.sqrt();
- //           yScale = d3.scale.pow().exponent(1 / n);
-            yScale = d3.scale.linear();
-            console.log("The scale was set to be exponential.")
-        }
-        else {
-            yScale = d3.scale.linear();
-            console.log("The scale was set to be linear.")
-
-        }
+        var yScale = d3.scale.linear();
         yScale.domain([ yMax, yMin]).range([0, h]);
 			
 

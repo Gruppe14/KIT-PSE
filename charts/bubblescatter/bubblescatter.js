@@ -1,6 +1,4 @@
 function bubblescatter(json, radius) {
-	//TODO: Scale the third dimension
-	//TODO: Add a fourth dimension, color
     //console.log("The radius is " + radius);
 	var bubble = (radius === undefined); //is it a bubblescatter or a scatterplot?
 	//console.log("Bubblechart? " + bubble);
