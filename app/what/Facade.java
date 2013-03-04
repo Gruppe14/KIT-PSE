@@ -200,7 +200,7 @@ public class Facade {
 		//Printer.ptest("creating tables: " + createDBTables());
 		
 		// testing
-		Printer.ptest("Start parsing task.");
+		//Printer.ptest("Start parsing task.");
 		long start = System.currentTimeMillis();
 		
 		// checks whether a request is allowed
@@ -219,7 +219,7 @@ public class Facade {
 		}
 		
 		// testing
-		Printer.ptest("Completed parsing task. Time needed: " + (System.currentTimeMillis() - start));
+		//Printer.ptest("Completed parsing task. Time needed: " + (System.currentTimeMillis() - start));
 		
 
 		// precompute strings for the web page selection boxes after parsinng

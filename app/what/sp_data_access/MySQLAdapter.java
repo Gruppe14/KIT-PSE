@@ -294,7 +294,7 @@ public class MySQLAdapter {
 	 */
 	protected boolean requestChartJSON(DimChart chart) {
 		assert (chart != null);
-		Printer.ptest("Start chart request.");
+		//Printer.ptest("Start chart request.");
 		
 		String factTable = config.getFactTableName();
 		
@@ -637,7 +637,7 @@ public class MySQLAdapter {
 			return false;
 		}
 		
-		Printer.ptest("Try to execute: " + query);
+		//Printer.ptest("Try to execute: " + query);
 		
 		// execute query
 		ResultSet re = null;
@@ -1015,7 +1015,7 @@ public class MySQLAdapter {
 		
 		try {
 			String str = INSERT + CONFIG_NAME + LBR + SOURCE_DB + RBR + VALUES + LBR + APOS + name + APOS + RBR;
-			Printer.ptest("Table storing query:" + str);
+			//Printer.ptest("Table storing query:" + str);
 			s.executeUpdate(str);
 		} catch (SQLException e) {
 			Printer.pfail("Storing table: " + name);

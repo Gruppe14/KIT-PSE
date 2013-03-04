@@ -94,7 +94,7 @@ public class ChartMediator {
 		// compute the JSON chart for it
 		if (computeJSONFor(chart)) {
 			addToHistory(chart);
-			Printer.ptest(chart.getJson().toString());
+			//Printer.ptest(chart.getJson().toString());
 			return chart.getJson();
 		}
 
@@ -180,8 +180,8 @@ public class ChartMediator {
 		}
 				
 		// for testing
-		Printer.ptest("History chart number: " + number 
-						+ "\n" + history.get(number).toString());
+		//Printer.ptest("History chart number: " + number 
+		//				+ "\n" + history.get(number).toString());
 		
 		return history.get(number).getJson();
 	}

@@ -52,7 +52,7 @@ public class ParserMediator {
 	/**
 	 * This variable indicates how many lines have been deleted due to mistakes.
 	 */	
-	private int linesDeleted = 0;
+	private long linesDeleted = 0;
 
 	/**
 	 * This variable indicates how many threads have been reseted.

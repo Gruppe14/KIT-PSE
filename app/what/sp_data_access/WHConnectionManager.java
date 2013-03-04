@@ -67,7 +67,7 @@ public class WHConnectionManager {
         	i++;
         }    
         
-        Printer.ptest("Connection Pool is full.");
+       // Printer.ptest("Connection Pool is full.");
     }
 
     /**
@@ -147,7 +147,7 @@ public class WHConnectionManager {
 			}
     	}
     	
-    	Printer.ptest("Connections released.");
+    	//Printer.ptest("Connections released.");
     }
     
     

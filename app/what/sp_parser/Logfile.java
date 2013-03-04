@@ -28,7 +28,7 @@ public class Logfile {
 	/**
 	 * Number of lines which are already read from the file.
 	 */
-	private int lines;
+	private long lines;
 	
 	/**
 	 * The type of the csv-file.
@@ -77,7 +77,7 @@ public class Logfile {
 	/**
 	 * @return the number of lines which are already read
 	 */
-	public int getLines() {
+	public long getLines() {
 		return lines;
 	}
 
