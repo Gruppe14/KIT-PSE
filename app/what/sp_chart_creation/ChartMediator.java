@@ -33,9 +33,25 @@ public class ChartMediator {
 	/** The ChartHostBuilder with which this ChartMediator works. */
 	private ChartHostBuilder builder;
 	
-	/** The maximal size of the history. */
-	private static final int MAX_SIZE_HISTORY = 10;
+	/** The size of the history. */
+	private int size_history = 10;
 	
+	/** The maximal size of the history. */
+	private int MAX_SIZE_FOR_HISTORY = 100;
+	
+	/**
+	 * Sets the size for the history.
+	 * 
+	 * @param size_history Size for the history length;
+	 * must be between 1 and 100
+	 */
+	public void setMaxSizeForHistory(int size_history) {
+		if ((size_history > 0) && (size_history < MAX_SIZE_FOR_HISTORY)) {
+			this.size_history = size_history;
+		}
+		
+	}
+
 	/** The stored history of computed charts of this ChartMediator. */
 	private LinkedList<DimChart> history;
 	
@@ -209,7 +225,7 @@ public class ChartMediator {
 	 * @return the maximal number of charts possible to store in the history
 	 */
 	public int getMaxSizeOfHistory() {
-		return MAX_SIZE_HISTORY;
+		return size_history;
 	}
 
 	/**

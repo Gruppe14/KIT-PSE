@@ -1,7 +1,3 @@
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import play.Application;
 import play.GlobalSettings;
 import what.Facade;
