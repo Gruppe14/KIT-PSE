@@ -38,6 +38,8 @@ public class IntRow extends RowEntry {
 			int i = Integer.parseInt(string);
 			if (i >= 0) {
 				de.setInfo(i, location);
+			} else if (i == -1) {
+				de.setInfo(0, location);
 			} else {
 				return false;
 			}

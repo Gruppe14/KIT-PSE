@@ -15,8 +15,6 @@ public class StringRow extends RowEntry {
 
 	/** The table type of a StringRow in the warehouse. */
 	private static final String TABLE_TYPE = "VARCHAR(40)";
-	
-
 		
 	/**
 	 * Protected constructor for the class StringRow.
