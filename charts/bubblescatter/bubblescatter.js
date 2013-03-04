@@ -99,7 +99,7 @@ function bubblescatter(json, radius) {
 		//now a scale that maps the radius, too!
         var rScale = d3.scale.linear()
             .domain([d3.min(data, getZ), d3.max(data, getZ)])
-            .range([2, 5]); //when the dimensions gets different, we will make these percentages
+            .range([2, 6]); //when the dimensions gets different, we will make these percentages
 		
 
         //the axes

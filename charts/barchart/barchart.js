@@ -24,7 +24,14 @@ function barchart(json, sorted) {
     //  data.map(function(i) {console.log(i);});
     visualize(data); //then start the visualization
 
- 
+    function getRandomColor() {
+        var color = "#";
+        for (var i = 0; i < 6; i ++) {
+            var rd = Math.floor(Math.random() * 16);
+            color += rd.toString(16);
+        }
+        return color;
+    }
 
     function visualize(data) {
 		
@@ -100,6 +107,7 @@ function barchart(json, sorted) {
             .data(data)
             .enter()
             .append("rect")
+            .attr("fill", getRandomColor)
             .attr("x", function (d, i) {
             return xScale(getX(d));
         })

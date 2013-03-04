@@ -13,8 +13,8 @@
 }
 		
 .bar {
-	fill: #FF5F00;
-	stroke: #FF7700;
+	/*fill: #FF5F00; 
+	stroke: #FF7700; */
 }        
 .axis path,.axis line {
 	fill: none;
