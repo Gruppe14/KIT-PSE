@@ -34,13 +34,20 @@ function barchart(json, sorted) {
     }
 
     function visualize(data) {
+        
+        //let's calculate how many types we have
+        var t = d3.values(data.map(getY)).length;
+        console.log("Different y values is " + t);
+        var yMin = d3.min(data, getY);
 		
 		var yMax = d3.max(data, getY);
+		var ratio = yMax / yMin;
 		var n = 0;
 		for(var tmp = yMax; tmp > 1; tmp = tmp / 10) {
 			n++;
 		}
 		
+		console.log("yMax / yMin = " + (yMax / yMin));
         //dimensions
         var margin = {
             top: 30,
@@ -88,11 +95,14 @@ function barchart(json, sorted) {
             .rangeRoundBands([0, w], 0.04);
 
         var yScale;
-        if (data.length < 1000) {
-            yScale = d3.scale.linear();
+        if (data.length >= 1000 || ratio > 1000) {
+            yScale = d3.scale.pow(ratio);
+            console.log("The scale was set to be exponential.")
         }
         else {
-            yScale = d3.scale.log().nice();
+            yScale = d3.scale.linear();
+            console.log("The scale was set to be linear.")
+
         }
         yScale.domain([ yMax, 0]).range([0, h]);
 			
