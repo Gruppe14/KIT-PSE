@@ -1,3 +1,6 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+import java.awt.Desktop
+
 apply plugin: 'java'
 apply plugin: 'scala'
 
@@ -21,13 +24,59 @@ def findPlay20(){
   throw new RuntimeException("""'play' command was not found in PATH.
 Make sure you have Play Framework 2.0 installed and in your path""")
 }
+//check if the running system is windows
+def checkWin(){
+	return (Os.isFamily(Os.FAMILY_WINDOWS)) ? true : false
+}
 
+//prompt a value from the user, with a message
+def prompt(message) {
+	def console = System.console()
+	if (console) {
+		return console.readLine(message)
+	} else {
+		println("Cannot get console.")
+		return false;
+	}
+}
 
 findPlay20()
 
 defaultTasks 'createStartBat'
 
-task playDist (type: Exec) {
+task changeDatabase {
+	//ask if user wants to change database/application config
+	def config = prompt('> Would you like to change the database configuration? (y/n): ')
+	while(!config.equals("y") && !config.equals("n")) {
+		config = prompt('> Would you like to change the database configuration? (y/n): ')
+	}
+	if(config.equals("y")) {
+		if (Desktop.isDesktopSupported()) {
+			def configFile = new File("./conf/application.conf")
+			if (checkWin()) {
+				//on windows the other method doesn't work
+				String cmd = "rundll32 url.dll,FileProtocolHandler " + configFile.getCanonicalPath();
+				Runtime.getRuntime().exec(cmd);
+			} else {
+				try {
+					Desktop.getDesktop().edit(configFile.getCanonicalFile());
+				//not good, but will do
+				} catch (Exception e) {
+					println("Error opening configuration file in editor.")
+				}
+			}
+			//ask if changing finished, so that the build will not continue before
+			config = prompt('> Finished changing the configuration? (y/n): ')
+			while(!config.equals("y")) {
+				config = prompt('> Finished changing the configuration? (y/n): ')
+			}
+		} else {
+			println("Error opening editor.")
+		}
+	}
+}
+
+task playDist (type: Exec, dependsOn: changeDatabase) {
 	commandLine playExec, "dist"
 }
 
@@ -41,7 +90,6 @@ task moveDist(type:Copy, dependsOn: unzipDist) {
    into '../what'
 }
 
-
 task delDistFolder(type: Delete, dependsOn: moveDist) {
 	delete './dist'
 }
@@ -51,21 +99,24 @@ task copyCharts(type: Copy, dependsOn: moveDist) {
 	into '../what/charts'
 }
 
-task copyMySQL(type: Copy, dependsOn: moveDist) {
-	from '../mysql'
-	into '../what/mysql'
-}
 task copyConfig(type: Copy, dependsOn: moveDist) {
 	from './conf/'
 	into '../what/conf/'
 	include '*.json'
 }
 
+task copyGeoIp(type: Copy, dependsOn: moveDist) {
+	from './data/'
+	into '../what/data/'
+	include '*.dat'
+}
 
-task createStartBat(dependsOn: [delDistFolder, copyCharts, copyMySQL, copyConfig]) {
+task copyFiles(dependsOn: [moveDist, delDistFolder, copyCharts, copyConfig, copyGeoIp]) {
 	new File("../what").mkdir()
-	new File("../what/mysql").mkdir()
 	new File("../what/conf").mkdir()
-	new File('../what/mysql/start.bat').write("mysql\\bin\\mysqld --defaults-file=mysql\\my.ini --standalone --console\r\nexit")
-	new File('../what/start.bat').write("start mysql\\start.bat\r\njava %1  -cp ./lib/*; play.core.server.NettyServer .")
+	new File("../what/data").mkdir()
+}
+
+task createStartBat(dependsOn: copyFiles) {
+	new File('../what/start.bat').write("java %1  -cp ./lib/*; play.core.server.NettyServer .")
 }
