@@ -369,7 +369,6 @@ $(document).ready(function() {
 			//display ajax loader
 			beforeSend: function() {
 				$("#chart").append("<div id='loader'></div>");
-				$("#chart")[0].scrollIntoView(true);
 			},
 			success:function(data) {
 		  		@{chart}(data);
