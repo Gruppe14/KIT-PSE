@@ -64,6 +64,7 @@ function barchart(json, sorted) {
 			if (isNaN(a) || isNaN(b)) {
 				//abort?
 				console.log("Error, the data doesn't have an numeric attribute");
+				chartError();
 			}
 			return (b - a);
 		}
@@ -79,10 +80,14 @@ function barchart(json, sorted) {
             .domain(data.map(getX))
             .rangeRoundBands([0, w], 0.04);
 
-        
-        var yScale = d3.scale.linear()
-            .domain([ yMax, 0])
-            .range([0, h]);
+        var yScale;
+        if (data.length < 1000) {
+            yScale = d3.scale.linear();
+        }
+        else {
+            yScale = d3.scale.log().nice();
+        }
+        yScale.domain([ yMax, 0]).range([0, h]);
 			
 
         //the axes

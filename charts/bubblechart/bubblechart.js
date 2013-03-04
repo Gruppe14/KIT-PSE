@@ -38,6 +38,7 @@ function bubblechart(json, sorted) {
 			if (isNaN(a) || isNaN(b)) {
 				//abort?
 				console.log("Error, the data doesn't have an numeric attribute");
+				chartError();
 			}
 			return (b - a);
 		}
