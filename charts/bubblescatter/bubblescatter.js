@@ -19,7 +19,7 @@ function bubblescatter(json, radius) {
 	
 	
     data = json.data;
-	console.log(data);
+	//console.log(data);
     visualize(data); //then start the visualization
 
     function getX(d) {
@@ -35,14 +35,32 @@ function bubblescatter(json, radius) {
     }
 
     function visualize(data) {
-			
+        
         //dimensions
         var margin = {
-            top: 100,
-            right: 100,
-            bottom: 100,
-            left: 100
+            top: 30,
+            right: 30,
+            bottom: 50,
+            left: 40
         };
+        
+        //first, find the element with the maximum length for the y axis
+        var maxString=  data.map(function(d) {return getY(d).toString();}).reduce(function(x , y) { return (x.length >= y.length) ? x : y;});
+        //this is not guaranteed to have the maximum pixel length, but will have a good enough
+		console.log(maxString);
+		var sp = $('<span id=\"bob\">' + maxString + "</span>").css("font-size", "11px").css("dy", ".32em");
+		//console.log(sp);
+		var p = $("#chart").append(sp);
+		//console.log($("#bob"));
+		
+		//make sure no text is lost
+		var bt = (10 / 7) * $("#bob").width();
+        console.log(bt);
+        margin.left = bt;
+        
+        //clean up
+        $("#bob").remove();
+
         var w = 1000 - margin.left - margin.right;
         var h = 800 - margin.top - margin.bottom;
 		
@@ -99,7 +117,7 @@ function bubblescatter(json, radius) {
 		//now a scale that maps the radius, too!
         var rScale = d3.scale.linear()
             .domain([d3.min(data, getZ), d3.max(data, getZ)])
-            .range([2, 5]); //when the dimensions gets different, we will make these percentages
+            .range([2, 6]); //when the dimensions gets different, we will make these percentages
 		
 
         //the axes

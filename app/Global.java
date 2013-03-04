@@ -4,9 +4,10 @@ import what.Facade;
 import what.Printer;
 
 public class Global extends GlobalSettings {
-	
+		
 	public void onStart(Application app) {
 		Printer.print("Welcome to WHAT!");
+		
 	}
 	
 	public void onStop(Application app) {

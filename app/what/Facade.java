@@ -201,7 +201,7 @@ public class Facade {
 		
 		// testing
 		//Printer.ptest("Start parsing task.");
-		long start = System.currentTimeMillis();
+		//long start = System.currentTimeMillis();
 		
 		// checks whether a request is allowed
 		if (!isInitialized()) {
@@ -347,6 +347,28 @@ public class Facade {
 		return  chartMedi.getCurrentSizeOfHistory();
 	}
 	
+	// -- SETTER -- SETTER -- SETTER -- SETTER -- SETTER -- 
+	/**
+	 * Sets the size for the history.
+	 * 
+	 * @param size_history Size for the history length;
+	 * must be between 1 and 100
+	 */
+	public void setMaxSizeForHistory(int size_history) {
+		chartMedi.setMaxSizeForHistory(size_history);		
+	}
+	
+	/**
+	 * Sets the pool size.
+	 * 
+	 * @param poolsize size for the pool;
+	 * must be between 1 and MAX_POOLSIZE
+	 */
+	public void setPoolsizeParsing(int poolsize) {
+		parsMedi.setPoolsizeParsing(poolsize);
+	}
+	
+	
 	// -- PRIVATE HELPER -- PRIVATE HELPER -- PRIVATE HELPER --
 	/**
 	 * Precomputes the Strings in the dimensions for the
@@ -363,6 +385,7 @@ public class Facade {
 		
 	}
 
+	
 	// -- TESTING -- TESTING -- TESTING -- -- TESTING --
 	/**
 	 * Just for testing.

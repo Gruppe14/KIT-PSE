@@ -364,11 +364,14 @@ public class ParserMediator {
 	}
 	
 	/**
-	 * @param poolsize the poolsize to set
+	 * Sets the pool size
+	 * @param poolsize size for the pool;
+	 * must be between 1 and MAX_POOLSIZE
 	 */
 	public void setPoolsizeParsing(int poolsize) {
-		
-		this.poolsize = poolsize;
+		if ((poolsize > 0) && (poolsize <= MAX_POOLSIZE)) {
+			this.poolsize = poolsize;
+		}	
 	}
 	
 	/**

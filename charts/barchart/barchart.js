@@ -24,7 +24,14 @@ function barchart(json, sorted) {
     //  data.map(function(i) {console.log(i);});
     visualize(data); //then start the visualization
 
- 
+    function getRandomColor() {
+        var color = "#";
+        for (var i = 0; i < 6; i ++) {
+            var rd = Math.floor(Math.random() * 16);
+            color += rd.toString(16);
+        }
+        return color;
+    }
 
     function visualize(data) {
 		
@@ -64,6 +71,7 @@ function barchart(json, sorted) {
 			if (isNaN(a) || isNaN(b)) {
 				//abort?
 				console.log("Error, the data doesn't have an numeric attribute");
+				chartError();
 			}
 			return (b - a);
 		}
@@ -79,10 +87,14 @@ function barchart(json, sorted) {
             .domain(data.map(getX))
             .rangeRoundBands([0, w], 0.04);
 
-        
-        var yScale = d3.scale.linear()
-            .domain([ yMax, 0])
-            .range([0, h]);
+        var yScale;
+        if (data.length < 1000) {
+            yScale = d3.scale.linear();
+        }
+        else {
+            yScale = d3.scale.log().nice();
+        }
+        yScale.domain([ yMax, 0]).range([0, h]);
 			
 
         //the axes
@@ -95,6 +107,7 @@ function barchart(json, sorted) {
             .data(data)
             .enter()
             .append("rect")
+            .attr("fill", getRandomColor)
             .attr("x", function (d, i) {
             return xScale(getX(d));
         })
