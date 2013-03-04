@@ -45,7 +45,7 @@ public class ChartMediator {
 	 * @param size_history Size for the history length;
 	 * must be between 1 and 100
 	 */
-	public void setMaxSizeForHistory(int size_history) {
+	public void setMaxSizeForHistory(int sizeg_history) {
 		if ((size_history > 0) && (size_history < MAX_SIZE_FOR_HISTORY)) {
 			this.size_history = size_history;
 		}
