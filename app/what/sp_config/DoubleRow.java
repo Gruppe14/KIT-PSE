@@ -35,7 +35,13 @@ public class DoubleRow extends RowEntry {
 			if (string.length() == 0) {
 				return false;
 			}
-			de.setInfo(Double.parseDouble(string), location);
+			double d = Double.parseDouble(string);
+			if (d >= 0) {
+				de.setInfo(d, location);
+			} else {
+				return false;
+			}
+			
 		} catch (NumberFormatException e) {
 			return false;
 		}

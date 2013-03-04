@@ -35,7 +35,12 @@ public class IntRow extends RowEntry {
 			if (string.length() == 0) {
 				return false;
 			}
-			de.setInfo(Integer.parseInt(string), location);
+			int i = Integer.parseInt(string);
+			if (i >= 0) {
+				de.setInfo(i, location);
+			} else {
+				return false;
+			}
 		} catch (NumberFormatException e) {
 			return false;
 		}
