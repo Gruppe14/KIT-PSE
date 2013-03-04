@@ -14,7 +14,7 @@ function barchart(json, sorted) {
     var measure;
 
    
-    //console.log("I read " + json.data.length + " data points.");
+    console.log("I read " + json.data.length + " data points.");
     xAxisName = json.attribute1;
     yAxisName = json.attribute2;
     measure = json.measureAttribute;
@@ -48,16 +48,10 @@ function barchart(json, sorted) {
 			n++;
 		}
 		
-		var xMax = d3.max(data, getX);
-		var m = 0;
-		for(var tmp2 = xMax; tmp2 > 1; tmp = tmp2 / 10) {
-		    m++;
-		}
-		
 		console.log("yMax / yMin = " + (yMax / yMin));
         //dimensions
         var margin = {
-            top: d3.max([30, 12 * (m + Math.floor(m/3)-1)]),
+            top: 30,
             right: 20,
             bottom: 20,
             left: d3.max([12 * (n + Math.floor(n/3)-1), 50]) 
@@ -66,7 +60,11 @@ function barchart(json, sorted) {
         console.log("xMax :" + margin.top);
         var l = (data.length > 5) ? data.length : 5;
         var w = l * 30 - margin.left - margin.right;
-        var h = 600 - margin.top - margin.bottom;
+        if (w < 40) {
+            w = t * 30;
+        }
+        console.log("The width is: " + w);
+        var h = 480 - margin.top - margin.bottom;
 
         $("#chart").html("");
         //the svg
@@ -104,13 +102,15 @@ function barchart(json, sorted) {
             .rangeRoundBands([0, w], 0.04);
 
         var yScale;
-        if (data.length >= 1000 || ratio > 1000) {
+        if (data.length >= 100000 || ratio > 1000) {
             //let's try normalizing the data
            // var avg = (yMax + yMin) / 2;
            // data = data.map(function(d) 
-            console.log(1/ ratio);
+    //        console.log(1/ ratio);
             //yScale = d3.scale.pow().exponent(1 / yMin);
-            yScale = d3.scale.pow().exponent(1 / n);
+ //           yScale = d3.scale.sqrt();
+ //           yScale = d3.scale.pow().exponent(1 / n);
+            yScale = d3.scale.linear();
             console.log("The scale was set to be exponential.")
         }
         else {
