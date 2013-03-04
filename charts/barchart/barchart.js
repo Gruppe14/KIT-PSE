@@ -42,22 +42,31 @@ function barchart(json, sorted) {
 		
 		var yMax = d3.max(data, getY);
 		var ratio = yMax / yMin;
+		
 		var n = 0;
 		for(var tmp = yMax; tmp > 1; tmp = tmp / 10) {
 			n++;
 		}
 		
+		var xMax = d3.max(data, getX);
+		var m = 0;
+		for(var tmp2 = xMax; tmp2 > 1; tmp = tmp2 / 10) {
+		    m++;
+		}
+		
 		console.log("yMax / yMin = " + (yMax / yMin));
         //dimensions
         var margin = {
-            top: 30,
+            top: d3.max([30, 12 * (m + Math.floor(m/3)-1)]),
             right: 20,
             bottom: 20,
-            left: d3.max([12*(n + Math.floor(n/3)-1), 50]) 
+            left: d3.max([12 * (n + Math.floor(n/3)-1), 50]) 
         };
+        
+        console.log("xMax :" + margin.top);
         var l = (data.length > 5) ? data.length : 5;
         var w = l * 30 - margin.left - margin.right;
-        var h = 450 - margin.top - margin.bottom;
+        var h = 600 - margin.top - margin.bottom;
 
         $("#chart").html("");
         //the svg
@@ -96,7 +105,12 @@ function barchart(json, sorted) {
 
         var yScale;
         if (data.length >= 1000 || ratio > 1000) {
-            yScale = d3.scale.pow(ratio);
+            //let's try normalizing the data
+           // var avg = (yMax + yMin) / 2;
+           // data = data.map(function(d) 
+            console.log(1/ ratio);
+            //yScale = d3.scale.pow().exponent(1 / yMin);
+            yScale = d3.scale.pow().exponent(1 / n);
             console.log("The scale was set to be exponential.")
         }
         else {
@@ -104,7 +118,7 @@ function barchart(json, sorted) {
             console.log("The scale was set to be linear.")
 
         }
-        yScale.domain([ yMax, 0]).range([0, h]);
+        yScale.domain([ yMax, yMin]).range([0, h]);
 			
 
         //the axes
