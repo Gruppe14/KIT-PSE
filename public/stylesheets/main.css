@@ -17,6 +17,9 @@ a {
 	text-decoration: none;
 	color: black;
 }
+p a {
+	text-decoration: underline;
+}
 img {
 	border: 0px;
 }
@@ -129,34 +132,6 @@ img {
 	margin: 8px;
 }
 .bigTile span {
-	display:block;
-	position: absolute;
-	width:auto;
-	padding: 3px 7px 0px;
-	bottom:0px;
-	left: 0px;
-	background: rgba(255,255,255,0.8);
-}
-.smallTile {
-	position: relative;
-	display: inline-block;
-	width: 160px;
-	height: 80px;
-	background-position:center;
-	background-size: 100% 100%;
-	padding: 2px;
-	margin: 2px;
-	border: 1px solid #EEEEEE;
-	user-select: none;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-}
-.smallTile:active {
-	padding: 0px;
-	margin: 4px;
-}
-.smallTile span {
 	display:block;
 	position: absolute;
 	width:auto;
