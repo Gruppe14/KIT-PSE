@@ -93,6 +93,14 @@ public class ParserTest {
 	}
 	
 	@Test
+	public void smallParseTestSize2() {
+		Printer.ptestcase("Parser pool 2");
+		pm.setPoolsizeParsing(2);
+		assertTrue(f.parseLogFile(getPathFor(TEN)));
+	}
+	
+	@Ignore
+	@Test
 	public void smallParseTestTooBig() {
 		Printer.ptestcase("Parser pool 100");
 		pm.setPoolsizeParsing(100);
@@ -106,6 +114,7 @@ public class ParserTest {
 		assertTrue(f.parseLogFile(getPathFor(SMALL_PARSING2)));
 	}
 	
+	@Ignore
 	@Test
 	public void negativePoolsize() {
 		Printer.ptestcase("Parser pool negative");
