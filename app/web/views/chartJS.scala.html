@@ -394,17 +394,19 @@ function displaySave() {
 		
 		@if(web.ChartIndex.getInstance().hasCss(chart)) {
 		//add chart css to svg
+		if($("svg style").length < 1) {
 		$.get("/charts/@{chart}/@{chart}.css", function(data) {
 			$(document.createElement("style")).html(data).prependTo(svg);
 			form();
 		});
+		}
 		} else {
 			form();
 		}
 		
 		//the form
 		function form() {
-		var form = $(document.createElement("form")) //.wrap(document.createElement("p"))
+		var form = $(document.createElement("form"))
 			.insertAfter("#message span:first")
 			.attr("action", "/downloadChart")
 			.attr("method", "POST")
@@ -423,7 +425,7 @@ function displaySave() {
 		$(document.createElement("input")).appendTo(form)
 			.attr("type", "text")
 			.attr("name", "svg")
-			.attr("value", encodeURI(svg.parent().html()))
+			.attr("value", svg.parent().html())
 			.hide();
 		//the chart name
 		$(document.createElement("input")).appendTo(form)

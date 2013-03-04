@@ -17,6 +17,8 @@ import org.apache.batik.transcoder.image.PNGTranscoder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import play.mvc.Http.MultipartFormData;
+import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Security;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
@@ -31,6 +33,7 @@ import web.ChartHistory;
 import web.ChartIndex;
 import web.LogfileUpload;
 import what.Facade;
+import what.FileHelper;
 import what.Printer;
 
 /**
@@ -119,65 +122,62 @@ public class Website extends Controller {
     
     /**
      * method to mirror SVG back to download or convert SVG to PNG.
-     * image type via POST value of format
-     * SVG data via value of SVG
-     * 
      * @return returns the chart as SVG/PNG or an serverError
      */
+    @BodyParser.Of(value = play.mvc.BodyParser.Raw.class, maxLength = 1024 * 1024)
     public static Result downloadChart() {
-    	Map<String, String[]> body = request().body().asFormUrlEncoded();
-    	if (body != null && body.containsKey("svg")) {
-    		String svg;
-    		String name = "chart";
-    		if (body.containsKey("name") && !body.get("name")[0].equals("")) {
-    			name = body.get("name")[0];
-    		}
+    	String[] file = FileHelper.getStringContent(request().body().asRaw().asFile()).split("&");
+    	String name = file[0].substring(5);
+    	if(name.equals("")) {
+    		name = "chart";
+    	}
+    	String format = file[1].substring(7);
+    	String svg="";
 			try {
-				svg = URLDecoder.decode(body.get("svg")[0], "UTF-8");
+				svg += URLDecoder.decode(file[2].substring(4), "UTF-8");
 			} catch (UnsupportedEncodingException e) {
 				Printer.perror("Could not decode svg.");
 				return internalServerError(ISE);
+
 			}
-    		if (body.containsKey("format") && body.get("format")[0].equals("svg")) {
-    			response().setHeader("Content-Disposition", "attachment; filename=\"" + name + ".svg\"");
-    			return ok(svg).as("image/svg+xml");
-    		} else if (body.containsKey("format") && body.get("format")[0].equals("png")) {
-    			PNGTranscoder t = new PNGTranscoder();
-    			if (body.containsKey("chart")) {
-    				String chart = body.get("chart")[0];
-    				//if a CSS file for the chart exists
-    				if (ChartIndex.getInstance().hasCss(chart)) {
-    					try {
-							t.addTranscodingHint(PNGTranscoder.KEY_USER_STYLESHEET_URI,
-								new File("./charts/" + chart + "/" + chart + ".css").getCanonicalFile().toURI().toString());
-						} catch (IOException e) {
-							Printer.perror("Could not get css file when creating png from svg.");
-							return internalServerError(ISE);
-						}
-    				}
-    			}
-    			//white background instead of transparent
-    			t.addTranscodingHint(PNGTranscoder.KEY_BACKGROUND_COLOR, Color.white);
-    			TranscoderInput in = new TranscoderInput(new StringReader(svg));
-    			ByteArrayOutputStream png = new ByteArrayOutputStream();
-    			TranscoderOutput out = new TranscoderOutput(png);
-    			try {
-					t.transcode(in, out);
-				} catch (TranscoderException e) {
-					Printer.perror("Could not transcode from svg to png.");
-					return internalServerError(ISE);
-				}
-    			try {
-					png.flush();
-					png.close();
+			System.out.println(svg.substring(0, 20));
+    	String chart = file[3].substring(6);
+		if (format.equals("svg")) {
+			response().setHeader("Content-Disposition", "attachment; filename=\"" + name + ".svg\"");
+			return ok(svg).as("image/svg+xml");
+		} else if (format.equals("png")) {
+			PNGTranscoder t = new PNGTranscoder();
+			//if a CSS file for the chart exists
+			if (ChartIndex.getInstance().hasCss(chart)) {
+				try {
+					t.addTranscodingHint(PNGTranscoder.KEY_USER_STYLESHEET_URI,
+						new File("./charts/" + chart + "/" + chart + ".css").getCanonicalFile().toURI().toString());
 				} catch (IOException e) {
-					Printer.perror("Could not write to output stream.");
+					Printer.perror("Could not get css file when creating png from svg.");
 					return internalServerError(ISE);
 				}
-    			response().setHeader("Content-Disposition", "attachment; filename=\"" + name + ".png\"");
-    			return ok(png.toByteArray()).as("image/png");
-    		}
-    	}
+			}
+			//white background instead of transparent
+			t.addTranscodingHint(PNGTranscoder.KEY_BACKGROUND_COLOR, Color.white);
+			TranscoderInput in = new TranscoderInput(new StringReader(svg));
+			ByteArrayOutputStream png = new ByteArrayOutputStream();
+			TranscoderOutput out = new TranscoderOutput(png);
+			try {
+				t.transcode(in, out);
+			} catch (TranscoderException e) {
+				Printer.perror("Could not transcode from svg to png.");
+				return internalServerError(ISE);
+			}
+			try {
+				png.flush();
+				png.close();
+			} catch (IOException e) {
+				Printer.perror("Could not write to output stream.");
+				return internalServerError(ISE);
+			}
+			response().setHeader("Content-Disposition", "attachment; filename=\"" + name + ".png\"");
+			return ok(png.toByteArray()).as("image/png");
+		}
     	return internalServerError(ISE);
     }
    
