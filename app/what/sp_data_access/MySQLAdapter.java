@@ -637,7 +637,7 @@ public class MySQLAdapter {
 			return false;
 		}
 		
-		//Printer.ptest("Try to execute: " + query);
+		Printer.ptest("Try to execute: " + query);
 		
 		// execute query
 		ResultSet re = null;

@@ -167,6 +167,7 @@ public class Facade {
 		
 		dataMedi.releaseResources();
 		dataMedi = null;
+		Printer.ptest("Facade reset");
 	}
 	
 	
