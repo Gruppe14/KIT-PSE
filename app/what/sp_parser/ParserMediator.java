@@ -342,7 +342,7 @@ public class ParserMediator {
 	 */
 	private boolean createThreadPool() {
 				
-		if (poolsize <= 1) {
+		if (poolsize < 1) {
 			error(Localize.getString("Error.10"));
 			return false;
 		}		
