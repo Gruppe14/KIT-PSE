@@ -94,7 +94,7 @@ public class ChartMediator {
 		// compute the JSON chart for it
 		if (computeJSONFor(chart)) {
 			addToHistory(chart);
-			//Printer.ptest(chart.getJson().toString());
+			Printer.ptest(chart.getJson().toString());
 			return chart.getJson();
 		}
 
