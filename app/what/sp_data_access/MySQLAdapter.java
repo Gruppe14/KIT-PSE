@@ -1023,8 +1023,5 @@ public class MySQLAdapter {
 		
 	}
 
-	
-	
-
-		
+			
 }

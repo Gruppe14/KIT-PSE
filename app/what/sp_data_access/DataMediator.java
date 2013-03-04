@@ -271,4 +271,6 @@ public class DataMediator {
 		return adapter.tablesAreSet(config.getNameOfDB());
 	}
 
+
+
 }

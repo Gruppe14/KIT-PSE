@@ -169,7 +169,7 @@ public class Facade {
 		dataMedi = null;
 		Printer.ptest("Facade reset");
 	}
-	
+
 	
 	/**
 	 * Creates the warehouse tables for the configuration.
@@ -210,6 +210,11 @@ public class Facade {
 			return false;
 		}
 		
+		if (!(tablesAreCreated())) {
+			Printer.pproblem("Tables not created. Request not possible");
+			return false;
+		}
+		
 		// directs the request
 		if (!parsMedi.parseLogFile(path)) {
 			Printer.pfail("Parsing.");
@@ -247,6 +252,11 @@ public class Facade {
 		if (!isInitialized()) {
 			Printer.pproblem("Configurations & mediators not initalized!");
 			Printer.print("-> Chart creation not possible!");
+			return null;
+		}
+		
+		if (!(tablesAreCreated())) {
+			Printer.pproblem("Tables not created. Request not possible");
 			return null;
 		}
 		
