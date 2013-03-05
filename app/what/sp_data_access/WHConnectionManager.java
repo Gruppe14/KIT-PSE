@@ -2,11 +2,13 @@ package what.sp_data_access;
 
 // sql imports
 import java.sql.Connection;
-import java.sql.DriverManager;
+//import java.sql.DriverManager;
 import java.sql.SQLException;
 
 // java imports
 import java.util.Vector;
+
+import play.db.DB;
 
 //intern imports
 import what.Printer;
@@ -22,12 +24,12 @@ import what.Printer;
  */
 public class WHConnectionManager {
 	
-	/** MySQL path constant. */
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/WHATDataWarehouse";
-    /** MySQL name constant. */
-    private static final String USER_NAME = "masteWHAT";
-    /** MySQL password constant. */
-    private static final String PW = "whatUP";
+//	/** MySQL path constant. */
+//    private static final String DB_URL = "jdbc:mysql://localhost:3306/WHATDataWarehouse";
+//    /** MySQL name constant. */
+//    private static final String USER_NAME = "masteWHAT";
+//    /** MySQL password constant. */
+//    private static final String PW = "whatUP";
     /** Pool size constant. */
     private static final int MAX_POOL_SIZE = 8;
 
@@ -90,10 +92,11 @@ public class WHConnectionManager {
       
         try {        	
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(DB_URL, USER_NAME, PW);
-        } catch (SQLException sqle) {
-        	Printer.perror("SQLException: " + sqle);
-            return null;
+            connection = DB.getConnection(); 
+//            		DriverManager.getConnection(DB_URL, USER_NAME, PW);
+//        } catch (SQLException sqle) {
+//        	Printer.perror("SQLException: " + sqle);
+//            return null;
         } catch (ClassNotFoundException cnfe) {
             Printer.perror("ClassNotFoundException: " + cnfe);
             return null;

@@ -390,6 +390,7 @@ public class Facade {
 		if (!(dataMedi.organizeData())) {
 			Printer.pfail("Precomputing data for dimensions.");
 		} else {
+			web.ChartHelper.reset();
 			Printer.psuccess("Precomputing data for dimensions.");
 		}
 		

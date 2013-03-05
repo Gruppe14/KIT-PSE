@@ -66,6 +66,15 @@ public class ChartHelper {
 	}
 	
 	/**
+	 * resets the chartHelper instances, needed if new data is added to the warehouse.
+	 */
+	public static void reset() {
+		dims = Facade.getFacadeInstance().getCurrentConfig().getDims();
+		time = null;
+		instance = new HashMap<>();
+	}
+	
+	/**
 	 * returns the options selection for a chart.
 	 * @param name the chart name
 	 * @return returns the option selection
@@ -127,9 +136,9 @@ public class ChartHelper {
 			html += time();
 			html += axis(stringDim, name);
 			html += measuresHtml(measures) + "<br />";
-			html += stringDimHtml(stringDim);
+			html += stringDimHtml(stringDim); 
 		} else {
-			html += Localize.get("err.noData");
+			html += "<br />" + Localize.get("err.noData");
 		}
 		
 		
@@ -179,7 +188,7 @@ public class ChartHelper {
 	 */
 	private boolean stringDimsContainData(ArrayList<DimRow> dims) {
 		for (DimRow dim: dims) {
-			if (dim.getStrings() == null) {
+			if (dim.getStrings().size() == 0) {
 				return false;
 			}
 		}
@@ -193,7 +202,7 @@ public class ChartHelper {
 	 */
 	private String stringDimHtml(ArrayList<DimRow> dims) {
 		assert (dims != null);
-		
+		int err = 0;
 		String html = "";
 		for (DimRow dim: dims) {
 			String tmp = "<div id=\"" + dim.getName() + "\" class=\"options\">" + DIV
@@ -203,7 +212,6 @@ public class ChartHelper {
 						
 			//first level is build here because of dim list classes
 			TreeSet<DimKnot> trees = dim.getStrings();
-			
 			tmp += "<div class=\"dim list\" data=\"" + trees.first().getRowName() + "\">";
 			for (DimKnot dk : trees) {
 				tmp += getHtmlForDimKnot(dk);	
@@ -211,6 +219,10 @@ public class ChartHelper {
 			tmp += VID + VID;
 			
 			html += tmp;
+		}
+		//if no string dims at all --> warehouse empty
+		if(err == dims.size()) {
+			return "";
 		}
 		return html;
 	}
@@ -286,7 +298,11 @@ public class ChartHelper {
 	 */
 	private String time() {
 		int[][] time = ChartHelper.getMinMaxTime();
-		int[] year = {time[0][0], time[1][0]};
+		int[] year = {1, 0};
+		if(time != null) {
+			year = new int[] {time[0][0], time[1][0]};
+		}
+		
 		String html = "<div id=\"timescale\">";
 		String[] ft = {"From", "To"};
 		for (String s: ft) {
@@ -323,6 +339,10 @@ public class ChartHelper {
 	 */
 	public static String getMinMaxTimeString() {
 		int[][] time = ChartHelper.getMinMaxTime();
+		//if no data in warehouse
+		if(time == null) {
+			return "{}";
+		}
 		String obj = "{'min':[";
 		for (int i = 0; i < time[0].length; i++) {
 			obj += time[0][i];
