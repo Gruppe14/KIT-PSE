@@ -371,7 +371,8 @@ $(document).ready(function() {
 				$("#chart").append("<div id='loader'></div>");
 			},
 			success:function(data) {
-		  		@{chart}(data);
+				@{chart}(data);
+				$("#chart")[0].scrollIntoView(true);
 			},
 			//noContent remove loader
 			error:function(q, err, ex) {

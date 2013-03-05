@@ -93,7 +93,7 @@ public class ChartHostBuilder {
 		assert (json != null);
 		
 		// TESTING TESTING TESTING
-		Printer.print(json.toString());
+		//Printer.print(json.toString());
 
 		DimChart chart = getDimChart(json);
 		
