@@ -13,8 +13,10 @@ This program does just that.
 
 To run:
 ==============
-install [java play](http://www.playframework.org/documentation/2.1-RC2/Installing)
+Install [java play](http://www.playframework.com/documentation/2.0.4/Installing)
 
 git clone http://github.com/Gruppe14/KIT-PSE.git
 
-play run
+set up MySQL database and configuratin in ./conf/application.conf
+
+'play run' in directoy of program
