@@ -15,17 +15,17 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="Zeichnung.svg">
+   sodipodi:docname="thumb.svg">
   <defs
      id="defs4">
     <linearGradient
        id="linearGradient4068">
       <stop
-         style="stop-color:#ffefbb;stop-opacity:0;"
+         style="stop-color:#f9adcb;stop-opacity:0.91620111;"
          offset="0"
          id="stop4070" />
       <stop
-         style="stop-color:#ef8800;stop-opacity:0.32960895;"
+         style="stop-color:#4cffa2;stop-opacity:0.50837988;"
          offset="1"
          id="stop4072" />
     </linearGradient>
@@ -38,7 +38,7 @@
        fx="231.42857"
        fy="253.79076"
        r="160"
-       gradientTransform="matrix(2.1256487,0.45974916,-0.16790709,0.77631789,-199.32257,250.36936)"
+       gradientTransform="matrix(1.6716382,0.26746876,-0.14764449,0.922755,-99.394032,257.70414)"
        gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
@@ -48,9 +48,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="192.01528"
-     inkscape:cy="96.102069"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="116.58368"
+     inkscape:cy="166.43876"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -71,7 +71,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -81,608 +81,590 @@
      id="layer1"
      transform="translate(-89.9375,-473.75)">
     <rect
-       style="fill:url(#radialGradient4074);fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:0.3938224;stroke-dasharray:none"
+       style="fill:url(#radialGradient4074);fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:0.39382240000000002;stroke-dasharray:none"
        id="rect3298"
        width="320"
        height="160"
        x="90.000008"
        y="473.79077" />
     <g
-       id="g3196"
-       transform="matrix(0.49184493,0,0,0.49184493,77.221536,394.29997)">
+       id="g27438"
+       transform="matrix(0.3813303,0,0,0.3813303,112.26269,428.98555)">
       <g
-         id="g2989"
+         id="g27239"
          class="circle"
-         transform="translate(218.57847,487.11112)"
+         transform="translate(186.54071,538.89957)"
          style="stroke:#405040">
         <title
-           id="title2991">(country:Israel, busy:0.164)</title>
+           id="title27241">hour:18 AVG of busy: 0.0013931385752440025</title>
         <circle
-           id="circle2993"
-           r="18.375328"
-           style="fill:#1f77b4"
+           id="circle27243"
+           r="27.160244"
+           style="fill:#bf92bb"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="18.375328"
-           sodipodi:ry="18.375328"
-           d="m 18.375328,0 c 0,10.148413 -8.226915,18.375328 -18.375328,18.375328 -10.148413,0 -18.375328,-8.226915 -18.375328,-18.375328 0,-10.148413 8.226915,-18.375328 18.375328,-18.375328 10.148413,0 18.375328,8.226915 18.375328,18.375328 z" />
+           sodipodi:rx="27.160244"
+           sodipodi:ry="27.160244"
+           d="M 27.160244,0 C 27.160244,15.000189 15.000189,27.160244 0,27.160244 -15.000189,27.160244 -27.160244,15.000189 -27.160244,0 c 0,-15.000189 12.160055,-27.160244 27.160244,-27.160244 15.000189,0 27.160244,12.160055 27.160244,27.160244 z" />
         <text
-           id="text2995"
+           id="text27245"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle">Israe</text>
+           style="text-anchor:middle">18</text>
       </g>
       <g
-         id="g2997"
+         id="g27247"
          class="circle"
-         transform="translate(451.28817,457.73507)"
+         transform="translate(287.81667,95.283001)"
          style="stroke:#405040">
         <title
-           id="title2999">(country:Japan, busy:0)</title>
+           id="title27249">hour:0 AVG of busy: 0.005266627778728829</title>
         <circle
-           id="circle3001"
-           r="0"
-           style="fill:#aec7e8"
+           id="circle27251"
+           r="52.808376"
+           style="fill:#66ba28"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="0"
-           sodipodi:ry="0" />
+           sodipodi:rx="52.808376"
+           sodipodi:ry="52.808376"
+           d="M 52.808376,0 C 52.808376,29.165261 29.165261,52.808376 0,52.808376 -29.165261,52.808376 -52.808376,29.165261 -52.808376,0 c 0,-29.165261 23.643115,-52.808376 52.808376,-52.808376 29.165261,0 52.808376,23.643115 52.808376,52.808376 z" />
         <text
-           id="text3003"
+           id="text27253"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle" />
+           style="text-anchor:middle">0</text>
       </g>
       <g
-         id="g3005"
+         id="g27255"
          class="circle"
-         transform="translate(413.92385,454.30875)"
+         transform="translate(266.65712,218.99619)"
          style="stroke:#405040">
         <title
-           id="title3007">(country:Malaysia, busy:0.002)</title>
+           id="title27257">hour:12 AVG of busy: 0.007575330637788109</title>
         <circle
-           id="circle3009"
-           r="2.0292156"
-           style="fill:#ff7f0e"
+           id="circle27259"
+           r="63.334057"
+           style="fill:#827daa"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="2.0292156"
-           sodipodi:ry="2.0292156"
-           d="M 2.0292156,0 C 2.0292156,1.1207048 1.1207048,2.0292156 0,2.0292156 -1.1207048,2.0292156 -2.0292156,1.1207048 -2.0292156,0 c 0,-1.1207048 0.9085108,-2.0292156 2.0292156,-2.0292156 1.1207048,0 2.0292156,0.9085108 2.0292156,2.0292156 z" />
+           sodipodi:rx="63.334057"
+           sodipodi:ry="63.334057"
+           d="M 63.334057,0 C 63.334057,34.978434 34.978434,63.334057 0,63.334057 -34.978434,63.334057 -63.334057,34.978434 -63.334057,0 c 0,-34.978434 28.355623,-63.334057 63.334057,-63.334057 34.978434,0 63.334057,28.355623 63.334057,63.334057 z" />
         <text
-           id="text3011"
+           id="text27261"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle" />
+           style="text-anchor:middle">12</text>
       </g>
       <g
-         id="g3013"
+         id="g27263"
          class="circle"
-         transform="translate(312.5167,382.46834)"
+         transform="translate(565.64522,239.89026)"
          style="stroke:#405040">
         <title
-           id="title3015">(country:Australia, busy:6.151)</title>
+           id="title27265">hour:2 AVG of busy: 0.005457772106960953</title>
         <circle
-           id="circle3017"
-           r="112.53459"
-           style="fill:#ffbb78"
+           id="circle27267"
+           r="53.758137"
+           style="fill:#efc94f"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="112.53459"
-           sodipodi:ry="112.53459"
-           d="M 112.53459,0 C 112.53459,62.151139 62.151139,112.53459 0,112.53459 -62.151139,112.53459 -112.53459,62.151139 -112.53459,0 c 0,-62.151139 50.383451,-112.53459 112.53459,-112.53459 62.151139,0 112.53459,50.383451 112.53459,112.53459 z" />
+           sodipodi:rx="53.758137"
+           sodipodi:ry="53.758137"
+           d="M 53.758137,0 C 53.758137,29.689799 29.689799,53.758137 0,53.758137 -29.689799,53.758137 -53.758137,29.689799 -53.758137,0 c 0,-29.689799 24.068338,-53.758137 53.758137,-53.758137 29.689799,0 53.758137,24.068338 53.758137,53.758137 z" />
         <text
-           id="text3019"
+           id="text27269"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle">Australia</text>
+           style="text-anchor:middle">2</text>
       </g>
       <g
-         id="g3021"
+         id="g27271"
          class="circle"
-         transform="translate(457.62568,465.09423)"
+         transform="translate(301.62017,577.73046)"
          style="stroke:#405040">
         <title
-           id="title3023">(country:Ireland, busy:0)</title>
+           id="title27273">hour:17 AVG of busy: 0.0012642680144627294</title>
         <circle
-           id="circle3025"
-           r="0"
-           style="fill:#2ca02c"
+           id="circle27275"
+           r="25.873554"
+           style="fill:#64acaf"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="0"
-           sodipodi:ry="0" />
+           sodipodi:rx="25.873554"
+           sodipodi:ry="25.873554"
+           d="M 25.873554,0 C 25.873554,14.289569 14.289569,25.873554 0,25.873554 -14.289569,25.873554 -25.873554,14.289569 -25.873554,0 c 0,-14.289569 11.583985,-25.873554 25.873554,-25.873554 14.289569,0 25.873554,11.583985 25.873554,25.873554 z" />
         <text
-           id="text3027"
+           id="text27277"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle" />
+           style="text-anchor:middle">17</text>
       </g>
       <g
-         id="g3029"
+         id="g27279"
          class="circle"
-         transform="translate(255.97032,194.52645)"
+         transform="translate(130.06537,428.4702)"
          style="stroke:#405040">
         <title
-           id="title3031">(country:Spain, busy:2.661)</title>
+           id="title27281">hour:15 AVG of busy: 0.0016203603461839215</title>
         <circle
-           id="circle3033"
-           r="74.017708"
-           style="fill:#98df8a"
+           id="circle27283"
+           r="29.291548"
+           style="fill:#39adf5"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="74.017708"
-           sodipodi:ry="74.017708"
-           d="M 74.017708,0 C 74.017708,40.878851 40.878851,74.017708 0,74.017708 -40.878851,74.017708 -74.017708,40.878851 -74.017708,0 c 0,-40.878851 33.138857,-74.017708 74.017708,-74.017708 40.878851,0 74.017708,33.138857 74.017708,74.017708 z" />
+           sodipodi:rx="29.291548"
+           sodipodi:ry="29.291548"
+           d="M 29.291548,0 C 29.291548,16.177275 16.177275,29.291548 0,29.291548 -16.177275,29.291548 -29.291548,16.177275 -29.291548,0 c 0,-16.177275 13.114273,-29.291548 29.291548,-29.291548 16.177275,0 29.291548,13.114273 29.291548,29.291548 z" />
         <text
-           id="text3035"
+           id="text27285"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle">Spain</text>
+           style="text-anchor:middle">15</text>
       </g>
       <g
-         id="g3037"
+         id="g27287"
          class="circle"
-         transform="translate(256.99361,509.46821)"
+         transform="translate(224.94049,451.469)"
          style="stroke:#405040">
         <title
-           id="title3039">(country:Canada, busy:0.13)</title>
+           id="title27289">hour:3 AVG of busy: 0.006566025825913316</title>
         <circle
-           id="circle3041"
-           r="16.36006"
-           style="fill:#d62728"
+           id="circle27291"
+           r="58.964119"
+           style="fill:#83afe3"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="16.36006"
-           sodipodi:ry="16.36006"
-           d="M 16.36006,0 C 16.36006,9.0354115 9.0354115,16.36006 0,16.36006 -9.0354115,16.36006 -16.36006,9.0354115 -16.36006,0 c 0,-9.0354115 7.3246485,-16.36006 16.36006,-16.36006 9.0354115,0 16.36006,7.3246485 16.36006,16.36006 z" />
+           sodipodi:rx="58.964119"
+           sodipodi:ry="58.964119"
+           d="M 58.964119,0 C 58.964119,32.564984 32.564984,58.964119 0,58.964119 -32.564984,58.964119 -58.964119,32.564984 -58.964119,0 c 0,-32.564984 26.399135,-58.964119 58.964119,-58.964119 32.564984,0 58.964119,26.399135 58.964119,58.964119 z" />
         <text
-           id="text3043"
+           id="text27293"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle">Canad</text>
+           style="text-anchor:middle">3</text>
       </g>
       <g
-         id="g3045"
+         id="g27295"
          class="circle"
-         transform="translate(136.24225,296.80824)"
+         transform="translate(87.732079,370.59317)"
          style="stroke:#405040">
         <title
-           id="title3047">(country:United States, busy:2.641)</title>
+           id="title27297">hour:19 AVG of busy: 0.0020626055277480713</title>
         <circle
-           id="circle3049"
-           r="73.739021"
-           style="fill:#ff9896"
+           id="circle27299"
+           r="33.047955"
+           style="fill:#ff355d"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="73.739021"
-           sodipodi:ry="73.739021"
-           d="M 73.739021,0 C 73.739021,40.724937 40.724937,73.739021 0,73.739021 -40.724937,73.739021 -73.739021,40.724937 -73.739021,0 c 0,-40.724937 33.014084,-73.739021 73.739021,-73.739021 40.724937,0 73.739021,33.014084 73.739021,73.739021 z" />
+           sodipodi:rx="33.047955"
+           sodipodi:ry="33.047955"
+           d="M 33.047955,0 C 33.047955,18.251881 18.251881,33.047955 0,33.047955 -18.251881,33.047955 -33.047955,18.251881 -33.047955,0 c 0,-18.251881 14.796074,-33.047955 33.047955,-33.047955 18.251881,0 33.047955,14.796074 33.047955,33.047955 z" />
         <text
-           id="text3051"
+           id="text27301"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle">United States</text>
+           style="text-anchor:middle">19</text>
       </g>
       <g
-         id="g3053"
+         id="g27303"
          class="circle"
-         transform="translate(352.68545,507.4955)"
+         transform="translate(510.02407,137.11767)"
          style="stroke:#405040">
         <title
-           id="title3055">(country:Russian Federation, busy:0.04)</title>
+           id="title27305">hour:4 AVG of busy: 0.005452699244352121</title>
         <circle
-           id="circle3057"
-           r="9.0749283"
-           style="fill:#9467bd"
+           id="circle27307"
+           r="53.733147"
+           style="fill:#bcb759"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="9.0749283"
-           sodipodi:ry="9.0749283"
-           d="M 9.0749283,0 C 9.0749283,5.0119445 5.0119445,9.0749283 0,9.0749283 -5.0119445,9.0749283 -9.0749283,5.0119445 -9.0749283,0 c 0,-5.0119445 4.0629838,-9.0749283 9.0749283,-9.0749283 5.0119445,0 9.0749283,4.0629838 9.0749283,9.0749283 z" />
+           sodipodi:rx="53.733147"
+           sodipodi:ry="53.733147"
+           d="m 53.733147,0 c 0,29.675997 -24.05715,53.733147 -53.733147,53.733147 -29.675997,0 -53.733147,-24.05715 -53.733147,-53.733147 0,-29.675997 24.05715,-53.733147 53.733147,-53.733147 29.675997,0 53.733147,24.05715 53.733147,53.733147 z" />
         <text
-           id="text3059"
+           id="text27309"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle">Ru</text>
+           style="text-anchor:middle">4</text>
       </g>
       <g
-         id="g3061"
+         id="g27311"
          class="circle"
-         transform="translate(377.24539,495.91436)"
+         transform="translate(403.38582,89.914151)"
          style="stroke:#405040">
         <title
-           id="title3063">(country:Korea, Republic of, busy:0.034)</title>
+           id="title27313">hour:6 AVG of busy: 0.005409155097216778</title>
         <circle
-           id="circle3065"
-           r="8.3666706"
-           style="fill:#c5b0d5"
+           id="circle27315"
+           r="53.518166"
+           style="fill:#33b3c3"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="8.3666706"
-           sodipodi:ry="8.3666706"
-           d="m 8.3666706,0 c 0,4.6207846 -3.745886,8.3666706 -8.3666706,8.3666706 -4.6207846,0 -8.3666706,-3.745886 -8.3666706,-8.3666706 0,-4.6207846 3.745886,-8.3666706 8.3666706,-8.3666706 4.6207846,0 8.3666706,3.745886 8.3666706,8.3666706 z" />
+           sodipodi:rx="53.518166"
+           sodipodi:ry="53.518166"
+           d="M 53.518166,0 C 53.518166,29.557267 29.557267,53.518166 0,53.518166 -29.557267,53.518166 -53.518166,29.557267 -53.518166,0 c 0,-29.557267 23.960899,-53.518166 53.518166,-53.518166 29.557267,0 53.518166,23.960899 53.518166,53.518166 z" />
         <text
-           id="text3067"
+           id="text27317"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle">Ko</text>
+           style="text-anchor:middle">6</text>
       </g>
       <g
-         id="g3069"
+         id="g27319"
          class="circle"
-         transform="translate(437.30846,438.74844)"
+         transform="translate(79.331864,290.80174)"
          style="stroke:#405040">
         <title
-           id="title3071">(country:Algeria, busy:0.001)</title>
+           id="title27321">hour:20 AVG of busy: 0.0027008805921863526</title>
         <circle
-           id="circle3073"
-           r="1.4348722"
-           style="fill:#8c564b"
+           id="circle27323"
+           r="37.817184"
+           style="fill:#4f9337"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="1.4348722"
-           sodipodi:ry="1.4348722"
-           d="M 1.4348722,0 C 1.4348722,0.79245801 0.79245801,1.4348722 0,1.4348722 -0.79245801,1.4348722 -1.4348722,0.79245801 -1.4348722,0 c 0,-0.79245801 0.64241419,-1.4348722 1.4348722,-1.4348722 0.79245801,0 1.4348722,0.64241419 1.4348722,1.4348722 z" />
+           sodipodi:rx="37.817184"
+           sodipodi:ry="37.817184"
+           d="m 37.817184,0 c 0,20.885854 -16.93133,37.817184 -37.817184,37.817184 -20.885854,0 -37.817184,-16.93133 -37.817184,-37.817184 0,-20.885854 16.93133,-37.817184 37.817184,-37.817184 20.885854,0 37.817184,16.93133 37.817184,37.817184 z" />
         <text
-           id="text3075"
+           id="text27325"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle" />
+           style="text-anchor:middle">20</text>
       </g>
       <g
-         id="g3077"
+         id="g27327"
          class="circle"
-         transform="translate(136.63085,444.52429)"
+         transform="translate(343.94772,494.43325)"
          style="stroke:#405040">
         <title
-           id="title3079">(country:Germany, busy:2.006)</title>
+           id="title27329">hour:5 AVG of busy: 0.006395612623110117</title>
         <circle
-           id="circle3081"
-           r="64.26561"
-           style="fill:#c49c94"
+           id="circle27331"
+           r="58.193916"
+           style="fill:#4f3e7c"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="64.26561"
-           sodipodi:ry="64.26561"
-           d="M 64.26561,0 C 64.26561,35.492916 35.492916,64.26561 0,64.26561 -35.492916,64.26561 -64.26561,35.492916 -64.26561,0 c 0,-35.492916 28.772694,-64.26561 64.26561,-64.26561 35.492916,0 64.26561,28.772694 64.26561,64.26561 z" />
+           sodipodi:rx="58.193916"
+           sodipodi:ry="58.193916"
+           d="M 58.193916,0 C 58.193916,32.139613 32.139613,58.193916 0,58.193916 -32.139613,58.193916 -58.193916,32.139613 -58.193916,0 c 0,-32.139613 26.054303,-58.193916 58.193916,-58.193916 32.139613,0 58.193916,26.054303 58.193916,58.193916 z" />
         <text
-           id="text3083"
+           id="text27333"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle">Germany</text>
+           style="text-anchor:middle">5</text>
       </g>
       <g
-         id="g3085"
+         id="g27335"
          class="circle"
-         transform="translate(421.24937,442.64859)"
+         transform="translate(183.7112,326.60402)"
          style="stroke:#405040">
         <title
-           id="title3087">(country:Sweden, busy:0.002)</title>
+           id="title27337">hour:21 AVG of busy: 0.007534782646661444</title>
         <circle
-           id="circle3089"
-           r="2.0292156"
-           style="fill:#e377c2"
+           id="circle27339"
+           r="63.164326"
+           style="fill:#ac436e"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="2.0292156"
-           sodipodi:ry="2.0292156"
-           d="M 2.0292156,0 C 2.0292156,1.1207048 1.1207048,2.0292156 0,2.0292156 -1.1207048,2.0292156 -2.0292156,1.1207048 -2.0292156,0 c 0,-1.1207048 0.9085108,-2.0292156 2.0292156,-2.0292156 1.1207048,0 2.0292156,0.9085108 2.0292156,2.0292156 z" />
+           sodipodi:rx="63.164326"
+           sodipodi:ry="63.164326"
+           d="M 63.164326,0 C 63.164326,34.884694 34.884694,63.164326 0,63.164326 -34.884694,63.164326 -63.164326,34.884694 -63.164326,0 c 0,-34.884694 28.279632,-63.164326 63.164326,-63.164326 34.884694,0 63.164326,28.279632 63.164326,63.164326 z" />
         <text
-           id="text3091"
+           id="text27341"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle" />
+           style="text-anchor:middle">21</text>
       </g>
       <g
-         id="g3093"
+         id="g27343"
          class="circle"
-         transform="translate(443.65442,449.61246)"
+         transform="translate(624.49499,341.14633)"
          style="stroke:#405040">
         <title
-           id="title3095">(country:Turkey, busy:0.001)</title>
+           id="title27345">hour:7 AVG of busy: 0.005505019857832534</title>
         <circle
-           id="circle3097"
-           r="1.4348722"
-           style="fill:#f7b6d2"
+           id="circle27347"
+           r="53.990326"
+           style="fill:#2b2477"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="1.4348722"
-           sodipodi:ry="1.4348722"
-           d="M 1.4348722,0 C 1.4348722,0.79245801 0.79245801,1.4348722 0,1.4348722 -0.79245801,1.4348722 -1.4348722,0.79245801 -1.4348722,0 c 0,-0.79245801 0.64241419,-1.4348722 1.4348722,-1.4348722 0.79245801,0 1.4348722,0.64241419 1.4348722,1.4348722 z" />
+           sodipodi:rx="53.990326"
+           sodipodi:ry="53.990326"
+           d="M 53.990326,0 C 53.990326,29.818034 29.818034,53.990326 0,53.990326 -29.818034,53.990326 -53.990326,29.818034 -53.990326,0 c 0,-29.818034 24.172292,-53.990326 53.990326,-53.990326 29.818034,0 53.990326,24.172292 53.990326,53.990326 z" />
         <text
-           id="text3099"
+           id="text27349"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle" />
+           style="text-anchor:middle">7</text>
       </g>
       <g
-         id="g3101"
+         id="g27351"
          class="circle"
-         transform="translate(294.06963,514.82445)"
+         transform="translate(408.48256,221.85409)"
          style="stroke:#405040">
         <title
-           id="title3103">(country:China, busy:0.063)</title>
+           id="title27353">hour:11 AVG of busy: 0.009031254976800905</title>
         <circle
-           id="circle3105"
-           r="11.388945"
-           style="fill:#7f7f7f"
+           id="circle27355"
+           r="69.152924"
+           style="fill:#e9e97f"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="11.388945"
-           sodipodi:ry="11.388945"
-           d="M 11.388945,0 C 11.388945,6.2899404 6.2899404,11.388945 0,11.388945 -6.2899404,11.388945 -11.388945,6.2899404 -11.388945,0 c 0,-6.2899404 5.0990046,-11.388945 11.388945,-11.388945 6.2899404,0 11.388945,5.0990046 11.388945,11.388945 z" />
+           sodipodi:rx="69.152924"
+           sodipodi:ry="69.152924"
+           d="M 69.152924,0 C 69.152924,38.192105 38.192105,69.152924 0,69.152924 -38.192105,69.152924 -69.152924,38.192105 -69.152924,0 c 0,-38.192105 30.960819,-69.152924 69.152924,-69.152924 38.192105,0 69.152924,30.960819 69.152924,69.152924 z" />
         <text
-           id="text3107"
+           id="text27357"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle">Chi</text>
+           style="text-anchor:middle">11</text>
       </g>
       <g
-         id="g3109"
+         id="g27359"
          class="circle"
-         transform="translate(430.38636,204.77379)"
+         transform="translate(487.28621,352.84651)"
          style="stroke:#405040">
         <title
-           id="title3111">(country:South Africa, busy:4.021)</title>
+           id="title27361">hour:23 AVG of busy: 0.010439484416418983</title>
         <circle
-           id="circle3113"
-           r="90.987183"
-           style="fill:#c7c7c7"
+           id="circle27363"
+           r="74.349152"
+           style="fill:#aba962"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="90.987183"
-           sodipodi:ry="90.987183"
-           d="m 90.987183,0 c 0,50.250833 -40.73635,90.987183 -90.987183,90.987183 -50.250833,0 -90.987183,-40.73635 -90.987183,-90.987183 0,-50.250833 40.73635,-90.987183 90.987183,-90.987183 50.250833,0 90.987183,40.73635 90.987183,90.987183 z" />
+           sodipodi:rx="74.349152"
+           sodipodi:ry="74.349152"
+           d="M 74.349152,0 C 74.349152,41.061903 41.061903,74.349152 0,74.349152 -41.061903,74.349152 -74.349152,41.061903 -74.349152,0 c 0,-41.061903 33.287249,-74.349152 74.349152,-74.349152 41.061903,0 74.349152,33.287249 74.349152,74.349152 z" />
         <text
-           id="text3115"
+           id="text27365"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle">South Africa</text>
+           style="text-anchor:middle">23</text>
       </g>
       <g
-         id="g3117"
+         id="g27367"
          class="circle"
-         transform="translate(464.53262,471.92179)"
+         transform="translate(138.50032,495.08774)"
          style="stroke:#405040">
         <title
-           id="title3119">(country:Mexico, busy:0)</title>
+           id="title27369">hour:14 AVG of busy: 0.0015329601389758045</title>
         <circle
-           id="circle3121"
-           r="0"
-           style="fill:#bcbd22"
+           id="circle27371"
+           r="28.490623"
+           style="fill:#4fac4e"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="0"
-           sodipodi:ry="0" />
+           sodipodi:rx="28.490623"
+           sodipodi:ry="28.490623"
+           d="M 28.490623,0 C 28.490623,15.734937 15.734937,28.490623 0,28.490623 -15.734937,28.490623 -28.490623,15.734937 -28.490623,0 c 0,-15.734937 12.755686,-28.490623 28.490623,-28.490623 15.734937,0 28.490623,12.755686 28.490623,28.490623 z" />
         <text
-           id="text3123"
+           id="text27373"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle" />
+           style="text-anchor:middle">14</text>
       </g>
       <g
-         id="g3125"
+         id="g27375"
          class="circle"
-         transform="translate(427.23989,430.24955)"
+         transform="translate(249.81482,543.40119)"
          style="stroke:#405040">
         <title
-           id="title3127">(country:Belgium, busy:0.002)</title>
+           id="title27377">hour:16 AVG of busy: 0.0013672342993449565</title>
         <circle
-           id="circle3129"
-           r="2.0292156"
-           style="fill:#dbdb8d"
+           id="circle27379"
+           r="26.906548"
+           style="fill:#5e4236"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="2.0292156"
-           sodipodi:ry="2.0292156"
-           d="M 2.0292156,0 C 2.0292156,1.1207048 1.1207048,2.0292156 0,2.0292156 -1.1207048,2.0292156 -2.0292156,1.1207048 -2.0292156,0 c 0,-1.1207048 0.9085108,-2.0292156 2.0292156,-2.0292156 1.1207048,0 2.0292156,0.9085108 2.0292156,2.0292156 z" />
+           sodipodi:rx="26.906548"
+           sodipodi:ry="26.906548"
+           d="M 26.906548,0 C 26.906548,14.860076 14.860076,26.906548 0,26.906548 -14.860076,26.906548 -26.906548,14.860076 -26.906548,0 c 0,-14.860076 12.046472,-26.906548 26.906548,-26.906548 14.860076,0 26.906548,12.046472 26.906548,26.906548 z" />
         <text
-           id="text3131"
+           id="text27381"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle" />
+           style="text-anchor:middle">16</text>
       </g>
       <g
-         id="g3133"
+         id="g27383"
          class="circle"
-         transform="translate(471.96455,478.17381)"
+         transform="translate(583.76256,451.48363)"
          style="stroke:#405040">
         <title
-           id="title3135">(country:Italy, busy:0)</title>
+           id="title27385">hour:1 AVG of busy: 0.0055597637021749325</title>
         <circle
-           id="circle3137"
-           r="0"
-           style="fill:#17becf"
+           id="circle27387"
+           r="54.258114"
+           style="fill:#23a736"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="0"
-           sodipodi:ry="0" />
+           sodipodi:rx="54.258114"
+           sodipodi:ry="54.258114"
+           d="M 54.258114,0 C 54.258114,29.965929 29.965929,54.258114 0,54.258114 -29.965929,54.258114 -54.258114,29.965929 -54.258114,0 c 0,-29.965929 24.292185,-54.258114 54.258114,-54.258114 29.965929,0 54.258114,24.292185 54.258114,54.258114 z" />
         <text
-           id="text3139"
+           id="text27389"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle" />
+           style="text-anchor:middle">1</text>
       </g>
       <g
-         id="g3141"
+         id="g27391"
          class="circle"
-         transform="translate(479.87365,483.81008)"
+         transform="translate(180.54396,130.54636)"
          style="stroke:#405040">
         <title
-           id="title3143">(country:Taiwan, busy:0)</title>
+           id="title27393">hour:9 AVG of busy: 0.004862993628143243</title>
         <circle
-           id="circle3145"
-           r="0"
-           style="fill:#9edae5"
+           id="circle27395"
+           r="50.744427"
+           style="fill:#d3f5d2"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="0"
-           sodipodi:ry="0" />
+           sodipodi:rx="50.744427"
+           sodipodi:ry="50.744427"
+           d="M 50.744427,0 C 50.744427,28.025373 28.025373,50.744427 0,50.744427 -28.025373,50.744427 -50.744427,28.025373 -50.744427,0 c 0,-28.025373 22.719054,-50.744427 50.744427,-50.744427 28.025373,0 50.744427,22.719054 50.744427,50.744427 z" />
         <text
-           id="text3147"
+           id="text27397"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle" />
+           style="text-anchor:middle">9</text>
       </g>
       <g
-         id="g3149"
+         id="g27399"
          class="circle"
-         transform="translate(546.12999,382.46834)"
+         transform="translate(328.72864,352.84651)"
          style="stroke:#405040">
         <title
-           id="title3151">(country:other, busy:6.024)</title>
+           id="title27401">hour:22 AVG of busy: 0.010578111205606876</title>
         <circle
-           id="circle3153"
-           r="111.36678"
-           style="fill:#1f77b4"
+           id="circle27403"
+           r="74.841171"
+           style="fill:#9a5536"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="111.36678"
-           sodipodi:ry="111.36678"
-           d="M 111.36678,0 C 111.36678,61.506176 61.506176,111.36678 0,111.36678 -61.506176,111.36678 -111.36678,61.506176 -111.36678,0 c 0,-61.506176 49.860604,-111.36678 111.36678,-111.36678 61.506176,0 111.36678,49.860604 111.36678,111.36678 z" />
+           sodipodi:rx="74.841171"
+           sodipodi:ry="74.841171"
+           d="M 74.841171,0 C 74.841171,41.333638 41.333638,74.841171 0,74.841171 -41.333638,74.841171 -74.841171,41.333638 -74.841171,0 c 0,-41.333638 33.507533,-74.841171 74.841171,-74.841171 41.333638,0 74.841171,33.507533 74.841171,74.841171 z" />
         <text
-           id="text3155"
+           id="text27405"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle">other</text>
+           style="text-anchor:middle">22</text>
       </g>
       <g
-         id="g3157"
+         id="g27407"
          class="circle"
-         transform="translate(488.20904,488.79432)"
+         transform="translate(469.56537,493.51095)"
          style="stroke:#405040">
         <title
-           id="title3159">(country:Ukraine, busy:0)</title>
+           id="title27409">hour:10 AVG of busy: 0.006366182700805991</title>
         <circle
-           id="circle3161"
-           r="0"
-           style="fill:#aec7e8"
+           id="circle27411"
+           r="58.059872"
+           style="fill:#deebcd"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="0"
-           sodipodi:ry="0" />
+           sodipodi:rx="58.059872"
+           sodipodi:ry="58.059872"
+           d="m 58.059872,0 c 0,32.065582 -25.99429,58.059872 -58.059872,58.059872 -32.065582,0 -58.059872,-25.99429 -58.059872,-58.059872 0,-32.065582 25.99429,-58.059872 58.059872,-58.059872 32.065582,0 58.059872,25.99429 58.059872,58.059872 z" />
         <text
-           id="text3163"
+           id="text27413"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle" />
+           style="text-anchor:middle">10</text>
       </g>
       <g
-         id="g3165"
+         id="g27415"
          class="circle"
-         transform="translate(405.61387,467.43721)"
+         transform="translate(357.95285,582.14822)"
          style="stroke:#405040">
         <title
-           id="title3167">(country:United Kingdom, busy:0.007)</title>
+           id="title27417">hour:13 AVG of busy: 0.0008539868315159398</title>
         <circle
-           id="circle3169"
-           r="3.7963147"
-           style="fill:#ff7f0e"
+           id="circle27419"
+           r="21.264839"
+           style="fill:#5e63e7"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="3.7963147"
-           sodipodi:ry="3.7963147"
-           d="m 3.7963147,0 c 0,2.0966467 -1.699668,3.7963147 -3.7963147,3.7963147 -2.0966467,0 -3.7963147,-1.699668 -3.7963147,-3.7963147 0,-2.0966467 1.699668,-3.7963147 3.7963147,-3.7963147 2.0966467,0 3.7963147,1.699668 3.7963147,3.7963147 z" />
+           sodipodi:rx="21.264839"
+           sodipodi:ry="21.264839"
+           d="m 21.264839,0 c 0,11.744246 -9.520593,21.264839 -21.264839,21.264839 -11.744246,0 -21.264839,-9.520593 -21.264839,-21.264839 0,-11.744246 9.520593,-21.264839 21.264839,-21.264839 11.744246,0 21.264839,9.520593 21.264839,21.264839 z" />
         <text
-           id="text3171"
+           id="text27421"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle">U</text>
+           style="text-anchor:middle">13</text>
       </g>
       <g
-         id="g3173"
+         id="g27423"
          class="circle"
-         transform="translate(393.06289,480.07724)"
+         transform="translate(136.40348,222.4612)"
          style="stroke:#405040">
         <title
-           id="title3175">(country:Brazil, busy:0.009)</title>
+           id="title27425">hour:8 AVG of busy: 0.0033080535632631736</title>
         <circle
-           id="circle3177"
-           r="4.3046165"
-           style="fill:#ffbb78"
+           id="circle27427"
+           r="41.852631"
+           style="fill:#7ad2d4"
            cx="0"
            cy="0"
            sodipodi:cx="0"
            sodipodi:cy="0"
-           sodipodi:rx="4.3046165"
-           sodipodi:ry="4.3046165"
-           d="M 4.3046165,0 C 4.3046165,2.377374 2.377374,4.3046165 0,4.3046165 -2.377374,4.3046165 -4.3046165,2.377374 -4.3046165,0 c 0,-2.377374 1.9272425,-4.3046165 4.3046165,-4.3046165 2.377374,0 4.3046165,1.9272425 4.3046165,4.3046165 z" />
+           sodipodi:rx="41.852631"
+           sodipodi:ry="41.852631"
+           d="M 41.852631,0 C 41.852631,23.11457 23.11457,41.852631 0,41.852631 -23.11457,41.852631 -41.852631,23.11457 -41.852631,0 c 0,-23.11457 18.738061,-41.852631 41.852631,-41.852631 23.11457,0 41.852631,18.738061 41.852631,41.852631 z" />
         <text
-           id="text3179"
+           id="text27429"
            class="data-text"
            dy="2.1475846e-038"
-           style="text-anchor:middle">B</text>
-      </g>
-      <g
-         id="g3181"
-         class="circle"
-         transform="translate(324.88736,513.86558)"
-         style="stroke:#405040">
-        <title
-           id="title3183">(country:France, busy:0.046)</title>
-        <circle
-           id="circle3185"
-           r="9.7317762"
-           style="fill:#2ca02c"
-           cx="0"
-           cy="0"
-           sodipodi:cx="0"
-           sodipodi:cy="0"
-           sodipodi:rx="9.7317762"
-           sodipodi:ry="9.7317762"
-           d="M 9.7317762,0 C 9.7317762,5.3747116 5.3747116,9.7317762 0,9.7317762 -5.3747116,9.7317762 -9.7317762,5.3747116 -9.7317762,0 c 0,-5.3747116 4.3570646,-9.7317762 9.7317762,-9.7317762 5.3747116,0 9.7317762,4.3570646 9.7317762,9.7317762 z" />
-        <text
-           id="text3187"
-           class="data-text"
-           dy="2.1475846e-038"
-           style="text-anchor:middle">Fra</text>
+           style="text-anchor:middle">8</text>
       </g>
     </g>
   </g>
@@ -703,4 +685,10 @@
 .circle {
 	stroke: #405040;
 }</style>
+  <style
+     id="style3091">#y-axis-description {		font-family: &quot;kalinga&quot;;	font-size: 10px;}.axis path, .axis line {	fill: none;	stroke: black;	shape-rendering: crispEdges;}.axis text {	font-family: &quot;kalinga&quot;;	font-size: 12px;}.circle {	stroke: #405040;}</style>
+  <style
+     id="style14780">#y-axis-description {		font-family: &quot;kalinga&quot;;	font-size: 10px;}.axis path, .axis line {	fill: none;	stroke: black;	shape-rendering: crispEdges;}.axis text {	font-family: &quot;kalinga&quot;;	font-size: 12px;}.circle {	stroke: #405040;}</style>
+  <style
+     id="style27237">#y-axis-description {		font-family: &quot;kalinga&quot;;	font-size: 10px;}.axis path, .axis line {	fill: none;	stroke: black;	shape-rendering: crispEdges;}.axis text {	font-family: &quot;kalinga&quot;;	font-size: 12px;}.circle {	stroke: #405040;}</style>
 </svg>

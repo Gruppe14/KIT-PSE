@@ -14,6 +14,6 @@ public class Global extends GlobalSettings {
 		// reset facade to release connections
 		Facade.getFacadeInstance().reset();
 		
-		Printer.print("You close WHAT! We hope to see you again sometimes.");
+		Printer.print("WHAT has been closed! We hope to see you again sometimes.");
 	}
 }

@@ -27,7 +27,6 @@ img {
     position:relative;
     z-index:1;
 	top: 30px;
-	font-size: 17px;
 }
 #logo span {
 	margin-left: -10px;
@@ -141,5 +140,5 @@ img {
 	background: rgba(255,255,255,0.8);
 }
 #history {
-	background-image: url(/assets/images/history.svg)
+	background-image: url(/assets/images/History.svg)
 }

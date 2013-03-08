@@ -11,6 +11,19 @@ function bubblechart(json, sorted) {
 	console.log(data);
     visualize(data); //then start the visualization
 
+    function getRandomColor() {
+        var color = "#";
+        for (var i = 0; i < 6; i ++) {
+            var rd = Math.floor(Math.random() * 16);
+            if (rd < 2) {
+            	i--;
+            	continue;
+            }
+            color += rd.toString(16);
+        }
+        return color;
+    }
+    
     function getX(d) {
         return d[xAxisName];
     }
@@ -82,7 +95,7 @@ function bubblechart(json, sorted) {
 		//draw the circle
 		circle.append("circle")
 			.attr("r", function(d) { return d.r; })
-			.style("fill", function(d) { return color(getX(d)); });
+			.style("fill", getRandomColor);
 
 		//this is the text written over the circle.
 		circle.append("text")

@@ -28,6 +28,10 @@ function barchart(json, sorted) {
         var color = "#";
         for (var i = 0; i < 6; i ++) {
             var rd = Math.floor(Math.random() * 16);
+            if (rd < 2) {
+            	i--;
+            	continue;
+            }
             color += rd.toString(16);
         }
         return color;
