@@ -27,11 +27,9 @@ function barchart(json, sorted) {
     function getRandomColor() {
         var color = "#";
         for (var i = 0; i < 6; i ++) {
-            var rd = Math.floor(Math.random() * 16);
-            if (rd < 2) {
-            	i--;
-            	continue;
-            }
+            var rd = Math.floor(Math.random() * 14);
+            rd += 2;
+            //only colors from 2 to 15 allowed. The others are too dark.
             color += rd.toString(16);
         }
         return color;
