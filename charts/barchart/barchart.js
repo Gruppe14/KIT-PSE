@@ -41,7 +41,7 @@ function barchart(json, sorted) {
         
         //let's calculate how many types we have
         var t = d3.values(data.map(getY)).length;
-        //console.log("Different y values is " + t);
+        console.log("# of different y values is " + t);
         var yMin = d3.min(data, getY);
 		
 		var yMax = d3.max(data, getY);
@@ -57,7 +57,7 @@ function barchart(json, sorted) {
             top: 30,
             right: 20,
             bottom: 20,
-            left: d3.max([12 * (n + Math.floor(n/3)-1), 50]) 
+            left: d3.max([12 * (n + Math.floor(n/3)-1), 40]) 
         };
         
         //console.log("xMax :" + margin.top);

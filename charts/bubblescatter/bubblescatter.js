@@ -52,14 +52,23 @@ function bubblescatter(json, radius) {
 		//console.log($("#bob"));
 		
 		//make sure no text is lost
-		var bt = (10 / 7) * $("#bob").width();
+		var bt = (11 / 7) * $("#bob").width();
         console.log(bt);
         margin.left = bt;
         
         //clean up
         $("#bob").remove();
+		
+        var t = d3.values(data.map(getY)).length;
+        console.log("# of different y values is " + t);
+		//console.log("xMax :" + margin.top);
+        var l = (t > 5) ? t : 5;
+        var w = l * 25 + margin.right;
+        if (w < 50) {
+            w = t * 30;
+        }
 
-        var w = 1000 - margin.left - margin.right;
+        //var w = 1000 - margin.left - margin.right;
         var h = 800 - margin.top - margin.bottom;
 		
        // var padding = 30;
@@ -183,12 +192,12 @@ function bubblescatter(json, radius) {
 			.attr("id", "x-axis")
             .attr("transform", "translate(0," + h + ")")
             .call(xAxis)
-			.append("text")
-			.attr("id", "x-axis-description")
-			.attr("x", w)
-			.attr("y", -6)
-			.style("text-anchor", "end")
-			.text(xAxisName);
+			//.append("text")
+			//.attr("id", "x-axis-description")
+			//.attr("x", w)
+			//.attr("y", -6)
+			//.style("text-anchor", "end")
+			//.text(xAxisName);
 			
 
         svg.append("g")
