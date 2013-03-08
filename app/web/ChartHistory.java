@@ -12,6 +12,7 @@ import play.api.templates.Html;
 import web.controllers.Localize;
 
 import what.Facade;
+import what.Printer;
 
 /**
  * Static class providing some functions for displaying the chart history.
@@ -56,17 +57,32 @@ public class ChartHistory {
 		tmp.history = new JSONObject[num];
 		String html = "";
 		for (int i = 0; i < num; i++) {
-			tmp.history[i] = f.historyChart(i);
+			JSONObject json = f.historyChart(i);
+			tmp.history[i] = json;
 			String chart = "";
+			//attributes of the json
+			String data = "";
 			// if something goes wrong, skip this history tile
 			try {
 				chart = tmp.history[i].getString("chartType");
+				int dims = ChartIndex.getInstance().getDim(chart);
+				Printer.print(json.names().toString());
+				if(dims == 1){
+					data = "<br />x: " + json.getString("attribute1") + " | "
+							+ Localize.get("filter.measures") + ": " +json.getString("attribute2");
+				} else if (dims == 2) {
+					data = "<br />x: " + json.getString("attribute1") + " | "
+							+ "y: " + json.getString("attribute2") + " | "
+							+ Localize.get("filter.measures") + ": " + json.getString("attribute3");
+				}
+				
 			} catch (JSONException e) {
 				continue;
 			}
 			html += "<a href=\"/charts/" + chart + ".html#hist=" + i 
 					+ "\"><div class=\"bigTile\" id=\""
 					+ chart + "\"><span>#" + (i + 1) + ": " + Localize.get("charts." + chart) 
+					+ data
 					+ "</span></div></a>";
 		}
 		//if no history tiles at all
