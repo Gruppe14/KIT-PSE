@@ -2,9 +2,13 @@ package what.test;
 
 import static org.junit.Assert.*;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import play.test.FakeApplication;
+import play.test.Helpers;
 
 import what.Facade;
 
@@ -15,6 +19,8 @@ public class ConfigTest {
 	
 	// is needed every time... the heart of the system
 	private static Facade f;
+	// run a fakeApplication
+	private static FakeApplication app;
 	
 	// strings for file tests
 	private static String sourcePath;
@@ -22,10 +28,17 @@ public class ConfigTest {
 		
 	@BeforeClass
 	public static void initialize() {
+		app = Helpers.fakeApplication();
+		Helpers.start(app);
 		Printer.ptestclass("config tests");
 		f = Facade.getFacadeInstance();
 		sourcePath = System.getProperty("user.dir");
 		separator = System.getProperty("file.separator");
+	}
+	
+	@AfterClass
+	public static void stopApp() {
+		Helpers.stop(app);
 	}
 	
 	private void resetFacade() {
@@ -87,6 +100,8 @@ public class ConfigTest {
 		assertFalse(f.init(getPathForExample(WRONG4)));
 		resetFacade();
 	}
+	
+	
 	
 	// -- HELPER -- HELPER -- HELPER -- HELPER -- HELPER --
 	private String getPathForExample(String s) {

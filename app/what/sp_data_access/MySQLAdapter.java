@@ -141,7 +141,6 @@ public class MySQLAdapter {
 	 * Releases all resources.
 	 */
 	protected void releaseResources() {
-		whConnections.releaseConnections();
 		whConnections = null;		
 	}
 	

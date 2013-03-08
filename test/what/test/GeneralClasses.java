@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -17,11 +18,16 @@ import what.Printer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import play.test.FakeApplication;
+import play.test.Helpers;
+
 //@Ignore
 public class GeneralClasses {
 	
 	// is needed every time... the heart of the system
 	private static Facade f;
+	// run a fakeApplication
+	private static FakeApplication app;
 	
 	// strings for file tests
 	private static String sourcePath;
@@ -29,10 +35,17 @@ public class GeneralClasses {
 		
 	@BeforeClass
 	public static void initialize() {
-		Printer.ptestclass("general classes");
+		app = Helpers.fakeApplication();
+		Helpers.start(app);
+		Printer.ptestclass("config tests");
 		f = Facade.getFacadeInstance();
 		sourcePath = System.getProperty("user.dir");
 		separator = System.getProperty("file.separator");
+	}
+	
+	@AfterClass
+	public static void stopApp() {
+		Helpers.stop(app);
 	}
 	
 	private void resetFacade() {

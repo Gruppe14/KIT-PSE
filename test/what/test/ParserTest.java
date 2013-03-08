@@ -2,10 +2,14 @@ package what.test;
 
 import static org.junit.Assert.*;
 
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import play.test.FakeApplication;
+import play.test.Helpers;
 import what.Facade;
 import what.Printer;
 import what.sp_parser.ParserMediator;
@@ -28,6 +32,9 @@ public class ParserTest {
 	private static Facade f;
 	private static ParserMediator pm;
 	
+	// run a fakeApplication
+	private static FakeApplication app;
+	
 	// path Strings
 	private static String sourcePath;
 	private static String seperator;
@@ -36,6 +43,9 @@ public class ParserTest {
 	@BeforeClass
 	public static void initialize() {
 		Printer.ptestclass("parser tests");
+		
+		app = Helpers.fakeApplication();
+		Helpers.start(app);
 		
 		f = Facade.getFacadeInstance();
 		pm = f.getParserMediator();
@@ -49,6 +59,11 @@ public class ParserTest {
 		f.reset();
 		f = Facade.getFacadeInstance();
 		pm = f.getParserMediator();
+	}
+	
+	@AfterClass
+	public static void stopApp() {
+		Helpers.stop(app);
 	}
 	
 	
