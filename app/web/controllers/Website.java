@@ -140,7 +140,6 @@ public class Website extends Controller {
 				return internalServerError(ISE);
 
 			}
-			System.out.println(svg.substring(0, 20));
     	String chart = file[3].substring(6);
 		if (format.equals("svg")) {
 			response().setHeader("Content-Disposition", "attachment; filename=\"" + name + ".svg\"");

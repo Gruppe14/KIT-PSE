@@ -397,12 +397,9 @@ function displaySave() {
 		if($("svg style").length < 1) {
 		$.get("/charts/@{chart}/@{chart}.css", function(data) {
 			$(document.createElement("style")).html(data).prependTo(svg);
-			form();
 		});
-		}
-		} else {
-			form();
-		}
+		}}
+		form();
 		
 		//the form
 		function form() {
