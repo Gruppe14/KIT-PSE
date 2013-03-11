@@ -31,6 +31,23 @@ function bubblescatter(json, radius) {
     function getZ(d) {
         return d[radius];
     }
+    
+    function getUniqueValues(array) {
+		//O(n). I think
+		var idxes = []; //the indexes of the original array that are unique
+		var objectSet = {};
+		
+		for (var i = 0; i < array.length; i++) {
+			
+			if (!objectSet.hasOwnProperty(array[i])) {
+				idxes.push(i);
+				objectSet[array[i]] = true;
+			}
+		}
+		
+		return idxes.map(function(d) { return array[d];});
+		
+	}
 
     function visualize(data) {
         
@@ -58,20 +75,27 @@ function bubblescatter(json, radius) {
         
         //clean up
         $("#bob").remove();
-		
-        var t = d3.values(data.map(getY)).length;
-        console.log("# of different y values is " + t);
-		//console.log("xMax :" + margin.top);
-        var l = (t > 5) ? t : 5;
-        var w = l * 25 + margin.right;
-        if (w < 50) {
-            w = t * 30;
-        }
+        
+        
+		//calculate the width by the # of needed elements
+        var t = getUniqueValues(data.map(getX)).length;
+        console.log("# of different x values is " + t);
+		//console.log("xMax :" + margin.top);		
 
-        //var w = 1000 - margin.left - margin.right;
-        var h = 800 - margin.top - margin.bottom;
-		
-       // var padding = 30;
+        var l = (t > 5) ? t : 5;
+        var w = l * 17 + margin.right;
+        if (w < 50) {
+            l = t * 20;
+        }
+        console.log("The width was set to: " + w);
+
+        //do the same for the y axis
+		var t3 = getUniqueValues(data.map(getY)).length;
+        
+        console.log("# of different y values is " + t3);
+        var h = t3 * 14 + margin.bottom;
+        console.log("The height was set to: " + h);
+
         //the format of the data
         var format = d3.format(".0");
 
