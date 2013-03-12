@@ -44,43 +44,29 @@ findPlay20()
 
 defaultTasks 'createStartBat'
 
-task changeDatabase {
-	//ask if user wants to change database/application config
-	def config = prompt('> Would you like to change the database configuration or admin login? (y/n): ')
-	while(!config.equals("y") && !config.equals("n")) {
-		config = prompt('> Would you like to change the database configuration or admin login? (y/n): ')
-	}
-	if(config.equals("y")) {
-		if (Desktop.isDesktopSupported()) {
-			def configFile = new File("./conf/application.conf")
-			if (checkWin()) {
-				//on windows the other method doesn't work
-				String cmd = "rundll32 url.dll,FileProtocolHandler " + configFile.getCanonicalPath();
-				Runtime.getRuntime().exec(cmd);
-			} else {
-				try {
-					Desktop.getDesktop().edit(configFile.getCanonicalFile());
-				//not good, but will do
-				} catch (Exception e) {
-					println("Error opening configuration file in editor.")
-				}
-			}
-			//ask if changing finished, so that the build will not continue before
-			config = prompt('> Finished changing the configuration? (y/n): ')
-			while(!config.equals("y")) {
-				config = prompt('> Finished changing the configuration? (y/n): ')
-			}
-		} else {
-			println("Error opening editor.")
-		}
+task playConfig {
+	doLast {
+		def file = new File("./conf/application.conf")
+		def text = file.text
+		text = text.replaceFirst('include "config.conf"', 'include "conf/config.conf"')
+		file.write(text)
 	}
 }
 
-task playDist (type: Exec, dependsOn: changeDatabase) {
+task playDist (type: Exec, dependsOn: playConfig) {
 	commandLine playExec, "dist"
 }
 
-task unzipDist (type: Exec, dependsOn: playDist) {
+task playRevertConfig (dependsOn: playDist) {
+	doLast {
+		def file = new File("./conf/application.conf")
+		def text = file.text
+		text = text.replaceFirst('include "conf/config.conf"', 'include "config.conf"')
+		file.write(text)
+	}
+}
+
+task unzipDist (type: Exec, dependsOn: [playDist, playRevertConfig]) {
 	workingDir './dist'
 	commandLine "jar", "xf",  "*.zip"
 }
@@ -103,6 +89,7 @@ task copyConfig(type: Copy, dependsOn: moveDist) {
 	from './conf/'
 	into '../what/conf/'
 	include '*.json'
+	include 'config.conf'
 }
 
 task copyGeoIp(type: Copy, dependsOn: moveDist) {
