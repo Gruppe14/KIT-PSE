@@ -6,7 +6,7 @@ import what.Printer;
 public class Global extends GlobalSettings {
 		
 	public void onStart(Application app) {
-		Printer.print("Welcome to WHAT!\nUse strg + c to stop the server");
+		Printer.print("Welcome to WHAT!\nUse strg + d to stop the server");
 		
 	}
 	

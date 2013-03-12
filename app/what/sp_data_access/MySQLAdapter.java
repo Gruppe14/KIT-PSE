@@ -50,7 +50,7 @@ public class MySQLAdapter {
 	/** MySQL short constant. */
 	public static final String WHERE = " WHERE ";	
 	/** MySQL short constant. */
-	protected static final String GROUPBY = " GROUP BY ";
+	public static final String GROUPBY = " GROUP BY ";
 	
 	/** MySQL short constant. */
 	public static final String AND = " AND ";
@@ -317,7 +317,7 @@ public class MySQLAdapter {
 		on += chart.getRestrictions();
 				
 		// -- GROUPBY PART -- GROUPBY PART -- GROUPBY PART -- 
-		String groupBy = GROUPBY + chart.getGroupBy();
+		String groupBy = chart.getGroupBy();
 		
 		// -- EXECUTE -- EXECUTE -- EXECUTE -- EXECUTE --
 		return executeChartRequest(select + from + join + on + groupBy, chart);

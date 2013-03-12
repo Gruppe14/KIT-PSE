@@ -247,6 +247,6 @@ function bubblescatter(json, radius) {
 			.attr("x", "3")
 			.css("text-anchor", "");
 		//rotate text
-		$("#x-axis text").attr("transform", "rotate(270)");
+		$("#x-axis text").attr("transform", "rotate(-270)");
     }
 }

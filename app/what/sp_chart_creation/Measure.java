@@ -27,6 +27,8 @@ public class Measure {
 	public static final String MAX = "MAX";
 	/** Constant measure name. */
 	public static final String AVG = "AVG";
+	/** Constant measure name. */
+	public static final String NONE = "NONE";
 	
 	/** The aggregation in MySQL for COUNT. */
 	public static final String COUNT_SQL = "count(*)";
@@ -42,7 +44,8 @@ public class Measure {
 		aggregations.add(COUNT);
 		aggregations.add(SUM);
 		aggregations.add(MAX);
-		aggregations.add(AVG);		
+		aggregations.add(AVG);
+		aggregations.add(NONE);
 	}
 
 	/** The aggregation of this Measure. */
@@ -107,6 +110,8 @@ public class Measure {
 			return MAX;
 		} else if (agg.equalsIgnoreCase(AVG)) {
 			return AVG;
+		} else if (agg.equalsIgnoreCase(NONE)) {
+			return NONE;
 		}
 			
 		return null;
@@ -126,7 +131,9 @@ public class Measure {
 			return MAX + LBR + getMeasureRow() + RBR;
 		} else if (getAggregation() == AVG) {
 			return AVG + LBR + getMeasureRow() + RBR;
-		} 
+		}  else if (getAggregation() == NONE) {
+			return getMeasureRow();
+		}
 			
 		Printer.pfail("Finding a fitting measure.");		
 		

@@ -37,8 +37,10 @@ public class ChartHelper {
 	
 	/** contains the background image information, see getStyle(). */
 	private static Html style = null;
+	
 	/** contains the dimensions in the warehouses. */
 	private static ArrayList<DimRow> dims = Facade.getFacadeInstance().getCurrentConfig().getDims();
+	
 	/**
 	 * contains the minimum and maximum time in the warehouse.
 	 */
@@ -135,7 +137,7 @@ public class ChartHelper {
 			html += "<div id=\"send\">" + Localize.get("filter.send") + VID;
 			html += time();
 			html += axis(stringDim, name);
-			html += measuresHtml(measures) + "<br />";
+			html += measuresHtml(measures, name) + "<br />";
 			html += stringDimHtml(stringDim); 
 		} else {
 			html += "<br />" + Localize.get("err.noData");
@@ -258,21 +260,35 @@ public class ChartHelper {
 	 * @param measures the measures to add
 	 * @return returns a html string with the measure selection
 	 */
-	private String measuresHtml(ArrayList<String> measures) {
-		String html = "<div id=\"measures\" class=\"single options\">"
-				 + DIV + Localize.get("filter.measures")
-				 + VID + "<div class=\"list\">";
-		for (String m: measures) {
-			html += "<span data=\"" + m + "\">" + Localize.get("measure." + m) 
-					+ NAPS + "<div class=\"sub\">";
-			for (String s: Measure.getAggregations()) {
-				html += "<span data=\"" + s + "\">" + Localize.get("aggregation." + s) + NAPS;
+	private String measuresHtml(ArrayList<String> measures, String chart) {
+		if (ChartIndex.getInstance().getAggregation(chart)) {
+			String html = "<div id=\"measures\" class=\"single options\">"
+					 + DIV + Localize.get("filter.measures")
+					 + VID + "<div class=\"list\">";
+			for (String m: measures) {
+				html += "<span data=\"" + m + "\">" + Localize.get("measure." + m) 
+						+ NAPS + "<div class=\"sub\">";
+				for (String s: Measure.getAggregations()) {
+					html += "<span data=\"" + s + "\">" + Localize.get("aggregation." + s) + NAPS;
+				}
+				html += VID;
+				
 			}
-			html += VID;
+			html += VID + VID;
+			return html;
 			
+		} else { // just the measures, no aggregation
+			String html = "<div id=\"measures\" class=\"options\">"
+					 + DIV + Localize.get("filter.measures")
+					 + VID + "<div class=\"list\">";
+			for (String m: measures) {
+				html += "<span data=\"" + m + "\">" + Localize.get("measure." + m) 
+						+ NAPS;
+			}
+			html += VID + VID;
+			return html;
 		}
-		html += VID + VID;
-		return html;
+		
 	}
 	
 	// -- TIME -- TIME -- TIME -- TIME -- TIME -- TIME -- 

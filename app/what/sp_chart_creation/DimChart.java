@@ -41,6 +41,9 @@ public class DimChart {
 	/** Constant name to put in JSONObject. */
 	protected static final String MEASURE_ATT = "measureAttribute";
 	
+	/** Constant name to put in JSONObject. */
+	protected static final String SCATTERPLOT = "scatterplot";
+	
 	/** JSONObject storing this DimCharts representation for D3. */
 	private JSONObject json;
 
@@ -179,7 +182,10 @@ public class DimChart {
 	 * @return  the group by statement
 	 */
 	public String getGroupBy() {
-		return getXColumn();
+		if (chartType.equalsIgnoreCase(SCATTERPLOT)) {
+			return "";
+		}
+		return MySQLAdapter.GROUPBY + getXColumn();
 	}
 	
 	// GETTER >> private or protected

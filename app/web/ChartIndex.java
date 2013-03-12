@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import what.FileHelper;
+import what.JSONReader;
 import what.Printer;
 
 /**
@@ -32,13 +33,17 @@ public class ChartIndex {
 	/** a hashmap containing the dimensions of a chart as read from the charts config file. */
 	private HashMap<String, Integer> dims;
 	
+	/** a hashmap containing the dimensions of a chart as read from the charts config file. */
+	private HashMap<String, Boolean> aggregations;
+	
 	/**
 	 * on initialization scans the charts directory for sub-directories a.k.a. chartTypes.
 	 */
 	private ChartIndex() {
-		thumbs = new HashMap<>();
-		css = new HashSet<>();
-		dims = new HashMap<>();
+		thumbs = new HashMap<String, String>();
+		css = new HashSet<String>();
+		dims = new HashMap<String, Integer>();
+		aggregations = new HashMap<String, Boolean>();
 		File chartDir = new File("./charts");
 		File[] dirList = chartDir.listFiles(new FileFilter() {
 			//accept only charts that have all components
@@ -47,6 +52,7 @@ public class ChartIndex {
 					boolean thumb = false;
 					boolean js = false;
 					boolean config = false;
+					String name = file.getName();
 					for (String s : file.list()) {
 						if (s.matches("^(thumb)\\..*")) {
 							thumb = true;
@@ -56,22 +62,36 @@ public class ChartIndex {
 							js = true;
 						}
 						if (s.equalsIgnoreCase(file.getName() + ".css")) {
-							css.add(file.getName());
+							css.add(name);
 						}
 						if (s.equalsIgnoreCase("config.json")) {
 							String jsonString = FileHelper.getStringContent(new File(file, s));
 							if (jsonString != null) {
-								JSONObject json = null;
-								try {
-									json = new JSONObject(jsonString);
-									int dim = json.getInt("dimensions");
-									if (dim > 0 && dim < 3) {
-										dims.put(file.getName(), dim);
-										config = true;
-									}
-								} catch (JSONException e) {
-									Printer.perror("Error with chart config");
+								JSONObject json = JSONReader.getJSONObjectForString(jsonString);
+								if (json == null) {
+									Printer.perror("No legal JSONString in chart config.");
+									return false;
 								}
+								JSONReader reader = new JSONReader(json);
+								int dim = reader.getInt("dimensions");
+								if ((dim > 0) && (dim < 3)) {
+									dims.put(name, dim);
+									config = true;
+								} else {
+									Printer.perror("Illegal number of dimensions.");
+									return false;
+								}
+								
+								int agg = reader.getInt("aggregation");
+								if (agg < 0) {
+									Printer.perror("Illegal statement for aggregation attribute.");
+									return false;
+								} else if (agg == 0) {
+									aggregations.put(name, false);
+								} else {
+									aggregations.put(name, true);
+								}
+								
 							}
 						}
 					}
@@ -135,5 +155,11 @@ public class ChartIndex {
 	 */
 	public int getDim(String chart) {
 		return dims.get(chart);
+	}
+	
+	
+
+	public boolean getAggregation(String chart) {
+		return aggregations.get(chart);
 	}
 }
