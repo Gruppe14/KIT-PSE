@@ -46,9 +46,9 @@ defaultTasks 'createStartBat'
 
 task changeDatabase {
 	//ask if user wants to change database/application config
-	def config = prompt('> Would you like to change the database configuration? (y/n): ')
+	def config = prompt('> Would you like to change the database configuration or admin login? (y/n): ')
 	while(!config.equals("y") && !config.equals("n")) {
-		config = prompt('> Would you like to change the database configuration? (y/n): ')
+		config = prompt('> Would you like to change the database configuration or admin login? (y/n): ')
 	}
 	if(config.equals("y")) {
 		if (Desktop.isDesktopSupported()) {

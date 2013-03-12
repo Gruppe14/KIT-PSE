@@ -1,5 +1,7 @@
 package web;
 
+import play.Configuration;
+import play.Play;
 import play.data.validation.Constraints.Required;
 import web.controllers.Localize;
 
@@ -27,7 +29,9 @@ public class AdminLogin {
 	 * @return returns null or an error message
 	 */
 	public String validate() {
-		if (username.equals("test") && password.equals("secret")) {
+		Configuration conf = Play.application().configuration();
+		if (username.equals(conf.getString("admin.name")) 
+				&& password.equals(conf.getString("admin.password"))) {
 			return null;
 		}
 		return Localize.get("admin.wrongLogin");
