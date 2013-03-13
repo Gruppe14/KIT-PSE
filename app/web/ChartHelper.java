@@ -280,7 +280,7 @@ public class ChartHelper {
 		} else { // just the measures, no aggregation
 			String html = "<div id=\"measures\" class=\"options\">"
 					 + DIV + Localize.get("filter.measures")
-					 + VID + "<div class=\"list\">";
+					 + VID + "<div class=\"list group\">";
 			for (String m: measures) {
 				html += "<span data=\"" + m + "\">" + Localize.get("measure." + m) 
 						+ NAPS;

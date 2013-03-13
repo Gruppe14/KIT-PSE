@@ -33,7 +33,7 @@ public class ChartIndex {
 	/** a hashmap containing the dimensions of a chart as read from the charts config file. */
 	private HashMap<String, Integer> dims;
 	
-	/** a hashmap containing the dimensions of a chart as read from the charts config file. */
+	/** a hashmap containing wether a chart has aggregations or not */
 	private HashMap<String, Boolean> aggregations;
 	
 	/**
@@ -158,7 +158,11 @@ public class ChartIndex {
 	}
 	
 	
-
+	/**
+	 * returns wether a chart has aggregations or not.
+	 * @param chart the chart name
+	 * @return returns true if the chart has aggregations, false otherwise
+	 */
 	public boolean getAggregation(String chart) {
 		return aggregations.get(chart);
 	}

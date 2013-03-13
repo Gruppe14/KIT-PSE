@@ -54,7 +54,10 @@ function checkOptions() {
 		errOp.push($("#y").children(":first"));
 	}
 	//check wether a measure is selected
-	if ($("#measures").find(".sub").children(".selected").length == 0) {
+	if (@if(web.ChartIndex.getInstance().getAggregation(chart)) {
+		$("#measures").find(".sub").children(".selected")} else {
+		$("#measures").find(".selected") }
+	.length == 0) {
 		errOp.push($("#measures").children(":first"));
 	}
 	//remove old marked fields
@@ -271,10 +274,17 @@ function buildJson() {
 			json[op[0].id] = lvl;
 		// if it is a measure save selected measure
 		} else if(op.attr("id") == "measures"){
-			var sel = op.find(".sub").children(".selected");
-			//look in data attribute, if not found, take text
-			json.measure = sel.parent().prev().attr("data");
-			json.aggregation = sel.attr("data");
+			@if(web.ChartIndex.getInstance().getAggregation(chart)) {
+				var sel = op.find(".sub").children(".selected");
+				//look in data attribute, if not found, take text
+				json.measure = sel.parent().prev().attr("data");
+				json.aggregation = sel.attr("data");
+			} else {
+				var sel = op.find(".selected");
+				//look in data attribute, if not found, take text
+				json.measure = sel.attr("data");
+				json.aggregation = "none";
+			}
 		}
 	}
 	return json;
