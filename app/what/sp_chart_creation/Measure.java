@@ -45,7 +45,7 @@ public class Measure {
 		aggregations.add(SUM);
 		aggregations.add(MAX);
 		aggregations.add(AVG);
-		aggregations.add(NONE);
+		//aggregations.add(NONE);
 	}
 
 	/** The aggregation of this Measure. */

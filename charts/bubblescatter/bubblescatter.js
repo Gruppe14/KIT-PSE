@@ -20,6 +20,8 @@ function bubblescatter(json, radius) {
 	//console.log(data);
     visualize(data); //then start the visualization
 
+    
+    
     function getX(d) {
         return d[xAxisName];
     }
@@ -148,7 +150,7 @@ function bubblescatter(json, radius) {
 		//now a scale that maps the radius, too!
         var rScale = d3.scale.linear()
             .domain([d3.min(data, getZ), d3.max(data, getZ)])
-            .range([2, 6]); //when the dimensions gets different, we will make these percentages
+            .range([2, 8]); //when the dimensions gets different, we will make these percentages
 		
 
         //the axes
@@ -195,6 +197,7 @@ function bubblescatter(json, radius) {
 				}
 			})
 			.attr("class", "circle")
+			//.style("fill", getRandomColor);
 			.append("svg:title")
 			
             .text(function (d) {
