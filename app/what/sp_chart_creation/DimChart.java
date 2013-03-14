@@ -182,7 +182,7 @@ public class DimChart {
 	 * @return  the group by statement
 	 */
 	public String getGroupBy() {
-		if (chartType.equalsIgnoreCase(SCATTERPLOT)) {
+		if (measure.getAggregation().equals(Measure.NONE)) {
 			return "";
 		}
 		return MySQLAdapter.GROUPBY + getXColumn();
