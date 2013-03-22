@@ -62,7 +62,9 @@ function bubblescatter(json, radius) {
         };
         
         //first, find the element with the maximum length for the y axis
-        var maxString=  data.map(function(d) {return getY(d).toString();}).reduce(function(x , y) { return (x.length >= y.length) ? x : y;});
+        var maxString=  data.map(function(d) {
+        	return getY(d).toString();}).reduce(function(x , y) 
+        			{ return (x.length >= y.length) ? x : y;});
         //this is not guaranteed to have the maximum pixel length, but will have a good enough
 		console.log(maxString);
 		var sp = $('<span id=\"bob\">' + maxString + "</span>").css("font-size", "11px").css("dy", ".32em");
@@ -95,7 +97,7 @@ function bubblescatter(json, radius) {
 		var t3 = getUniqueValues(data.map(getY)).length;
         
         console.log("# of different y values is " + t3);
-        var h = t3 * 14 + margin.bottom;
+        var h = t3 * 3 + margin.bottom;
         console.log("The height was set to: " + h);
 
         //the format of the data

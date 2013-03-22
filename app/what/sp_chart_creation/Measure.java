@@ -6,6 +6,7 @@ import java.util.ArrayList;
 // intern imports
 import what.Printer;
 import what.sp_config.RowEntry;
+import what.sp_data_access.MySQLAdapter;
 
 /**
  * This class represents a measure of a chart request.
@@ -132,7 +133,7 @@ public class Measure {
 		} else if (getAggregation() == AVG) {
 			return AVG + LBR + getMeasureRow() + RBR;
 		}  else if (getAggregation() == NONE) {
-			return getMeasureRow();
+			return MySQLAdapter.DISTINCT + getMeasureRow();
 		}
 			
 		Printer.pfail("Finding a fitting measure.");		

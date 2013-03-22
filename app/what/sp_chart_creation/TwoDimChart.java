@@ -124,7 +124,6 @@ public class TwoDimChart extends DimChart {
 		}
 	}
 		
-	
 	@Override
 	public String getRestrictions() {	
 		if (xAndYSameDimension()) {
@@ -202,4 +201,5 @@ public class TwoDimChart extends DimChart {
 	private boolean xAndYSameDimension() {
 		return getYFilter().getCategory().equals(getXFilter().getCategory());
 	}
+
 }

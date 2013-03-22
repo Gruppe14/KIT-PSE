@@ -121,7 +121,7 @@ public class DimChart {
 	 * 
 	 * @return the select statement of this chart
 	 */
-	public String getSelect() {
+	public String getSelect() {	
 		return getMeasure().getMeasureSelect() + MySQLAdapter.KOMMA + getXColumn();
 	}
 	
@@ -287,7 +287,6 @@ public class DimChart {
 	 */
 	public  boolean createJSONFromResultSet(ResultSet re) {
 		assert (re != null);
-		
 
 		// create JSONObject and put first variables
 		JSONObject json = new JSONObject();
@@ -309,7 +308,7 @@ public class DimChart {
 				JSONObject a = new JSONObject();
 				a.put(x, re.getString(RESULTSET_POSITION_X));
 				a.put(m, re.getDouble(RESULTSET_POSITION_MEASURE));
-				sum.add(a);
+				sum.add(a);			
 			}
 			aray = new JSONArray(sum);
 			json.put(DATA, aray);

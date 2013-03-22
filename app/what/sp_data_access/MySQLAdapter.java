@@ -42,6 +42,8 @@ public class MySQLAdapter {
 	/** MySQL short constant. */
 	public static final String SELECT = "SELECT ";
 	/** MySQL short constant. */
+	public static final String DISTINCT = " DISTINCT ";
+	/** MySQL short constant. */
 	public static final String FROM = " FROM ";
 	/** MySQL short constant. */
 	public static final String JOIN = " JOIN ";
@@ -636,7 +638,7 @@ public class MySQLAdapter {
 			return false;
 		}
 		
-		//Printer.ptest("Try to execute: " + query);
+		Printer.ptest("Try to execute: " + query);
 		
 		// execute query
 		ResultSet re = null;

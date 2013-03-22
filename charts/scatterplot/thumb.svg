@@ -1,0 +1,2433 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="320.125"
+   height="160.09375"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="thumb.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient4068">
+      <stop
+         style="stop-color:#e4adf9;stop-opacity:0.91620111;"
+         offset="0"
+         id="stop4070" />
+      <stop
+         id="stop3856"
+         offset="0.5"
+         style="stop-color:#a2c5d6;stop-opacity:0.71372551;" />
+      <stop
+         style="stop-color:#80ff4c;stop-opacity:0.50837988;"
+         offset="1"
+         id="stop4072" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4068"
+       id="radialGradient4074"
+       cx="231.42857"
+       cy="253.79076"
+       fx="231.42857"
+       fy="253.79076"
+       r="160"
+       gradientTransform="matrix(1.4564656,-0.86291478,0.48685758,0.82173974,-210.6902,544.99691)"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.56"
+     inkscape:cx="123.208"
+     inkscape:cy="109.18572"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="972"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-89.9375,-473.75)">
+    <rect
+       style="fill:url(#radialGradient4074);fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:0.3938224;stroke-dasharray:none"
+       id="rect3298"
+       width="320"
+       height="160"
+       x="89.9375"
+       y="473.84375" />
+    <g
+       id="g6057"
+       transform="matrix(0.94390321,0,0,0.94390321,87.59371,237.7005)">
+      <circle
+         id="circle6059"
+         class="circle"
+         r="3"
+         cy="337.55746"
+         cx="33.555557"
+         sodipodi:cx="33.555557"
+         sodipodi:cy="337.55746"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 36.555557,337.55746 c 0,1.65686 -1.343145,3 -3,3 -1.656854,0 -3,-1.34314 -3,-3 0,-1.65685 1.343146,-3 3,-3 1.656855,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6061">hour:1NONE of busy:1.522</title>
+      </circle>
+      <circle
+         id="circle6063"
+         class="circle"
+         r="3"
+         cy="409.95239"
+         cx="268.44446"
+         sodipodi:cx="268.44446"
+         sodipodi:cy="409.95239"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 271.44446,409.95239 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6065">hour:8NONE of busy:0.001</title>
+      </circle>
+      <circle
+         id="circle6067"
+         class="circle"
+         r="3"
+         cy="407.95334"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="407.95334"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,407.95334 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65686 1.34314,-3 3,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6069">hour:6NONE of busy:0.043</title>
+      </circle>
+      <circle
+         id="circle6071"
+         class="circle"
+         r="3"
+         cy="409.90482"
+         cx="234.88889"
+         sodipodi:cx="234.88889"
+         sodipodi:cy="409.90482"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 237.88889,409.90482 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65686 1.34314,-3 3,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6073">hour:7NONE of busy:0.002</title>
+      </circle>
+      <circle
+         id="circle6075"
+         class="circle"
+         r="3"
+         cy="310.95078"
+         cx="67.111115"
+         sodipodi:cx="67.111115"
+         sodipodi:cy="310.95078"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 70.111115,310.95078 c 0,1.65685 -1.343146,3 -3,3 -1.656855,0 -3,-1.34315 -3,-3 0,-1.65686 1.343145,-3 3,-3 1.656854,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6077">hour:2NONE of busy:2.081</title>
+      </circle>
+      <circle
+         id="circle6079"
+         class="circle"
+         r="3"
+         cy="400.33783"
+         cx="67.111115"
+         sodipodi:cx="67.111115"
+         sodipodi:cy="400.33783"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 70.111115,400.33783 c 0,1.65685 -1.343146,3 -3,3 -1.656855,0 -3,-1.34315 -3,-3 0,-1.65685 1.343145,-3 3,-3 1.656854,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6081">hour:2NONE of busy:0.203</title>
+      </circle>
+      <circle
+         id="circle6087"
+         class="circle"
+         r="3"
+         cy="409.90482"
+         cx="67.111115"
+         sodipodi:cx="67.111115"
+         sodipodi:cy="409.90482"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 70.111115,409.90482 c 0,1.65685 -1.343146,3 -3,3 -1.656855,0 -3,-1.34315 -3,-3 0,-1.65686 1.343145,-3 3,-3 1.656854,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6089">hour:2NONE of busy:0.002</title>
+      </circle>
+      <circle
+         id="circle6091"
+         class="circle"
+         r="3"
+         cy="305.8103"
+         cx="33.555557"
+         sodipodi:cx="33.555557"
+         sodipodi:cy="305.8103"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 36.555557,305.8103 c 0,1.65686 -1.343145,3 -3,3 -1.656854,0 -3,-1.34314 -3,-3 0,-1.65685 1.343146,-3 3,-3 1.656855,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6093">hour:1NONE of busy:2.189</title>
+      </circle>
+      <circle
+         id="circle6095"
+         class="circle"
+         r="3"
+         cy="408.42929"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="408.42929"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,408.42929 c 0,1.65686 -1.34314,3 -3,3 -1.65685,0 -3,-1.34314 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65686,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6097">hour:5NONE of busy:0.033</title>
+      </circle>
+      <circle
+         id="circle6103"
+         class="circle"
+         r="3"
+         cy="409.61923"
+         cx="33.555557"
+         sodipodi:cx="33.555557"
+         sodipodi:cy="409.61923"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 36.555557,409.61923 c 0,1.65686 -1.343145,3 -3,3 -1.656854,0 -3,-1.34314 -3,-3 0,-1.65685 1.343146,-3 3,-3 1.656855,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6105">hour:1NONE of busy:0.008</title>
+      </circle>
+      <circle
+         id="circle6111"
+         class="circle"
+         r="3"
+         cy="408.2865"
+         cx="268.44446"
+         sodipodi:cx="268.44446"
+         sodipodi:cy="408.2865"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 271.44446,408.2865 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65686 1.34314,-3 3,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6113">hour:8NONE of busy:0.036</title>
+      </circle>
+      <circle
+         id="circle6127"
+         class="circle"
+         r="3"
+         cy="408.85767"
+         cx="302"
+         sodipodi:cx="302"
+         sodipodi:cy="408.85767"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 305,408.85767 c 0,1.65685 -1.34315,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65686 1.34315,-3 3,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6129">hour:9NONE of busy:0.024</title>
+      </circle>
+      <circle
+         id="circle6131"
+         class="circle"
+         r="3"
+         cy="409.09567"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="409.09567"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,409.09567 c 0,1.65686 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34314 -3.000004,-3 0,-1.65685 1.343146,-3 3.000004,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6133">hour:3NONE of busy:0.019</title>
+      </circle>
+      <circle
+         id="circle6135"
+         class="circle"
+         r="3"
+         cy="409.8096"
+         cx="134.22223"
+         sodipodi:cx="134.22223"
+         sodipodi:cy="409.8096"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 137.22223,409.8096 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6137">hour:4NONE of busy:0.004</title>
+      </circle>
+      <circle
+         id="circle6139"
+         class="circle"
+         r="3"
+         cy="379.82355"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="379.82355"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,379.82355 c 0,1.65685 -1.34314,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65686 1.34315,-3 3,-3 1.65686,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6141">hour:5NONE of busy:0.634</title>
+      </circle>
+      <circle
+         id="circle6143"
+         class="circle"
+         r="3"
+         cy="409.95239"
+         cx="738.22223"
+         sodipodi:cx="738.22223"
+         sodipodi:cy="409.95239"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 741.22223,409.95239 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z">
+        <title
+           id="title6145">hour:22NONE of busy:0.001</title>
+      </circle>
+      <circle
+         id="circle6147"
+         class="circle"
+         r="3"
+         cy="405.33551"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="405.33551"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,405.33551 c 0,1.65685 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34315 -3.000004,-3 0,-1.65685 1.343146,-3 3.000004,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6149">hour:3NONE of busy:0.098</title>
+      </circle>
+      <circle
+         id="circle6159"
+         class="circle"
+         r="3"
+         cy="409.71442"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="409.71442"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,409.71442 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65686 1.34314,-3 3,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6161">hour:6NONE of busy:0.006</title>
+      </circle>
+      <circle
+         id="circle6163"
+         class="circle"
+         r="3"
+         cy="408.38171"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="408.38171"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,408.38171 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6165">hour:6NONE of busy:0.034</title>
+      </circle>
+      <circle
+         id="circle6167"
+         class="circle"
+         r="3"
+         cy="409.90482"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="409.90482"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,409.90482 c 0,1.65685 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34315 -3.000004,-3 0,-1.65686 1.343146,-3 3.000004,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6169">hour:3NONE of busy:0.002</title>
+      </circle>
+      <circle
+         id="circle6171"
+         class="circle"
+         r="3"
+         cy="403.14603"
+         cx="134.22223"
+         sodipodi:cx="134.22223"
+         sodipodi:cy="403.14603"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 137.22223,403.14603 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65686 1.34314,-3 3,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6173">hour:4NONE of busy:0.144</title>
+      </circle>
+      <circle
+         id="circle6175"
+         class="circle"
+         r="3"
+         cy="409.95239"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="409.95239"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,409.95239 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6177">hour:6NONE of busy:0.001</title>
+      </circle>
+      <circle
+         id="circle6179"
+         class="circle"
+         r="3"
+         cy="409.95239"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="409.95239"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,409.95239 c 0,1.65686 -1.34314,3 -3,3 -1.65685,0 -3,-1.34314 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65686,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6181">hour:5NONE of busy:0.001</title>
+      </circle>
+      <circle
+         id="circle6183"
+         class="circle"
+         r="3"
+         cy="265.6861"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="265.6861"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,265.6861 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65686 1.34314,-3 3,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6185">hour:6NONE of busy:3.032</title>
+      </circle>
+      <circle
+         id="circle6191"
+         class="circle"
+         r="3"
+         cy="404.85953"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="404.85953"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,404.85953 c 0,1.65685 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34315 -3.000004,-3 0,-1.65686 1.343146,-3 3.000004,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6193">hour:3NONE of busy:0.108</title>
+      </circle>
+      <circle
+         id="circle6195"
+         class="circle"
+         r="3"
+         cy="408.42929"
+         cx="134.22223"
+         sodipodi:cx="134.22223"
+         sodipodi:cy="408.42929"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 137.22223,408.42929 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6197">hour:4NONE of busy:0.033</title>
+      </circle>
+      <circle
+         id="circle6199"
+         class="circle"
+         r="3"
+         cy="405.85907"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="405.85907"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,405.85907 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6201">hour:6NONE of busy:0.087</title>
+      </circle>
+      <circle
+         id="circle6203"
+         class="circle"
+         r="3"
+         cy="410"
+         cx="268.44446"
+         sodipodi:cx="268.44446"
+         sodipodi:cy="410"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 271.44446,410 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6205">hour:8NONE of busy:0</title>
+      </circle>
+      <circle
+         id="circle6207"
+         class="circle"
+         r="3"
+         cy="409.71442"
+         cx="67.111115"
+         sodipodi:cx="67.111115"
+         sodipodi:cy="409.71442"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 70.111115,409.71442 c 0,1.65685 -1.343146,3 -3,3 -1.656855,0 -3,-1.34315 -3,-3 0,-1.65686 1.343145,-3 3,-3 1.656854,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6209">hour:2NONE of busy:0.006</title>
+      </circle>
+      <circle
+         id="circle6215"
+         class="circle"
+         r="3"
+         cy="326.65778"
+         cx="302"
+         sodipodi:cx="302"
+         sodipodi:cy="326.65778"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 305,326.65778 c 0,1.65685 -1.34315,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65686 1.34315,-3 3,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6217">hour:9NONE of busy:1.751</title>
+      </circle>
+      <circle
+         id="circle6219"
+         class="circle"
+         r="3"
+         cy="409.28604"
+         cx="771.77777"
+         sodipodi:cx="771.77777"
+         sodipodi:cy="409.28604"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 774.77777,409.28604 c 0,1.65686 -1.34314,3 -3,3 -1.65685,0 -3,-1.34314 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65686,0 3,1.34315 3,3 z">
+        <title
+           id="title6221">hour:23NONE of busy:0.015</title>
+      </circle>
+      <circle
+         id="circle6223"
+         class="circle"
+         r="3"
+         cy="409.95239"
+         cx="67.111115"
+         sodipodi:cx="67.111115"
+         sodipodi:cy="409.95239"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 70.111115,409.95239 c 0,1.65686 -1.343146,3 -3,3 -1.656855,0 -3,-1.34314 -3,-3 0,-1.65685 1.343145,-3 3,-3 1.656854,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6225">hour:2NONE of busy:0.001</title>
+      </circle>
+      <circle
+         id="circle6227"
+         class="circle"
+         r="3"
+         cy="323.89716"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="323.89716"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,323.89716 c 0,1.65685 -1.34314,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65686 1.34315,-3 3,-3 1.65686,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6229">hour:5NONE of busy:1.809</title>
+      </circle>
+      <circle
+         id="circle6231"
+         class="circle"
+         r="3"
+         cy="327.13373"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="327.13373"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,327.13373 c 0,1.65685 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34315 -3.000004,-3 0,-1.65686 1.343146,-3 3.000004,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6233">hour:3NONE of busy:1.741</title>
+      </circle>
+      <circle
+         id="circle6235"
+         class="circle"
+         r="3"
+         cy="410"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="410"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,410 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6237">hour:6NONE of busy:0</title>
+      </circle>
+      <circle
+         id="circle6239"
+         class="circle"
+         r="3"
+         cy="408.23892"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="408.23892"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,408.23892 c 0,1.65686 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34314 -3.000004,-3 0,-1.65685 1.343146,-3 3.000004,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6241">hour:3NONE of busy:0.037</title>
+      </circle>
+      <circle
+         id="circle6243"
+         class="circle"
+         r="3"
+         cy="409.33365"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="409.33365"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,409.33365 c 0,1.65685 -1.34314,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65686 1.34315,-3 3,-3 1.65686,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6245">hour:5NONE of busy:0.014</title>
+      </circle>
+      <circle
+         id="circle6259"
+         class="circle"
+         r="3"
+         cy="409.95239"
+         cx="234.88889"
+         sodipodi:cx="234.88889"
+         sodipodi:cy="409.95239"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 237.88889,409.95239 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6261">hour:7NONE of busy:0.001</title>
+      </circle>
+      <circle
+         id="circle6263"
+         class="circle"
+         r="3"
+         cy="405.90668"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="405.90668"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,405.90668 c 0,1.65685 -1.34314,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65686 1.34315,-3 3,-3 1.65686,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6265">hour:5NONE of busy:0.086</title>
+      </circle>
+      <circle
+         id="circle6271"
+         class="circle"
+         r="3"
+         cy="390.39008"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="390.39008"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,390.39008 c 0,1.65685 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34315 -3.000004,-3 0,-1.65686 1.343146,-3 3.000004,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6273">hour:3NONE of busy:0.412</title>
+      </circle>
+      <circle
+         id="circle6275"
+         class="circle"
+         r="3"
+         cy="409.42883"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="409.42883"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,409.42883 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6277">hour:6NONE of busy:0.012</title>
+      </circle>
+      <circle
+         id="circle6279"
+         class="circle"
+         r="3"
+         cy="402.0513"
+         cx="67.111115"
+         sodipodi:cx="67.111115"
+         sodipodi:cy="402.0513"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 70.111115,402.0513 c 0,1.65685 -1.343146,3 -3,3 -1.656855,0 -3,-1.34315 -3,-3 0,-1.65685 1.343145,-3 3,-3 1.656854,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6281">hour:2NONE of busy:0.167</title>
+      </circle>
+      <circle
+         id="circle6283"
+         class="circle"
+         r="3"
+         cy="381.10867"
+         cx="67.111115"
+         sodipodi:cx="67.111115"
+         sodipodi:cy="381.10867"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 70.111115,381.10867 c 0,1.65686 -1.343146,3 -3,3 -1.656855,0 -3,-1.34314 -3,-3 0,-1.65685 1.343145,-3 3,-3 1.656854,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6285">hour:2NONE of busy:0.607</title>
+      </circle>
+      <circle
+         id="circle6287"
+         class="circle"
+         r="3"
+         cy="310.80798"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="310.80798"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,310.80798 c 0,1.65686 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34314 -3.000004,-3 0,-1.65685 1.343146,-3 3.000004,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6289">hour:3NONE of busy:2.084</title>
+      </circle>
+      <circle
+         id="circle6291"
+         class="circle"
+         r="3"
+         cy="273.87277"
+         cx="234.88889"
+         sodipodi:cx="234.88889"
+         sodipodi:cy="273.87277"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 237.88889,273.87277 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6293">hour:7NONE of busy:2.86</title>
+      </circle>
+      <circle
+         id="circle6295"
+         class="circle"
+         r="3"
+         cy="301.19342"
+         cx="302"
+         sodipodi:cx="302"
+         sodipodi:cy="301.19342"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 305,301.19342 c 0,1.65685 -1.34315,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6297">hour:9NONE of busy:2.286</title>
+      </circle>
+      <circle
+         id="circle6299"
+         class="circle"
+         r="3"
+         cy="374.87347"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="374.87347"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,374.87347 c 0,1.65686 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34314 -3.000004,-3 0,-1.65685 1.343146,-3 3.000004,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6301">hour:3NONE of busy:0.738</title>
+      </circle>
+      <circle
+         id="circle6307"
+         class="circle"
+         r="3"
+         cy="326.65778"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="326.65778"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,326.65778 c 0,1.65685 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34315 -3.000004,-3 0,-1.65686 1.343146,-3 3.000004,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6309">hour:3NONE of busy:1.751</title>
+      </circle>
+      <circle
+         id="circle6311"
+         class="circle"
+         r="3"
+         cy="408.23892"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="408.23892"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,408.23892 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6313">hour:6NONE of busy:0.037</title>
+      </circle>
+      <circle
+         id="circle6315"
+         class="circle"
+         r="3"
+         cy="408.04852"
+         cx="134.22223"
+         sodipodi:cx="134.22223"
+         sodipodi:cy="408.04852"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 137.22223,408.04852 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6317">hour:4NONE of busy:0.041</title>
+      </circle>
+      <circle
+         id="circle6319"
+         class="circle"
+         r="3"
+         cy="332.98816"
+         cx="33.555557"
+         sodipodi:cx="33.555557"
+         sodipodi:cy="332.98816"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 36.555557,332.98816 c 0,1.65685 -1.343145,3 -3,3 -1.656854,0 -3,-1.34315 -3,-3 0,-1.65686 1.343146,-3 3,-3 1.656855,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6321">hour:1NONE of busy:1.618</title>
+      </circle>
+      <circle
+         id="circle6327"
+         class="circle"
+         r="3"
+         cy="409.57162"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="409.57162"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,409.57162 c 0,1.65686 -1.34314,3 -3,3 -1.65685,0 -3,-1.34314 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65686,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6329">hour:5NONE of busy:0.009</title>
+      </circle>
+      <circle
+         id="circle6335"
+         class="circle"
+         r="3"
+         cy="284.72485"
+         cx="33.555557"
+         sodipodi:cx="33.555557"
+         sodipodi:cy="284.72485"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 36.555557,284.72485 c 0,1.65686 -1.343145,3 -3,3 -1.656854,0 -3,-1.34314 -3,-3 0,-1.65685 1.343146,-3 3,-3 1.656855,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6337">hour:1NONE of busy:2.632</title>
+      </circle>
+      <circle
+         id="circle6343"
+         class="circle"
+         r="3"
+         cy="409.85721"
+         cx="134.22223"
+         sodipodi:cx="134.22223"
+         sodipodi:cy="409.85721"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 137.22223,409.85721 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65686 1.34314,-3 3,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6345">hour:4NONE of busy:0.003</title>
+      </circle>
+      <circle
+         id="circle6351"
+         class="circle"
+         r="3"
+         cy="409.8096"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="409.8096"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,409.8096 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6353">hour:6NONE of busy:0.004</title>
+      </circle>
+      <circle
+         id="circle6359"
+         class="circle"
+         r="3"
+         cy="398.90991"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="398.90991"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,398.90991 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6361">hour:6NONE of busy:0.233</title>
+      </circle>
+      <circle
+         id="circle6363"
+         class="circle"
+         r="3"
+         cy="306.28629"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="306.28629"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,306.28629 c 0,1.65685 -1.34314,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65686 1.34315,-3 3,-3 1.65686,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6365">hour:5NONE of busy:2.179</title>
+      </circle>
+      <circle
+         id="circle6367"
+         class="circle"
+         r="3"
+         cy="410"
+         cx="302"
+         sodipodi:cx="302"
+         sodipodi:cy="410"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 305,410 c 0,1.65685 -1.34315,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6369">hour:9NONE of busy:0</title>
+      </circle>
+      <circle
+         id="circle6371"
+         class="circle"
+         r="3"
+         cy="409.28604"
+         cx="134.22223"
+         sodipodi:cx="134.22223"
+         sodipodi:cy="409.28604"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 137.22223,409.28604 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6373">hour:4NONE of busy:0.015</title>
+      </circle>
+      <circle
+         id="circle6379"
+         class="circle"
+         r="3"
+         cy="286.43835"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="286.43835"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,286.43835 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6381">hour:6NONE of busy:2.596</title>
+      </circle>
+      <circle
+         id="circle6387"
+         class="circle"
+         r="3"
+         cy="317.99512"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="317.99512"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,317.99512 c 0,1.65685 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34315 -3.000004,-3 0,-1.65686 1.343146,-3 3.000004,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6389">hour:3NONE of busy:1.933</title>
+      </circle>
+      <circle
+         id="circle6395"
+         class="circle"
+         r="3"
+         cy="409.90482"
+         cx="33.555557"
+         sodipodi:cx="33.555557"
+         sodipodi:cy="409.90482"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 36.555557,409.90482 c 0,1.65685 -1.343145,3 -3,3 -1.656854,0 -3,-1.34315 -3,-3 0,-1.65686 1.343146,-3 3,-3 1.656855,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6397">hour:1NONE of busy:0.002</title>
+      </circle>
+      <circle
+         id="circle6399"
+         class="circle"
+         r="3"
+         cy="400.48062"
+         cx="67.111115"
+         sodipodi:cx="67.111115"
+         sodipodi:cy="400.48062"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 70.111115,400.48062 c 0,1.65686 -1.343146,3 -3,3 -1.656855,0 -3,-1.34314 -3,-3 0,-1.65685 1.343145,-3 3,-3 1.656854,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6401">hour:2NONE of busy:0.2</title>
+      </circle>
+      <circle
+         id="circle6403"
+         class="circle"
+         r="3"
+         cy="405.2879"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="405.2879"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,405.2879 c 0,1.65686 -1.34314,3 -3,3 -1.65685,0 -3,-1.34314 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65686,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6405">hour:5NONE of busy:0.099</title>
+      </circle>
+      <circle
+         id="circle6415"
+         class="circle"
+         r="3"
+         cy="409.95239"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="409.95239"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,409.95239 c 0,1.65686 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34314 -3.000004,-3 0,-1.65685 1.343146,-3 3.000004,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6417">hour:3NONE of busy:0.001</title>
+      </circle>
+      <circle
+         id="circle6419"
+         class="circle"
+         r="3"
+         cy="409.76202"
+         cx="134.22223"
+         sodipodi:cx="134.22223"
+         sodipodi:cy="409.76202"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 137.22223,409.76202 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6421">hour:4NONE of busy:0.005</title>
+      </circle>
+      <circle
+         id="circle6423"
+         class="circle"
+         r="3"
+         cy="410"
+         cx="234.88889"
+         sodipodi:cx="234.88889"
+         sodipodi:cy="410"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 237.88889,410 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6425">hour:7NONE of busy:0</title>
+      </circle>
+      <circle
+         id="circle6427"
+         class="circle"
+         r="3"
+         cy="398.33875"
+         cx="67.111115"
+         sodipodi:cx="67.111115"
+         sodipodi:cy="398.33875"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 70.111115,398.33875 c 0,1.65685 -1.343146,3 -3,3 -1.656855,0 -3,-1.34315 -3,-3 0,-1.65686 1.343145,-3 3,-3 1.656854,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6429">hour:2NONE of busy:0.245</title>
+      </circle>
+      <circle
+         id="circle6435"
+         class="circle"
+         r="3"
+         cy="369.39981"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="369.39981"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,369.39981 c 0,1.65686 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34314 -3.000004,-3 0,-1.65685 1.343146,-3 3.000004,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6437">hour:3NONE of busy:0.853</title>
+      </circle>
+      <circle
+         id="circle6439"
+         class="circle"
+         r="3"
+         cy="409.90482"
+         cx="134.22223"
+         sodipodi:cx="134.22223"
+         sodipodi:cy="409.90482"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 137.22223,409.90482 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65686 1.34314,-3 3,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6441">hour:4NONE of busy:0.002</title>
+      </circle>
+      <circle
+         id="circle6443"
+         class="circle"
+         r="3"
+         cy="408.71487"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="408.71487"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,408.71487 c 0,1.65686 -1.34314,3 -3,3 -1.65685,0 -3,-1.34314 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65686,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6445">hour:5NONE of busy:0.027</title>
+      </circle>
+      <circle
+         id="circle6447"
+         class="circle"
+         r="3"
+         cy="410"
+         cx="134.22223"
+         sodipodi:cx="134.22223"
+         sodipodi:cy="410"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 137.22223,410 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6449">hour:4NONE of busy:0</title>
+      </circle>
+      <circle
+         id="circle6451"
+         class="circle"
+         r="3"
+         cy="409.76202"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="409.76202"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,409.76202 c 0,1.65686 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34314 -3.000004,-3 0,-1.65685 1.343146,-3 3.000004,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6453">hour:3NONE of busy:0.005</title>
+      </circle>
+      <circle
+         id="circle6455"
+         class="circle"
+         r="3"
+         cy="255.45276"
+         cx="33.555557"
+         sodipodi:cx="33.555557"
+         sodipodi:cy="255.45276"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 36.555557,255.45276 c 0,1.65685 -1.343145,3 -3,3 -1.656854,0 -3,-1.34315 -3,-3 0,-1.65686 1.343146,-3 3,-3 1.656855,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6457">hour:1NONE of busy:3.247</title>
+      </circle>
+      <circle
+         id="circle6459"
+         class="circle"
+         r="3"
+         cy="409.66681"
+         cx="134.22223"
+         sodipodi:cx="134.22223"
+         sodipodi:cy="409.66681"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 137.22223,409.66681 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65686 1.34314,-3 3,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6461">hour:4NONE of busy:0.007</title>
+      </circle>
+      <circle
+         id="circle6467"
+         class="circle"
+         r="3"
+         cy="327.5621"
+         cx="134.22223"
+         sodipodi:cx="134.22223"
+         sodipodi:cy="327.5621"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 137.22223,327.5621 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6469">hour:4NONE of busy:1.732</title>
+      </circle>
+      <circle
+         id="circle6471"
+         class="circle"
+         r="3"
+         cy="399.0527"
+         cx="234.88889"
+         sodipodi:cx="234.88889"
+         sodipodi:cy="399.0527"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 237.88889,399.0527 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6473">hour:7NONE of busy:0.23</title>
+      </circle>
+      <circle
+         id="circle6475"
+         class="circle"
+         r="3"
+         cy="410"
+         cx="771.77777"
+         sodipodi:cx="771.77777"
+         sodipodi:cy="410"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 774.77777,410 c 0,1.65685 -1.34314,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65686,0 3,1.34315 3,3 z">
+        <title
+           id="title6477">hour:23NONE of busy:0</title>
+      </circle>
+      <circle
+         id="circle6479"
+         class="circle"
+         r="3"
+         cy="407.95334"
+         cx="33.555557"
+         sodipodi:cx="33.555557"
+         sodipodi:cy="407.95334"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 36.555557,407.95334 c 0,1.65685 -1.343145,3 -3,3 -1.656854,0 -3,-1.34315 -3,-3 0,-1.65686 1.343146,-3 3,-3 1.656855,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6481">hour:1NONE of busy:0.043</title>
+      </circle>
+      <circle
+         id="circle6495"
+         class="circle"
+         r="3"
+         cy="409.76202"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="409.76202"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,409.76202 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6497">hour:6NONE of busy:0.005</title>
+      </circle>
+      <circle
+         id="circle6507"
+         class="circle"
+         r="3"
+         cy="407.90573"
+         cx="67.111115"
+         sodipodi:cx="67.111115"
+         sodipodi:cy="407.90573"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 70.111115,407.90573 c 0,1.65686 -1.343146,3 -3,3 -1.656855,0 -3,-1.34314 -3,-3 0,-1.65685 1.343145,-3 3,-3 1.656854,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6509">hour:2NONE of busy:0.044</title>
+      </circle>
+      <circle
+         id="circle6511"
+         class="circle"
+         r="3"
+         cy="408.04852"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="408.04852"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,408.04852 c 0,1.65686 -1.34314,3 -3,3 -1.65685,0 -3,-1.34314 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65686,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6513">hour:5NONE of busy:0.041</title>
+      </circle>
+      <circle
+         id="circle6519"
+         class="circle"
+         r="3"
+         cy="407.42978"
+         cx="67.111115"
+         sodipodi:cx="67.111115"
+         sodipodi:cy="407.42978"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 70.111115,407.42978 c 0,1.65685 -1.343146,3 -3,3 -1.656855,0 -3,-1.34315 -3,-3 0,-1.65686 1.343145,-3 3,-3 1.656854,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6521">hour:2NONE of busy:0.054</title>
+      </circle>
+      <circle
+         id="circle6523"
+         class="circle"
+         r="3"
+         cy="402.52728"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="402.52728"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,402.52728 c 0,1.65686 -1.34314,3 -3,3 -1.65685,0 -3,-1.34314 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65686,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6525">hour:5NONE of busy:0.157</title>
+      </circle>
+      <circle
+         id="circle6527"
+         class="circle"
+         r="3"
+         cy="409.95239"
+         cx="134.22223"
+         sodipodi:cx="134.22223"
+         sodipodi:cy="409.95239"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 137.22223,409.95239 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6529">hour:4NONE of busy:0.001</title>
+      </circle>
+      <circle
+         id="circle6535"
+         class="circle"
+         r="3"
+         cy="404.90714"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="404.90714"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,404.90714 c 0,1.65685 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34315 -3.000004,-3 0,-1.65686 1.343146,-3 3.000004,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6537">hour:3NONE of busy:0.107</title>
+      </circle>
+      <circle
+         id="circle6539"
+         class="circle"
+         r="3"
+         cy="409.52402"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="409.52402"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,409.52402 c 0,1.65685 -1.34314,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65686 1.34315,-3 3,-3 1.65686,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6541">hour:5NONE of busy:0.01</title>
+      </circle>
+      <circle
+         id="circle6547"
+         class="circle"
+         r="3"
+         cy="288.961"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="288.961"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,288.961 c 0,1.65685 -1.34314,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65686 1.34315,-3 3,-3 1.65686,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6549">hour:5NONE of busy:2.543</title>
+      </circle>
+      <circle
+         id="circle6551"
+         class="circle"
+         r="3"
+         cy="410"
+         cx="738.22223"
+         sodipodi:cx="738.22223"
+         sodipodi:cy="410"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 741.22223,410 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z">
+        <title
+           id="title6553">hour:22NONE of busy:0</title>
+      </circle>
+      <circle
+         id="circle6555"
+         class="circle"
+         r="3"
+         cy="409.14325"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="409.14325"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,409.14325 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6557">hour:6NONE of busy:0.018</title>
+      </circle>
+      <circle
+         id="circle6559"
+         class="circle"
+         r="3"
+         cy="409.66681"
+         cx="33.555557"
+         sodipodi:cx="33.555557"
+         sodipodi:cy="409.66681"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 36.555557,409.66681 c 0,1.65685 -1.343145,3 -3,3 -1.656854,0 -3,-1.34315 -3,-3 0,-1.65686 1.343146,-3 3,-3 1.656855,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6561">hour:1NONE of busy:0.007</title>
+      </circle>
+      <circle
+         id="circle6563"
+         class="circle"
+         r="3"
+         cy="410"
+         cx="33.555557"
+         sodipodi:cx="33.555557"
+         sodipodi:cy="410"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 36.555557,410 c 0,1.65685 -1.343145,3 -3,3 -1.656854,0 -3,-1.34315 -3,-3 0,-1.65685 1.343146,-3 3,-3 1.656855,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6565">hour:1NONE of busy:0</title>
+      </circle>
+      <circle
+         id="circle6567"
+         class="circle"
+         r="3"
+         cy="325.70584"
+         cx="134.22223"
+         sodipodi:cx="134.22223"
+         sodipodi:cy="325.70584"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 137.22223,325.70584 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6569">hour:4NONE of busy:1.771</title>
+      </circle>
+      <circle
+         id="circle6571"
+         class="circle"
+         r="3"
+         cy="409.61923"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="409.61923"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,409.61923 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6573">hour:6NONE of busy:0.008</title>
+      </circle>
+      <circle
+         id="circle6575"
+         class="circle"
+         r="3"
+         cy="410"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="410"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,410 c 0,1.65685 -1.34314,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65686,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6577">hour:5NONE of busy:0</title>
+      </circle>
+      <circle
+         id="circle6579"
+         class="circle"
+         r="3"
+         cy="317.32877"
+         cx="33.555557"
+         sodipodi:cx="33.555557"
+         sodipodi:cy="317.32877"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 36.555557,317.32877 c 0,1.65685 -1.343145,3 -3,3 -1.656854,0 -3,-1.34315 -3,-3 0,-1.65686 1.343146,-3 3,-3 1.656855,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6581">hour:1NONE of busy:1.947</title>
+      </circle>
+      <circle
+         id="circle6583"
+         class="circle"
+         r="3"
+         cy="403.19363"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="403.19363"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,403.19363 c 0,1.65686 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34314 -3.000004,-3 0,-1.65685 1.343146,-3 3.000004,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6585">hour:3NONE of busy:0.143</title>
+      </circle>
+      <circle
+         id="circle6591"
+         class="circle"
+         r="3"
+         cy="408.42929"
+         cx="33.555557"
+         sodipodi:cx="33.555557"
+         sodipodi:cy="408.42929"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 36.555557,408.42929 c 0,1.65686 -1.343145,3 -3,3 -1.656854,0 -3,-1.34314 -3,-3 0,-1.65685 1.343146,-3 3,-3 1.656855,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6593">hour:1NONE of busy:0.033</title>
+      </circle>
+      <circle
+         id="circle6595"
+         class="circle"
+         r="3"
+         cy="409.47644"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="409.47644"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,409.47644 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6597">hour:6NONE of busy:0.011</title>
+      </circle>
+      <circle
+         id="circle6599"
+         class="circle"
+         r="3"
+         cy="409.71442"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="409.71442"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,409.71442 c 0,1.65685 -1.34314,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65686 1.34315,-3 3,-3 1.65686,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6601">hour:5NONE of busy:0.006</title>
+      </circle>
+      <circle
+         id="circle6603"
+         class="circle"
+         r="3"
+         cy="399.81427"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="399.81427"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,399.81427 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6605">hour:6NONE of busy:0.214</title>
+      </circle>
+      <circle
+         id="circle6607"
+         class="circle"
+         r="3"
+         cy="409.8096"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="409.8096"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,409.8096 c 0,1.65686 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34314 -3.000004,-3 0,-1.65685 1.343146,-3 3.000004,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6609">hour:3NONE of busy:0.004</title>
+      </circle>
+      <circle
+         id="circle6619"
+         class="circle"
+         r="3"
+         cy="333.41653"
+         cx="33.555557"
+         sodipodi:cx="33.555557"
+         sodipodi:cy="333.41653"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 36.555557,333.41653 c 0,1.65686 -1.343145,3 -3,3 -1.656854,0 -3,-1.34314 -3,-3 0,-1.65685 1.343146,-3 3,-3 1.656855,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6621">hour:1NONE of busy:1.609</title>
+      </circle>
+      <circle
+         id="circle6623"
+         class="circle"
+         r="3"
+         cy="291.72162"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="291.72162"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,291.72162 c 0,1.65685 -1.34314,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65686 1.34315,-3 3,-3 1.65686,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6625">hour:5NONE of busy:2.485</title>
+      </circle>
+      <circle
+         id="circle6627"
+         class="circle"
+         r="3"
+         cy="316.61481"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="316.61481"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,316.61481 c 0,1.65685 -1.34314,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65686 1.34315,-3 3,-3 1.65686,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6629">hour:5NONE of busy:1.962</title>
+      </circle>
+      <circle
+         id="circle6631"
+         class="circle"
+         r="3"
+         cy="408.04852"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="408.04852"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,408.04852 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6633">hour:6NONE of busy:0.041</title>
+      </circle>
+      <circle
+         id="circle6639"
+         class="circle"
+         r="3"
+         cy="395.95889"
+         cx="302"
+         sodipodi:cx="302"
+         sodipodi:cy="395.95889"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 305,395.95889 c 0,1.65686 -1.34315,3 -3,3 -1.65685,0 -3,-1.34314 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6641">hour:9NONE of busy:0.295</title>
+      </circle>
+      <circle
+         id="circle6643"
+         class="circle"
+         r="3"
+         cy="402.33688"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="402.33688"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,402.33688 c 0,1.65686 -1.34314,3 -3,3 -1.65685,0 -3,-1.34314 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65686,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6645">hour:5NONE of busy:0.161</title>
+      </circle>
+      <circle
+         id="circle6651"
+         class="circle"
+         r="3"
+         cy="297.52844"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="297.52844"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,297.52844 c 0,1.65686 -1.34314,3 -3,3 -1.65685,0 -3,-1.34314 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65686,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6653">hour:5NONE of busy:2.363</title>
+      </circle>
+      <circle
+         id="circle6655"
+         class="circle"
+         r="3"
+         cy="410"
+         cx="67.111115"
+         sodipodi:cx="67.111115"
+         sodipodi:cy="410"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 70.111115,410 c 0,1.65685 -1.343146,3 -3,3 -1.656855,0 -3,-1.34315 -3,-3 0,-1.65685 1.343145,-3 3,-3 1.656854,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6657">hour:2NONE of busy:0</title>
+      </circle>
+      <circle
+         id="circle6659"
+         class="circle"
+         r="3"
+         cy="117.23125"
+         cx="771.77777"
+         sodipodi:cx="771.77777"
+         sodipodi:cy="117.23125"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 774.77777,117.23125 c 0,1.65685 -1.34314,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65686 1.34315,-3 3,-3 1.65686,0 3,1.34314 3,3 z">
+        <title
+           id="title6661">hour:23NONE of busy:6.151</title>
+      </circle>
+      <circle
+         id="circle6663"
+         class="circle"
+         r="3"
+         cy="409.61923"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="409.61923"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,409.61923 c 0,1.65686 -1.34314,3 -3,3 -1.65685,0 -3,-1.34314 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65686,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6665">hour:5NONE of busy:0.008</title>
+      </circle>
+      <circle
+         id="circle6667"
+         class="circle"
+         r="3"
+         cy="409.95239"
+         cx="33.555557"
+         sodipodi:cx="33.555557"
+         sodipodi:cy="409.95239"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 36.555557,409.95239 c 0,1.65686 -1.343145,3 -3,3 -1.656854,0 -3,-1.34314 -3,-3 0,-1.65685 1.343146,-3 3,-3 1.656855,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6669">hour:1NONE of busy:0.001</title>
+      </circle>
+      <circle
+         id="circle6671"
+         class="circle"
+         r="3"
+         cy="398.52914"
+         cx="268.44446"
+         sodipodi:cx="268.44446"
+         sodipodi:cy="398.52914"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 271.44446,398.52914 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6673">hour:8NONE of busy:0.241</title>
+      </circle>
+      <circle
+         id="circle6675"
+         class="circle"
+         r="3"
+         cy="409.90482"
+         cx="201.33333"
+         sodipodi:cx="201.33333"
+         sodipodi:cy="409.90482"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 204.33333,409.90482 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65686 1.34314,-3 3,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6677">hour:6NONE of busy:0.002</title>
+      </circle>
+      <circle
+         id="circle6679"
+         class="circle"
+         r="3"
+         cy="368.87625"
+         cx="67.111115"
+         sodipodi:cx="67.111115"
+         sodipodi:cy="368.87625"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 70.111115,368.87625 c 0,1.65686 -1.343146,3 -3,3 -1.656855,0 -3,-1.34314 -3,-3 0,-1.65685 1.343145,-3 3,-3 1.656854,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6681">hour:2NONE of busy:0.864</title>
+      </circle>
+      <circle
+         id="circle6687"
+         class="circle"
+         r="3"
+         cy="408.95288"
+         cx="134.22223"
+         sodipodi:cx="134.22223"
+         sodipodi:cy="408.95288"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 137.22223,408.95288 c 0,1.65686 -1.34315,3 -3,3 -1.65686,0 -3,-1.34314 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6689">hour:4NONE of busy:0.022</title>
+      </circle>
+      <circle
+         id="circle6691"
+         class="circle"
+         r="3"
+         cy="409.52402"
+         cx="134.22223"
+         sodipodi:cx="134.22223"
+         sodipodi:cy="409.52402"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 137.22223,409.52402 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65686 1.34314,-3 3,-3 1.65685,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6693">hour:4NONE of busy:0.01</title>
+      </circle>
+      <circle
+         id="circle6699"
+         class="circle"
+         r="3"
+         cy="301.2886"
+         cx="302"
+         sodipodi:cx="302"
+         sodipodi:cy="301.2886"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 305,301.2886 c 0,1.65686 -1.34315,3 -3,3 -1.65685,0 -3,-1.34314 -3,-3 0,-1.65685 1.34315,-3 3,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6701">hour:9NONE of busy:2.284</title>
+      </circle>
+      <circle
+         id="circle6707"
+         class="circle"
+         r="3"
+         cy="316.99557"
+         cx="33.555557"
+         sodipodi:cx="33.555557"
+         sodipodi:cy="316.99557"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 36.555557,316.99557 c 0,1.65686 -1.343145,3 -3,3 -1.656854,0 -3,-1.34314 -3,-3 0,-1.65685 1.343146,-3 3,-3 1.656855,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6709">hour:1NONE of busy:1.954</title>
+      </circle>
+      <circle
+         id="circle6715"
+         class="circle"
+         r="3"
+         cy="337.89066"
+         cx="33.555557"
+         sodipodi:cx="33.555557"
+         sodipodi:cy="337.89066"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 36.555557,337.89066 c 0,1.65685 -1.343145,3 -3,3 -1.656854,0 -3,-1.34315 -3,-3 0,-1.65686 1.343146,-3 3,-3 1.656855,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6717">hour:1NONE of busy:1.515</title>
+      </circle>
+      <circle
+         id="circle6719"
+         class="circle"
+         r="3"
+         cy="323.51636"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="323.51636"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,323.51636 c 0,1.65685 -1.34314,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65686 1.34315,-3 3,-3 1.65686,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6721">hour:5NONE of busy:1.817</title>
+      </circle>
+      <circle
+         id="circle6723"
+         class="circle"
+         r="3"
+         cy="401.00418"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="401.00418"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,401.00418 c 0,1.65686 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34314 -3.000004,-3 0,-1.65685 1.343146,-3 3.000004,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6725">hour:3NONE of busy:0.189</title>
+      </circle>
+      <circle
+         id="circle6735"
+         class="circle"
+         r="3"
+         cy="410"
+         cx="704.66669"
+         sodipodi:cx="704.66669"
+         sodipodi:cy="410"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 707.66669,410 c 0,1.65685 -1.34315,3 -3,3 -1.65686,0 -3,-1.34315 -3,-3 0,-1.65685 1.34314,-3 3,-3 1.65685,0 3,1.34315 3,3 z">
+        <title
+           id="title6737">hour:21NONE of busy:0</title>
+      </circle>
+      <circle
+         id="circle6739"
+         class="circle"
+         r="3"
+         cy="410"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="410"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,410 c 0,1.65685 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34315 -3.000004,-3 0,-1.65685 1.343146,-3 3.000004,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6741">hour:3NONE of busy:0</title>
+      </circle>
+      <circle
+         id="circle6743"
+         class="circle"
+         r="3"
+         cy="409.90482"
+         cx="167.77777"
+         sodipodi:cx="167.77777"
+         sodipodi:cy="409.90482"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 170.77777,409.90482 c 0,1.65685 -1.34314,3 -3,3 -1.65685,0 -3,-1.34315 -3,-3 0,-1.65686 1.34315,-3 3,-3 1.65686,0 3,1.34314 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6745">hour:5NONE of busy:0.002</title>
+      </circle>
+      <circle
+         id="circle6747"
+         class="circle"
+         r="3"
+         cy="321.85046"
+         cx="100.66666"
+         sodipodi:cx="100.66666"
+         sodipodi:cy="321.85046"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         style="stroke:#405040"
+         d="m 103.66666,321.85046 c 0,1.65686 -1.34315,3 -3,3 -1.656858,0 -3.000004,-1.34314 -3.000004,-3 0,-1.65685 1.343146,-3 3.000004,-3 1.65685,0 3,1.34315 3,3 z"
+         transform="translate(24,0)">
+        <title
+           id="title6749">hour:3NONE of busy:1.852</title>
+      </circle>
+      <g
+         transform="translate(24,410)"
+         id="x-axis"
+         class="axis">
+        <g
+           id="g6752">
+          <line
+             id="line6754"
+             x2="0"
+             y2="6"
+             class="tick"
+             x1="0"
+             y1="0"
+             style="fill:none;stroke:#000000" />
+        </g>
+        <g
+           id="g6758"
+           transform="translate(33.555556,0)">
+          <line
+             id="line6760"
+             x2="0"
+             y2="6"
+             class="tick"
+             x1="0"
+             y1="0"
+             style="fill:none;stroke:#000000" />
+          <text
+             id="text6762"
+             transform="matrix(0,1,-1,0,0,0)"
+             class="x-axis-text"
+             style="font-size:12px;font-family:kalinga"
+             x="3"
+             y="4">1</text>
+        </g>
+        <g
+           id="g6764"
+           transform="translate(67.111111,0)">
+          <line
+             id="line6766"
+             x2="0"
+             y2="6"
+             class="tick"
+             x1="0"
+             y1="0"
+             style="fill:none;stroke:#000000" />
+          <text
+             id="text6768"
+             transform="matrix(0,1,-1,0,0,0)"
+             class="x-axis-text"
+             style="font-size:12px;font-family:kalinga"
+             x="3"
+             y="4">2</text>
+        </g>
+        <g
+           id="g6770"
+           transform="translate(100.66667,0)">
+          <line
+             id="line6772"
+             x2="0"
+             y2="6"
+             class="tick"
+             x1="0"
+             y1="0"
+             style="fill:none;stroke:#000000" />
+          <text
+             id="text6774"
+             transform="matrix(0,1,-1,0,0,0)"
+             class="x-axis-text"
+             style="font-size:12px;font-family:kalinga"
+             x="3"
+             y="4">3</text>
+        </g>
+        <g
+           id="g6776"
+           transform="translate(134.22222,0)">
+          <line
+             id="line6778"
+             x2="0"
+             y2="6"
+             class="tick"
+             x1="0"
+             y1="0"
+             style="fill:none;stroke:#000000" />
+          <text
+             id="text6780"
+             transform="matrix(0,1,-1,0,0,0)"
+             class="x-axis-text"
+             style="font-size:12px;font-family:kalinga"
+             x="3"
+             y="4">4</text>
+        </g>
+        <g
+           id="g6782"
+           transform="translate(167.77778,0)">
+          <line
+             id="line6784"
+             x2="0"
+             y2="6"
+             class="tick"
+             x1="0"
+             y1="0"
+             style="fill:none;stroke:#000000" />
+          <text
+             id="text6786"
+             transform="matrix(0,1,-1,0,0,0)"
+             class="x-axis-text"
+             style="font-size:12px;font-family:kalinga"
+             x="3"
+             y="4">5</text>
+        </g>
+        <g
+           id="g6788"
+           transform="translate(201.33333,0)">
+          <line
+             id="line6790"
+             x2="0"
+             y2="6"
+             class="tick"
+             x1="0"
+             y1="0"
+             style="fill:none;stroke:#000000" />
+          <text
+             id="text6792"
+             transform="matrix(0,1,-1,0,0,0)"
+             class="x-axis-text"
+             style="font-size:12px;font-family:kalinga"
+             x="3"
+             y="4">6</text>
+        </g>
+        <g
+           id="g6794"
+           transform="translate(234.88889,0)">
+          <line
+             id="line6796"
+             x2="0"
+             y2="6"
+             class="tick"
+             x1="0"
+             y1="0"
+             style="fill:none;stroke:#000000" />
+          <text
+             id="text6798"
+             transform="matrix(0,1,-1,0,0,0)"
+             class="x-axis-text"
+             style="font-size:12px;font-family:kalinga"
+             x="3"
+             y="4">7</text>
+        </g>
+        <g
+           id="g6800"
+           transform="translate(268.44444,0)">
+          <line
+             id="line6802"
+             x2="0"
+             y2="6"
+             class="tick"
+             x1="0"
+             y1="0"
+             style="fill:none;stroke:#000000" />
+          <text
+             id="text6804"
+             transform="matrix(0,1,-1,0,0,0)"
+             class="x-axis-text"
+             style="font-size:12px;font-family:kalinga"
+             x="3"
+             y="4">8</text>
+        </g>
+        <g
+           id="g6806"
+           transform="translate(302,0)">
+          <line
+             id="line6808"
+             x2="0"
+             y2="6"
+             class="tick"
+             x1="0"
+             y1="0"
+             style="fill:none;stroke:#000000" />
+          <text
+             id="text6810"
+             transform="matrix(0,1,-1,0,0,0)"
+             class="x-axis-text"
+             style="font-size:12px;font-family:kalinga"
+             x="3"
+             y="4">9</text>
+        </g>
+        <path
+           id="path6812"
+           d="m 0,6 0,-6 326.3068,-0.55242717 7.18155,1.02815542"
+           class="domain"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000"
+           sodipodi:nodetypes="cccc" />
+      </g>
+      <g
+         id="y-axis"
+         class="axis"
+         transform="translate(24,1.8448099)">
+        <g
+           id="g6815"
+           transform="translate(0,408)">
+          <line
+             id="line6817"
+             y2="0"
+             x2="-6"
+             class="tick"
+             x1="0"
+             y1="0"
+             style="fill:none;stroke:#000000" />
+          <text
+             id="text6819"
+             style="font-size:12px;text-anchor:end;font-family:kalinga"
+             dy="2.1475846e-038"
+             y="0"
+             x="-9">0</text>
+        </g>
+        <g
+           id="g6821"
+           transform="translate(0,360.40306)">
+          <line
+             id="line6823"
+             y2="0"
+             x2="-6"
+             class="tick"
+             x1="0"
+             y1="0"
+             style="fill:none;stroke:#000000" />
+          <text
+             id="text6825"
+             style="font-size:12px;text-anchor:end;font-family:kalinga"
+             dy="2.1475846e-038"
+             y="0"
+             x="-9">1</text>
+        </g>
+        <g
+           id="g6827"
+           transform="translate(0,312.80613)">
+          <line
+             id="line6829"
+             y2="0"
+             x2="-6"
+             class="tick"
+             x1="0"
+             y1="0"
+             style="fill:none;stroke:#000000" />
+          <text
+             id="text6831"
+             style="font-size:12px;text-anchor:end;font-family:kalinga"
+             dy="2.1475846e-038"
+             y="0"
+             x="-9">2</text>
+        </g>
+        <g
+           id="g6833"
+           transform="translate(0,265.20919)">
+          <line
+             id="line6835"
+             y2="0"
+             x2="-6"
+             class="tick"
+             x1="0"
+             y1="0"
+             style="fill:none;stroke:#000000" />
+          <text
+             id="text6837"
+             style="font-size:12px;text-anchor:end;font-family:kalinga"
+             dy="2.1475846e-038"
+             y="0"
+             x="-9">3</text>
+        </g>
+        <path
+           id="path6869"
+           d="m -6,0 6,0 0,410 6.8149984e-4,0.20692"
+           class="domain"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000"
+           sodipodi:nodetypes="cccc" />
+        <text
+           style="font-size:10px;text-anchor:end;font-family:kalinga"
+           dy="2.1475846e-038"
+           y="9.3145628"
+           transform="matrix(0,-1,1,0,0,0)"
+           id="y-axis-description"
+           x="-255.43106">busy</text>
+      </g>
+    </g>
+  </g>
+  <style
+     id="style2987">#y-axis-description {	
+	font-family: &quot;kalinga&quot;;
+	font-size: 10px;
+}
+.axis path, .axis line {
+	fill: none;
+	stroke: black;
+	shape-rendering: crispEdges;
+}
+.axis text {
+	font-family: &quot;kalinga&quot;;
+	font-size: 12px;
+}
+.circle {
+	stroke: #405040;
+}</style>
+  <style
+     id="style3091">#y-axis-description {		font-family: &quot;kalinga&quot;;	font-size: 10px;}.axis path, .axis line {	fill: none;	stroke: black;	shape-rendering: crispEdges;}.axis text {	font-family: &quot;kalinga&quot;;	font-size: 12px;}.circle {	stroke: #405040;}</style>
+  <style
+     id="style14780">#y-axis-description {		font-family: &quot;kalinga&quot;;	font-size: 10px;}.axis path, .axis line {	fill: none;	stroke: black;	shape-rendering: crispEdges;}.axis text {	font-family: &quot;kalinga&quot;;	font-size: 12px;}.circle {	stroke: #405040;}</style>
+  <style
+     id="style27237">#y-axis-description {		font-family: &quot;kalinga&quot;;	font-size: 10px;}.axis path, .axis line {	fill: none;	stroke: black;	shape-rendering: crispEdges;}.axis text {	font-family: &quot;kalinga&quot;;	font-size: 12px;}.circle {	stroke: #405040;}</style>
+</svg>
