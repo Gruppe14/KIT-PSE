@@ -402,17 +402,35 @@ function displaySave() {
 		$("body").append("<div id='message'><div><span>@Localize.get("charts.save") @Localize.get("charts." + chart)</span>"
 			+ "<span id=\"download\">@Localize.get("charts.download")</span><span id=\"abort\">@Localize.get("charts.abort")</span></div></div>");
 		
-		@if(web.ChartIndex.getInstance().hasCss(chart)) {
 		//add chart css to svg
 		if($("svg style").length < 1) {
-		$.get("/charts/@{chart}/@{chart}.css", function(data) {
-			$(document.createElement("style")).html(data).prependTo(svg);
-		});
-		}}
-		form();
+			var calls = 0;
+			$(getStyle()).each(function(i, el) {
+				calls++;
+				$.ajax({
+				url: el,
+				success: function(data) {
+					$(document.createElement("style")).html(data).prependTo($("svg"));
+					calls--;
+				},
+				complete: function() {
+					if(calls==0) {
+						form($(document.createElement("input")).attr("type", "text")
+						.attr("name", "css")
+						.attr("value", el)
+						);
+					}
+				}
+				});
+			});
+		} else {
+			form();
+		}
 		
+		
+				
 		//the form
-		function form() {
+		function form(input) {
 		var form = $(document.createElement("form"))
 			.insertAfter("#message span:first")
 			.attr("action", "/downloadChart")
@@ -440,6 +458,9 @@ function displaySave() {
 			.attr("name", "chart")
 			.attr("value", "@chart")
 			.hide();
+		if(typeof input !== 'undefined') {
+			input.appendTo(form).hide();
+		}
 		//download button
 		$("#download").click(function() {
 			form.submit();
@@ -452,6 +473,16 @@ function displaySave() {
 		$("#message").find("#download").focus();
 		}
 	}
+}
+
+function getStyle() {
+	var style =  [];
+	$("link").each(function(i, el) {
+		if($(el).attr("href").indexOf("/charts/") !== -1) {
+			style.push($(el).attr("href"));
+		}
+	});
+	return style;
 }
 function chartError() {
 	displayError("@Localize.get("charts.dataErr")");

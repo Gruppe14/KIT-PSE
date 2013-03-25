@@ -133,28 +133,35 @@ public class Website extends Controller {
     	}
     	String format = file[1].substring(7);
     	String svg="";
+    	String css="";
 			try {
 				svg += URLDecoder.decode(file[2].substring(4), "UTF-8");
+				css += URLDecoder.decode(file[4].substring(4), "UTF-8");
 			} catch (UnsupportedEncodingException e) {
 				Printer.perror("Could not decode svg.");
 				return internalServerError(ISE);
 
 			}
     	String chart = file[3].substring(6);
+    	 
 		if (format.equals("svg")) {
 			response().setHeader("Content-Disposition", "attachment; filename=\"" + name + ".svg\"");
 			return ok(svg).as("image/svg+xml");
 		} else if (format.equals("png")) {
 			PNGTranscoder t = new PNGTranscoder();
 			//if a CSS file for the chart exists
-			if (ChartIndex.getInstance().hasCss(chart)) {
-				try {
+			try {
+				if (ChartIndex.getInstance().hasCss(chart)) {
 					t.addTranscodingHint(PNGTranscoder.KEY_USER_STYLESHEET_URI,
-						new File("./charts/" + chart + "/" + chart + ".css").getCanonicalFile().toURI().toString());
-				} catch (IOException e) {
-					Printer.perror("Could not get css file when creating png from svg.");
-					return internalServerError(ISE);
+							new File("./charts/" + chart + "/" + chart + ".css").getCanonicalFile().toURI().toString());
 				}
+				if(!css.equals("")) {
+					t.addTranscodingHint(PNGTranscoder.KEY_USER_STYLESHEET_URI,
+							new File("." + css).getCanonicalFile().toURI().toString());
+				}
+			} catch (IOException e) {
+				Printer.perror("Could not get css file when creating png from svg.");
+				return internalServerError(ISE);
 			}
 			//white background instead of transparent
 			t.addTranscodingHint(PNGTranscoder.KEY_BACKGROUND_COLOR, Color.white);
