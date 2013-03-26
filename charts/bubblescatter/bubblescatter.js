@@ -79,7 +79,7 @@ function bubblescatter(json, radius) {
         .reduce(function(x , y) { return (x.length >= y.length) ? x : y;});
         
         //this is not guaranteed to have the maximum pixel length, but will have a good enough
-		console.log(maxString);
+		//console.log("The string of maximum length was: " + maxString);
 		var sp = $('<span id=\"bob\">' + maxString + "</span>").css("font-size", "11px").css("dy", ".32em");
 		//console.log(sp);
 		var p = $("#chart").append(sp);
@@ -87,7 +87,7 @@ function bubblescatter(json, radius) {
 		
 		//make sure no text is lost
 		var bt = (11 / 7) * $("#bob").width();
-        console.log(bt);
+        //console.log(bt);
         margin.left = bt;
         
         //clean up
@@ -98,9 +98,9 @@ function bubblescatter(json, radius) {
 		var elements = getUniqueValues(data.map(getX));
 		var t = elements.length;
 		
-		elements.map(function(d) { console.log(d);}); //for debugging until the bug is fixed
+		//elements.map(function(d) { console.log(d);}); //for debugging until the bug is fixed
 		
-        console.log("# of different x values is " + t);
+        //console.log("# of different x values is " + t);
 		//console.log("xMax :" + margin.top);		
 
         var l = (t > 5) ? t : 5;
@@ -108,14 +108,14 @@ function bubblescatter(json, radius) {
         if (w < 50) {
             l = t * 20;
         }
-        console.log("The width was set to: " + w);
+        //console.log("The width was set to: " + w);
 
         //do the same for the y axis
 		var t3 = getUniqueValues(data.map(getY)).length;
         
-        console.log("# of different y values is " + t3);
+        //console.log("# of different y values is " + t3);
         var h = t3 * 8 + margin.bottom;
-        console.log("The height was set to: " + h);
+        //console.log("The height was set to: " + h);
 
         //the format of the data
         var format = d3.format(".0");
@@ -129,28 +129,46 @@ function bubblescatter(json, radius) {
 			return isNaN(+getY(d));
 		});
 		
-		console.log("xAxisNum- the axis x is numeric: " + xAxisNum);
-		console.log("yAxisNum- the axis y is numeric: " + yAxisNum);
+		//console.log("xAxisNum- the axis x is numeric: " + xAxisNum);
+		//console.log("yAxisNum- the axis y is numeric: " + yAxisNum);
 
         //the scales
         var xScale;
 		var yScale;
 		
 		if (xAxisNum) {
-			xScale = d3.scale.linear()
-			.domain([d3.min(data, getX), d3.max(data, getX)])
-			.range([0, w ]);
-			console.log("X axis was set to be linear.");
+			/* This is done to prevent a probable  bug in d3 -
+			* it finds different extrema when the d3.min and d3.max
+			* functions are called on the raw data and different
+			* when they are called on the data after is has been
+			* converted to numerical.
+			*/
+			var xPoints = data.map(function(d) {return +getX(d);});
+
+			var min = d3.min(xPoints);
+			var max = d3.max(xPoints);
 			
-			console.log("The minimum point was " + d3.min(data, getX));
-			console.log("The maximum was " + d3.max(data, getX));
-			console.log("The bug is here. d3.{min,max} doesn't find the one we want.");
+			/* //Compare:
+			* var d3m = d3.min(data, getX)
+			* var d3max = d3.max(data, getX)
+			* console.log("d3 thinks: min: " + d3m + " d3 thinks: max: " + d3max);
+			* console.log("The actual minimum is " + min);
+			* console.log("The actual maximum is " + max);
+			* console.log("Here are the points to find out the truth
+			* console.log(xPoints);
+			*/
+			
+			xScale = d3.scale.linear()
+			.domain([min , max])
+			.range([0, w ]);
+			//console.log("X axis was set to be linear.");
+			
 		}
 		else {
 			xScale = d3.scale.ordinal()
 			.domain(data.map(getX))
 			.rangePoints([0, w]);
-			console.log("X axis was set to be ordinal.");
+			//console.log("X axis was set to be ordinal.");
 		}
 		
 		
@@ -158,13 +176,13 @@ function bubblescatter(json, radius) {
             yScale = d3.scale.linear()
 			.domain([d3.min(data, getY), d3.max(data, getY)])
 			.range([h, 0]);
-			console.log("Y axis was set to be linear.");
+			//console.log("Y axis was set to be linear.");
 		}
 		else {
 			yScale = d3.scale.ordinal()
 			.domain(data.map(getY))
 			.rangePoints([h, 0]);
-			console.log("Y axis was set to be ordinal.");
+			//console.log("Y axis was set to be ordinal.");
 
 				
 		}
