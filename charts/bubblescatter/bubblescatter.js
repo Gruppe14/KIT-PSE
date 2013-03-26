@@ -1,15 +1,38 @@
 function bubblescatter(json, radius) {
-    //console.log("The radius is " + radius);
-	var bubble = (radius === undefined); //is it a bubblescatter or a scatterplot?
-	//console.log("Bubblechart? " + bubble);
 	
 	var data;
     var xAxisName;
     var yAxisName;
 	var zAxisName;
 	var measure;
+	var logging = json.logging;
 	
-   // console.log("I read " + json.data.length + " data points.");
+	if (logging != true) {
+		logging = false;
+	}
+	
+	function logger(enabled) {
+		//creates a function, that logs when the enabled logging param is true
+		//it also reports whether it was logged. Why not?
+		self.logOrNot = enabled;
+		function p(message) {
+			if (logOrNot) {
+				console.log(message);
+			}
+			return logOrNot;
+		}
+		
+		return p;
+		
+	}
+	
+	var log = logger(logging); //our logging function. 
+	//It logs when logging is enabled. Cleans up syntax.
+	
+	log("The radius is " + radius);
+	var bubble = (radius === undefined); //is it a bubblescatter or a scatterplot?
+	log("Bubblechart? " + bubble);
+    log("I read " + json.data.length + " data points.");
     xAxisName = json.attribute1;
     yAxisName = json.attribute2;
 	radius = json.attribute3;
@@ -17,7 +40,7 @@ function bubblescatter(json, radius) {
 	
 	
     data = json.data;
-	//console.log(data);
+	log(data);
     visualize(data); //then start the visualization
 
     
@@ -59,7 +82,7 @@ function bubblescatter(json, radius) {
 		else {
 			this.key++;
 		}
-		//console.log("The key was " + this.key);
+		log("The key was " + this.key);
 		return this.key;
 		
 	}
@@ -79,15 +102,15 @@ function bubblescatter(json, radius) {
         .reduce(function(x , y) { return (x.length >= y.length) ? x : y;});
         
         //this is not guaranteed to have the maximum pixel length, but will have a good enough
-		//console.log("The string of maximum length was: " + maxString);
+		log("The string of maximum length was: " + maxString);
 		var sp = $('<span id=\"bob\">' + maxString + "</span>").css("font-size", "11px").css("dy", ".32em");
-		//console.log(sp);
+		log(sp);
 		var p = $("#chart").append(sp);
-		//console.log($("#bob"));
+		log($("#bob"));
 		
 		//make sure no text is lost
 		var bt = (11 / 7) * $("#bob").width();
-        //console.log(bt);
+        log(bt);
         margin.left = bt;
         
         //clean up
@@ -100,22 +123,22 @@ function bubblescatter(json, radius) {
 		
 		//elements.map(function(d) { console.log(d);}); //for debugging until the bug is fixed
 		
-        //console.log("# of different x values is " + t);
-		//console.log("xMax :" + margin.top);		
+        log("# of different x values is " + t);
+		log("xMax :" + margin.top);		
 
         var l = (t > 5) ? t : 5;
         var w = l * 17 + margin.right;
         if (w < 50) {
             l = t * 20;
         }
-        //console.log("The width was set to: " + w);
+        log("The width was set to: " + w);
 
         //do the same for the y axis
 		var t3 = getUniqueValues(data.map(getY)).length;
         
-        //console.log("# of different y values is " + t3);
+        log("# of different y values is " + t3);
         var h = t3 * 8 + margin.bottom;
-        //console.log("The height was set to: " + h);
+        log("The height was set to: " + h);
 
         //the format of the data
         var format = d3.format(".0");
@@ -129,8 +152,8 @@ function bubblescatter(json, radius) {
 			return isNaN(+getY(d));
 		});
 		
-		//console.log("xAxisNum- the axis x is numeric: " + xAxisNum);
-		//console.log("yAxisNum- the axis y is numeric: " + yAxisNum);
+		log("xAxisNum- the axis x is numeric: " + xAxisNum);
+		log("yAxisNum- the axis y is numeric: " + yAxisNum);
 
         //the scales
         var xScale;
@@ -151,24 +174,24 @@ function bubblescatter(json, radius) {
 			/* //Compare:
 			* var d3m = d3.min(data, getX)
 			* var d3max = d3.max(data, getX)
-			* console.log("d3 thinks: min: " + d3m + " d3 thinks: max: " + d3max);
-			* console.log("The actual minimum is " + min);
-			* console.log("The actual maximum is " + max);
-			* console.log("Here are the points to find out the truth
-			* console.log(xPoints);
+			* log("d3 thinks: min: " + d3m + " d3 thinks: max: " + d3max);
+			* log("The actual minimum is " + min);
+			* log("The actual maximum is " + max);
+			* log("Here are the points to find out the truth
+			* log(xPoints);
 			*/
 			
 			xScale = d3.scale.linear()
 			.domain([min , max])
 			.range([0, w ]);
-			//console.log("X axis was set to be linear.");
+			log("X axis was set to be linear.");
 			
 		}
 		else {
 			xScale = d3.scale.ordinal()
 			.domain(data.map(getX))
 			.rangePoints([0, w]);
-			//console.log("X axis was set to be ordinal.");
+			log("X axis was set to be ordinal.");
 		}
 		
 		
@@ -176,13 +199,13 @@ function bubblescatter(json, radius) {
             yScale = d3.scale.linear()
 			.domain([d3.min(data, getY), d3.max(data, getY)])
 			.range([h, 0]);
-			//console.log("Y axis was set to be linear.");
+			log("Y axis was set to be linear.");
 		}
 		else {
 			yScale = d3.scale.ordinal()
 			.domain(data.map(getY))
 			.rangePoints([h, 0]);
-			//console.log("Y axis was set to be ordinal.");
+			log("Y axis was set to be ordinal.");
 
 				
 		}
