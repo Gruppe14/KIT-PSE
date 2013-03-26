@@ -50,6 +50,19 @@ function bubblescatter(json, radius) {
 		return idxes.map(function(d) { return array[d];});
 		
 	}
+	
+	function keyGenerator() {
+		//returns a unique, ascending key
+		if (this.key == undefined) {
+			this.key = 1;
+		}
+		else {
+			this.key++;
+		}
+		//console.log("The key was " + this.key);
+		return this.key;
+		
+	}
 
     function visualize(data) {
         
@@ -62,9 +75,9 @@ function bubblescatter(json, radius) {
         };
         
         //first, find the element with the maximum length for the y axis
-        var maxString=  data.map(function(d) {
-        	return getY(d).toString();}).reduce(function(x , y) 
-        			{ return (x.length >= y.length) ? x : y;});
+        var maxString =  data.map(function(d) { return getY(d).toString();})
+        .reduce(function(x , y) { return (x.length >= y.length) ? x : y;});
+        
         //this is not guaranteed to have the maximum pixel length, but will have a good enough
 		console.log(maxString);
 		var sp = $('<span id=\"bob\">' + maxString + "</span>").css("font-size", "11px").css("dy", ".32em");
@@ -82,7 +95,11 @@ function bubblescatter(json, radius) {
         
         
 		//calculate the width by the # of needed elements
-        var t = getUniqueValues(data.map(getX)).length;
+		var elements = getUniqueValues(data.map(getX));
+		var t = elements.length;
+		
+		elements.map(function(d) { console.log(d);}); //for debugging until the bug is fixed
+		
         console.log("# of different x values is " + t);
 		//console.log("xMax :" + margin.top);		
 
@@ -97,7 +114,7 @@ function bubblescatter(json, radius) {
 		var t3 = getUniqueValues(data.map(getY)).length;
         
         console.log("# of different y values is " + t3);
-        var h = t3 * 3 + margin.bottom;
+        var h = t3 * 8 + margin.bottom;
         console.log("The height was set to: " + h);
 
         //the format of the data
@@ -124,27 +141,30 @@ function bubblescatter(json, radius) {
 			.domain([d3.min(data, getX), d3.max(data, getX)])
 			.range([0, w ]);
 			console.log("X axis was set to be linear.");
+			
+			console.log("The minimum point was " + d3.min(data, getX));
+			console.log("The maximum was " + d3.max(data, getX));
+			console.log("The bug is here. d3.{min,max} doesn't find the one we want.");
 		}
 		else {
 			xScale = d3.scale.ordinal()
-				.domain(data.map(getX))
-				.rangePoints([0, w]);
+			.domain(data.map(getX))
+			.rangePoints([0, w]);
 			console.log("X axis was set to be ordinal.");
-			
 		}
 		
 		
 		if (yAxisNum) {
             yScale = d3.scale.linear()
-                .domain([d3.min(data, getY), d3.max(data, getY)])
-				.range([h, 0]);
-				console.log("Y axis was set to be linear.");
+			.domain([d3.min(data, getY), d3.max(data, getY)])
+			.range([h, 0]);
+			console.log("Y axis was set to be linear.");
 		}
 		else {
 			yScale = d3.scale.ordinal()
-				.domain(data.map(getY))
-				.rangePoints([h, 0]);
-				console.log("Y axis was set to be ordinal.");
+			.domain(data.map(getY))
+			.rangePoints([h, 0]);
+			console.log("Y axis was set to be ordinal.");
 
 				
 		}
@@ -181,7 +201,7 @@ function bubblescatter(json, radius) {
         //create the points of the scatterplot
         //well, they are svg circles
         svg.selectAll("circle")
-            .data(data, function(d) { return getX(d) + getY(d);})
+            .data(data, keyGenerator) //assigns an id to each data point
             .enter()
             .append("circle")
             .attr("cx", function (d) {
@@ -206,7 +226,7 @@ function bubblescatter(json, radius) {
 				var txt = xAxisName + ":" + getX(d) + "\n";
 				
 				if (bubble) {
-					txt += yAxisName + ":" + getY(d) +"\n" + measure + "of " + radius + ":" + getZ(d);
+					txt += yAxisName + ":" + getY(d) +"\n" + measure + " of " + radius + ":" + getZ(d);
 				}
 				else {
 					txt += measure + " of " + yAxisName + ":" + getY(d);
