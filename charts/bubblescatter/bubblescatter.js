@@ -98,8 +98,17 @@ function bubblescatter(json, radius) {
             bottom: 50,
             left: 40
         };
+        
+        
+        //first, check whether the data is numeric
+        var xAxisNum = !data.some(function (d) {
+            return isNaN(+getX(d));
+        });
+        var yAxisNum = !data.some(function (d) {
+            return isNaN(+getY(d));
+        });
 
-        //first, find the element with the maximum length for the y axis
+        //then, find the element with the maximum length for the y axis
         var maxString = data.map(function (d) {
             return getY(d).toString();
         })
@@ -143,20 +152,12 @@ function bubblescatter(json, radius) {
         var t3 = getUniqueValues(data.map(getY)).length;
 
         log("# of different y values is " + t3);
-        var h = t3 * 8 + margin.bottom;
+        var h = (!bubble && yAxisNum) ? 640 : (t3 * 8 + margin.bottom);
+
         log("The height was set to: " + h);
 
         //the format of the data
         var format = d3.format(".0");
-
-
-        //first, check whether the data is numeric
-        var xAxisNum = !data.some(function (d) {
-            return isNaN(+getX(d));
-        });
-        var yAxisNum = !data.some(function (d) {
-            return isNaN(+getY(d));
-        });
 
         log("xAxisNum- the axis x is numeric: " + xAxisNum);
         log("yAxisNum- the axis y is numeric: " + yAxisNum);
@@ -203,11 +204,32 @@ function bubblescatter(json, radius) {
 
 
         if (yAxisNum) {
-            yScale = d3.scale.linear()
-                .domain([d3.min(data, getY), d3.max(data, getY)])
+			
+			
+			var yValues = data.map(function(d) { return +getY(d);});
+			
+			var min = d3.min(yValues);
+			var max = d3.max(yValues);
+			
+			log("MIN of y axis WAS: " + min);
+			log("MAX  of y axisWAS : " + max);
+			
+			if(!bubble) {
+				yScale = d3.scale.sqrt()
+                .domain([min, max])
                 .range([h, 0]);
-            log("Y axis was set to be linear.");
-        } else {
+                log("Y axis was set to be a root.");
+			}
+			
+			else {
+				
+				yScale = d3.scale.linear()
+					.domain([min, max])
+					.range([h, 0]);
+				log("Y axis was set to be linear.");
+			}
+        }
+        else {
             yScale = d3.scale.ordinal()
                 .domain(data.map(getY))
                 .rangePoints([h, 0]);
