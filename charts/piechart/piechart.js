@@ -1,14 +1,38 @@
 function piechart(json, sorted) {
     var data, xAxisName, yAxisName, measure;
-    
-    console.log("I read " + json.data.length + " data points.");
+    var logging = json.logging;
+
+    if (logging != true) {
+        logging = false;
+    }
+
+    function logger(enabled) {
+        //creates a function, that logs when the enabled logging param is true
+        //it also reports whether it was logged. Why not?
+        self.logOrNot = enabled;
+
+        function p(message) {
+            if (logOrNot) {
+                console.log(message);
+            }
+            return logOrNot;
+        }
+
+        return p;
+
+    }
+
+    var log = logger(logging); //our logging function. 
+    //It logs when logging is enabled. Cleans up syntax.
+
+    log("I read " + json.data.length + " data points.");
     xAxisName = json.attribute1;
     yAxisName = json.attribute2;
     measure = json.measureAttribute;
-    
+
     data = json.data;
     visualize(data); //then start the visualization
-    
+
 
     function getX(d) {
         return d[xAxisName];
@@ -23,30 +47,30 @@ function piechart(json, sorted) {
     function visualize(dataset) {
         var w = 620;
         var h = 480;
-        
+
         var radius = Math.min(w, h) / 2; //change 2 to 1.4. It's hilarious.
         var color = d3.scale.category20();
         var format = d3.format(".3r");
 
         var arc = d3.svg.arc() //each datapoint will create one later.
-			.outerRadius(radius - 20)
-			.innerRadius(0);
+        .outerRadius(radius - 20)
+            .innerRadius(0);
         //well, if you set this to not 0 it becomes a donut chart!
 
         function comparator(a, b) {
-			a = +getY(a); //the second dimension is always the measure
-			b = +getY(b);
-			
-			if (isNaN(a) || isNaN(b)) {
-				//abort?
-				console.log("Error, the data doesn't have an numeric attribute");
-				chartError();
-			}
-			return (b - a);
-		}
+            a = +getY(a); //the second dimension is always the measure
+            b = +getY(b);
+
+            if (isNaN(a) || isNaN(b)) {
+                //abort?
+                log("Error, the data doesn't have an numeric attribute");
+                chartError();
+            }
+            return (b - a);
+        }
         var pie = d3.layout.pie()
             .value(getY);
-            
+
         if (sorted !== false) {
             pie.sort(comparator);
         }
@@ -76,14 +100,15 @@ function piechart(json, sorted) {
 
         //This function returns the angle that the text should be
         //written so that it fits greatly in its arc
+
         function angle(d) {
             var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
             a = (a >= 90) ? a - 180 : a;
-            return a;   
+            return a;
         }
         //add text, even
         slices.append("text")
-        .attr("class", "data-text")
+            .attr("class", "data-text")
         //now, not so fast. this will only happen on big enough slices    
         .text(function (d) {
             //angles are in radians...
@@ -93,19 +118,19 @@ function piechart(json, sorted) {
 
             //TODO: FIND A GREAT MATHEMATICALLY PRECISE FORMULA INSTEAD OF STUPID HEURISTIC
             //You know, calculate the pixel size by using the radius and the arc
-            if((Math.abs(startAngle - endAngle)) > 12) {
-                //console.log(getX(d.data));
+            if ((Math.abs(startAngle - endAngle)) > 12) {
+                log(getX(d.data));
                 text = getX(d.data);
             }
             return text;
         })
-        .attr("transform", function (d) {
+            .attr("transform", function (d) {
             return "translate(" + arc.centroid(d) + ")" + "rotate(" + angle(d) + ")";
         });
-        
+
         //hovertext, too!
         slices.append("title")
-        .text(function(d) {
+            .text(function (d) {
             return xAxisName + ":" + getX(d.data) + "\n" + measure + " of " + yAxisName + ":" + format(getY(d.data));
         });
     }
