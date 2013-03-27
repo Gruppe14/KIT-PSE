@@ -22,7 +22,7 @@ import what.Printer;
 public class ChartHistory {
 	
 	/** the maximum time a ChartHistory Object exists in the instances list. */
-	private static final int MAX_SAVE_TIME = 900000;
+	private static final int MAX_SAVE_TIME = 3600000;
 	
 	/** contains the instance of Facade. */
 	private static Facade f = Facade.getFacadeInstance();
@@ -89,6 +89,12 @@ public class ChartHistory {
 		if (html.equals("")) {
 			html += "<div class=\"minWidth\">" + Localize.get("err.noHist") + "</div>";
 		} else {
+			ChartHistory tmpHist = new ChartHistory();
+			tmpHist.uuid = uuid;
+			int i = instances.indexOf(tmpHist);
+			if (i > -1) {
+				instances.remove(i);
+			}
 			instances.add(tmp);
 		}
 		return HtmlFormat.raw(html);
